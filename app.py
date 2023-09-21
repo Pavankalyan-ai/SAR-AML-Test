@@ -444,8 +444,8 @@ font-size: 25px;
 }
 
 .css-jzprzu {
-    height: 1rem;
-    min-height: 0.2rem;
+    height: 1.5rem;
+    min-height: 0.5rem;
     }
 
 </style>
