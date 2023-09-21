@@ -127,7 +127,6 @@ conversation = ConversationChain(llm= llama_13b, memory=memory,verbose=False)
 
 @st.cache_data
 def llama_llm(_llm,prompt):
-
     response = _llm.predict(prompt)
     return response
 
@@ -2116,7 +2115,7 @@ elif selected_option_case_type == "AML":
     
                 # Text Input
                 st.markdown("""<span style="font-size: 24px; ">Ask Additional Questions</span>""", unsafe_allow_html=True)
-                query = st.text_input(':blue[Please ask below the additional case questions.]',disabled=st.session_state.disabled)
+                query = st.text_input(':blue',disabled=st.session_state.disabled)
                 text_dict = {}
                 @st.cache_data
                 def LLM_Response():
