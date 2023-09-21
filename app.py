@@ -1377,9 +1377,10 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     if st.button("Summarize",disabled=st.session_state.disabled):
                         if st.session_state.llm == "Open-AI":
                             st.session_state.disabled=False
-                    
+                            st.write(tmp_table_gpt_fd)
                             # summ_dict_gpt = st.session_state.tmp_table_gpt.set_index('Question')['Answer'].to_dict()
                             summ_dict_gpt = tmp_table_gpt_fd.set_index('Question')['Answer'].to_dict()
+                            st.write(summ_dict_gpt)
                             # chat_history = resp_dict_obj['Summary']
                             memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=300)
                             memory.save_context({"input": "This is the entire summary"}, 
