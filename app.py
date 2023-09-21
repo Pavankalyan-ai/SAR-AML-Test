@@ -970,7 +970,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 
                                 st.session_state["tmp_table_gpt_fd"] = pd.concat([st.session_state.tmp_table_gpt_fd, res_df_gpt], ignore_index=True)
                             
-                                st.write(st.session_state["tmp_table_gpt_fd"] )
+                                
 
                             
                             elif st.session_state.llm == "Open-Source":
@@ -1094,7 +1094,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                                 st.session_state["tmp_table_llama_fd"] = pd.concat([st.session_state.tmp_table_llama_fd, res_df_llama], ignore_index=True)
                             
-                                st.write(st.session_state["tmp_table_llama_fd"] )
+                               
 
 
 
@@ -2016,7 +2016,7 @@ elif selected_option_case_type == "AML":
                                 st.table(res_df_gpt)
                                 st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
                                  
-                                st.write(st.session_state["tmp_table_gpt_aml"] )
+                                
                 
                             elif st.session_state.llm == "Open-Source":
     
@@ -2101,7 +2101,7 @@ elif selected_option_case_type == "AML":
                                 st.table(res_df_llama)
                                 st.session_state["tmp_table_llama_aml"] = pd.concat([st.session_state.tmp_table_llama_aml, res_df_llama], ignore_index=True)
                                 
-                                st.session_state["tmp_table_llama_aml"] 
+                              
                 
     
     
