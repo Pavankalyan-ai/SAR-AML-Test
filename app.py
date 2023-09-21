@@ -327,10 +327,10 @@ if "tmp_table_gpt" not in st.session_state:
     st.session_state.tmp_table_gpt=pd.DataFrame()
 if "tmp_table_llama" not in st.session_state:
     st.session_state.tmp_table_llama=pd.DataFrame()
-if "tmp_summary_gpt" not in st.session_state:
-    st.session_state["tmp_summary_gpt"] = ''
-if "tmp_summary_llama" not in st.session_state:
-    st.session_state["tmp_summary_llama"] = ''
+# if "tmp_summary_gpt" not in st.session_state:
+#     st.session_state["tmp_summary_gpt"] = ''
+# if "tmp_summary_llama" not in st.session_state:
+#     st.session_state["tmp_summary_llama"] = ''
 if "case_num" not in st.session_state:
     st.session_state.case_num = ''
 if "fin_opt" not in st.session_state:
@@ -604,11 +604,12 @@ elif selected_option_case_type == "Fraud transaction dispute":
         directoty_path = "data/"
         fetched_files = read_pdf_files(directoty_path)
 
-        tmp_table_gpt_fd = pd.DataFrame()
-        tmp_summary_gpt_fd = ""
-        tmp_table_llama_fd = pd.DataFrame()
-        tmp_summary_llama_fd = ""
+        if "tmp_summary_gpt" not in st.session_state:
+            st.session_state["tmp_summary_gpt"] = ''
+        if "tmp_summary_llama" not in st.session_state:
+            st.session_state["tmp_summary_llama"] = ''
 
+    
         if selected_option:
             
             col1_up, col2_up, col3_up, col4_up, col5_up = st.tabs(["Data", "Generate Insights","Summarization","Download Report", "Make a Decision"])
@@ -978,13 +979,11 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 except IndexError: 
                                     pass
                                 st.table(res_df_gpt)
-                                # st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
+                                st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
                             
-                                # st.write(st.session_state["tmp_table_gpt"] )
+                                st.write(st.session_state["tmp_table_gpt"] )
 
-                                tmp_table_gpt_fd = pd.concat([tmp_table_gpt_fd, res_df_gpt], ignore_index=True)
-                                st.write(tmp_table_gpt_fd)
-
+                            
                             elif st.session_state.llm == "Open-Source":
 
                                 chat_history = {}
@@ -1104,12 +1103,11 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     pass
                                 st.table(res_df_llama)
 
-                                # st.session_state["tmp_table_llama"] = pd.concat([st.session_state.tmp_table_llama, res_df_llama], ignore_index=True)
+                                st.session_state["tmp_table_llama"] = pd.concat([st.session_state.tmp_table_llama, res_df_llama], ignore_index=True)
                             
-                                # st.write(st.session_state["tmp_table_llama"] )
+                                st.write(st.session_state["tmp_table_llama"] )
 
-                                tmp_table_llama_fd = pd.concat([tmp_table_llama_fd, res_df_llama], ignore_index=True)
-                                st.write(tmp_table_llama_fd)
+
 
 
                 st.markdown("---")
@@ -1378,10 +1376,10 @@ elif selected_option_case_type == "Fraud transaction dispute":
                         
                         if st.session_state.llm == "Open-AI":
                             st.session_state.disabled=False
-                            st.write(tmp_table_gpt_fd)
+                           
 
-                            # summ_dict_gpt = st.session_state.tmp_table_gpt.set_index('Question')['Answer'].to_dict()
-                            summ_dict_gpt = tmp_table_gpt_fd.set_index('Question')['Answer'].to_dict()
+                            summ_dict_gpt = st.session_state.tmp_table_gpt.set_index('Question')['Answer'].to_dict()
+                            
                             st.write(summ_dict_gpt)
                             # chat_history = resp_dict_obj['Summary']
                             memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=300)
@@ -1408,8 +1406,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             prompt = PromptTemplate(template=template,input_variables=["text"])
                             llm_chain_llama = LLMChain(prompt=prompt,llm=llama_13b)
 
-                            # summ_dict_llama = st.session_state.tmp_table_llama.set_index('Question')['Answer']
-                            summ_dict_llama = tmp_table_llama_fd.set_index('Question')['Answer']
+                            summ_dict_llama = st.session_state.tmp_table_llama.set_index('Question')['Answer']
+                            
                             text = []
                             for key,value in summ_dict_llama.items():
                                 text.append(value)
@@ -1692,8 +1690,14 @@ elif selected_option_case_type == "AML":
 
         st.markdown("---")
         
+        ## Defining some global varibales for AML
         directoty_path = "ml_doc/"
         fetched_files = read_pdf_files(directoty_path)
+
+        if "tmp_summary_gpt" not in st.session_state:
+            st.session_state["tmp_summary_gpt"] = ''
+        if "tmp_summary_llama" not in st.session_state:
+            st.session_state["tmp_summary_llama"] = ''
 
         if selected_option:
             col1_up, col2_up, col3_up, col4_up, col5_up = st.tabs(["Data", "Generate Insights","Summarization","Download Report", "Make a Decision"])
