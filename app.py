@@ -560,8 +560,6 @@ if selected_option_case_type == "Select Case Type":
 ## Fraud Transaction Code started
 elif selected_option_case_type == "Fraud transaction dispute":
     st.markdown("### :blue[Fraud transaction dispute]")
-    reset_session_state()
-    st.cache_data.clear()
 # st.markdown('---')
 
     # Redirect to Merge PDFs page when "Merge PDFs" is selected
@@ -1657,8 +1655,6 @@ elif selected_option_case_type == "Fraud transaction dispute":
 ### AML code started
 elif selected_option_case_type == "AML":
     st.markdown("### :blue[Anti-Money Laundering]")
-    reset_session_state()
-    st.cache_data.clear()
 # st.markdown('---')
 
     # Redirect to Merge PDFs page when "Merge PDFs" is selected
