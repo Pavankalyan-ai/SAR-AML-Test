@@ -323,14 +323,14 @@ if "visibility" not in st.session_state:
     st.session_state.disabled = True
 if "stored_session" not in st.session_state:
     st.session_state["stored_session"] = []
-if "tmp_table_gpt" not in st.session_state:
-    st.session_state.tmp_table_gpt=pd.DataFrame()
-if "tmp_table_llama" not in st.session_state:
-    st.session_state.tmp_table_llama=pd.DataFrame()
-if "tmp_summary_gpt" not in st.session_state:
-    st.session_state["tmp_summary_gpt"] = ''
-if "tmp_summary_llama" not in st.session_state:
-    st.session_state["tmp_summary_llama"] = ''
+# if "tmp_table_gpt" not in st.session_state:
+#     st.session_state.tmp_table_gpt=pd.DataFrame()
+# if "tmp_table_llama" not in st.session_state:
+#     st.session_state.tmp_table_llama=pd.DataFrame()
+# if "tmp_summary_gpt" not in st.session_state:
+#     st.session_state["tmp_summary_gpt"] = ''
+# if "tmp_summary_llama" not in st.session_state:
+#     st.session_state["tmp_summary_llama"] = ''
 if "case_num" not in st.session_state:
     st.session_state.case_num = ''
 if "fin_opt" not in st.session_state:
@@ -560,6 +560,18 @@ if selected_option_case_type == "Select Case Type":
 ## Fraud Transaction Code started
 elif selected_option_case_type == "Fraud transaction dispute":
     st.markdown("### :blue[Fraud transaction dispute]")
+
+    # session state
+
+    if "tmp_table_gpt" not in st.session_state:
+        st.session_state.tmp_table_gpt=pd.DataFrame()
+    if "tmp_table_llama" not in st.session_state:
+        st.session_state.tmp_table_llama=pd.DataFrame()
+    if "tmp_summary_gpt" not in st.session_state:
+        st.session_state["tmp_summary_gpt"] = ''
+    if "tmp_summary_llama" not in st.session_state:
+        st.session_state["tmp_summary_llama"] = ''
+
 # st.markdown('---')
 
     # Redirect to Merge PDFs page when "Merge PDFs" is selected
@@ -603,6 +615,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
         directoty_path = "data/"
         fetched_files = read_pdf_files(directoty_path)
+        
 
 
     
@@ -1649,12 +1662,26 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     # #     # st.cache_data.clear()
                     # #     # pdf_files.clear()
 
-                    
+    # Delete Session State
+    del st.session_state['tmp_table_gpt']
+    del st.session_state['tmp_table_lamma']   
+    del st.session_state['tmp_summary_gpt']
+    del st.session_state['tmp_summary_lamma']                               
 
 
 ### AML code started
 elif selected_option_case_type == "AML":
     st.markdown("### :blue[Anti-Money Laundering]")
+    
+    #Session State
+    if "tmp_table_gpt" not in st.session_state:
+        st.session_state.tmp_table_gpt=pd.DataFrame()
+    if "tmp_table_llama" not in st.session_state:
+        st.session_state.tmp_table_llama=pd.DataFrame()
+    if "tmp_summary_gpt" not in st.session_state:
+        st.session_state["tmp_summary_gpt"] = ''
+    if "tmp_summary_llama" not in st.session_state:
+        st.session_state["tmp_summary_llama"] = ''
 # st.markdown('---')
 
     # Redirect to Merge PDFs page when "Merge PDFs" is selected
@@ -2468,7 +2495,12 @@ elif selected_option_case_type == "AML":
                 # #     # st.cache_data.clear()
                 # #     # pdf_files.clear()
 
-
+    
+    # Delete Session State
+    del st.session_state['tmp_table_gpt']
+    del st.session_state['tmp_table_lamma']   
+    del st.session_state['tmp_summary_gpt']
+    del st.session_state['tmp_summary_lamma']  
     
 
 # Footer
