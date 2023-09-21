@@ -973,7 +973,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 st.table(res_df_gpt)
                                 st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
                             
-                            
+                                st.write(st.session_state["tmp_table_gpt"] )
+
                             elif st.session_state.llm == "Open-Source":
 
                                 chat_history = {}
@@ -1094,7 +1095,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 st.table(res_df_llama)
                                 st.session_state["tmp_table_llama"] = pd.concat([st.session_state.tmp_table_llama, res_df_llama], ignore_index=True)
                             
-                            
+                                st.write(st.session_state["tmp_table_llama"] )
 
 
                 st.markdown("---")
@@ -2012,7 +2013,8 @@ elif selected_option_case_type == "AML":
                                     pass
                                 st.table(res_df_gpt)
                                 st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
-                            
+                                 
+                                st.write(st.session_state["tmp_table_gpt"] )
                 
                             elif st.session_state.llm == "Open-Source":
     
@@ -2097,7 +2099,8 @@ elif selected_option_case_type == "AML":
                                     pass
                                 st.table(res_df_llama)
                                 st.session_state["tmp_table_llama"] = pd.concat([st.session_state.tmp_table_llama, res_df_llama], ignore_index=True)
-                            
+                                
+                                st.session_state["tmp_table_llama"] 
                 
     
     
