@@ -1108,7 +1108,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             
                                 # st.write(st.session_state["tmp_table_llama"] )
 
-                                tmp_table_llama_fd = pd.concat([tmp_table_llama_fd, res_df_gpt], ignore_index=True)
+                                tmp_table_llama_fd = pd.concat([tmp_table_llama_fd, res_df_llama], ignore_index=True)
                                 st.write(tmp_table_llama_fd)
 
 
@@ -1375,7 +1375,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     st.markdown("""<span style="font-size: 24px; ">Summarize key findings of the case.</span>""", unsafe_allow_html=True)
                     st.write()
                     if st.button("Summarize",disabled=st.session_state.disabled):
-                        st.write(tmp_table_gpt_fd)
+                        
                         if st.session_state.llm == "Open-AI":
                             st.session_state.disabled=False
                             st.write(tmp_table_gpt_fd)
