@@ -2205,7 +2205,7 @@ elif selected_option_case_type == "AML":
                             llm=llm, 
                             memory = memory,
                             verbose=True)
-                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="Provide a detailed summary of the text provided in a single paragraph. Please don't include words like these: ['chat summary', 'AI analyzes', 'AI'] in the final summary.")
+                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="Provide a detailed summary of the text provided in a single paragraph. Please don't include words like these: ['AI analyzes', 'AI'] in the final summary.")
                             st.write(st.session_state["tmp_summary_gpt_aml"])
 
 
