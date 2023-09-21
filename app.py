@@ -1378,6 +1378,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                         if st.session_state.llm == "Open-AI":
                             st.session_state.disabled=False
                             st.write(tmp_table_gpt_fd)
+                            for files in fetched_files:
+                                st.write(files)
                             # summ_dict_gpt = st.session_state.tmp_table_gpt.set_index('Question')['Answer'].to_dict()
                             summ_dict_gpt = tmp_table_gpt_fd.set_index('Question')['Answer'].to_dict()
                             st.write(summ_dict_gpt)
@@ -1628,9 +1630,9 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 """,
                             unsafe_allow_html=True
                         )
-                    st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
+                    # st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
                     # st.markdown("##### Is SAR filing required?")
-                    selected_rad = st.radio(":blue", ["opt1","Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
+                    selected_rad = st.radio(":blue[Is SAR filing required?]", ["opt1","Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
                     if selected_rad == "Refer for review":
                         email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
                         email_id = st.text_input("Enter your email ID")
