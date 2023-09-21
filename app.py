@@ -2014,7 +2014,7 @@ elif selected_option_case_type == "AML":
                                 st.table(res_df_gpt)
                                 st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
                                  
-                                # st.write(st.session_state["tmp_table_gpt"] )
+                                st.write(st.session_state["tmp_table_gpt"] )
                 
                             elif st.session_state.llm == "Open-Source":
     
