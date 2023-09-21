@@ -1662,12 +1662,6 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     # #     # st.cache_data.clear()
                     # #     # pdf_files.clear()
 
-    # Delete Session State
-    if selected_option_case_type == "Fraud transaction dispute":
-        del st.session_state['tmp_table_gpt']
-        del st.session_state['tmp_table_llama']   
-        del st.session_state['tmp_summary_gpt']
-        del st.session_state['tmp_summary_llama']                               
 
 
 ### AML code started
@@ -2497,12 +2491,7 @@ elif selected_option_case_type == "AML":
                 # #     # pdf_files.clear()
 
     
-    # Delete Session State
-    if selected_option_case_type == "AML":
-        del st.session_state['tmp_table_gpt']
-        del st.session_state['tmp_table_llama']   
-        del st.session_state['tmp_summary_gpt']
-        del st.session_state['tmp_summary_llama']  
+ 
         
 
 # Footer
