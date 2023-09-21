@@ -902,7 +902,10 @@ elif selected_option_case_type == "Fraud transaction dispute":
                         df_fixed["S.No."] = df_fixed.index
                         df_fixed = df_fixed.loc[:,['S.No.','Questions']]
                         st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
-
+                tmp_table_gpt_fd = pd.DataFrame()
+                tmp_summary_gpt_fd = ""
+                tmp_table_llama_fd = pd.DataFrame()
+                tmp_summary_llama_fd = ""
                 with st.spinner('Wait for it...'):
                     if st.button("Generate Insights",disabled=st.session_state.disabled):
                         if temp_file_path is not None:
@@ -971,9 +974,12 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 except IndexError: 
                                     pass
                                 st.table(res_df_gpt)
-                                st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
+                                # st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
                             
-                                st.write(st.session_state["tmp_table_gpt"] )
+                                # st.write(st.session_state["tmp_table_gpt"] )
+
+                                tmp_table_gpt_fd = pd.concat([tmp_table_gpt_fd, res_df_gpt], ignore_index=True)
+                                st.write(tmp_table_gpt_fd)
 
                             elif st.session_state.llm == "Open-Source":
 
@@ -1093,9 +1099,13 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 except IndexError: 
                                     pass
                                 st.table(res_df_llama)
-                                st.session_state["tmp_table_llama"] = pd.concat([st.session_state.tmp_table_llama, res_df_llama], ignore_index=True)
+
+                                # st.session_state["tmp_table_llama"] = pd.concat([st.session_state.tmp_table_llama, res_df_llama], ignore_index=True)
                             
-                                st.write(st.session_state["tmp_table_llama"] )
+                                # st.write(st.session_state["tmp_table_llama"] )
+
+                                tmp_table_llama_fd = pd.concat([tmp_table_llama_fd, res_df_gpt], ignore_index=True)
+                                st.write(tmp_table_llama_fd)
 
 
                 st.markdown("---")
@@ -1111,8 +1121,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
 
                 # Text Input
-                st.markdown("""<span style="font-size: 24px; ">Ask Additional Questions</span>""", unsafe_allow_html=True)
-                query = st.text_input(':blue',disabled=st.session_state.disabled)
+                # st.markdown("""<span style="font-size: 24px; ">Ask Additional Questions</span>""", unsafe_allow_html=True)
+                query = st.text_input(':black[Ask Additional Questions]',disabled=st.session_state.disabled)
                 text_dict = {}
                 @st.cache_data
                 def LLM_Response():
@@ -1364,7 +1374,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                         if st.session_state.llm == "Open-AI":
                             st.session_state.disabled=False
                     
-                            summ_dict_gpt = st.session_state.tmp_table_gpt.set_index('Question')['Answer'].to_dict()
+                            # summ_dict_gpt = st.session_state.tmp_table_gpt.set_index('Question')['Answer'].to_dict()
+                            summ_dict_gpt = tmp_table_gpt_fd.set_index('Question')['Answer'].to_dict()
                             # chat_history = resp_dict_obj['Summary']
                             memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=300)
                             memory.save_context({"input": "This is the entire summary"}, 
@@ -1390,7 +1401,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             prompt = PromptTemplate(template=template,input_variables=["text"])
                             llm_chain_llama = LLMChain(prompt=prompt,llm=llama_13b)
 
-                            summ_dict_llama = st.session_state.tmp_table_llama.set_index('Question')['Answer']
+                            # summ_dict_llama = st.session_state.tmp_table_llama.set_index('Question')['Answer']
+                            summ_dict_llama = tmp_table_llama_fd.set_index('Question')['Answer']
                             text = []
                             for key,value in summ_dict_llama.items():
                                 text.append(value)
