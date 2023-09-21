@@ -2452,8 +2452,8 @@ elif selected_option_case_type == "AML":
 #     pdf_files.clear()              
 
 
-reset_session_state()
-st.cache_data.clear()   
+
+  
  
         
 
