@@ -1664,9 +1664,9 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
     # Delete Session State
     del st.session_state['tmp_table_gpt']
-    del st.session_state['tmp_table_lamma']   
+    del st.session_state['tmp_table_llama']   
     del st.session_state['tmp_summary_gpt']
-    del st.session_state['tmp_summary_lamma']                               
+    del st.session_state['tmp_summary_llama']                               
 
 
 ### AML code started
@@ -2498,9 +2498,9 @@ elif selected_option_case_type == "AML":
     
     # Delete Session State
     del st.session_state['tmp_table_gpt']
-    del st.session_state['tmp_table_lamma']   
+    del st.session_state['tmp_table_llama']   
     del st.session_state['tmp_summary_gpt']
-    del st.session_state['tmp_summary_lamma']  
+    del st.session_state['tmp_summary_llama']  
     
 
 # Footer
