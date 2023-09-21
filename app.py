@@ -560,6 +560,8 @@ if selected_option_case_type == "Select Case Type":
 ## Fraud Transaction Code started
 elif selected_option_case_type == "Fraud transaction dispute":
     st.markdown("### :blue[Fraud transaction dispute]")
+    reset_session_state()
+    st.cache_data.clear()
 # st.markdown('---')
 
     # Redirect to Merge PDFs page when "Merge PDFs" is selected
@@ -975,6 +977,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 except IndexError: 
                                     pass
                                 st.table(res_df_gpt)
+                                
                                 st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
                             
                                 st.write(st.session_state["tmp_table_gpt"] )
@@ -1648,14 +1651,14 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     # #     # st.cache_data.clear()
                     # #     # pdf_files.clear()
 
-                        reset_session_state()
-                        st.cache_data.clear()
                     
 
 
 ### AML code started
 elif selected_option_case_type == "AML":
     st.markdown("### :blue[Anti-Money Laundering]")
+    reset_session_state()
+    st.cache_data.clear()
 # st.markdown('---')
 
     # Redirect to Merge PDFs page when "Merge PDFs" is selected
@@ -2469,8 +2472,7 @@ elif selected_option_case_type == "AML":
                 # #     # st.cache_data.clear()
                 # #     # pdf_files.clear()
 
-                    reset_session_state()
-                    st.cache_data.clear()
+
     
 
 # Footer
