@@ -2115,7 +2115,7 @@ elif selected_option_case_type == "AML":
     
                 # Text Input
                 # st.markdown("""<span style="font-size: 24px; ">Ask Additional Questions</span>""", unsafe_allow_html=True)
-                query = st.text_input('Ask Additional Questions',disabled=st.session_state.disabled)
+                query = st.text_input(':black[Ask Additional Questions]',disabled=st.session_state.disabled)
                 text_dict = {}
                 @st.cache_data
                 def LLM_Response():
