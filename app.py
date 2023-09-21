@@ -599,8 +599,15 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
         st.markdown("---")
 
+        ## Defining some global variables for fraud transaction
+
         directoty_path = "data/"
         fetched_files = read_pdf_files(directoty_path)
+
+        tmp_table_gpt_fd = pd.DataFrame()
+        tmp_summary_gpt_fd = ""
+        tmp_table_llama_fd = pd.DataFrame()
+        tmp_summary_llama_fd = ""
 
         if selected_option:
             
@@ -902,10 +909,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                         df_fixed["S.No."] = df_fixed.index
                         df_fixed = df_fixed.loc[:,['S.No.','Questions']]
                         st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
-                tmp_table_gpt_fd = pd.DataFrame()
-                tmp_summary_gpt_fd = ""
-                tmp_table_llama_fd = pd.DataFrame()
-                tmp_summary_llama_fd = ""
+
                 with st.spinner('Wait for it...'):
                     if st.button("Generate Insights",disabled=st.session_state.disabled):
                         if temp_file_path is not None:
