@@ -327,10 +327,10 @@ if "tmp_table_gpt" not in st.session_state:
     st.session_state.tmp_table_gpt=pd.DataFrame()
 if "tmp_table_llama" not in st.session_state:
     st.session_state.tmp_table_llama=pd.DataFrame()
-# if "tmp_summary_gpt" not in st.session_state:
-#     st.session_state["tmp_summary_gpt"] = ''
-# if "tmp_summary_llama" not in st.session_state:
-#     st.session_state["tmp_summary_llama"] = ''
+if "tmp_summary_gpt" not in st.session_state:
+    st.session_state["tmp_summary_gpt"] = ''
+if "tmp_summary_llama" not in st.session_state:
+    st.session_state["tmp_summary_llama"] = ''
 if "case_num" not in st.session_state:
     st.session_state.case_num = ''
 if "fin_opt" not in st.session_state:
@@ -604,10 +604,6 @@ elif selected_option_case_type == "Fraud transaction dispute":
         directoty_path = "data/"
         fetched_files = read_pdf_files(directoty_path)
 
-        if "tmp_summary_gpt" not in st.session_state:
-            st.session_state["tmp_summary_gpt"] = ''
-        if "tmp_summary_llama" not in st.session_state:
-            st.session_state["tmp_summary_llama"] = ''
 
     
         if selected_option:
@@ -1628,7 +1624,6 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             unsafe_allow_html=True
                         )
                     # st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
-                    # st.markdown("##### Is SAR filing required?")
                     selected_rad = st.radio(":blue[Is SAR filing required?]", ["opt1","Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
                     if selected_rad == "Refer for review":
                         email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -1653,7 +1648,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     # #     # st.cache_data.clear()
                     # #     # pdf_files.clear()
 
-
+    reset_session_state()
+    st.cache_data.clear()
                     
 
 
@@ -1693,10 +1689,7 @@ elif selected_option_case_type == "AML":
         directoty_path = "ml_doc/"
         fetched_files = read_pdf_files(directoty_path)
 
-        if "tmp_summary_gpt" not in st.session_state:
-            st.session_state["tmp_summary_gpt"] = ''
-        if "tmp_summary_llama" not in st.session_state:
-            st.session_state["tmp_summary_llama"] = ''
+
 
         if selected_option:
             col1_up, col2_up, col3_up, col4_up, col5_up = st.tabs(["Data", "Generate Insights","Summarization","Download Report", "Make a Decision"])
@@ -2476,7 +2469,8 @@ elif selected_option_case_type == "AML":
                 # #     # st.cache_data.clear()
                 # #     # pdf_files.clear()
 
-
+    reset_session_state()
+    st.cache_data.clear()
 
 # Footer
 st.markdown(
