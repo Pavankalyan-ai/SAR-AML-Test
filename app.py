@@ -1600,7 +1600,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                 with col5_up:   
                     # Adding Radio button
-                    st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
+                    # st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
                     st.markdown(
                             """ <style>
                                     div[role="radiogroup"] >  :first-child{
