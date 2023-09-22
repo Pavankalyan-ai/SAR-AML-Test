@@ -430,7 +430,7 @@ st.markdown("""
     }
 
 .st-ah {
-    line-height: 1;
+    line-height: 1.5;
 }
 
 .st-af {
@@ -455,7 +455,7 @@ font-size: 25px;
 
 .css-jzprzu {
     height: 2rem;
-    min-height: 1rem;
+    min-height: 1.5rem;
     }
 
 </style>
