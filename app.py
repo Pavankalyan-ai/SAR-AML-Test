@@ -1300,7 +1300,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                         elif st.session_state.llm == "Open-Source":
                             st.session_state.disabled=False
-                            template = """Act like a professional analyst.Write a detailed summary.
+                            template = """Act like a professional analyst.Write a detailed summary. Do not add anything out of the context.\n
                             Return your response in a single paragraph.
                             ```{text}```
                             Response: """
