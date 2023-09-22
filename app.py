@@ -854,9 +854,11 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                             
                               
                                 try:
-
                                     resp_dict_obj = json.loads(response)
-                                    res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
+                                    if resp_dict_obj:
+                                        res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
+                                    else:
+                                        st.write(response)
                                 
                                 except:
                                     e = Exception("")
