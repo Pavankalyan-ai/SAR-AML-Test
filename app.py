@@ -1165,7 +1165,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 prompt_1 = f''''Perform Name Enitity Recognition to identify the Suspect name as accurately as possible, given the context. Suspect is the Person who has committed the fraud with the Customer. Respond saying "The Suspect Name is not Present" if there is no suspect in the given context.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
-                                            Response: (Give me response in one sentence.Do not give me any Explanation or Note)'''
+                                            Response: (Give me a concise and short response in few words.)'''
 
 
                                 
@@ -1174,7 +1174,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                             Do not provide any extra [Explanation, Note] block below the Response.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
-                                            Response: (Provide a concise Response without any extra [Explanation, Note, Descricption] below the Response.)'''
+                                            Response: (Give me a concise and short response in few words.))'''
 
                                 
                             elif query.lower() == "how was the bank notified?":
@@ -1300,7 +1300,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                         elif st.session_state.llm == "Open-Source":
                             st.session_state.disabled=False
-                            template = """Write a detailed summary.
+                            template = """Act like a professional analyst.Write a detailed summary.
                             Return your response in a single paragraph.
                             ```{text}```
                             Response: """
