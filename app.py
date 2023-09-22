@@ -53,8 +53,6 @@ if st.secrets["OPENAI_API_KEY"] is not None:
 else:
     os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
 
-# os.environ["OPENAI_API_KEY"] = api_key
-
 @st.cache_data
 def show_pdf(file_path):
     with open(file_path,"rb") as f:
@@ -108,12 +106,10 @@ def usellm(prompt):
     response = service.chat(options)
     return response.content
 
-# # Setting Config for Llama-2
-# login(token=st.secrets["HUGGINGFACEHUB_API_TOKEN"])
-# os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
+# Setting Config for Llama-2
+login(token=st.secrets["HUGGINGFACEHUB_API_TOKEN"])
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
 
-login(token=hugging_face_key)
-os.environ["HUGGINGFACEHUB_API_TOKEN"]=hugging_face_key
 
 llama_13b = HuggingFaceHub(
             repo_id="meta-llama/Llama-2-13b-chat-hf",
@@ -558,13 +554,13 @@ with st.sidebar:
     st.markdown("---")
 
     # Add a drop-down for case type
-    options = ["Select Case Type", "Fraud transaction dispute", "AML"]
-    selected_option_case_type = st.sidebar.selectbox("", options)
+    options1 = ["Select Case Type", "Fraud transaction dispute", "AML"]
+    selected_option_case_type = st.sidebar.selectbox("", options1)
     st.markdown("---")
     
     # Add a single dropdown
-    options = ["Select Case ID", "SAR-2023-24680", "SAR-2023-13579", "SAR-2023-97531", "SAR-2023-86420", "SAR-2023-24681"]
-    selected_option = st.sidebar.selectbox("", options)
+    options2 = ["Select Case ID", "SAR-2023-24680", "SAR-2023-13579", "SAR-2023-97531", "SAR-2023-86420", "SAR-2023-24681"]
+    selected_option = st.sidebar.selectbox("", options2)
     # Add the image to the sidebar below options
     st.sidebar.image("MicrosoftTeams-image (3).png", use_column_width=True)
 
@@ -755,89 +751,10 @@ elif selected_option_case_type == "Fraud transaction dispute":
                         pass
 
 
-                
-            #     file_pth = []
-            #     for uploaded_file in pdf_files:
-            #         file_ext = tuple("pdf")
-            #         if uploaded_file.name.endswith(file_ext):
-            #             file_pth_= os.path.join(tmp_dir_, uploaded_file.name)
-            #             with open(file_pth_, "wb") as file_opn:
-            #                 file_opn.write(uploaded_file.getbuffer())
-            #                 file_pth.append(file_pth_)
-            #         else:
-            #             pass
+      
+
+                  
                     
-
-
-            # #     for fetched_pdf in fetched_files:
-            # #         file_ext = tuple("pdf")
-            # #         if fetched_pdf.endswith(file_ext):
-            # #             file_pth = os.path.join('data/', fetched_pdf)
-            # #             # st.write(file_pth)
-            # #             temp_file_path.append(file_pth) 
-            # #         else:
-            # #             pass
-                    
-                    
-            #     # # Pytesseract code
-            #     # for uploaded_file in pdf_files:
-            #     #     file_ext = tuple("pdf")
-            #     #     if uploaded_file.name.endswith(file_ext):
-            #     #         if is_searchable_pdf(uploaded_file)==False:
-            #     #             st.write(f"File is not searchable:{uploaded_file.name}")
-            #     #             with st.spinner('ocr initiated...'):
-            #     #                 text = convert_scanned_pdf_to_searchable_pdf(uploaded_file)
-            #     #                 file_pth = os.path.join(tmp_dir_, text)
-            #     #                 with open(file_pth, "wb") as file_opn:
-            #     #                     file_opn.write(uploaded_file.getbuffer())
-            #     #                     temp_file_path.append(file_pth)
-            #     #         else:
-            #     #             file_pth = os.path.join(tmp_dir_, uploaded_file.name)
-            #     #             with open(file_pth, "wb") as file_opn:
-            #     #                 file_opn.write(uploaded_file.getbuffer())
-            #     #                 temp_file_path.append(file_pth)
-            #     #     else:
-            #     #         pass
-                
-                
-            #     # # Pytesseract code
-            #     for file in file_pth:
-            #         if is_searchable_pdf(file)==False:
-            #             # st.write("File is not searchable")
-            #             with st.spinner('ocr initiated...'):
-            #                 text = convert_scanned_pdf_to_searchable_pdf(file)
-            #                 st.write(text)
-            #     #         file_pth = os.path.join(tmp_dir_, text)
-            #     #         with open(file_pth, "wb") as file_opn:
-            #     #             file_opn.write(uploaded_file.getbuffer())
-            #     #             temp_file_path.append(file_pth)
-            #     #     else:
-            #     #         file_pth = os.path.join(tmp_dir_, uploaded_file.name)
-            #     #         with open(file_pth, "wb") as file_opn:
-            #     #         file_opn.write(uploaded_file.getbuffer())
-            #     #         temp_file_path.append(file_pth)
-            #     # else:
-            #     #     pass
-
-
-            #     for fetched_pdf in fetched_files:
-            #         file_ext = tuple("pdf")
-            #         if fetched_pdf.endswith(file_ext):
-            #             selected_file_path = os.path.join(directoty_path, fetched_pdf)
-            #             if is_searchable_pdf(selected_file_path)==False:
-            #                 st.write(f"File is not searchable:{fetched_pdf}")
-            #                 with st.spinner('ocr initiated...'):
-            #                     text = convert_scanned_pdf_to_searchable_pdf(selected_file_path)
-            #                     file_pth = os.path.join(tmp_dir_, text)
-            #                     temp_file_path.append(file_pth)
-            #             else:
-            #                 file_pth = os.path.join(directoty_path, fetched_pdf)
-            #                 # st.write(file_pth)
-            #                 temp_file_path.append(file_pth)
-            #         else:
-            #             pass
-                
-
                 #combining files in fetch evidence and upload evidence
                 pdf_files_ = []
                 if temp_file_path:
@@ -878,29 +795,12 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     length_function = len,
                     separators=["\n\n", "\n", " ", ""]
                 )
-                #text_splitter = CharacterTextSplitter.from_tiktoken_encoder(chunk_size=100, chunk_overlap=0)
-                #texts = ''
-                
-                # @st.cache_data
-                # def embedding_store(file):
-                #     # save file
-                #     pdf_reader = PdfReader(file)
-                #     text = ""
-                #     for page in pdf_reader.pages:
-                #         text += page.extract_text()
-                #     #st.write(text)
-                #     texts =  text_splitter.split_text(text)
-                #     docs = text_to_docs(texts)
-                #     #st.write(texts)
-                #     docsearch = FAISS.from_documents(docs, hf_embeddings)
-                #     return docs, docsearch
-                
+               
 
             # Creating header
                 col1,col2 = st.columns(2)
                 with col1:
                     st.markdown("""<span style="font-size: 24px; ">Pre-Set Questionnaire</span>""", unsafe_allow_html=True)
-                    # st.subheader('Pre-Set Questionnaire')
                     # Create a Pandas DataFrame with your data
                     data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?']}
                     df_fixed = pd.DataFrame(data)
@@ -919,8 +819,6 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                             )
                     # Show the table if the checkbox is ticked
                     if show_table:
-                        # st.write(df_fixed)
-                        # st.dataframe(df_fixed, width=1000)
                         df_fixed["S.No."] = df_fixed.index
                         df_fixed = df_fixed.loc[:,['S.No.','Questions']]
                         st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
@@ -951,14 +849,21 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                         What type of cards are involved?\n\
                                         Was the police report filed?\n\
                                     Context: {contexts}\n\
-                                    Response (in the python dictionary format\
-                                    where the dictionary key would carry the questions and its value would have a descriptive answer to the questions asked): "
+                                    Response  "
                                     
                                 response = usellm(prompts)
+
                                 
-                                resp_dict_obj = json.loads(response)
-                                res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
-                                                               
+                                try:
+
+                                    resp_dict_obj = json.loads(response)
+                                    res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
+                                
+                                except:
+                                    e = Exception("")
+                                    st.exception(e)
+                                
+                                                                                            
                                 try:
                                     res_df_gpt.reset_index(drop=True, inplace=True)
                                     index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
@@ -1216,8 +1121,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
                             response = usellm(prompt_1) #LLM_Response()
                             text_dict[query] = response
-                            # resp_dict_obj.update(text_dict)
                             st.write(response)
+
                             if response:
                                 df = pd.DataFrame(text_dict.items(), columns=['Question','Answer'])
                             else:
@@ -1343,7 +1248,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
 
                             #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
-                            # response = usellm(prompt_1) #LLM_Response()
+                            
                             response = llama_llm(llama_13b,prompt_1)
                             text_dict[query] = response
 
@@ -1369,7 +1274,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                             summ_dict_gpt = st.session_state.tmp_table_gpt_fd.set_index('Question')['Answer'].to_dict()
                             
-                            # chat_history = resp_dict_obj['Summary']
+                            
                             memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=300)
                             memory.save_context({"input": "This is the entire summary"}, 
                                             {"output": f"{summ_dict_gpt}"})
@@ -1876,23 +1781,7 @@ elif selected_option_case_type == "AML":
                     length_function = len,
                     separators=["\n\n", "\n", " ", ""]
                 )
-                #text_splitter = CharacterTextSplitter.from_tiktoken_encoder(chunk_size=100, chunk_overlap=0)
-                #texts = ''
-        
-                # @st.cache_data
-                # def embedding_store(file):
-                #     # save file
-                #     pdf_reader = PdfReader(file)
-                #     text = ""
-                #     for page in pdf_reader.pages:
-                #         text += page.extract_text()
-                #     #st.write(text)
-                #     texts =  text_splitter.split_text(text)
-                #     docs = text_to_docs(texts)
-                #     #st.write(texts)
-                #     docsearch = FAISS.from_documents(docs, hf_embeddings)
-                #     return docs, docsearch
-                
+                             
 
                 # Creating header
                 col1,col2 = st.columns(2)
