@@ -801,15 +801,19 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?']}
                     df_fixed = pd.DataFrame(data)
                     df_fixed.index = df_fixed.index +1
-                with col2:              
-                    show_table = tog.st_toggle_switch(label="", 
-                                        key="Key1", 
-                                        default_value=False, 
-                                        label_after = False, 
-                                        inactive_color = '#D3D3D3', 
-                                        active_color="#11567f", 
-                                        track_color="#29B5E8"
-                                        )
+                with col2:
+                    # Create a checkbox to show/hide the table
+                    cols1, cols2, cols3, cols4 = st.columns([1,1,1,1])
+                    st.session_state.disabled = False
+                    with cols1:
+                        show_table = tog.st_toggle_switch(label="", 
+                                            key="Key1", 
+                                            default_value=False, 
+                                            label_after = False, 
+                                            inactive_color = '#D3D3D3', 
+                                            active_color="#11567f", 
+                                            track_color="#29B5E8"
+                                            )
                     # Show the table if the checkbox is ticked
                     if show_table:
                         df_fixed["S.No."] = df_fixed.index
