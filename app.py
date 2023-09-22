@@ -1848,7 +1848,7 @@ elif selected_option_case_type == "AML":
                                             do not include any other unnecessary information or the Balance amount.\n\n
                             
                                             Context: {context_1}\n\
-                                            Response: (Give me a concise and short response in few words.Do not write anythin out of the context.)'''
+                                            Response: (Give me a concise and response.Do not write anything out of the context.)'''
 
                                 response = usellm(prompt_1)
                                 chat_history_1[query] = response
@@ -1860,7 +1860,7 @@ elif selected_option_case_type == "AML":
                                             rapid movement of funds, transactions with high-risk countries, or unexplained source of funds. Specifically, all transactions above or \ 
                                             equal to $10,000 are considered to be a potential money laundering transaction. Answer the question considering the factors mentioned above with transaction details.\n\n\
                                             Context: {context_1}\n\
-                                            Response: (Give me a concise and short response.)'''
+                                            Response: (Give me a concise response.)'''
 
                                 response = usellm(prompt_1)
                                 chat_history_1[query] = response
