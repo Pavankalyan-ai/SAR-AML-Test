@@ -402,6 +402,10 @@ st.markdown("""
 
 <style>
 
+.css-1unvwp8 {
+    width: 80px;
+    }
+
 .st-d5 {
     line-height: 1;
 }
