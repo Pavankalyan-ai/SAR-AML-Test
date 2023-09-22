@@ -402,6 +402,10 @@ st.markdown("""
 
 <style>
 
+.css-n2tlt4 {
+    width: 400px;
+  }
+
 .st-d5 {
     line-height: 1;
 }
@@ -761,7 +765,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     else: pass
 
             with col2_up:
-                    #This is the embedding model
+                #This is the embedding model
                 model_name = "sentence-transformers/all-MiniLM-L6-v2"
                 # model_name = "hkunlp/instructor-large"
                 
@@ -789,7 +793,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                 )
                
 
-            # Creating header
+               # Creating header
                 col1,col2 = st.columns(2)
                 with col1:
                     st.markdown("""<span style="font-size: 24px; ">Pre-Set Questionnaire</span>""", unsafe_allow_html=True)
