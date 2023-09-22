@@ -738,7 +738,6 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     else:
                         pass
 
-
                 for fetched_pdf in fetched_files:
                     file_ext = tuple("pdf")
                     if fetched_pdf.endswith(file_ext):
@@ -746,12 +745,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                         # st.write(file_pth)
                         temp_file_path.append(file_pth) 
                     else:
-                        pass
-
-
-      
-
-                  
+                        pass   
                     
                 #combining files in fetch evidence and upload evidence
                 pdf_files_ = []
