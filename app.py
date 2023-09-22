@@ -422,15 +422,7 @@ st.markdown("""
 
 #Adding llm type-> st.session_state.llm
 st.session_state.llm = st.radio("",options = pd.Series(["","Open-AI","Open-Source"]), horizontal=True)
-st.markdown(
-    """ <style>
-            div[role="radiogroup"] >  :first-child{
-                display: none !important;
-            }
-        </style>
-        """,
-    unsafe_allow_html=True
-                    )
+
 st.markdown("---")
 
 st.title("Suspicious Activity Reporting Assistant")
