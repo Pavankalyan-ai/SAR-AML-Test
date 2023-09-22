@@ -851,8 +851,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     
                                 response = usellm(prompts)
                                 st.write(response)
-                                data = json.loads(response)
-                                st.write(data)
+                                st.write(response[0])
 
                                 
 
