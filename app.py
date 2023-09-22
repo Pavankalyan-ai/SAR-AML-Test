@@ -780,10 +780,10 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     track_color="#29B5E8"
                                     )
                     # Show the table if the checkbox is ticked
-                    if show_table1:
-                        df_fixed["S.No."] = df_fixed.index
-                        df_fixed = df_fixed.loc[:,['S.No.','Questions']]
-                        st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+                if show_table1:
+                    df_fixed["S.No."] = df_fixed.index
+                    df_fixed = df_fixed.loc[:,['S.No.','Questions']]
+                    st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
             
 
 
