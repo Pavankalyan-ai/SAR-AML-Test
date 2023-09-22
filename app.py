@@ -2137,7 +2137,7 @@ elif selected_option_case_type == "AML":
                     tmp_summary.append(st.session_state["tmp_summary_llama_aml"])
                     tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_llama_aml"]], ignore_index=True)
                     tmp_table.drop_duplicates(inplace=True)
--           
+
             except:
                 e = Exception("")
                 st.exception(e)
