@@ -615,5 +615,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
         directoty_path = "data/"
         fetched_files = read_pdf_files(directoty_path)
         
+        if selected_option:
+            col1_up, col2_up, col3_up, col4_up, col5_up = st.tabs(["Data", "Generate Insights","Summarization","Download Report", "Make a Decision"])
+
 
 
