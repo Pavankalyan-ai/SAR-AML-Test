@@ -877,7 +877,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 st.session_state["tmp_table_gpt_fd"] = pd.concat([st.session_state.tmp_table_gpt_fd, res_df_gpt], ignore_index=True)
 
                                 
-                            
+                        
                                 
 
                             
@@ -996,7 +996,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
                                     res_df_llama = res_df_llama.set_index([index_])
                                     # st.write(res_df_llama)
-                                    #print table
+                                    #Display table
                                     st.table(res_df_llama)
                                     #copy in session state
                                     st.session_state["tmp_table_llama_fd"] = pd.concat([st.session_state.tmp_table_llama_fd, res_df_llama], ignore_index=True)
@@ -1131,6 +1131,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
                             response = usellm(prompt_1) #LLM_Response()
                             text_dict[query] = response
+                            #Display response
                             st.write(response)
 
                             if response:
@@ -1261,7 +1262,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             
                             response = llama_llm(llama_13b,prompt_1)
                             text_dict[query] = response
-
+                            #Display response
                             st.write(response)
 
                             if response:
@@ -1895,16 +1896,15 @@ elif selected_option_case_type == "AML":
                                     index_ = pd.Series([1,2,3,4,5])
                                     res_df_gpt = res_df_gpt.set_index([index_])
                                     # st.write(res_df_gpt)
-                                    #print table
-                                    st.table(res_df_gpt)
-                                    #copy in session state
-                                    st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
-                                                              
+                                                             
                                 except: 
                                     e = Exception("")
                                     st.exception(e)
                                 
-                                
+                                #Display table
+                                st.table(res_df_gpt)
+                                #copy in session state
+                                st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
                 
                             elif st.session_state.llm == "Open-Source":
     
@@ -1984,13 +1984,15 @@ elif selected_option_case_type == "AML":
                                     index_ = pd.Series([1,2,3,4,5])
                                     res_df_llama = res_df_llama.set_index([index_])
                                     # st.write(res_df_llama)
-                                    #print table
-                                    st.table(res_df_llama)
-                                    #copy in session state
-                                    st.session_state["tmp_table_llama_aml"] = pd.concat([st.session_state.tmp_table_llama_aml, res_df_llama], ignore_index=True)
+                                    
                                 except: 
                                     e = Exception("")
                                     st.exception(e)
+                                
+                                #Display table
+                                st.table(res_df_llama)
+                                #copy in session state
+                                st.session_state["tmp_table_llama_aml"] = pd.concat([st.session_state.tmp_table_llama_aml, res_df_llama], ignore_index=True)
 
                                 
                               
@@ -2038,7 +2040,7 @@ elif selected_option_case_type == "AML":
                             #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
                             response = usellm(prompt_1) #LLM_Response()
                             text_dict[query] = response
-                            # resp_dict_obj.update(text_dict)
+                            #Display response
                             st.write(response)
                             if response:
                                 df = pd.DataFrame(text_dict.items(), columns=['Question','Answer'])
@@ -2067,7 +2069,7 @@ elif selected_option_case_type == "AML":
                             # response = usellm(prompt_1) #LLM_Response()
                             response = llama_llm(llama_13b,prompt_1)
                             text_dict[query] = response
-                
+                            #Display response
                             st.write(response)
                 
                             if response:
