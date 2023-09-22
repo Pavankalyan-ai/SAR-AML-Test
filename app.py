@@ -2099,7 +2099,7 @@ elif selected_option_case_type == "AML":
                             llm=llm, 
                             memory = memory,
                             verbose=True)
-                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="Provide a detailed summary in a single paragraph. Please don't include words ['AI analyzes', 'AI'] in my final summary.")
+                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="Provide a detailed summary of the context rovided in a paragraph. Please don't include words ['AI analyzes', 'AI'] in my final summary.")
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
 
