@@ -484,7 +484,15 @@ st.markdown("""
 
 #Adding llm type-> st.session_state.llm
 st.session_state.llm = st.radio("",options = pd.Series(["","Open-AI","Open-Source"]), horizontal=True)
-
+st.markdown(
+    """ <style>
+            div[role="radiogroup"] >  :first-child{
+                display: none !important;
+            }
+        </style>
+        """,
+    unsafe_allow_html=True
+                    )
 st.markdown("---")
 
 st.title("Suspicious Activity Reporting Assistant")
@@ -751,35 +759,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
 
             with col2_up:
-                #This is the embedding model
-                model_name = "sentence-transformers/all-MiniLM-L6-v2"
-                # model_name = "hkunlp/instructor-large"
-                
-                # Memory setup for gpt-3.5
-                llm = ChatOpenAI(temperature=0.1)
-                memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=500)
-                conversation = ConversationChain(llm=llm, memory =memory,verbose=False)
-                
-                
-                # Adding condition on embedding
-                try:
-                    if temp_file_path:
-                        hf_embeddings = embed(model_name) 
-                    else:
-                        pass
-                except NameError:
-                    pass
-                
-                # Chunking with overlap
-                text_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size = 1000,
-                    chunk_overlap  = 100,
-                    length_function = len,
-                    separators=["\n\n", "\n", " ", ""]
-                )
-               
-
-               # Creating header
+                # Creating header
                 col1,col2 = st.columns(2)
                 with col1:
                     st.markdown("""<span style="font-size: 24px; ">Pre-Set Questionnaire</span>""", unsafe_allow_html=True)
