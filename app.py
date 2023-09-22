@@ -1834,7 +1834,7 @@ elif selected_option_case_type == "AML":
                                 Provide your response as Yes if there is a hint of Money being Laundered considering all of the factors above.\n\n\
                                         Question: {query}\n\
                                         Context: {context_1}\n\
-                                        Response: (Give me a concise and short response in few words.)'''
+                                        Response: (Give me a concise response in few words.)'''
                                 response = usellm(prompt_1)
                                 chat_history_1[query] = response
                 
