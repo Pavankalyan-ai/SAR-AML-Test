@@ -800,7 +800,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                 with col2:
                     # Create a checkbox to show/hide the table
                     cols1, cols2, cols3, cols4 = st.columns([1,1,1,1])
-                    with cols1:
+                    with cols2:
                         show_table = tog.st_toggle_switch(label="", 
                                             key="Key1", 
                                             default_value=False, 
