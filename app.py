@@ -902,7 +902,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             Hence, Compare the names present in the context. 
                             Reply the name of the person who is basically the suspect.\n\n\
                                             Context: {context_1}\n\
-                                            Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
+                                            Response: (Give me a concise response in one sentence.)'''
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
 
@@ -913,7 +913,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 prompt_1 = f'''Perform Name Enitity Recognition to identify Merchant as accurately as possible, given the context. A merchant is a type of business or organization that accepts payments from the customer account. Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
-                                            Response: (Give me a concise response. Do not add any Explanation,Note.)'''
+                                            Response: (Give me a concise response.)'''
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
 
