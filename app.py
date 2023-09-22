@@ -801,7 +801,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     # Create a checkbox to show/hide the table
                     cols1, cols2, cols3, cols4 = st.columns([1,1,1,1])
                     with cols1:
-                        show_table = tog.st_toggle_switch(label="", 
+                        show_table1 = tog.st_toggle_switch(label="", 
                                             key="Key1", 
                                             default_value=False, 
                                             label_after = False, 
@@ -810,7 +810,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                             track_color="#29B5E8"
                                             )
                     # Show the table if the checkbox is ticked
-                    if show_table:
+                    if show_table1:
                         df_fixed["S.No."] = df_fixed.index
                         df_fixed = df_fixed.loc[:,['S.No.','Questions']]
                         st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
@@ -1792,7 +1792,7 @@ elif selected_option_case_type == "AML":
                     # Create a checkbox to show/hide the table
                     cols1, cols2, cols3, cols4 = st.columns([1,1,1,1])
                     with cols1:
-                        show_table = tog.st_toggle_switch(label="", 
+                        show_table2 = tog.st_toggle_switch(label="", 
                                             key="Key1", 
                                             default_value=False, 
                                             label_after = False, 
@@ -1801,7 +1801,7 @@ elif selected_option_case_type == "AML":
                                             track_color="#29B5E8"
                                             )
                     # Show the table if the checkbox is ticked
-                    if show_table:
+                    if show_table2:
                         # st.write(df_fixed)
                         # st.dataframe(df_fixed, width=1000)
                         df_fixed["S.No."] = df_fixed.index
