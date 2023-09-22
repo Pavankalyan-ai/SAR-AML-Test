@@ -397,69 +397,7 @@ def create_zip_file(file_paths, zip_file_name):
 
 
 
-####### This markdown is to manage app style (app markdown)
-st.markdown("""
 
-<style>
-
-.st-d5 {
-    line-height: 1;
-}
-
-
-.css-1upf7v9 { 
-    gap: 0.5rem;
-}
-
-.css-1balh2r{
-    gap: 0;
-}
-
-.css-1544g2n {
-    padding: 0;
-    padding-top: 2rem;
-    padding-right: 1rem;
-    padding-bottom: 1.5rem;
-    padding-left: 1rem;
-}
-
-.css-1q2g7hi {
-    top: 2px;
-    min-width: 350px;
-    max-width: 600px;
-    }
-
-.st-ah {
-    line-height: 1;
-}
-
-.st-af {
-    font-size: 1.5rem;
-}
-
-.css-1a65djw {
-    gap: 0;
-    }
-
-.css-1y4p8pa {
-    width: 100%;
-    padding: 3rem 1rem 10rem;
-    padding-top: 3rem;
-    padding-bottom: 10rem;
-    max-width: 60rem;
-}
-
-.css-xujc5b p{
-font-size: 25px;
-}
-
-.css-jzprzu {
-    height: 2rem;
-    min-height: 1.5rem;
-    }
-
-</style>
-""", unsafe_allow_html=True)
 
 
 
