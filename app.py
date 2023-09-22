@@ -32,8 +32,6 @@ from huggingface_hub import login
 # import pdfplumber
 # import pytesseract
 # from pdf2image import convert_from_path
-from creds import hugging_face_key
-
 #from playsound import playsound
 #from langchain.text_splitter import CharacterTextSplitter
 #from langchain.embeddings.openai import OpenAIEmbeddings
