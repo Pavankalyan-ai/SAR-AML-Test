@@ -1800,13 +1800,13 @@ elif selected_option_case_type == "AML":
                                             active_color="#11567f", 
                                             track_color="#29B5E8"
                                             )
-                    # Show the table if the checkbox is ticked
-                    if show_table2:
-                        # st.write(df_fixed)
-                        # st.dataframe(df_fixed, width=1000)
-                        df_fixed["S.No."] = df_fixed.index
-                        df_fixed = df_fixed.loc[:,['S.No.','Questions']]
-                        st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+                        # Show the table if the checkbox is ticked
+                        if show_table2:
+                            # st.write(df_fixed)
+                            # st.dataframe(df_fixed, width=1000)
+                            df_fixed["S.No."] = df_fixed.index
+                            df_fixed = df_fixed.loc[:,['S.No.','Questions']]
+                            st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
                 
 
                 with st.spinner('Wait for it...'):
@@ -1889,8 +1889,7 @@ elif selected_option_case_type == "AML":
                                     res_df_gpt.reset_index(drop=True, inplace=True)
                                     index_ = pd.Series([1,2,3,4,5])
                                     res_df_gpt = res_df_gpt.set_index([index_])
-                                    # st.write(res_df_gpt)
-                                                             
+                                    # st.write(res_df_gpt)                          
                                 except: 
                                     e = Exception("")
                                     st.exception(e)
