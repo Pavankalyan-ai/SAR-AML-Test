@@ -485,13 +485,13 @@ st.markdown("""
 #Adding llm type-> st.session_state.llm
 st.session_state.llm = st.radio("",options = pd.Series(["","Open-AI","Open-Source"]), horizontal=True)
 st.markdown(
-                        """ <style>
-                                div[role="radiogroup"] >  :first-child{
-                                    display: none !important;
-                                }
-                            </style>
-                            """,
-                        unsafe_allow_html=True
+    """ <style>
+            div[role="radiogroup"] >  :first-child{
+                display: none !important;
+            }
+        </style>
+        """,
+    unsafe_allow_html=True
                     )
 st.markdown("---")
 
@@ -842,7 +842,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                         Was the police report filed?\n\
                                     Context: {contexts}\n\
                                     Response (in the python dictionary format\
-                        where the dictionary key would carry the questions and its value would have a descriptive answer to the questions asked):"
+                                              where the dictionary key would carry the questions and its value would have a descriptive answer to the questions asked):"
                                     
                                 response = usellm(prompts)
                                                             
