@@ -997,11 +997,16 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
                                     res_df_llama = res_df_llama.set_index([index_])
                                     # st.write(res_df_llama)
-                                except IndexError: 
-                                    pass
-                                st.table(res_df_llama)
+                                    #print table
+                                    st.table(res_df_llama)
+                                    #copy in session state
+                                    st.session_state["tmp_table_llama_fd"] = pd.concat([st.session_state.tmp_table_llama_fd, res_df_llama], ignore_index=True)
+                                except:
+                                    e = Exception("")
+                                    st.exception(e)
+                               
 
-                                st.session_state["tmp_table_llama_fd"] = pd.concat([st.session_state.tmp_table_llama_fd, res_df_llama], ignore_index=True)
+                               
                             
                                
 
@@ -1024,11 +1029,13 @@ elif selected_option_case_type == "Fraud transaction dispute":
                 # st.markdown("""<span style="font-size: 24px; ">Ask Additional Questions</span>""", unsafe_allow_html=True)
                 query = st.text_input(':black[Ask Additional Questions]',disabled=st.session_state.disabled)
                 text_dict = {}
+
                 @st.cache_data
                 def LLM_Response():
                     llm_chain = LLMChain(prompt=prompt, llm=llm)
                     response = llm_chain.run({"query":query, "context":context})
                     return response
+
                 if st.session_state.llm == "Open-AI":
                     with st.spinner('Getting you information...'):      
                         if query:
@@ -1287,10 +1294,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             memory = memory,
                             verbose=True)
                             st.session_state["tmp_summary_gpt_fd"] = conversation.predict(input="Provide a detailed summary of the text provided by reframing the sentences. Provide the summary in a single paragraph. Please don't include words like these: 'chat summary', 'includes information' in my final summary.")
-                            # showing the text in a textbox
-                            # usr_review = st.text_area("", value=st.session_state["tmp_summary_gpt"])
-                            # if st.button("Update Summary"):
-                            #     st.session_state["fin_opt"] = usr_review
+                            #Display summary
                             st.write(st.session_state["tmp_summary_gpt_fd"])
 
 
@@ -1309,22 +1313,32 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             for key,value in summ_dict_llama.items():
                                 text.append(value)
                             st.session_state["tmp_summary_llama_fd"] = llm_chain_llama.run(text)
+                            #Display summary
                             st.write(st.session_state["tmp_summary_llama_fd"])
 
                 
                 tmp_summary = []
                 tmp_table = pd.DataFrame()
 
-                if st.session_state.llm == "Open-AI":
-                    st.session_state.disabled=False
-                    tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt_fd"]], ignore_index=True)
-                    tmp_summary.append(st.session_state["tmp_summary_gpt_fd"])
+                try:
+
+                    if st.session_state.llm == "Open-AI":
+                        st.session_state.disabled=False
+                        tmp_summary.append(st.session_state["tmp_summary_gpt_fd"])
+                        tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt_fd"]], ignore_index=True)
+                        tmp_table.drop_duplicates(inplace=True)
+                        
 
 
-                elif st.session_state.llm == "Open-Source":
-                    st.session_state.disabled=False
-                    tmp_summary.append(st.session_state["tmp_summary_llama_fd"])
-                    tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_llama_fd"]], ignore_index=True)
+                    elif st.session_state.llm == "Open-Source":
+                        st.session_state.disabled=False
+                        tmp_summary.append(st.session_state["tmp_summary_llama_fd"])
+                        tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_llama_fd"]], ignore_index=True)
+                        tmp_table.drop_duplicates(inplace=True)
+
+                except:
+                    e = Exception("")
+                    st.exception(e)
 
 
                 try:
@@ -1396,7 +1410,6 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     paragraph = doc.add_paragraph()
                     doc.add_heading('Key Insights', level=2)
                     paragraph = doc.add_paragraph()
-                    tmp_table.drop_duplicates(inplace=True)
                     columns = list(tmp_table.columns)
                     table = doc.add_table(rows=1, cols=len(columns), style="Table Grid")
                     table.autofit = True
@@ -1434,28 +1447,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     """, unsafe_allow_html=True)
 
 
-                    # combined_doc_path = os.path.join(tmp_dir, "resulting_document.docx")
-                    # doc.save(combined_doc_path)
-
-                    # # Create a zip file with the uploaded PDF files and the combined document
-                    # zip_file_name = "package_files.zip"
-                    # if pdf_files:
-                    #     st.write(file_paths)
-                    #     files =  [combined_doc_path]
-                    #     st.write(files)
-                        
-                    #     create_zip_file(files, zip_file_name)
-                    #     # create_zip_file(file_paths, zip_file_name)
-                    # else:
-                    #     pass
-                    # # Download the package
-                    # with open(zip_file_name, "rb") as file:
-                    #     st.download_button(
-                    #         label="Download Case Package", 
-                    #         data=file, 
-                    #         file_name=zip_file_name,
-                    #         disabled=st.session_state.disabled)
-                    
+                             
                     if doc:
                         st.download_button(
                             label="Download Report",
@@ -1904,11 +1896,15 @@ elif selected_option_case_type == "AML":
                                     index_ = pd.Series([1,2,3,4,5])
                                     res_df_gpt = res_df_gpt.set_index([index_])
                                     # st.write(res_df_gpt)
-                                except IndexError: 
-                                    pass
-                                st.table(res_df_gpt)
-                                st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
-                                 
+                                    #print table
+                                    st.table(res_df_gpt)
+                                    #copy in session state
+                                    st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
+                                                              
+                                except: 
+                                    e = Exception("")
+                                    st.exception(e)
+                                
                                 
                 
                             elif st.session_state.llm == "Open-Source":
@@ -1989,10 +1985,14 @@ elif selected_option_case_type == "AML":
                                     index_ = pd.Series([1,2,3,4,5])
                                     res_df_llama = res_df_llama.set_index([index_])
                                     # st.write(res_df_llama)
-                                except IndexError: 
-                                    pass
-                                st.table(res_df_llama)
-                                st.session_state["tmp_table_llama_aml"] = pd.concat([st.session_state.tmp_table_llama_aml, res_df_llama], ignore_index=True)
+                                    #print table
+                                    st.table(res_df_llama)
+                                    #copy in session state
+                                    st.session_state["tmp_table_llama_aml"] = pd.concat([st.session_state.tmp_table_llama_aml, res_df_llama], ignore_index=True)
+                                except: 
+                                    e = Exception("")
+                                    st.exception(e)
+
                                 
                               
                 
@@ -2099,6 +2099,7 @@ elif selected_option_case_type == "AML":
                             memory = memory,
                             verbose=True)
                             st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="Provide a detailed summary in a single paragraph. Please don't include words ['AI analyzes', 'AI'] in my final summary.")
+                            #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
 
 
@@ -2116,22 +2117,30 @@ elif selected_option_case_type == "AML":
                             for key,value in summ_dict_llama.items():
                                 text.append(value)
                             st.session_state["tmp_summary_llama_aml"] = llm_chain_llama.run(text)
+                            #Display summary
                             st.write(st.session_state["tmp_summary_llama_aml"])
 
         
             tmp_summary = []
             tmp_table = pd.DataFrame()
 
-            if st.session_state.llm == "Open-AI":
-                st.session_state.disabled=False
-                tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt_aml"]], ignore_index=True)
-                tmp_summary.append(st.session_state["tmp_summary_gpt_aml"])
+            try: 
+                if st.session_state.llm == "Open-AI":
+                    st.session_state.disabled=False
+                    tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt_aml"]], ignore_index=True)
+                    tmp_summary.append(st.session_state["tmp_summary_gpt_aml"])
+                    tmp_table.drop_duplicates(inplace=True)
 
 
-            elif st.session_state.llm == "Open-Source":
-                st.session_state.disabled=False
-                tmp_summary.append(st.session_state["tmp_summary_llama_aml"])
-                tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_llama_aml"]], ignore_index=True)
+                elif st.session_state.llm == "Open-Source":
+                    st.session_state.disabled=False
+                    tmp_summary.append(st.session_state["tmp_summary_llama_aml"])
+                    tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_llama_aml"]], ignore_index=True)
+                    tmp_table.drop_duplicates(inplace=True)
+-           
+            except:
+                e = Exception("")
+                st.exception(e)
 
 
             try:
@@ -2186,7 +2195,6 @@ elif selected_option_case_type == "AML":
                 paragraph = doc.add_paragraph()
                 doc.add_heading('Key Insights', level=2)
                 paragraph = doc.add_paragraph()
-                tmp_table.drop_duplicates(inplace=True)
                 columns = list(tmp_table.columns)
                 table = doc.add_table(rows=1, cols=len(columns), style="Table Grid")
                 table.autofit = True
