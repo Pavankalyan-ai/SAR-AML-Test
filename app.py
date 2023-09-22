@@ -397,13 +397,13 @@ def create_zip_file(file_paths, zip_file_name):
 
 
 
-####### This markdown is to manage app style
+####### This markdown is to manage app style (app markdown)
 st.markdown("""
 
 <style>
 
-.css-n2tlt4 {
-    width: 450px;
+.css-1gmsfph {
+    width: 800px;
   }
 
 .st-d5 {
@@ -804,7 +804,6 @@ elif selected_option_case_type == "Fraud transaction dispute":
                 with col2:
                     # Create a checkbox to show/hide the table
                     cols1, cols2, cols3, cols4 = st.columns([1,1,1,1])
-                    st.session_state.disabled = False
                     with cols1:
                         show_table = tog.st_toggle_switch(label="", 
                                             key="Key1", 
