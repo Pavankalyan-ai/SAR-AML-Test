@@ -403,7 +403,7 @@ st.markdown("""
 <style>
 
 .css-n2tlt4 {
-    width: 400px;
+    width: 450px;
   }
 
 .st-d5 {
