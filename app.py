@@ -850,25 +850,14 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     Response "
                                     
                                 response = usellm(prompts)
-
-
-                                if response:
-                                    resp_dict_obj = json.loads(response)
-                                    res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
-                                else:
-                                    res_df_gpt = response
                                                             
                               
-                                # try:
-                                #     if response:
-                                #         resp_dict_obj = json.loads(response)
-                                #         res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
-                                #     else:
-                                #         res_df_gpt = response
-                                                                     
-                                # except:
-                                #     e = Exception("")
-                                #     st.exception(e)
+                                try:
+                                    resp_dict_obj = json.loads(response)
+                                    res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
+                                except:
+                                    e = Exception("")
+                                    st.exception(e)
                                 
                                                                                             
                                 try:
@@ -880,9 +869,17 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 except:
                                     e = Exception("")
                                     st.exception(e)
-                               
-                                #print table 
-                                st.table(res_df_gpt)
+
+                                try: 
+                                    if res_df_gpt:
+                                        st.table(res_df_gpt)
+                                    else:
+                                        res_df_gpt = response
+                                        st.write(res_df_gpt)
+                                except:
+                                    e = Exception("")
+                                    st.exception(e)
+
                                 #copy in session state
                                 st.session_state["tmp_table_gpt_fd"] = pd.concat([st.session_state.tmp_table_gpt_fd, res_df_gpt], ignore_index=True)
 
