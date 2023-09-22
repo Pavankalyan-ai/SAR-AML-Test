@@ -857,8 +857,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     if resp_dict_obj:
                                         res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
                                     else:
-                                        st.write(response)
-                                
+                                        res_df_gpt = response
+                                                                     
                                 except:
                                     e = Exception("")
                                     st.exception(e)
@@ -868,15 +868,16 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     res_df_gpt.reset_index(drop=True, inplace=True)
                                     index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
                                     res_df_gpt = res_df_gpt.set_index([index_])
-                                    #print table  
                                     # st.write(res_df_gpt)  
-                                    st.table(res_df_gpt)
-                                    #copy in session state
-                                    st.session_state["tmp_table_gpt_fd"] = pd.concat([st.session_state.tmp_table_gpt_fd, res_df_gpt], ignore_index=True)
-                                    
+                                   
                                 except:
                                     e = Exception("")
                                     st.exception(e)
+                               
+                                #print table 
+                                st.table(res_df_gpt)
+                                #copy in session state
+                                st.session_state["tmp_table_gpt_fd"] = pd.concat([st.session_state.tmp_table_gpt_fd, res_df_gpt], ignore_index=True)
 
                                 
                             
