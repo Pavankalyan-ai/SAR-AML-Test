@@ -402,11 +402,6 @@ st.markdown("""
 
 <style>
 
-.css-1gmsfph {
-    gap: 1.5rem;
-    }
-
-
 .st-d5 {
     line-height: 1;
 }
