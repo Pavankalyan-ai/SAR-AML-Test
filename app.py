@@ -847,7 +847,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                         What type of cards are involved?\n\
                                         Was the police report filed?\n\
                                     Context: {contexts}\n\
-                                    Response "
+                                    Response (in the python dictionary format\
+                        where the dictionary key would carry the questions and its value would have a descriptive answer to the questions asked):"
                                     
                                 response = usellm(prompts)
                                                             
@@ -869,18 +870,9 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 except:
                                     e = Exception("")
                                     st.exception(e)
-
-                                try: 
-                                    if res_df_gpt:
-                                        st.table(res_df_gpt)
-                                    else:
-                                        res_df_gpt = response
-                                        st.write(res_df_gpt)
-                                except:
-                                    e = Exception("")
-                                    st.exception(e)
                                 
-                                res_df_gpt = response
+                                #Display table 
+                                st.table(res_df_gpt)
                                 #copy in session state
                                 st.session_state["tmp_table_gpt_fd"] = pd.concat([st.session_state.tmp_table_gpt_fd, res_df_gpt], ignore_index=True)
 
