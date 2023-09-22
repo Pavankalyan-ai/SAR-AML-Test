@@ -850,6 +850,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     Response  "
                                     
                                 response = usellm(prompts)
+                                st.write(response)
 
                                 
                                 try:
@@ -867,8 +868,11 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
                                     res_df_gpt = res_df_gpt.set_index([index_])
                                     # st.write(res_df_gpt)
-                                except IndexError: 
-                                    pass
+                                except:
+                                    e = Exception("")
+                                    st.exception(e)
+
+                                #print table    
                                 st.table(res_df_gpt)
                                 
                                 st.session_state["tmp_table_gpt_fd"] = pd.concat([st.session_state.tmp_table_gpt_fd, res_df_gpt], ignore_index=True)
