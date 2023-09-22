@@ -847,8 +847,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                         What type of cards are involved?\n\
                                         Was the police report filed?\n\
                                     Context: {contexts}\n\
-                                    Response (in the python dictionary format\
-                                    where the dictionary key would carry the questions and its value would have a descriptive answer to the questions asked):"
+                                    Response "
                                     
                                 response = usellm(prompts)
                                                             
