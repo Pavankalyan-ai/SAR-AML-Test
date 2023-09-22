@@ -902,7 +902,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             Hence, Compare the names present in the context. 
                             Reply the name of the person who is basically the suspect.\n\n\
                                             Context: {context_1}\n\
-                                            Response: (Give me a concise response in one sentence.)'''
+                                            Response: (Give me a concise and short response in few words.)'''
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
 
