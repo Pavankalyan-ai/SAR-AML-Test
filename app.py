@@ -402,10 +402,6 @@ st.markdown("""
 
 <style>
 
-.css-1gmsfph {
-    width: 800px;
-  }
-
 .st-d5 {
     line-height: 1;
 }

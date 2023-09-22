@@ -3,10 +3,6 @@ st.markdown("""
 
 <style>
 
-.css-n2tlt4 {
-    width: 400px; (Pre set questionnaire toggle width to show it)
-  }
-
 .st-d5 {
     line-height: 1; (To align above radio tabs (open-ai and open-source)
 }
