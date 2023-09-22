@@ -1834,7 +1834,7 @@ elif selected_option_case_type == "AML":
                                 Provide your response as Yes if there is a hint of Money being Laundered considering all of the factors above.\n\n\
                                         Question: {query}\n\
                                         Context: {context_1}\n\
-                                        Response: '''
+                                        Response: (Give me a concise and short response in few words)'''
                                 response = usellm(prompt_1)
                                 chat_history_1[query] = response
                 
@@ -1848,7 +1848,7 @@ elif selected_option_case_type == "AML":
                                             do not include any other unnecessary information or the Balance amount.\n\n
                             
                                             Context: {context_1}\n\
-                                            Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
+                                            Response: (Give me a concise and short response in few words)'''
 
                                 response = usellm(prompt_1)
                                 chat_history_1[query] = response
@@ -1860,7 +1860,7 @@ elif selected_option_case_type == "AML":
                                             rapid movement of funds, transactions with high-risk countries, or unexplained source of funds. Specifically, all transactions above or \ 
                                             equal to $10,000 are considered to be a potential money laundering transaction. Answer the question considering the factors mentioned above with transaction details.\n\n\
                                             Context: {context_1}\n\
-                                            Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
+                                            Response: (Give me a concise and short response in few words)'''
 
                                 response = usellm(prompt_1)
                                 chat_history_1[query] = response
@@ -1872,7 +1872,7 @@ elif selected_option_case_type == "AML":
                                             patterns observed. The type may include Layering, Structuring, Round-tripping etc. \
                                             Look carefully into the transactions statement and give a precise answer with explanation of why you think a specific type of money laundering is happening..\n\n\
                                             Context: {context_1}\n\
-                                            Response: (Give me a concise response in not more than 50 words.Do not give me any Explanation,Note)'''
+                                            Response:(Give me a concise and short response in few words)'''
 
                                 response = usellm(prompt_1)
                                 chat_history_1[query] = response
@@ -1884,7 +1884,7 @@ elif selected_option_case_type == "AML":
                                             transaction statement, for getting the total amount, you can add all the money laundering \
                                             transactions amount.\n\n\
                                             Context: {context_1}\n\
-                                            Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
+                                            Response: (Give me a concise and short response in few words)'''
                                 
                                 response = usellm(prompt_1)
                                 chat_history_1[query] = response
