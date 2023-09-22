@@ -850,7 +850,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     Response  "
                                     
                                 response = usellm(prompts)
-                                type(response)
+                                st.write(type(response))
                                 # for items in response:
                                     # st.write(items)
 
