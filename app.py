@@ -402,9 +402,6 @@ st.markdown("""
 
 <style>
 
-.css-1unvwp8 {
-    width: 80px;
-    }
 
 .st-d5 {
     line-height: 1;
@@ -813,11 +810,11 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                             active_color="#11567f", 
                                             track_color="#29B5E8"
                                             )
-                    # Show the table if the checkbox is ticked
-                    if show_table1:
-                        df_fixed["S.No."] = df_fixed.index
-                        df_fixed = df_fixed.loc[:,['S.No.','Questions']]
-                        st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+                        # Show the table if the checkbox is ticked
+                        if show_table1:
+                            df_fixed["S.No."] = df_fixed.index
+                            df_fixed = df_fixed.loc[:,['S.No.','Questions']]
+                            st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
                 with st.spinner('Wait for it...'):
                     if st.button("Generate Insights",disabled=st.session_state.disabled):
