@@ -850,18 +850,25 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     Response "
                                     
                                 response = usellm(prompts)
+
+
+                                if response:
+                                    resp_dict_obj = json.loads(response)
+                                    res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
+                                else:
+                                    res_df_gpt = response
                                                             
                               
-                                try:
-                                    if response:
-                                        resp_dict_obj = json.loads(response)
-                                        res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
-                                    else:
-                                        res_df_gpt = response
+                                # try:
+                                #     if response:
+                                #         resp_dict_obj = json.loads(response)
+                                #         res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
+                                #     else:
+                                #         res_df_gpt = response
                                                                      
-                                except:
-                                    e = Exception("")
-                                    st.exception(e)
+                                # except:
+                                #     e = Exception("")
+                                #     st.exception(e)
                                 
                                                                                             
                                 try:
