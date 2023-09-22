@@ -879,7 +879,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 except:
                                     e = Exception("")
                                     st.exception(e)
-
+                                
+                                res_df_gpt = response
                                 #copy in session state
                                 st.session_state["tmp_table_gpt_fd"] = pd.concat([st.session_state.tmp_table_gpt_fd, res_df_gpt], ignore_index=True)
 
