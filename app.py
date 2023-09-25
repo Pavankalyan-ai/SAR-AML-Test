@@ -841,6 +841,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 response = usellm(prompts)
 
                                 query = "Is this a Suspicious Activity?"
+                                context_1 = docsearch.similarity_search(query, k=5)
                                 prompt = f'''Act as a financial analyst and give concise answer to below Question as truthfully as possible, with given Context.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\                      
