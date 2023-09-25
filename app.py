@@ -834,12 +834,22 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                         Was the disputed amount greater than 5000 USD?\n\
                                         What type of cards are involved?\n\
                                         Was the police report filed?\n\
-                                        Is this a Suspicious Activity?\n\
                                     Context: {contexts}\n\
                                     Response (in the python dictionary format\
                                               where the dictionary key would carry the questions and its value would have a descriptive answer to the questions asked):"
-                                    
+
                                 response = usellm(prompts)
+
+                                query = "Is this a Suspicious Activity?"
+                                prompt = f'''Act as a financial analyst and give concise answer to below Question as truthfully as possible, with given Context.\n\n\
+                                            Question: {query}\n\
+                                            Context: {context_1}\n\                      
+                                            Response: '''
+                                
+                                response1 = usellm(prompt)
+
+                                response[query] = response   
+                                
                                                             
                               
                                 try:
