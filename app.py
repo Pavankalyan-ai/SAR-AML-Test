@@ -443,10 +443,9 @@ st.markdown("""
 
 .css-1y4p8pa {
     width: 100%;
-    padding: 3rem 1rem 10rem;
     padding-top: 3rem;
     padding-bottom: 10rem;
-    max-width: 60rem;
+    max-width: 80rem;
 }
 
 .css-xujc5b p{
