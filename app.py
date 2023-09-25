@@ -842,7 +842,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                                 query = "Is this a Suspicious Activity?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt = f'''Act as a financial analyst and give concise answer to Question as truthfully as possible, with given Context. Give me answers in bullets.\n\n\
+                                prompt = f'''Act as a financial analyst and give concise answer to the question in bullets, with given Context.
+                                Focus on the transaction amount,type of fraud,suspect details not matching with the customer.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\                      
                                             Response: '''
