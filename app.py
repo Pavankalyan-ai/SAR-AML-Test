@@ -849,7 +849,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 
                                 response1 = usellm(prompt)
 
-                                response[query] = response1   
+                                st.write(response1)
                                 
                                                             
                               
