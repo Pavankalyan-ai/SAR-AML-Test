@@ -843,7 +843,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 query = "Is this a Suspicious Activity?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt = f'''Act as a financial analyst and give concise answer to the question, with given Context.
-                                This can be addresses as suspicious activity based on the transaction amount,suspect name not matching with the customer name.\n\n\
+                                This can be considered a suspicious activity if the transaction amount is greater than $5000 and suspect name not matching with the customer name.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\                      
                                             Response: '''
