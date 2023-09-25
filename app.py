@@ -842,14 +842,16 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                                 query = "Is this a Suspicious Activity?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt = f'''Act as a financial analyst and give concise answer to below Question as truthfully as possible, with given Context.\n\n\
+                                prompt = f'''Act as a financial analyst and give concise answer to Question as truthfully as possible, with given Context.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\                      
                                             Response: '''
                                 
                                 response1 = usellm(prompt)
 
-                                st.write(response1)
+                                new_row = pd.DataFrame({'Is this a Suspicious Activity?':response1})
+
+                                st.write(new_row)
                                 
                                                             
                               
