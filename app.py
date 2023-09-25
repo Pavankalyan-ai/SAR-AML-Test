@@ -789,7 +789,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                 with col1:
                     st.markdown("""<span style="font-size: 24px; ">Pre-Set Questionnaire</span>""", unsafe_allow_html=True)
                     # Create a Pandas DataFrame with your data
-                    data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?']}
+                    data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?','Is this a Suspicious Activity?']}
                     df_fixed = pd.DataFrame(data)
                     df_fixed.index = df_fixed.index +1
                 with col2:
@@ -835,6 +835,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                         Was the disputed amount greater than 5000 USD?\n\
                                         What type of cards are involved?\n\
                                         Was the police report filed?\n\
+                                        Is this a Suspicious Activity?\n\
                                     Context: {contexts}\n\
                                     Response (in the python dictionary format\
                                               where the dictionary key would carry the questions and its value would have a descriptive answer to the questions asked):"
@@ -852,7 +853,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                                                             
                                 try:
                                     res_df_gpt.reset_index(drop=True, inplace=True)
-                                    index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
+                                    index_ = pd.Series([1,2,3,4,5,6,7,8,9,10,11])
                                     res_df_gpt = res_df_gpt.set_index([index_])
                                     # st.write(res_df_gpt)  
                                    
