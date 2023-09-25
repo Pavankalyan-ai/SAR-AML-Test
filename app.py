@@ -849,9 +849,9 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 
                                 response1 = usellm(prompt)
 
-                                new_row = pd.DataFrame({'Is this a Suspicious Activity?':response1})
+                                
 
-                                st.write(new_row)
+                                st.write(response1)
                                 
                                                             
                               
