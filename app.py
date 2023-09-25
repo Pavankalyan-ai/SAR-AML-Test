@@ -453,10 +453,6 @@ st.markdown("""
 font-size: 25px;
 }
 
-.css-jzprzu {
-    height: 2rem;
-    min-height: 1.5rem;
-    }
 
 </style>
 """, unsafe_allow_html=True)
