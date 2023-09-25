@@ -819,7 +819,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 queries ="Please provide the following information regarding the possible fraud case: What is the name of the customer name,\
                                 has any suspect been reported, list the merchant name, how was the bank notified, when was the bank notified, what is the fraud type,\
                                 when did the fraud occur, was the disputed amount greater than 5000 USD, what type of cards are involved, was the police report filed,\
-                                and based on the evidence, is this a suspicious activity (Give me a three pointer answer)"
+                                and based on the evidence, is this a suspicious activity,give me a detailed answer)"
                         
                                 contexts = docsearch.similarity_search(queries, k=5) 
                                 prompts = f" Give a the answer to the below questions as truthfully and in as detailed in the form of sentences\
