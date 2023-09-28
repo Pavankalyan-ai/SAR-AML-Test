@@ -102,28 +102,25 @@ if "visibility" not in st.session_state:
 if "stored_session" not in st.session_state:
     st.session_state["stored_session"] = []
 
+# for Fraud Detection
 if "tmp_table_gpt_fd" not in st.session_state:
     st.session_state.tmp_table_gpt_fd = pd.DataFrame()
 if "tmp_table_llama_fd" not in st.session_state:
     st.session_state.tmp_table_llama_fd = pd.DataFrame()
-if "tmp_table_gpt_aml" not in st.session_state:
-    st.session_state.tmp_table_gpt_aml = pd.DataFrame()
-if "tmp_table_llama_aml" not in st.session_state:
-    st.session_state.tmp_table_llama_aml = pd.DataFrame()
-
 if "tmp_summary_gpt_fd" not in st.session_state:
     st.session_state["tmp_summary_gpt_fd"] = ''
 if "tmp_summary_llama_fd" not in st.session_state:
     st.session_state["tmp_summary_llama_fd"] = ''
+
+# For AML
+if "tmp_table_gpt_aml" not in st.session_state:
+    st.session_state.tmp_table_gpt_aml = pd.DataFrame()
+if "tmp_table_llama_aml" not in st.session_state:
+    st.session_state.tmp_table_llama_aml = pd.DataFrame()
 if "tmp_summary_gpt_aml" not in st.session_state:
     st.session_state["tmp_summary_gpt_aml"] = ''
 if "tmp_summary_llama_aml" not in st.session_state:
     st.session_state["tmp_summary_llama_aml"] = ''
-
-if "tmp_narrative_gpt" not in st.session_state:
-    st.session_state["tmp_narrative_gpt"] = ''
-if "tmp_narrative_llama" not in st.session_state:
-    st.session_state["tmp_narrative_llama"] = ''
 
 if "case_num" not in st.session_state:
     st.session_state.case_num = ''
@@ -757,14 +754,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     st.session_state["tmp_table_llama_fd"] = pd.concat([st.session_state.tmp_table_llama_fd, res_df_llama], ignore_index=True)
                                 except:
                                     e = Exception("")
-                                    st.exception(e)
-                               
-
-                               
-                            
-                               
-
-
+                                    st.exception(e)                                                    
 
 
                 st.markdown("---")
