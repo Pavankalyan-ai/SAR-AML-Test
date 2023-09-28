@@ -20,9 +20,6 @@ llama_13b = HuggingFaceHub(
                         "min_new_tokens":100, 
                         "max_new_tokens":500})
 
-memory_llm = ConversationSummaryBufferMemory(llm= llama_13b, max_token_limit=500)
-conversation_llm = ConversationChain(llm= llama_13b, memory=memory,verbose=False)
-
 @st.cache_data
 def llama_llm(_llm,prompt):
     response = _llm.predict(prompt)
