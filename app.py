@@ -618,7 +618,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                                                             
                                 try:
                                     res_df_gpt.reset_index(drop=True, inplace=True)
-                                    index_ = pd.Series([1,2,3,4,5,6,7,8,9,10,11])
+                                    index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
                                     res_df_gpt = res_df_gpt.set_index([index_])
                                     # st.write(res_df_gpt)  
                                    
