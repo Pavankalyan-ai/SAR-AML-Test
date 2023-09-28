@@ -39,46 +39,6 @@ from huggingface_hub import login
 # from pdf2image import convert_from_path
 
 
-#Setting Env for opnAI
-if st.secrets["OPENAI_API_KEY"] is not None:
-    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
-else:
-    os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
-
-
-# Setting Config for Llama-2
-login(token=st.secrets["HUGGINGFACEHUB_API_TOKEN"])
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
-
-
-llama_13b = HuggingFaceHub(
-            repo_id="meta-llama/Llama-2-13b-chat-hf",
-            model_kwargs={"temperature":0.01, 
-                        "min_new_tokens":100, 
-                        "max_new_tokens":500})
-
-memory = ConversationSummaryBufferMemory(llm= llama_13b, max_token_limit=500)
-conversation = ConversationChain(llm= llama_13b, memory=memory,verbose=False)
-
-@st.cache_data
-def llama_llm(_llm,prompt):
-    response = _llm.predict(prompt)
-    return response
-
-
-@st.cache_data
-def usellm(prompt):
-    """
-    Getting GPT-3.5 Model into action
-    """
-    service = UseLLM(service_url="https://usellm.org/api/llm")
-    messages = [
-      Message(role="system", content="You are a fraud analyst, who is an expert at finding out suspicious activities"),
-      Message(role="user", content=f"{prompt}"),
-      ]
-    options = Options(messages=messages)
-    response = service.chat(options)
-    return response.content
 
 
 @st.cache_data
@@ -126,59 +86,8 @@ def process_text(text):
     processed_text = text
     return processed_text
 
-@st.cache_resource
-def embed(model_name):
-    hf_embeddings = HuggingFaceEmbeddings(model_name=model_name)
-    return hf_embeddings
 
-# Chunking with overlap
-text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size = 1000,
-    chunk_overlap  = 100,
-    length_function = len,
-    separators=["\n\n", "\n", " ", ""]
-)
 
-@st.cache_data
-def embedding_store(pdf_files):
-    pdf_only =[]
-    for file in pdf_files:
-      if file.endswith('.pdf'):
-        pdf_only.append(file)       
-      
-    merged_pdf = merge_pdfs(pdf_only)
-    final_pdf = PyPDF2.PdfReader(merged_pdf)
-    text = ""
-    for page in final_pdf.pages:
-        text += page.extract_text()
-      
-    for file in pdf_files:
-      if file.endswith('xlsx'):
-        df = pd.read_excel(file, engine='openpyxl')
-        # Find the row index where the table data starts
-        data_start_row = 0  # Initialize to 0
-        for i, row in df.iterrows():
-            if row.notna().all():
-                data_start_row = i
-                break
-              
-        if data_start_row>0:  
-            df.columns = df.iloc[data_start_row]
-          
-        
-        # Extract the text content above the data
-        text += "\n".join(df.iloc[:data_start_row].apply(lambda x: "\t".join(map(str, x)), axis=1)).replace('nan','')
-        
-        df = df.iloc[data_start_row+1:]
-        text_buffer = StringIO()
-        df.to_csv(text_buffer, sep='\t', index=False)
-        text += "\n\n"+ text_buffer.getvalue()
-        text_buffer.close()
-        
-    texts =  text_splitter.split_text(text)
-    docs = text_to_docs(texts)
-    docsearch = FAISS.from_documents(docs, hf_embeddings)
-    return docs, docsearch
     
 @st.cache_data
 def merge_and_extract_text(pdf_list):
