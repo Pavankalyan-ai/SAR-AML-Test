@@ -263,18 +263,6 @@ elif selected_option_case_type == "Fraud transaction dispute":
     # Redirect to Merge PDFs page when "Merge PDFs" is selected
     if selected_option == "SAR-2023-24680":
         st.session_state.case_num = "SAR-2023-24680"
-        # st.header("Merge Documents")
-        # st.write("Upload multiple document files and merge them into one doc.")
-
-        # Upload PDF files
-        # st.subheader("Upload Case Files")
-        # st.markdown(f"**Case No: {st.session_state.case_num}**")
-        # st.markdown("""
-        #     | Case No.                  | Case Type                 | Customer Name             | Case Status             | Open Date              |
-        #     | ------------------------  | ------------------------- | ------------------------- | ------------------------|------------------------|
-        #     | SAR-2023-24680            | Fraud Transaction Dispute | John Brown                | In Progress             | 12/10/2020             |
-        #     """)
-
         col1,col2 = st.columns(2)
         # Row 1
         with col1:
@@ -467,14 +455,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                 except NameError:
                     pass
                 
-                # Chunking with overlap
-                text_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size = 1000,
-                    chunk_overlap  = 100,
-                    length_function = len,
-                    separators=["\n\n", "\n", " ", ""]
-                )
-               
+
 
                # Creating header
                 col1,col2 = st.columns(2)
@@ -1452,14 +1433,6 @@ elif selected_option_case_type == "AML":
                         pass
                 except NameError:
                     pass
-                
-                # Chunking with overlap
-                text_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size = 1000,
-                    chunk_overlap  = 100,
-                    length_function = len,
-                    separators=["\n\n", "\n", " ", ""]
-                )
                              
 
                 # Creating header

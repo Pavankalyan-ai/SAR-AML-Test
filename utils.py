@@ -131,6 +131,13 @@ def embed(model_name):
     hf_embeddings = HuggingFaceEmbeddings(model_name=model_name)
     return hf_embeddings
 
+# Chunking with overlap
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size = 1000,
+    chunk_overlap  = 100,
+    length_function = len,
+    separators=["\n\n", "\n", " ", ""]
+)
 
 @st.cache_data
 def embedding_store(pdf_files):
@@ -276,25 +283,6 @@ def convert_scanned_pdf_to_searchable_pdf(input_file):
         text += pytesseract.image_to_string(image)
     
     return text
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
