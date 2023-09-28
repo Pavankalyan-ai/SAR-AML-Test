@@ -1,15 +1,303 @@
-import os,io
+import random,os,json,io,re,zipfile,tempfile
 import numpy as np
+import pandas as pd
+import ssl
 import streamlit as st
 from io import BytesIO
+from io import StringIO
 import streamlit.components.v1 as components
 from typing import List, Dict, Any
 from langchain.docstore.document import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+import streamlit as st
+import streamlit_toggle as tog
+from langchain import HuggingFaceHub
+from langchain.llms import OpenAI
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.embeddings import HuggingFaceEmbeddings
+from langchain.vectorstores import FAISS
+import openai 
+import fitz
+import docx
+from gtts import gTTS
+import PyPDF2
+from PyPDF2 import PdfReader
+from langchain import PromptTemplate, LLMChain
+from langchain.chat_models import ChatOpenAI
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
+from langchain.memory import ConversationSummaryBufferMemory
+from langchain.chains.conversation.prompt import ENTITY_MEMORY_CONVERSATION_TEMPLATE
+from langchain.chains.conversation.memory import ConversationEntityMemory
+from langchain.callbacks import get_openai_callback
+from usellm import Message, Options, UseLLM
+from huggingface_hub import login
+# from utils import text_to_docs
 # import cv
 # import PyPDF2
 # import pytesseract
 # from pdf2image import convert_from_path
+
+
+#Setting Env for opnAI
+if st.secrets["OPENAI_API_KEY"] is not None:
+    os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
+else:
+    os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
+
+
+# Setting Config for Llama-2
+login(token=st.secrets["HUGGINGFACEHUB_API_TOKEN"])
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
+
+
+llama_13b = HuggingFaceHub(
+            repo_id="meta-llama/Llama-2-13b-chat-hf",
+            model_kwargs={"temperature":0.01, 
+                        "min_new_tokens":100, 
+                        "max_new_tokens":500})
+
+memory = ConversationSummaryBufferMemory(llm= llama_13b, max_token_limit=500)
+conversation = ConversationChain(llm= llama_13b, memory=memory,verbose=False)
+
+@st.cache_data
+def llama_llm(_llm,prompt):
+    response = _llm.predict(prompt)
+    return response
+
+
+@st.cache_data
+def usellm(prompt):
+    """
+    Getting GPT-3.5 Model into action
+    """
+    service = UseLLM(service_url="https://usellm.org/api/llm")
+    messages = [
+      Message(role="system", content="You are a fraud analyst, who is an expert at finding out suspicious activities"),
+      Message(role="user", content=f"{prompt}"),
+      ]
+    options = Options(messages=messages)
+    response = service.chat(options)
+    return response.content
+
+
+@st.cache_data
+def show_pdf(file_path):
+    with open(file_path,"rb") as f:
+        base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+        pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="1000px" type="application/pdf"></iframe>'
+        st.markdown(pdf_display, unsafe_allow_html=True)
+
+@st.cache_data
+def pdf_to_bytes(pdf_file_):
+    with open(pdf_file_,"rb") as pdf_file:
+        pdf_content = pdf_file.read()
+        pdf_bytes_io = io.BytesIO(pdf_content)
+    return pdf_bytes_io
+
+@st.cache_data
+def read_pdf_files(path):
+    pdf_files =[]
+    directoty_path = path
+    files = os.listdir(directoty_path)
+    for file in files:
+            pdf_files.append(file)
+    return pdf_files
+
+
+@st.cache_data
+def merge_pdfs(pdf_list):
+    """
+    Helper function to merge PDFs
+    """
+    pdf_merger = PyPDF2.PdfMerger()
+    for pdf in pdf_list:
+        pdf_document = PyPDF2.PdfReader(pdf)
+        pdf_merger.append(pdf_document)
+    output_pdf = BytesIO()
+    pdf_merger.write(output_pdf)
+    pdf_merger.close()
+    return output_pdf
+
+
+@st.cache_data
+def process_text(text):
+    # Add your custom text processing logic here
+    processed_text = text
+    return processed_text
+
+@st.cache_resource
+def embed(model_name):
+    hf_embeddings = HuggingFaceEmbeddings(model_name=model_name)
+    return hf_embeddings
+
+
+@st.cache_data
+def embedding_store(pdf_files):
+    pdf_only =[]
+    for file in pdf_files:
+      if file.endswith('.pdf'):
+        pdf_only.append(file)       
+      
+    merged_pdf = merge_pdfs(pdf_only)
+    final_pdf = PyPDF2.PdfReader(merged_pdf)
+    text = ""
+    for page in final_pdf.pages:
+        text += page.extract_text()
+      
+    for file in pdf_files:
+      if file.endswith('xlsx'):
+        df = pd.read_excel(file, engine='openpyxl')
+        # Find the row index where the table data starts
+        data_start_row = 0  # Initialize to 0
+        for i, row in df.iterrows():
+            if row.notna().all():
+                data_start_row = i
+                break
+              
+        if data_start_row>0:  
+            df.columns = df.iloc[data_start_row]
+          
+        
+        # Extract the text content above the data
+        text += "\n".join(df.iloc[:data_start_row].apply(lambda x: "\t".join(map(str, x)), axis=1)).replace('nan','')
+        
+        df = df.iloc[data_start_row+1:]
+        text_buffer = StringIO()
+        df.to_csv(text_buffer, sep='\t', index=False)
+        text += "\n\n"+ text_buffer.getvalue()
+        text_buffer.close()
+        
+    texts =  text_splitter.split_text(text)
+    docs = text_to_docs(texts)
+    docsearch = FAISS.from_documents(docs, hf_embeddings)
+    return docs, docsearch
+    
+@st.cache_data
+def merge_and_extract_text(pdf_list):
+    """
+    Helper function to merge PDFs and extract text
+    """
+    pdf_merger = PyPDF2.PdfMerger()
+    for pdf in pdf_list:
+        with open(pdf, 'rb') as file:
+            pdf_merger.append(file)
+    output_pdf = BytesIO()
+    pdf_merger.write(output_pdf)
+    pdf_merger.close()
+    
+    # Extract text from merged PDF
+    merged_pdf = PyPDF2.PdfReader(output_pdf)
+    all_text = []
+    for page in merged_pdf.pages:
+        text = page.extract_text()
+        all_text.append(text)
+    
+    return ' '.join(all_text)
+
+def reset_session_state():
+    session_state = st.session_state
+    session_state.clear()
+
+
+@st.cache_data
+def render_pdf_as_images(pdf_file):
+    """
+    Helper function to render PDF pages as images
+    """
+    pdf_images = []
+    pdf_document = fitz.open(stream=pdf_file.read(), filetype="pdf")
+    for page_num in range(pdf_document.page_count):
+        page = pdf_document.load_page(page_num)
+        img = page.get_pixmap()
+        img_bytes = img.tobytes()
+        pdf_images.append(img_bytes)
+    pdf_document.close()
+    return pdf_images
+
+# To check if pdf is searchable
+def is_searchable_pdf(file_path):
+    with pdfplumber.open(file_path) as pdf:
+        for page in pdf.pages:
+            if page.extract_text():
+                return True
+
+    return False
+
+
+
+def extract_text_from_pdf(file_path):
+    with pdfplumber.open(file_path) as pdf:
+        all_text = []
+        for page in pdf.pages:
+            text = page.extract_text()
+            all_text.append(text)
+    return "\n".join(all_text)
+
+
+
+
+# Function to add checkboxes to the DataFrame
+@st.cache_data
+def add_checkboxes_to_dataframe(df):
+    # Create a new column 'Select' with checkboxes
+    checkbox_values = [True] * (len(df) - 1) + [False]  # All True except the last row
+    df['Select'] = checkbox_values
+    return df
+
+# convert scanned pdf to searchable pdf
+def convert_scanned_pdf_to_searchable_pdf(input_file):
+    """
+     Convert a Scanned PDF to Searchable PDF
+
+    """
+    # Convert PDF to images
+    print("Running OCR")
+    images = convert_from_path(input_file)
+
+    # Preprocess images using OpenCV
+    for i, image in enumerate(images):
+        # Convert image to grayscale
+        image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
+
+        # Apply thresholding to remove noise
+        _, image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+        # Enhance contrast
+        image = cv2.equalizeHist(image)
+
+        # Save preprocessed image
+        cv2.imwrite(f'{i}.png', image)
+
+    # Perform OCR on preprocessed images using Tesseract
+    text = ''
+    for i in range(len(images)):
+        image = cv2.imread(f'{i}.png')
+        text += pytesseract.image_to_string(image)
+    
+    return text
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def st_audiorec():
 
@@ -71,57 +359,57 @@ def text_to_docs(text: str) -> List[Document]:
             doc_chunks.append(doc)
     return doc_chunks
 
-def convert_scanned_pdf_to_searchable_pdf(input_file, output_file):
-    """
-     Convert a Scanned PDF to Searchable PDF
+# def convert_scanned_pdf_to_searchable_pdf(input_file, output_file):
+#     """
+#      Convert a Scanned PDF to Searchable PDF
 
-    """
-    # Convert PDF to images
-    images = convert_from_path(input_file)
+#     """
+#     # Convert PDF to images
+#     images = convert_from_path(input_file)
 
-    # Preprocess images using OpenCV
-    for i, image in enumerate(images):
-        # Convert image to grayscale
-        image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
+#     # Preprocess images using OpenCV
+#     for i, image in enumerate(images):
+#         # Convert image to grayscale
+#         image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
 
-        # Apply thresholding to remove noise
-        _, image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+#         # Apply thresholding to remove noise
+#         _, image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-        # Enhance contrast
-        image = cv2.equalizeHist(image)
+#         # Enhance contrast
+#         image = cv2.equalizeHist(image)
 
-        # Save preprocessed image
-        cv2.imwrite(f'{i}.png', image)
+#         # Save preprocessed image
+#         cv2.imwrite(f'{i}.png', image)
 
-    # Perform OCR on preprocessed images using Tesseract
-    text = ''
-    for i in range(len(images)):
-        image = cv2.imread(f'{i}.png')
-        text += pytesseract.image_to_string(image)
+#     # Perform OCR on preprocessed images using Tesseract
+#     text = ''
+#     for i in range(len(images)):
+#         image = cv2.imread(f'{i}.png')
+#         text += pytesseract.image_to_string(image)
 
-    # Add searchable layer to PDF using PyPDF2
-    pdf_writer = PyPDF2.PdfFileWriter()
-    with open(input_file, 'rb') as f:
-        pdf_reader = PyPDF2.PdfFileReader(f)
-        for i in range(pdf_reader.getNumPages()):
-            page = pdf_reader.getPage(i)
-            pdf_writer.addPage(page)
-            pdf_writer.addBookmark(f'Page {i+1}', i)
+#     # Add searchable layer to PDF using PyPDF2
+#     pdf_writer = PyPDF2.PdfFileWriter()
+#     with open(input_file, 'rb') as f:
+#         pdf_reader = PyPDF2.PdfFileReader(f)
+#         for i in range(pdf_reader.getNumPages()):
+#             page = pdf_reader.getPage(i)
+#             pdf_writer.addPage(page)
+#             pdf_writer.addBookmark(f'Page {i+1}', i)
 
-    pdf_writer.addMetadata({
-        '/Title': os.path.splitext(os.path.basename(input_file))[0],
-        '/Author': 'Doc Manager',
-        '/Subject': 'Searchable PDF',
-        '/Keywords': 'PDF, searchable, OCR',
-        '/Creator': 'Py script',
-        '/Producer': 'EXL Service',
-    })
+#     pdf_writer.addMetadata({
+#         '/Title': os.path.splitext(os.path.basename(input_file))[0],
+#         '/Author': 'Doc Manager',
+#         '/Subject': 'Searchable PDF',
+#         '/Keywords': 'PDF, searchable, OCR',
+#         '/Creator': 'Py script',
+#         '/Producer': 'EXL Service',
+#     })
 
-    pdf_writer.addAttachment('text.txt', text.encode())
+#     pdf_writer.addAttachment('text.txt', text.encode())
 
-    with open(output_file, 'wb') as f:
-        pdf_writer.write(f)
+#     with open(output_file, 'wb') as f:
+#         pdf_writer.write(f)
 
-    # Clean up temporary files
-    for i in range(len(images)):
-        os.remove(f'{i}.png')
+#     # Clean up temporary files
+#     for i in range(len(images)):
+#         os.remove(f'{i}.png')
