@@ -478,7 +478,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 #Adding llm type-> st.session_state.llm
-st.session_state.llm = st.radio("",options = pd.Series(["","Open-AI","Open-Source"]), horizontal=True)
+st.session_state.llm = st.radio("",options = pd.Series(["","Closed-Source","Open-Source"]), horizontal=True)
 st.markdown(
     """ <style>
             div[role="radiogroup"] >  :first-child{
@@ -742,18 +742,6 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     else:
                         pass   
                     
-                #combining files in fetch evidence and upload evidence
-                pdf_files_ = []
-                if temp_file_path:
-                    if pdf_files and fetched_files:
-                        file_names = [file.name for file in pdf_files]
-                        file_names = file_names + fetched_files
-                        pdf_files_ = file_names
-                    elif fetched_files:
-                        pdf_files_ = fetched_files
-                    elif pdf_files:
-                        pdf_files_ = pdf_files
-                    else: pass
 
             with col2_up:
                 #This is the embedding model
