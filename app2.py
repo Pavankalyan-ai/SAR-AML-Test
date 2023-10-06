@@ -1529,7 +1529,7 @@ elif selected_option_case_type == "AML":
         # Row 1
         with col1:
             st.markdown("**Case number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** SAR-2023-24680")
-            st.markdown("**Customer name  :** John Brown")
+            st.markdown("**Customer name  :** John123 Brown")
     
     
         with col2:
@@ -1544,7 +1544,7 @@ elif selected_option_case_type == "AML":
     
         with col2:
             st.markdown("**Case Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Open")
-            
+
         st.markdown("---")
         
         ## Defining some global varibales for AML
@@ -2071,7 +2071,7 @@ elif selected_option_case_type == "AML":
                             conversation = ConversationChain(
                             llm=llm, 
                             memory = memory,
-                            verbose=True)
+                            verbose=True)   
                             st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="Provide a detailed summary of the context provided including all the relevant information in a paragraph. Please don't include words ['AI analyzes', 'AI'] in my final summary.")
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
