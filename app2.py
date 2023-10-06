@@ -1004,16 +1004,11 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     pass
 
 
-                # Text Input
+                # Text Input (FD)
                 query = st.text_input(':black[Ask Additional Questions]',disabled=st.session_state.disabled)
                 text_dict = {}
 
-                @st.cache_data
-                def LLM_Response():
-                    llm_chain = LLMChain(prompt=prompt, llm=llm)
-                    response = llm_chain.run({"query":query, "context":context})
-                    return response
-
+   
                 if st.session_state.llm == "Open-AI":
                     with st.spinner('Getting you information...'):      
                         if query:
@@ -1533,23 +1528,23 @@ elif selected_option_case_type == "AML":
         col1,col2 = st.columns(2)
         # Row 1
         with col1:
-            st.markdown("##### **Case number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** SAR-2023-24680")
-            st.markdown("##### **Customer name  :** Sarah Jones")
+            st.markdown("**Case number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** SAR-2023-24680")
+            st.markdown("**Customer name  :** John Brown")
     
     
         with col2:
-            st.markdown("##### **Case open date&nbsp;&nbsp;&nbsp;&nbsp;:** Sep 01, 2022")
-            st.markdown("##### **Case type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Money Laundering")
+            st.markdown("**Case open date&nbsp;&nbsp;&nbsp;&nbsp;:** Feb 02, 2021")
+            st.markdown("**Case type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Fraud transaction")
     
     
         # Row 2
         with col1:
-            st.markdown("##### **Customer ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** 560062")
+            st.markdown("**Customer ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** 9659754")
     
     
         with col2:
-            st.markdown("##### **Case Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Open")
-
+            st.markdown("**Case Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Open")
+            
         st.markdown("---")
         
         ## Defining some global varibales for AML
@@ -1991,15 +1986,13 @@ elif selected_option_case_type == "AML":
                     pass
     
     
-                # Text Input
+                # Text Input (AML)
                 
                 query = st.text_input(':black[Ask Additional Questions]',disabled=st.session_state.disabled)
                 text_dict = {}
-                @st.cache_data
-                def LLM_Response():
-                    llm_chain = LLMChain(prompt=prompt, llm=llm)
-                    response = llm_chain.run({"query":query, "context":context})
-                    return response
+
+          
+                
                 if st.session_state.llm == "Open-AI":
                     with st.spinner('Getting you information...'):      
                         if query:
@@ -2027,7 +2020,7 @@ elif selected_option_case_type == "AML":
                             else:
                                 df = pd.DataFrame()
                 
-                            st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, df], ignore_index=True)
+                            st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt, df], ignore_index=True)
                             st.session_state.tmp_table_gpt.drop_duplicates(subset=['Question'])
                 
                 
