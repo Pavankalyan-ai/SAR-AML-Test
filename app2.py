@@ -171,6 +171,7 @@ def embedding_store(pdf_files):
                 data_start_row = i
                 break
               
+            
         if data_start_row>0:  
             df.columns = df.iloc[data_start_row]
           
