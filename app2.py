@@ -357,7 +357,7 @@ if "fin_opt" not in st.session_state:
 if "context_1" not in st.session_state:
     st.session_state.context_1 = ''
 if "llm" not in st.session_state:
-    st.session_state.llm = 'Open-AI'
+    st.session_state.llm = 'Closed-Source'
 if "pdf_files" not in st.session_state:
     st.session_state.pdf_files = []
 
@@ -808,11 +808,12 @@ elif selected_option_case_type == "Fraud transaction dispute":
                         st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
                 with st.spinner('Wait for it...'):
-                    if st.button("Generate Insights",disabled=st.session_state.disabled):
+                    generate_button=if st.button("Generate Insights",disabled=st.session_state.disabled)
+                    if generate_button:
                         if temp_file_path is not None:
                             # File handling logic
                             _, docsearch = embedding_store(temp_file_path)
-                            if st.session_state.llm == "Open-AI":
+                            if st.session_state.llm == "Closed-Source":
                                 queries ="Please provide the following information regarding the possible fraud case: What is the name of the customer name,\
                                 has any suspect been reported, list the merchant name, how was the bank notified, when was the bank notified, what is the fraud type,\
                                 when did the fraud occur, was the disputed amount greater than 5000 USD, what type of cards are involved, was the police report filed,\
@@ -1023,7 +1024,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     response = llm_chain.run({"query":query, "context":context})
                     return response
 
-                if st.session_state.llm == "Open-AI":
+                if st.session_state.llm == "Closed-Source":
                     with st.spinner('Getting you information...'):      
                         if query:
                             # Text input handling logic
@@ -1267,7 +1268,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     st.write()
                     if st.button("Summarize",disabled=st.session_state.disabled):
                         
-                        if st.session_state.llm == "Open-AI":
+                        if st.session_state.llm == "Closed-Source":
                             st.session_state.disabled=False
                            
 
@@ -1310,7 +1311,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                 try:
 
-                    if st.session_state.llm == "Open-AI":
+                    if st.session_state.llm == "Closed-Source":
                         st.session_state.disabled=False
                         tmp_summary.append(st.session_state["tmp_summary_gpt_fd"])
                         tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt_fd"]], ignore_index=True)
@@ -1774,8 +1775,10 @@ elif selected_option_case_type == "AML":
         
                     # Create a Pandas DataFrame with your data
 
-                    data = {'Questions': ["Is there any evidence of unusual activity?",
+                    data = {'Questions': ["Is there any Money Laundering activity based on the transaction statements?",
                           "What are the transaction that can be associated with Money Laundering activity?",
+                          #"When is the Money laundering activity taking place?",
+                
                          "What type of Money laundering activity is taking place?",
                           "What is the total amount associated with the Money laundering activity?"]}
             
@@ -1809,7 +1812,7 @@ elif selected_option_case_type == "AML":
                         if temp_file_path is not None:
                             # File handling logic
                             _, docsearch = embedding_store(temp_file_path)
-                            if st.session_state.llm == "Open-AI":
+                            if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
                                 query = "Is there any Money Laundering activity based on the transaction statements?"
@@ -1960,17 +1963,17 @@ elif selected_option_case_type == "AML":
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
 
-                                query = "When is the Money laundering activity taking place?"
-                                context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, give all the dates when a money laundering activity is taking place given the context. Money laundering transactions often \
-                                            involve characteristics like large cash deposits equal and above $10,000 followed by a large amount transfer or Structuring, \
-                                            rapid movement of funds, transactions with high-risk countries, or unexplained source of funds. Specifically, all transactions above or \ 
-                                            equal to $10,000 are considered to be a potential money laundering transaction. Answer the question considering the factors mentioned above with transaction details.\n\n\
-                                            Context: {context_1}\n\
-                                            Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
+                                # query = "When is the Money laundering activity taking place?"
+                                # context_1 = docsearch.similarity_search(query, k=5)
+                                # prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, give all the dates when a money laundering activity is taking place given the context. Money laundering transactions often \
+                                #             involve characteristics like large cash deposits equal and above $10,000 followed by a large amount transfer or Structuring, \
+                                #             rapid movement of funds, transactions with high-risk countries, or unexplained source of funds. Specifically, all transactions above or \ 
+                                #             equal to $10,000 are considered to be a potential money laundering transaction. Answer the question considering the factors mentioned above with transaction details.\n\n\
+                                #             Context: {context_1}\n\
+                                #             Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
 
-                                response = llama_llm(llama_13b,prompt_1)
-                                chat_history[query] = response
+                                # response = llama_llm(llama_13b,prompt_1)
+                                # chat_history[query] = response
                             
                                 query = "What type of Money laundering activity is taking place?"
                                 context_1 = docsearch.similarity_search(query, k=5)
@@ -2063,7 +2066,7 @@ elif selected_option_case_type == "AML":
                     llm_chain = LLMChain(prompt=prompt, llm=llm)
                     response = llm_chain.run({"query":query, "context":context})
                     return response
-                if st.session_state.llm == "Open-AI":
+                if st.session_state.llm == "Closed-Source":
                     with st.spinner('Getting you information...'):      
                         if query:
                             # Text input handling logic
@@ -2312,7 +2315,7 @@ elif selected_option_case_type == "AML":
                     st.markdown("""<span style="font-size: 24px; ">Summarize key findings of the case.</span>""", unsafe_allow_html=True)
                     st.write()
                     if st.button("Summarize",disabled=st.session_state.disabled):
-                        if st.session_state.llm == "Open-AI":
+                        if st.session_state.llm == "Closed-Source":
                             st.session_state.disabled=False
             
                             summ_dict_gpt = st.session_state.tmp_table_gpt_aml.set_index('Question')['Answer'].to_dict()
@@ -2351,7 +2354,7 @@ elif selected_option_case_type == "AML":
             tmp_table = pd.DataFrame()
 
             try: 
-                if st.session_state.llm == "Open-AI":
+                if st.session_state.llm == "Closed-Source":
                     st.session_state.disabled=False
                     tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt_aml"]], ignore_index=True)
                     tmp_summary.append(st.session_state["tmp_summary_gpt_aml"])
@@ -2436,7 +2439,7 @@ elif selected_option_case_type == "AML":
                 # save document
                 # output_bytes = docx.Document.save(doc, 'output.docx')
                 # st.download_button(label='Download Report', data=output_bytes, file_name='evidence.docx', mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                if st.session_state.llm == "Open-AI":
+                if st.session_state.llm == "Closed-Source":
                     paragraph = doc.add_paragraph()
                     paragraph = doc.add_paragraph()
                     doc.add_heading('SARA Recommendation', level=2)
@@ -2559,7 +2562,7 @@ elif selected_option_case_type == "AML":
                 # st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
                 if generate_button:
 
-                    if st.session_state['llm'] == "Open-AI":
+                    if st.session_state['llm'] == "Closed-Source":
                                 
                         st.write("#### *SARA Recommendation*")
                         # st.markdown("""<span style="font-size: 18px;">*Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:*</span>""", unsafe_allow_html=True)
