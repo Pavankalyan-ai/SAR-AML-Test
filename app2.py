@@ -1803,7 +1803,9 @@ elif selected_option_case_type == "AML":
                 
 
                 with st.spinner('Wait for it...'):
-                    if st.button("Generate Insights",disabled=st.session_state.disabled):
+                    generate_button = st.button("Generate Insights",disabled=st.session_state.disabled)
+
+                    if generate_button:
                         if temp_file_path is not None:
                             # File handling logic
                             _, docsearch = embedding_store(temp_file_path)
