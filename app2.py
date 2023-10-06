@@ -2015,16 +2015,14 @@ elif selected_option_case_type == "AML":
                                     index_ = pd.Series([1,2,3,4,5])
                                     res_df_llama = res_df_llama.set_index([index_])
                                     # st.write(res_df_llama)
-                                    
+                            
                                 except IndexError: 
+                                    
                                     pass
-                                    # e = Exception("")
-                                    # st.exception(e)
-                                
-                                #Display table
+
                                 st.table(res_df_llama)
-                                #copy in session state
                                 st.session_state["tmp_table_llama_aml"] = pd.concat([st.session_state.tmp_table_llama_aml, res_df_llama], ignore_index=True)
+                            
                                 
                                 ## SARA Recommendation
                                 queries ="Please provide the following information from the context: If transaction,disputed amount is above the $5000 threshold,\
