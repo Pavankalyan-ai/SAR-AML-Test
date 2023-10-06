@@ -336,14 +336,14 @@ if "tmp_summary_gpt_aml" not in st.session_state:
 if "tmp_summary_llama_aml" not in st.session_state:
     st.session_state["tmp_summary_llama_aml"] = ''
 if "sara_recommendation_gpt_fd" not in st.session_state:
-    st.session_state["sara_recommendation_gpt"] = ''
+    st.session_state["sara_recommendation_gpt_fd"] = ''
 if "sara_recommendation_llama_fd" not in st.session_state:
-    st.session_state["sara_recommendation_llama"] = ''
+    st.session_state["sara_recommendation_llama_fd"] = ''
 
 if "sara_recommendation_gpt_aml" not in st.session_state:
-    st.session_state["sara_recommendation_gpt"] = ''
+    st.session_state["sara_recommendation_gpt_aml"] = ''
 if "sara_recommendation_llama_aml" not in st.session_state:
-    st.session_state["sara_recommendation_llama"] = ''
+    st.session_state["sara_recommendation_llama_aml"] = ''
 
 if "tmp_narrative_gpt" not in st.session_state:
     st.session_state["tmp_narrative_gpt"] = ''
