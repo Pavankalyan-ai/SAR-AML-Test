@@ -2032,7 +2032,6 @@ elif selected_option_case_type == "AML":
                                     # st.write(res_df_llama)
                             
                                 except IndexError: 
-
                                     pass
 
                                 st.table(res_df_llama)
