@@ -1944,7 +1944,7 @@ elif selected_option_case_type == "AML":
                                 Payments greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
                                 Based the above findings, identify if this can be consider as Money Laundering activity or not.\n\n\
-                                Context: {contexts}\n\
+                                Context: {context_1}\n\
                                 Response (Give your response in pointers.)"
                                 response1 = usellm(prompt) 
 
