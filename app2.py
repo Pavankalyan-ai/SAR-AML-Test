@@ -2204,7 +2204,7 @@ elif selected_option_case_type == "AML":
             tmp_table = pd.DataFrame()
 
             try: 
-                if st.session_state.llm == "Closed-Source":
+                if st.session_state.llm == "Open-AI":
                     st.session_state.disabled=False
                     tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt_aml"]], ignore_index=True)
                     tmp_summary.append(st.session_state["tmp_summary_gpt_aml"])
@@ -2409,7 +2409,7 @@ elif selected_option_case_type == "AML":
 
             with col5_up:   
                 # Adding Radio button
-                # st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
+                st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
                 if generate_button:
 
                     if st.session_state['llm'] == "Closed-Source":
@@ -2433,6 +2433,9 @@ elif selected_option_case_type == "AML":
                         
                         
                         response_sara_gpt = usellm(prompt) 
+                        response_sara_gpt = response_sara_gpt.replace("$", " ")
+                        response_sara_gpt = response_sara_gpt.replace("5,000", "5,000 USD")
+                        response_sara_gpt = response_sara_gpt.replace("5,600", "5,600 USD")
                         st.markdown(f'''<em>{response_sara_gpt}</em>''',unsafe_allow_html=True)
 
                         st.warning('Please carefully review the recommendation and case details before the final submission',icon="⚠️")
@@ -2493,10 +2496,10 @@ elif selected_option_case_type == "AML":
 
 
 # Allow the user to clear all stored conversation sessions
-if st.button("Reset Session"):
-    reset_session_state()
-    st.cache_data.clear()
-#     pdf_files.clear()              
+                if st.button("Reset Session"):
+                    reset_session_state()
+                    st.cache_data.clear()
+                #     pdf_files.clear()              
 
 
 
