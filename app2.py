@@ -2051,9 +2051,7 @@ elif selected_option_case_type == "AML":
                                 #         A potential suspect is identified, Mention of an individual/suspect whose details such as name and address mismatch with customer details and based on the evidence, is this a suspicious activity (Summarize all the questions asked prior to this in a detailed manner),\
                                 #         that is the answer of whether this is a suspicious activity"
                     
-                                queries ="""Please provide the following information from the context: If there is high cash transactions happening of amount >= 10,000 USD value threshold,\or is a high-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively then ,
-                                            (Summarize all the questions asked prior to this in a detailed manner),\
-                                                    that is the answer of whether there is money laundering activity"""
+                                queries ="Is there any Money Laundering Activity or not?
                     
                                 contexts = docsearch.similarity_search(queries, k=5) 
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
