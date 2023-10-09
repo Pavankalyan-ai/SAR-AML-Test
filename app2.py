@@ -1767,7 +1767,13 @@ elif selected_option_case_type == "AML":
                     length_function = len,
                     separators=["\n\n", "\n", " ", ""]
                 )
-                             
+                # try:
+                #     if temp_file_path:
+                #         docs, docsearch = embedding_store(temp_file_path)
+                #     else:
+                #         pass
+                # except Exception:
+                #     pass            
 
                 # Creating header
                 col1,col2 = st.columns(2)
@@ -1830,11 +1836,11 @@ elif selected_option_case_type == "AML":
                                         Context: {context_1}\n\
                                         Response: '''
                                 response = usellm(prompt_1)
-                                query_d="Is there any evidence of unusual activity?"
-                                query_d=f'**{query_d}**'
-                                st.markdown(query_d)
-                                st.write(response)
-                                chat_history_1[query_d] = response
+                                # query_d="Is there any evidence of unusual activity?"
+                                # query_d=f'**{query_d}**'
+                                # st.markdown(query_d)
+                                # st.write(response)
+                                # chat_history_1[query_d] = response
                                 chat_history_1[query] = response
                 
     
@@ -1857,9 +1863,9 @@ elif selected_option_case_type == "AML":
 
                                 response = usellm(prompt_1)
 
-                                query=f'**{query}**'
-                                st.markdown(query)
-                                st.write(response)
+                                # query=f'**{query}**'
+                                # st.markdown(query)
+                                # st.write(response)
                                 chat_history_1[query] = response
 
 
@@ -1879,9 +1885,9 @@ elif selected_option_case_type == "AML":
                                     Response: '''
                   
                                 response = usellm(prompt_1)
-                                query=f'**{query}**'
-                                st.markdown(query)
-                                st.write(response)
+                                # query=f'**{query}**'
+                                # st.markdown(query)
+                                # st.write(response)
                                 chat_history_1[query] = response
 
                                 query = "What is the total amount associated with the money laundering activity?"
@@ -1900,31 +1906,29 @@ elif selected_option_case_type == "AML":
                                             Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
                                 
                                 response = usellm(prompt_1)
-                                query=f'**{query}**'
-                                st.markdown(query)
-                                st.write(response)
+                                # query=f'**{query}**'
+                                # st.markdown(query)
+                                # st.write(response)
                                 chat_history_1[query] = response
 
                         
     
                                 try:
-                                    resp_dict_obj = json.loads(response)
-                                    res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
-                                    # res_df_gpt = pd.DataFrame(list(chat_history_1.items()), columns=['Question','Answer'])
-                                    # res_df_gpt.reset_index(drop=True, inplace=True)
-                                    # index_ = pd.Series([1,2,3,4,5])
-                                    # res_df_gpt = res_df_gpt.set_index([index_])
-                                    ## st.write(res_df_gpt)                          
+                                    res_df_gpt = pd.DataFrame(list(chat_history_1.items()), columns=['Question','Answer'])
+                                    res_df_gpt.reset_index(drop=True, inplace=True)
+                                    index_ = pd.Series([1,2,3,4,5])
+                                    res_df_gpt = res_df_gpt.set_index([index_])
+                                    # st.write(res_df_gpt)                             
                                 except: 
                                     e = Exception("")
                                     st.exception(e)
 
-                                try:
-                                    res_df_gpt.reset_index(drop=True, inplace=True)
-                                    index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
-                                    res_df_gpt = res_df_gpt.set_index([index_])   
-                                except IndexError: 
-                                    pass
+                                # try:
+                                #     res_df_gpt.reset_index(drop=True, inplace=True)
+                                #     index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
+                                #     res_df_gpt = res_df_gpt.set_index([index_])   
+                                # except IndexError: 
+                                #     pass
                                 
                                 #Display table
                                 st.table(res_df_gpt)
@@ -2031,12 +2035,14 @@ elif selected_option_case_type == "AML":
                                     res_df_llama = res_df_llama.set_index([index_])
                                     # st.write(res_df_llama)
                             
-                                except IndexError: 
-                                    pass
+                                 except: 
+                                    e = Exception("")
+                                    st.exception(e)
 
                                 st.table(res_df_llama)
+                                #copy in session state
                                 st.session_state["tmp_table_llama_aml"] = pd.concat([st.session_state.tmp_table_llama_aml, res_df_llama], ignore_index=True)
-                            
+
                                 
                                 ## SARA Recommendation
                                 queries ="Please provide the following information from the context: If transaction,disputed amount is above the $5000 threshold,\
