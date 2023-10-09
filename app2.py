@@ -1936,14 +1936,15 @@ elif selected_option_case_type == "AML":
                                 st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
                                 
                                 ## SARA Recommendation
-                                query ="Is this is a Suspicious activity or not?"
+                                query ="Is there any Money Laundering Activity taking place or not?"
                                 contexts = docsearch.similarity_search(query, k=5) 
-                                prompt = f" You are professional Fraud Analyst. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
-                                    If The transaction/disputed amount > 5,000 USD value threshold, then check below points to address this as a suspicious activity.\n\n\
-                                    1. If Invoice is billed to customer or not. (Customer details can be identified from Cardholder Information)\n\n\
-                                    2. If a potential suspect is identified who made the transaction.\n\n\
-                                    Based the above findings, identify if this can be consider as Suspicious Activity or not.\n\n\
-                                    If transaction/disputed amount is < 5000 USD threshold and no suspicious activity is detected based on above mentioned points, write your response as - There is no indication of suspicious activity.\n\n\
+                                prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
+                                            Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
+                                            Is there abny high-value international transaction is happening ?\n\n\
+                                            Is there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
+                                            Are there any Payments greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                            If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
+                                            Based the above findings, identify if this can be consider as Suspicious Activity or not.\n\n\
                                     Context: {contexts}\n\
                                     Response (Give your response in pointers.)"
                                 response1 = usellm(prompt) 
@@ -2045,20 +2046,17 @@ elif selected_option_case_type == "AML":
 
                                 
                                 ## SARA Recommendation
-                                queries ="Please provide the following information from the context: If transaction,disputed amount is above the $5000 threshold,\
-                                        There is an indication of suspicion with involvement of multiple individuals whose details mismatch with customer details. (Customer details can be identified from Cardholder Information),\
-                                        A potential suspect is identified, Mention of an individual/suspect whose details such as name and address mismatch with customer details and based on the evidence, is this a suspicious activity (Summarize all the questions asked prior to this in a detailed manner),\
-                                        that is the answer of whether this is a suspicious activity"
+                                queries ="Please provide the following information from the context: If there is high cash transactions happening of amount >= 10,000 USD value threshold,\or is a high-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively then ,(Summarize all the questions asked prior to this in a detailed manner), that is the answer of whether there is money laundering activity"
                     
                                 contexts = docsearch.similarity_search(queries, k=5) 
-                                prompt = f" You are professional Fraud Analyst. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
-                                    1. The transaction/disputed amount > 5,000 USD value threshold. \n\n\
-                                    2. There is an indication of suspicion with involvement of multiple individuals/suspect whose details mismatch with customer details. (Customer details can be identified from cardholder's information) \n\n\
-                                    3. If a potential suspect is identified who made the transaction.\n\n\
-                                    Based the above findings, identify if this can be consider as Suspicious Activity or not.\n\n\
-                                    If transaction/disputed amount is < 5000 USD threshold and no suspicious activity is detected based on above mentioned points, write your response as - There is no indication of suspicious activity.\n\n\
-                                    Context: {contexts}\n\
-                                    Response (Give your response in pointers.)"
+                                Prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
+                                                Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
+                                                If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or                         smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
+                                                Payments greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                                If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
+                                                Based the above findings, identify if this can be consider as Suspicious Activity or not.\n\n\
+                                                Context: {contexts}\n\
+                                                Response (Give your response in pointers.)"
                                     
                                                     
                                 response1 = llama_llm(llama_13b,prompt)           
