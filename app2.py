@@ -2035,7 +2035,7 @@ elif selected_option_case_type == "AML":
                                     res_df_llama = res_df_llama.set_index([index_])
                                     # st.write(res_df_llama)
                             
-                                 except: 
+                                except: 
                                     e = Exception("")
                                     st.exception(e)
 
