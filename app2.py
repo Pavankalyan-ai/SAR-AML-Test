@@ -1939,12 +1939,12 @@ elif selected_option_case_type == "AML":
                                 query  = "Is there any Money Laundering Activity or not?"
                                 contexts = docsearch.similarity_search(query , k=5)
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
-                                Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
-                                Is there is a high-value international transaction is happening ? 
-                                Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                                Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
-                                Based the above findings, identify if this can be consider as Money Laundering activity or not.\n\n\
+                                            Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
+                                            Is there is a high-value international transaction is happening ? \n\n\
+                                            Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
+                                            Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                            If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
+                                            Based the above findings, identify if this can be consider as Money Laundering activity or not.\n\n\
                                 Context: {contexts}\n\
                                 Response (Give your response in pointers.)"
                                 response1 = usellm(prompt) 
@@ -2055,12 +2055,12 @@ elif selected_option_case_type == "AML":
                     
                                 contexts = docsearch.similarity_search(queries, k=5) 
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
-                                Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
-                                Is there is a high-value international transaction is happening ? 
-                                Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                                Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
-                                Based the above findings, identify if this can be consider as Money Laundering activity or not.\n\n\
+                                            Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
+                                            Is there is a high-value international transaction is happening ?\n\n\
+                                            Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
+                                            Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                            If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
+                                            Based the above findings, identify if this can be consider as Money Laundering activity or not.\n\n\
                                 Context: {contexts}\n\
                                 Response (Give your response in pointers.)"
                                     
