@@ -1939,9 +1939,10 @@ elif selected_option_case_type == "AML":
                                 query  = "Is there any Money Laundering Activity or not?"
                                 contexts = docsearch.similarity_search(query , k=5)
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
-                                Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
-                                If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or                         smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                                Payments greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
+                                Is there is a high-value international transaction is happening ? 
+                                Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
+                                Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
                                 Based the above findings, identify if this can be consider as Money Laundering activity or not.\n\n\
                                 Context: {contexts}\n\
@@ -2054,9 +2055,10 @@ elif selected_option_case_type == "AML":
                     
                                 contexts = docsearch.similarity_search(queries, k=5) 
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
-                                Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
-                                If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or                         smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                                Payments greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
+                                Is there is a high-value international transaction is happening ? 
+                                Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
+                                Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
                                 Based the above findings, identify if this can be consider as Money Laundering activity or not.\n\n\
                                 Context: {contexts}\n\
@@ -2425,10 +2427,10 @@ elif selected_option_case_type == "AML":
                         context_1 = docsearch.similarity_search(query, k=5)
                         prompt = f'''Act as a Money Laundering specialist and give concise answer to the question, with given Context.\n\n\
                         which is a document that financial institutions must file with the Financial Crimes Enforcement Network (FinCEN) based on the Bank Secrecy Act whenever there is a Money Laundering Activity.\n\n\
-                        If there is cash transactions happening  of > 10000 USD value threshold, then check below points to address this as a Money Laundering activity:
-                        1.If the transactions are happening regularly or happening more than 2 times \n\n\
-                        2. Payments greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.). \n\n\
-                        If cash transactions amount is < 10000 USD threshold and no money laundering activity is detected based on above mentioned points, write your response as - There is no indication of Money laundering activity.Therefore,no requirement to file SAR with FinCEN.\n\n\
+                        If there are cash transactions happening  of >= 10000 USD value threshold, then check below points to address this as a Money Laundering activity:
+                        1. for that account If the cash transactions of >= 10000 USD value threshold happening twice or more \n\n\
+                        2. Is the transaction greater than or equal to $10000 is made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.). \n\n\
+                        ## If cash transactions amount is < 10000 USD threshold and no money laundering activity is detected based on above mentioned points, write your response as - There is no indication of Money laundering activity.Therefore,no requirement to file SAR with FinCEN.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\                      
                                 Response: (Based on your analysis give a concise response in pointers.Mention whom to file based on Bank Secrecy Act.)'''
@@ -2449,10 +2451,10 @@ elif selected_option_case_type == "AML":
                         context_1 = docsearch.similarity_search(query, k=5)
                         prompt = f'''Act as a Money Laundering specialist and give concise answer to the question, with given Context.\n\n\
                         which is a document that financial institutions must file with the Financial Crimes Enforcement Network (FinCEN) based on the Bank Secrecy Act whenever there is a Money Laundering Activity.\n\n\
-                        If there is cash transactions happening  of > 10000 USD value threshold, then check below points to address this as a Money Laundering activity:
-                        1.If the transactions are happening regularly or happening more than 2 times \n\n\
-                        2. Payments greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.). \n\n\
-                        If cash transactions amount is < 10000 USD threshold and no money laundering activity is detected based on above mentioned points, write your response as - There is no indication of Money laundering activity.Therefore,no requirement to file SAR with FinCEN.\n\n\
+                        If there are cash transactions happening  of >= 10000 USD value threshold, then check below points to address this as a Money Laundering activity:
+                        1. for that account If the cash transactions of >= 10000 USD value threshold happening twice or more \n\n\
+                        2. Is the transaction greater than or equal to $10000 is made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.). \n\n\
+                        ## If cash transactions amount is < 10000 USD threshold and no money laundering activity is detected based on above mentioned points, write your response as - There is no indication of Money laundering activity.Therefore,no requirement to file SAR with FinCEN.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\                         
                                 Response: (Give me a concise response in points.)'''
