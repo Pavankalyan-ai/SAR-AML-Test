@@ -1963,7 +1963,7 @@ elif selected_option_case_type == "AML":
     
                                 query = "Is there any potential Money Laundering activity based on the transaction statements?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering. 
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to detect is there any Money-laundering activity taking place or not. 
                                 A Money laundering activity can be detected if any of the following transaction patterns is observed-:
                                 1) If there are multiple transactions happening, greater than or equal to $10,000 in a short span of time.
                                 2) If there is a high-value international transaction happening which involves a high risk geographical location.
@@ -1980,12 +1980,12 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
-                                Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
-                                If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or                         smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                                Payments greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
-                                Based the above findings, identify if this can be consider as Money Laundering activity or not.\n\n\
+                                prompt = f" You Are an Anti-Money Laundering Specialist and your goal is to detect is there any Money-laundering activity taking place or not. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
+                                1.) Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
+                                2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or                         smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
+                                3.) Are there any Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                4.) If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
+                                Based the above findings, identify if this can be consider as a potential Money Laundering activity or not.\n\n\
                                 Context: {context_1}\n\
                                 Response (Give your response in pointers.)"
 
@@ -2006,9 +2006,8 @@ elif selected_option_case_type == "AML":
                             
                                 query = "What type of Money laundering activity is taking place?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, give the \
-                                            type of money laundering activity that is taking place based on the transaction \
-                                            patterns observed. The type may include Layering, Structuring, Round-tripping etc. \
+                                prompt_1 =  f'''You Are an Anti-Money Laundering Specialist and your goal is to detect is there any Money-laundering activity taking place or not., give the type of money laundering activity that is taking place based on the transaction patterns observed.\
+                                            The type may include Layering, Structuring, Round-tripping etc. \
                                             Look carefully into the transactions statement and give a precise answer with explanation of why you think a specific type of money laundering is happening..\n\n\
                                             Context: {context_1}\n\
                                             Response: (Give me a concise response in not more than 50 words.Do not give me any Explanation,Note)'''
