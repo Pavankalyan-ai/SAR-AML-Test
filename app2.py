@@ -1980,14 +1980,14 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt = f" You Are an Anti-Money Laundering Specialist and your goal is to detect is there any Money-laundering activity taking place or not. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
-                                1.) Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
-                                2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or                         smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                                3.) Are there any Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                4.) If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
-                                Based the above findings, identify if this can be consider as a potential Money Laundering activity or not.\n\n\
-                                Context: {context_1}\n\
-                                Response (Give your response in pointers.)"
+                                prompt_1 = f" You Are an Anti-Money Laundering Specialist and your goal is to detect is there any Money-laundering activity taking place or not. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
+                                            1.) Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
+                                            2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or                         smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
+                                            3.) Are there any Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                            4.) If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
+                                            Based the above findings, identify if this can be consider as a potential Money Laundering activity or not.\n\n\
+                                            Context: {context_1}\n\
+                                            Response (Give your response in pointers.)"
 
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
@@ -2045,6 +2045,7 @@ elif selected_option_case_type == "AML":
 
                                 
                                 ## SARA Recommendation
+                                
                                 # queries ="Please provide the following information from the context: If transaction,disputed amount is above the $5000 threshold,\
                                 #         There is an indication of suspicion with involvement of multiple individuals whose details mismatch with customer details. (Customer details can be identified from Cardholder Information),\
                                 #         A potential suspect is identified, Mention of an individual/suspect whose details such as name and address mismatch with customer details and based on the evidence, is this a suspicious activity (Summarize all the questions asked prior to this in a detailed manner),\
