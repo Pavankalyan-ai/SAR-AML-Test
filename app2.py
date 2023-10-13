@@ -1963,16 +1963,16 @@ elif selected_option_case_type == "AML":
     
                                 query = "Is there any potential Money Laundering activity based on the transaction statements?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to detect is there any Money-laundering activity taking place or not. 
-                                A Money laundering activity can be detected if any of the following transaction patterns is observed-:
-                                1) If there are multiple transactions happening, greater than or equal to $10,000 in a short span of time.
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to detect if there is any Money-laundering activity taking place or not. 
+                                A Money laundering activity can be detected if any of the following debited or credit transactions is observed-:
+                                1) If there are multiple cash transactions of greater than or equal to USD 10,000 in a short span of time.
                                 2) If there is a high-value international transaction happening which involves a high risk geographical location.
                                 3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
-                                the transactions statement.
+                                the transactions statements provided.
                                 Provide your response as Yes if there is a hint of Money being Laundered considering all of the factors above.\n\n\
                                         Question: {query}\n\
                                         Context: {context_1}\n\
-                                        Response: (Give me response in one sentence. Do not give me any Explanation or Note)'''
+                                        Response: (Output the response as an Anti-Money Laundering Specialist about whether the activity is taking place or not)'''
                             
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
@@ -1987,7 +1987,7 @@ elif selected_option_case_type == "AML":
                                             4.) If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
                                             Based the above findings, identify if this can be consider as a potential Money Laundering activity or not.\n\n\
                                             Context: {context_1}\n\
-                                            Response (Give your response in pointers.)"
+                                            Response (Output only the transactions and only if the transactions are observed )"
 
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
