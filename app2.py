@@ -112,8 +112,8 @@ os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
 llama_13b = HuggingFaceHub(
             repo_id="meta-llama/Llama-2-13b-chat-hf",
             model_kwargs={"temperature":0.01, 
-                       # "min_new_tokens":100, 
-                        "max_new_tokens":200})
+                        "min_new_tokens":100, 
+                        "max_new_tokens":500})
 
 memory = ConversationSummaryBufferMemory(llm= llama_13b, max_token_limit=500)
 conversation = ConversationChain(llm= llama_13b, memory=memory,verbose=False)
@@ -2045,7 +2045,7 @@ elif selected_option_case_type == "AML":
 
                                 
                                 ## SARA Recommendation
-                                
+
                                 # queries ="Please provide the following information from the context: If transaction,disputed amount is above the $5000 threshold,\
                                 #         There is an indication of suspicion with involvement of multiple individuals whose details mismatch with customer details. (Customer details can be identified from Cardholder Information),\
                                 #         A potential suspect is identified, Mention of an individual/suspect whose details such as name and address mismatch with customer details and based on the evidence, is this a suspicious activity (Summarize all the questions asked prior to this in a detailed manner),\
