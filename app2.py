@@ -112,8 +112,8 @@ os.environ["HUGGINGFACEHUB_API_TOKEN"] = st.secrets["HUGGINGFACEHUB_API_TOKEN"]
 llama_13b = HuggingFaceHub(
             repo_id="meta-llama/Llama-2-13b-chat-hf",
             model_kwargs={"temperature":0.01, 
-                        "min_new_tokens":100, 
-                        "max_new_tokens":500})
+                       # "min_new_tokens":100, 
+                        "max_new_tokens":200})
 
 memory = ConversationSummaryBufferMemory(llm= llama_13b, max_token_limit=500)
 conversation = ConversationChain(llm= llama_13b, memory=memory,verbose=False)
@@ -1747,7 +1747,7 @@ elif selected_option_case_type == "AML":
                 
                 # Memory setup for gpt-3.5
                 llm = ChatOpenAI(temperature=0.1)
-                memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=500)
+                memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=200)
                 conversation = ConversationChain(llm=llm, memory =memory,verbose=False)
                 
         
