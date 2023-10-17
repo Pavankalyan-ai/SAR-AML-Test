@@ -30,7 +30,7 @@ from usellm import Message, Options, UseLLM
 from huggingface_hub import login
 import os
 import openai
-from IPython.display import display, Markdown
+#from IPython.display import display, Markdown
 #openai.api_key = "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"
 # import cv2
 # import pdfplumber
@@ -104,8 +104,8 @@ def get_response(messages: str, model: str = "gpt-3.5-turbo") -> str:
 def wrap_prompt(message: str, role: str) -> dict:
     return {"role": role, "content": message}
 @st.cache_data
-def m_print(message: str) -> str:
-    display(Markdown(message["choices"][0]["message"]["content"]))
+#def m_print(message: str) -> str:
+#   display(Markdown(message["choices"][0]["message"]["content"]))
 
 
 @st.cache_data
