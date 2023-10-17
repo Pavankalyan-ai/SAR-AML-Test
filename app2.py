@@ -1614,7 +1614,7 @@ elif selected_option_case_type == "AML":
         ## Defining some global varibales for AML
         directoty_path = "aml_docs/"
         fetched_files = read_pdf_files(directoty_path)
-        directory_files_path=[]
+        #directory_files_path=[]
         # for i in fetched_files:
         #     file="/kaggle/input/aml-docs/"+i
         #     directory_files_path.append(file)
