@@ -329,6 +329,36 @@ def convert_scanned_pdf_to_searchable_pdf(input_file):
     
     return text
 
+directoty_path = "aml_docs/"
+fetched_files = read_pdf_files(directoty_path)
+directory_files_path=[]
+for i in fetched_files:
+    file="/kaggle/input/aml-docs/"+i
+    directory_files_path.append(file)
+textfiles=[]
+for i in directory_files_path:
+    list1=[i,]
+    e=embedding_store(list1)
+    textfiles.append(e)
+# Modify and add inverted commas at the start and end
+prompt_toadd = "Your goal is to identify potential money laundering data from the input transactions data provided of the customer. Output the suspicious data that you find can be realted to any money laundering Activty. Strictly output information from the given Data"
+modified_conditions = ['"""' + prompt_toadd + text + '"""' for text in textfiles]
+# Initialize an array to store results
+results_textdata = []
+
+# Loop through modified_conditions
+for condition in modified_conditions:
+    system_prompt = wrap_prompt("You are an Anti Money Laundering Specialist", "system")
+    user_prompt = wrap_prompt(condition, "user")
+    openai_response = get_response([system_prompt, user_prompt])
+    results_textdata.append(openai_response['choices'][0]['message']['content'])
+
+f_text_data=[]
+for i in results_textdata:
+    f_text_data.append(i)
+
+
+
 
 # Setting globals
 if "visibility" not in st.session_state:
