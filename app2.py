@@ -28,6 +28,9 @@ from io import StringIO
 from io import BytesIO
 from usellm import Message, Options, UseLLM
 from huggingface_hub import login
+import os
+import openai
+from IPython.display import display, Markdown
 # import cv2
 # import pdfplumber
 # import pytesseract
@@ -88,6 +91,20 @@ def merge_pdfs(pdf_list):
     pdf_merger.write(output_pdf)
     pdf_merger.close()
     return output_pdf
+
+@st.cache_data
+openai.api_key = "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"
+def get_response(messages: str, model: str = "gpt-3.5-turbo") -> str:
+    return openai.ChatCompletion.create(
+        model=model,
+        messages=messages
+    )
+@st.cache_data
+def wrap_prompt(message: str, role: str) -> dict:
+    return {"role": role, "content": message}
+@st.cache_data
+def m_print(message: str) -> str:
+    display(Markdown(message["choices"][0]["message"]["content"]))
 
 
 @st.cache_data
@@ -185,10 +202,10 @@ def embedding_store(pdf_files):
         text += "\n\n"+ text_buffer.getvalue()
         text_buffer.close()
         
-    texts =  text_splitter.split_text(text)
-    docs = text_to_docs(texts)
-    docsearch = FAISS.from_documents(docs, hf_embeddings)
-    return docs, docsearch
+    # texts =  text_splitter.split_text(text)
+    # docs = text_to_docs(texts)
+    # docsearch = FAISS.from_documents(docs, hf_embeddings)
+    return text
     
 @st.cache_data
 def merge_and_extract_text(pdf_list):
@@ -1564,9 +1581,37 @@ elif selected_option_case_type == "AML":
         st.markdown("---")
         
         ## Defining some global varibales for AML
-        directoty_path = "ml_doc/"
+        directoty_path = "aml_docs/"
         fetched_files = read_pdf_files(directoty_path)
+        directory_files_path=[]
+        for i in fetched_files:
+            file="/kaggle/input/aml-docs/"+i
+            directory_files_path.append(file)
+        textfiles=[]
+        for i in directory_files_path:
+            list1=[i,]
+            e=embedding_store(list1)
+            textfiles.append(e)
+        # Modify and add inverted commas at the start and end
+        prompt_toadd = "Your goal is to identify potential money laundering data from the input transactions data provided of the customer. Output the suspicious data that you find can be realted to any money laundering Activty. Strictly output information from the given Data"
+        modified_conditions = ['"""' + prompt_toadd + text + '"""' for text in textfiles]
+        # Initialize an array to store results
+        results_textdata = []
 
+        # Loop through modified_conditions
+        for condition in modified_conditions:
+            system_prompt = wrap_prompt("You are an Anti Money Laundering Specialist", "system")
+            user_prompt = wrap_prompt(condition, "user")
+            openai_response = get_response([system_prompt, user_prompt])
+            results_textdata.append(openai_response['choices'][0]['message']['content'])
+        
+        f_text_data=[]
+        for i in results_textdata:
+            f_text_data.append(i)
+
+
+    
+    
 
 
         if selected_option:
@@ -1822,7 +1867,7 @@ elif selected_option_case_type == "AML":
                                 chat_history_1 = {}
     
                                 query = "Is there any Money Laundering activity based on the transaction statements?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = f_text_data
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                 You sholud closely look into the credit card transaction statement as well as savings account transaction statement collectively and evaluate \
                                 them together to check for any potential suspicious money laundering activities. \n
@@ -1845,7 +1890,7 @@ elif selected_option_case_type == "AML":
                 
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = f_text_data
                                 prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, Identify the transactions \
                                             that can be potentially associated with Money Laundering activity both from Credit Card \
                                             transaction statement as well as savings account statement collectively. \n
@@ -1870,7 +1915,7 @@ elif selected_option_case_type == "AML":
 
 
                                 query = "What type of Money laundering activity is taking place?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = f_text_data
                                     # prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, give the \
                                     #             type of money laundering activity that is taking place based on the transaction \
                                     #             patterns observed in credit card and savings account transaction statements combined. The type may include Layering, Structuring, Round-tripping, etc. \
@@ -1891,7 +1936,7 @@ elif selected_option_case_type == "AML":
                                 chat_history_1[query] = response
 
                                 query = "What is the total amount associated with the money laundering activity?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = f_text_data
                                 prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, Identify the transactions \
                                             that can be potentially associated with the Money Laundering activity both from Credit Card transaction statement as well as savings account statements collectively. \n
                                             Money laundering transactions often involve characteristics like large cash deposits greater than or equal to $10,000, \
@@ -1937,7 +1982,7 @@ elif selected_option_case_type == "AML":
                                 
                                 ## SARA Recommendation
                                 query  = "Is there any Money Laundering Activity or not?"
-                                contexts = docsearch.similarity_search(query , k=5)
+                                contexts = f_text_data
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
                                             Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
                                             Is there is a high-value international transaction is happening ? \n\n\
