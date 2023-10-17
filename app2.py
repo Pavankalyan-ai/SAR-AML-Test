@@ -239,7 +239,7 @@ def process_files_and_generate_responses(fetched_files):
     textfiles = []
 
     for i in fetched_files:
-        file = "/kaggle/input/aml-docs/" + i
+        file = "aml_docs/" + i
         directory_files_path.append(file)
 
     for i in directory_files_path:
@@ -1620,9 +1620,9 @@ elif selected_option_case_type == "AML":
         ## Defining some global varibales for AML
         directoty_path="ml_doc/"
         fetched_files = read_pdf_files(directoty_path)
-        # directoty_path1 = "aml_docs/"
-        # fetched_files2 = read_pdf_files(directoty_path1)
-        # text_data_=process_files_and_generate_responses(fetched_files2)
+        directoty_path1 = "aml_docs/"
+        fetched_files2 = read_pdf_files(directoty_path1)
+        text_data_=process_files_and_generate_responses(fetched_files2)
         
 
 
