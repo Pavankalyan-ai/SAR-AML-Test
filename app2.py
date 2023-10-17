@@ -31,6 +31,7 @@ from huggingface_hub import login
 import os
 import openai
 from IPython.display import display, Markdown
+#openai.api_key = "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"
 # import cv2
 # import pdfplumber
 # import pytesseract
@@ -93,7 +94,7 @@ def merge_pdfs(pdf_list):
     return output_pdf
 
 @st.cache_data
-openai.api_key = "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"
+
 def get_response(messages: str, model: str = "gpt-3.5-turbo") -> str:
     return openai.ChatCompletion.create(
         model=model,
@@ -114,7 +115,7 @@ def usellm(prompt):
     """
     service = UseLLM(service_url="https://usellm.org/api/llm")
     messages = [
-      Message(role="system", content="You are a fraud analyst, who is an expert at finding out suspicious activities"),
+      Message(role="system", content="You are a Money Laundering Specialist, who is an expert at finding out suspicious activities"),
       Message(role="user", content=f"{prompt}"),
       ]
     options = Options(messages=messages)
