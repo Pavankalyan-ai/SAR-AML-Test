@@ -1891,20 +1891,15 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = f_text_data
-                                prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, Identify the transactions \
-                                            that can be potentially associated with Money Laundering activity both from Credit Card \
-                                            transaction statement as well as savings account statement collectively. \n
-                                            Money laundering transactions often involve characteristics like large cash deposits greater than or equal to $10,000 \
-                                            Payments greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)\
-                                            transactions involving movement of funds to or from high-risk locations(Ex- Mauritious, Syria, Nigeria,etc.) \
-                                            and are greater than $10000, any suspicion of money laundered via structuring , layering or intergration, process, \
-                                            Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt, etc\n
-                                            Only include transactions which are greater than or equal to 10000$ from both the accounts in your response. \n
-                                            Give all such suspicious transactions grouped by transaction type(Credit card, savings account,etc.) \
-                                            along with dates, amounts from the context as your response \
-                                            Do not include any credit card payment transaction (Ex- Towards ABC Credit Card payment) from savings account transaction statement in your response. Also, Do not repeat the above information and provide to the point response.\n\n
-                                            Context: {context_1}\n\
-                                            Response: (Give me a concise response .Do not give me any Explanation,Note, etc.)'''
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
+                                1.) Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
+                                2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
+                                3.) Are there any Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                4.) If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
+                                Based on the above considerations , identify potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Question: {query}\n\
+                                Context: {context_1}\n\
+                                Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
 
@@ -1924,11 +1919,12 @@ elif selected_option_case_type == "AML":
                                     #             Response: '''
 
                                 prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observed the transaction pattern from both the credit card and savings account transaction statements \
-                                    combined and give the type of money laundering activity that is taking place. The type may include Structuring or smurfing, layering, round tripping, etc.\ 
-                                    give a precise answer with explanation of why you think a specific type of money laundering is happening.\n\n
-                                    Context: {context_1}\n\
-                                    Response: '''
-                  
+                                combined and give the type of money laundering activity that is taking place. The type may include Structuring or smurfing, layering, round tripping, etc.\ 
+                                give a precise answer with explanation of why you think a specific type of money laundering is happening.\n\n
+                                Question: {query}\n\
+                                Context: {context_1}\n\
+                                Response: (Give me a concise response in one sentence. Do not give me any Explanation or Note etc)'''
+
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
                                 # st.markdown(query)
@@ -1937,19 +1933,14 @@ elif selected_option_case_type == "AML":
 
                                 query = "What is the total amount associated with the money laundering activity?"
                                 context_1 = f_text_data
-                                prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, Identify the transactions \
-                                            that can be potentially associated with the Money Laundering activity both from Credit Card transaction statement as well as savings account statements collectively. \n
-                                            Money laundering transactions often involve characteristics like large cash deposits greater than or equal to $10,000, \
-                                            Payments greater than or equal to 10000$ to an unrecognized entity with no specific  business purpose, \ 
-                                            , transactions involving movement of funds to or from high-risk locations(Ex- Mauritious, Syria, Nigeria,etc.) and are greater than 10000$, any suspicion of money laundered via structuring , layering or intergration, process, \
-                                            Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt, etc\n \n
-                                            Only include transactions which are greater than or equal to 10,000$ in your response. \n
-                                            Add the dollar amount associated with all such suspicious transactions to get the total amount associated \
-                                            with the money laundering activity.
-                                            Only include the total amount in your response .\n\n\
+                                prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, give the total amount \
+                                            associated with money laundering activity that is taking place Based on the \
+                                            transaction statement, for getting the total amount, you can add all the money laundering \
+                                            transactions amount.\n\n\
                                             Context: {context_1}\n\
+                                            Question: {query}\n\
                                             Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
-                                
+
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
                                 # st.markdown(query)
@@ -1984,15 +1975,17 @@ elif selected_option_case_type == "AML":
                                 query  = "Is there any Money Laundering Activity or not?"
                                 contexts = f_text_data
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
+                                            Considerations that suggests money laundering activities are: \n\n\
                                             Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
-                                            Is there is a high-value international transaction is happening ? \n\n\
+                                            Is there is a high-value international transaction is happening ?\n\n\
                                             Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
                                             Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                            If there are Cash deposits greater than or equal to 10000$ with source of funds not clear used to pay off credit card debt,\n\n\
-                                            Based the above findings, identify if this can be consider as Money Laundering activity or not.\n\n\
+                                            If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
+                                            Taking above considerations and Based only on the available information, Give a concise recommendation as to if this is a Money Laundering activity or not?.\n\n\
                                 Context: {contexts}\n\
-                                Response (Give your response in pointers.)"
-                                response1 = usellm(prompt) 
+                                Question: {query}\n\
+                                Response (Give me a concise response.)"
+                                response1 = usellm(prompt)
 
 
                                 st.session_state["sara_recommendation_gpt_aml"] = response1                
