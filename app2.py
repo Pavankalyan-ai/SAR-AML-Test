@@ -1620,8 +1620,9 @@ elif selected_option_case_type == "AML":
         ## Defining some global varibales for AML
         directoty_path="ml_doc/"
         directoty_path1 = "aml_docs/"
-        fetched_files = read_pdf_files(directoty_path1)
-        text_data_=process_files_and_generate_responses(fetched_files=fetched_files)
+        fetched_files = read_pdf_files(directoty_path)
+        fetched_files2 = read_pdf_files(directoty_path1)
+        text_data_=process_files_and_generate_responses(fetched_files2)
         
 
 
