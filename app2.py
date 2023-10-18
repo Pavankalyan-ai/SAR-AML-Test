@@ -1852,6 +1852,7 @@ elif selected_option_case_type == "AML":
                     df_fixed = pd.DataFrame(data)
                     df_fixed.index = df_fixed.index +1
                 with col2:
+
                     # Create a checkbox to show/hide the table
                     cols1, cols2, cols3, cols4 = st.columns([1,1,1,1])
                     with cols1:
@@ -1870,7 +1871,21 @@ elif selected_option_case_type == "AML":
                         df_fixed["S.No."] = df_fixed.index
                         df_fixed = df_fixed.loc[:,['S.No.','Questions']]
                         st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
-                
+                query = "Is there any Money Laundering activity based on the transaction statements?"
+                context_1 = text_data_
+                prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
+                You sholud closely look into the credit card transaction statement as well as savings account transaction statement collectively and evaluate \
+                them together to check for any potential suspicious money laundering activities. \n
+                A Money laundering activity can be detected if any of the following transaction patterns is observed-:
+                1) If there are cash transactions happening, greater than or equal to $10,000.
+                2) If there is a high-value international transaction happening which involves movement of funds to or from a high risk geographical location(Ex- Mauritious, Syria, Nigeria,etc.).
+                3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
+                the credit card and savings bank account transactions statements collectively.
+                Provide your response as Yes if there is a hint of Money being Laundered considering all of the factors above.\n\n\
+                        Question: {query}\n\
+                        Context: {context_1}\n\
+                        Response: '''
+                response = usellm(prompt_1)
 
                 with st.spinner('Wait for it...'):
                     generate_button = st.button("Generate Insights",disabled=st.session_state.disabled)
