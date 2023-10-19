@@ -91,21 +91,8 @@ def merge_pdfs(pdf_list):
     output_pdf = BytesIO()
     pdf_merger.write(output_pdf)
     pdf_merger.close()
+  
     return output_pdf
-
-@st.cache_data
-
-def get_response(messages: str, model: str = "gpt-3.5-turbo") -> str:
-    return openai.ChatCompletion.create(
-        model=model,
-        messages=messages
-    )
-@st.cache_data
-def wrap_prompt(message: str, role: str) -> dict:
-    return {"role": role, "content": message}
-@st.cache_data
-#def m_print(message: str) -> str:
-#   display(Markdown(message["choices"][0]["message"]["content"]))
 
 
 @st.cache_data
@@ -115,7 +102,7 @@ def usellm(prompt):
     """
     service = UseLLM(service_url="https://usellm.org/api/llm")
     messages = [
-      Message(role="system", content="You are a Money Laundering Specialist, who is an expert at finding out suspicious activities"),
+      Message(role="system", content="You are a financial analyst, who is an expert at giving responses based on the context."),
       Message(role="user", content=f"{prompt}"),
       ]
     options = Options(messages=messages)
@@ -239,7 +226,7 @@ def process_files_and_generate_responses(fetched_files):
     textfiles = []
 
     for i in fetched_files:
-        file = "aml_docs/" + i
+        file = "ml_doc/" + i
         directory_files_path.append(file)
 
     for i in directory_files_path:
@@ -1585,6 +1572,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
 
 ### AML code started
+
 elif selected_option_case_type == "AML":
     st.markdown("### :blue[Anti-Money Laundering]")
     
@@ -1620,9 +1608,9 @@ elif selected_option_case_type == "AML":
         ## Defining some global varibales for AML
         # directoty_path="ml_doc/"
         # fetched_files = read_pdf_files(directoty_path)
-        directoty_path = "aml_docs/"
+        directoty_path = "ml_doc/"
         fetched_files = read_pdf_files(directoty_path)
-        text_data_ = process_files_and_generate_responses(fetched_files)
+        #text_data_ = process_files_and_generate_responses(fetched_files)
         
 
 
@@ -1781,7 +1769,7 @@ elif selected_option_case_type == "AML":
                 for fetched_pdf in fetched_files:
                     file_ext = ("pdf","xlsx")
                     if fetched_pdf.endswith(file_ext):
-                        file_pth = os.path.join('aml_docs/', fetched_pdf)
+                        file_pth = os.path.join('ml_doc/', fetched_pdf)
                         # st.write(file_pth)
                         temp_file_path.append(file_pth) 
                     else:
@@ -1871,21 +1859,21 @@ elif selected_option_case_type == "AML":
                         df_fixed["S.No."] = df_fixed.index
                         df_fixed = df_fixed.loc[:,['S.No.','Questions']]
                         st.markdown(df_fixed.style.hide(axis="index").to_html(), unsafe_allow_html=True)
-                query = "Is there any Money Laundering activity based on the transaction statements?"
-                context_1 = text_data_
-                prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
-                You sholud closely look into the credit card transaction statement as well as savings account transaction statement collectively and evaluate \
-                them together to check for any potential suspicious money laundering activities. \n
-                A Money laundering activity can be detected if any of the following transaction patterns is observed-:
-                1) If there are cash transactions happening, greater than or equal to $10,000.
-                2) If there is a high-value international transaction happening which involves movement of funds to or from a high risk geographical location(Ex- Mauritious, Syria, Nigeria,etc.).
-                3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
-                the credit card and savings bank account transactions statements collectively.
-                Provide your response as Yes if there is a hint of Money being Laundered considering all of the factors above.\n\n\
-                        Question: {query}\n\
-                        Context: {context_1}\n\
-                        Response: '''
-                response = usellm(prompt_1)
+                # query = "Is there any Money Laundering activity based on the transaction statements?"
+                # context_1 = text_data_
+                # prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
+                # You sholud closely look into the credit card transaction statement as well as savings account transaction statement collectively and evaluate \
+                # them together to check for any potential suspicious money laundering activities. \n
+                # A Money laundering activity can be detected if any of the following transaction patterns is observed-:
+                # 1) If there are cash transactions happening, greater than or equal to $10,000.
+                # 2) If there is a high-value international transaction happening which involves movement of funds to or from a high risk geographical location(Ex- Mauritious, Syria, Nigeria,etc.).
+                # 3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
+                # the credit card and savings bank account transactions statements collectively.
+                # Provide your response as Yes if there is a hint of Money being Laundered considering all of the factors above.\n\n\
+                #         Question: {query}\n\
+                #         Context: {context_1}\n\
+                #         Response: '''
+                # response = usellm(prompt_1)
 
                 with st.spinner('Wait for it...'):
                     generate_button = st.button("Generate Insights",disabled=st.session_state.disabled)
@@ -1898,7 +1886,7 @@ elif selected_option_case_type == "AML":
                                 chat_history_1 = {}
     
                                 query = "Is there any Money Laundering activity based on the transaction statements?"
-                                context_1 = text_data_
+                                context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                 You sholud closely look into the credit card transaction statement as well as savings account transaction statement collectively and evaluate \
                                 them together to check for any potential suspicious money laundering activities. \n
@@ -1921,7 +1909,7 @@ elif selected_option_case_type == "AML":
                 
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
-                                context_1 = text_data_
+                                context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
                                 1.) Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
                                 2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
@@ -1941,7 +1929,7 @@ elif selected_option_case_type == "AML":
 
 
                                 query = "What type of Money laundering activity is taking place?"
-                                context_1 = text_data_
+                                context_1 = docsearch.similarity_search(query, k=5)
                                   
 
                                 prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observed the transaction pattern from both the credit card and savings account transaction statements \
@@ -1958,7 +1946,7 @@ elif selected_option_case_type == "AML":
                                 chat_history_1[query] = response
 
                                 query = "What is the total amount associated with the money laundering activity?"
-                                context_1 = text_data_
+                                context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, give the total amount \
                                             associated with money laundering activity that is taking place Based on the \
                                             transaction statement, for getting the total amount, you can add all the money laundering \
@@ -1999,7 +1987,7 @@ elif selected_option_case_type == "AML":
                                 
                                 ## SARA Recommendation
                                 query  = "Is there any Money Laundering Activity or not?"
-                                contexts = text_data_
+                                contexts = docsearch.similarity_search(query, k=5)
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
                                             Considerations that suggests money laundering activities are: \n\n\
                                             Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
@@ -2026,7 +2014,7 @@ elif selected_option_case_type == "AML":
                                 chat_history = {}
     
                                 query = "Is there any potential Money Laundering activity based on the transaction statements?"
-                                context_1 = text_data_
+                                context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                 You sholud closely look into the credit card transaction statement as well as savings account transaction statement collectively and evaluate \
                                 them together to check for any potential suspicious money laundering activities. \n
@@ -2044,7 +2032,7 @@ elif selected_option_case_type == "AML":
                   
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
-                                context_1 = text_data_
+                                context_1 = docsearch.similarity_search(query, k=5)_
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
                                 1.) Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
                                 2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
@@ -2072,7 +2060,7 @@ elif selected_option_case_type == "AML":
                                 # chat_history[query] = response
                             
                                 query = "What type of Money laundering activity is taking place?"
-                                context_1 = text_data_
+                                context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observed the transaction pattern from both the credit card and savings account transaction statements \
                                 combined and give the type of money laundering activity that is taking place. The type may include Structuring or smurfing, layering, round tripping, etc.\ 
                                 give a precise answer with explanation of why you think a specific type of money laundering is happening.\n\n
@@ -2085,7 +2073,7 @@ elif selected_option_case_type == "AML":
                                 chat_history[query] = response
 
                                 query = "What is the total amount associated with the money laundering activity?"
-                                context_1 = text_data_
+                                context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, give the total amount \
                                             associated with money laundering activity that is taking place Based on the \
                                             transaction statement, for getting the total amount, you can add all the money laundering \
@@ -2124,7 +2112,7 @@ elif selected_option_case_type == "AML":
                     
                                 queries ="Is there any Money Laundering Activity or not?"
                     
-                                contexts = text_data_
+                                contexts = docsearch.similarity_search(query, k=5)
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
                                             Considerations that suggests money laundering activities are: \n\n\
                                             Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
@@ -2449,7 +2437,7 @@ elif selected_option_case_type == "AML":
 
                     for fetched_pdf in fetched_files:
                         # st.write(fetched_pdf)
-                        file_pth = os.path.join('aml_docs/', fetched_pdf)
+                        file_pth = os.path.join('ml_doc/', fetched_pdf)
                         # st.write(file_pth)
                         file_paths.append(file_pth)
 
