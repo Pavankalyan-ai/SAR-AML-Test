@@ -2293,7 +2293,7 @@ elif selected_option_case_type == "AML":
             tmp_table = pd.DataFrame()
 
             try: 
-                if st.session_state.llm == "Open-AI":
+                if st.session_state.llm == "Closed-Source":
                     st.session_state.disabled=False
                     tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt_aml"]], ignore_index=True)
                     tmp_summary.append(st.session_state["tmp_summary_gpt_aml"])
@@ -2394,8 +2394,10 @@ elif selected_option_case_type == "AML":
 
                 bio = io.BytesIO()
                 doc.save(bio)
-            except NameError:
-                pass
+            except:
+                    
+                    e = Exception("")
+                    st.exception(e)
 
             
             
@@ -2500,6 +2502,7 @@ elif selected_option_case_type == "AML":
                 # Adding Radio button
                 st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
                 if generate_button:
+                    text_data_doc = process_files_and_generate_responses(fetched_files)
 
                     if st.session_state['llm'] == "Closed-Source":
                                 
@@ -2507,9 +2510,9 @@ elif selected_option_case_type == "AML":
                         # st.markdown("""<span style="font-size: 18px;">*Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:*</span>""", unsafe_allow_html=True)
                         # st.markdown("""<span style="font-size: 18px;">*1. Transaction amount is above the $5,000 value threshold*</span>""", unsafe_allow_html=True)
                         # st.markdown("""<span style="font-size: 18px;">*2. There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect*.</span>""", unsafe_allow_html=True)           
-                
+                 
                         query = "Give your recommendation if SAR filling is required or not?"
-                        context_1 = docsearch.similarity_search(query, k=5)
+                        context_1 = text_data_doc
                         prompt = f'''Act as a Money Laundering specialist and give concise answer to the question, with given Context.\n\n\
                         which is a document that financial institutions must file with the Financial Crimes Enforcement Network (FinCEN) based on the Bank Secrecy Act whenever there is a Money Laundering Activity.\n\n\
                         If there are cash transactions happening  of >= 10000 USD value threshold, then check below points to address this as a Money Laundering activity:
@@ -2533,7 +2536,7 @@ elif selected_option_case_type == "AML":
                     
                     elif st.session_state['llm'] == "Open-Source":
                         query = "Give your recommendation if SAR filling is required or not?"
-                        context_1 = docsearch.similarity_search(query, k=5)
+                        context_1 = text_data_doc
                         prompt = f'''Act as a Money Laundering specialist and give concise answer to the question, with given Context.\n\n\
                         which is a document that financial institutions must file with the Financial Crimes Enforcement Network (FinCEN) based on the Bank Secrecy Act whenever there is a Money Laundering Activity.\n\n\
                         If there are cash transactions happening  of >= 10000 USD value threshold, then check below points to address this as a Money Laundering activity:
