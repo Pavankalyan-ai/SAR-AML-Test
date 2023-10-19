@@ -225,7 +225,7 @@ def process_files_and_generate_responses(fetched_files):
     textfiles = []
 
     for i in fetched_files:
-        file = "ml_doc/" + i
+        file = "aml_docs/" + i
         directory_files_path.append(file)
 
     for i in directory_files_path:
@@ -1618,7 +1618,7 @@ elif selected_option_case_type == "AML":
         ## Defining some global varibales for AML
         # directoty_path="ml_doc/"
         # fetched_files = read_pdf_files(directoty_path)
-        directoty_path = "ml_doc/"
+        directoty_path = "aml_docs/"
         fetched_files = read_pdf_files(directoty_path)
         #text_data_ = process_files_and_generate_responses(fetched_files)
         
@@ -1779,7 +1779,7 @@ elif selected_option_case_type == "AML":
                 for fetched_pdf in fetched_files:
                     file_ext = ("pdf","xlsx")
                     if fetched_pdf.endswith(file_ext):
-                        file_pth = os.path.join('ml_doc/', fetched_pdf)
+                        file_pth = os.path.join('aml_docs/', fetched_pdf)
                         # st.write(file_pth)
                         temp_file_path.append(file_pth) 
                     else:
@@ -2447,7 +2447,7 @@ elif selected_option_case_type == "AML":
 
                     for fetched_pdf in fetched_files:
                         # st.write(fetched_pdf)
-                        file_pth = os.path.join('ml_doc/', fetched_pdf)
+                        file_pth = os.path.join('aml_docs/', fetched_pdf)
                         # st.write(file_pth)
                         file_paths.append(file_pth)
 
