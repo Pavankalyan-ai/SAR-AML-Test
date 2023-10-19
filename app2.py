@@ -1645,7 +1645,7 @@ elif selected_option_case_type == "AML":
         # fetched_files = read_pdf_files(directoty_path)
         directoty_path = "aml_docs/"
         fetched_files = read_pdf_files(directoty_path)
-        #text_data_ = process_files_and_generate_responses(fetched_files)
+        text_data_ = process_files_and_generate_responses(fetched_files)
         
 
 
