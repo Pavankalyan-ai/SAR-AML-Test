@@ -1939,7 +1939,7 @@ elif selected_option_case_type == "AML":
                                 
                                 Are there any Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 
-                                Based on the above considerations, Output the potential Debited Money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Based on the above considerations, Output the potential Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give only the transactions. Do not give me any Explanation,Note, etc.)'''
@@ -1971,13 +1971,14 @@ elif selected_option_case_type == "AML":
 
                                 query = "What is the total amount associated with the money laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, Output the total amount \
-                                            associated with money laundering activity that is taking place Based on the \
-                                            Potential Money Laundering Debited transactions, for getting the total amount, you can add all of the  \
-                                            transactions.\n\n\
-                                            Context: {context_1}\n\
-                                            Question: {query}\n\
-                                            Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\n\
+                                
+                                Are there any Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                
+                                Based on the above considerations, Output the potential Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Question: {query}\n\
+                                Context: {context_1}\n\
+                                Response: (Give the total amount as adding up all the potential Money laundering transcations. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
