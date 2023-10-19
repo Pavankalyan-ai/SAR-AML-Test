@@ -1917,7 +1917,7 @@ elif selected_option_case_type == "AML":
                         if temp_file_path is not None:
                             # File handling logic
                             text_data_doc = process_files_and_generate_responses(fetched_files)
-                            _, docsearch = embedding_store(temp_file_path)
+                            #_, docsearch = embedding_store(temp_file_path)
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
