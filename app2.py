@@ -140,17 +140,42 @@ def embed(model_name):
     hf_embeddings = HuggingFaceEmbeddings(model_name=model_name)
     return hf_embeddings
 
-# @st.cache_data
-# def embedding_store(pdf_files):
-#     merged_pdf = merge_pdfs(pdf_files)
-#     final_pdf = PyPDF2.PdfReader(merged_pdf)
-#     text = ""
-#     for page in final_pdf.pages:
-#         text += page.extract_text()
-#     texts =  text_splitter.split_text(text)
-#     docs = text_to_docs(texts)
-#     docsearch = FAISS.from_documents(docs, hf_embeddings)
-#     return docs, docsearch
+@st.cache_data
+def embedding_store2(pdf_files):
+    pdf_only=[]
+    for file in pdf_files:
+        if file.endswith('.pdf'):
+            pdf_only.append(file)       
+      
+    merged_pdf = merge_pdfs(pdf_only)
+    final_pdf = PyPDF2.PdfReader(merged_pdf)
+    text = ""
+    for page in final_pdf.pages:
+        text += page.extract_text()
+      
+    for file in pdf_files:
+        if file.endswith('xlsx'):
+            df = pd.read_excel(file, engine='openpyxl')
+            # Find the row index where the table data starts
+            data_start_row = 0  # Initialize to 0
+            for i, row in df.iterrows():
+                if row.notna().all():
+                    data_start_row = i
+                    break
+              
+            if data_start_row>0:  
+                df.columns = df.iloc[data_start_row]
+          
+        
+        # Extract the text content above the data
+            text += "\n".join(df.iloc[:data_start_row].apply(lambda x: "\t".join(map(str, x)), axis=1)).replace('nan','')
+
+            df = df.iloc[data_start_row+1:]
+            text_buffer = StringIO()
+            df.to_csv(text_buffer, sep='\t', index=False)
+            text += "\n\n"+ text_buffer.getvalue()
+            text_buffer.close()
+    return text
 
 
 @st.cache_data
@@ -230,7 +255,7 @@ def process_files_and_generate_responses(fetched_files):
 
     for i in directory_files_path:
         list1 = [i, ]
-        e = embedding_store(list1)
+        e = embedding_store2(list1)
         textfiles.append(e)
 
     prompt_to_add = "Your goal is to identify potential money laundering data from the input transactions data provided by the customer. Output the suspicious data that you find related to any money laundering activity. Strictly output information from the given data."
@@ -1620,7 +1645,7 @@ elif selected_option_case_type == "AML":
         # fetched_files = read_pdf_files(directoty_path)
         directoty_path = "aml_docs/"
         fetched_files = read_pdf_files(directoty_path)
-        text_data_ = process_files_and_generate_responses(fetched_files)
+        #text_data_ = process_files_and_generate_responses(fetched_files)
         
 
 
