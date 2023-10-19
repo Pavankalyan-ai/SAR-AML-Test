@@ -1965,7 +1965,7 @@ elif selected_option_case_type == "AML":
 
 
                                 query = "What type of Money laundering activity is taking place?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = text_data_doc
                                   
 
                                 prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observed the transaction pattern from both the credit card and savings account transaction statements \
@@ -1982,7 +1982,7 @@ elif selected_option_case_type == "AML":
                                 chat_history_1[query] = response
 
                                 query = "What is the total amount associated with the money laundering activity?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = text_data_doc
                                 prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, give the total amount \
                                             associated with money laundering activity that is taking place Based on the \
                                             transaction statement, for getting the total amount, you can add all the money laundering \
@@ -2023,7 +2023,7 @@ elif selected_option_case_type == "AML":
                                 
                                 ## SARA Recommendation
                                 query  = "Is there any Money Laundering Activity or not?"
-                                contexts = docsearch.similarity_search(query, k=5)
+                                contexts = text_data_doc
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
                                             Considerations that suggests money laundering activities are: \n\n\
                                             Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
