@@ -2502,7 +2502,7 @@ elif selected_option_case_type == "AML":
                 # Adding Radio button
                 st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
                 if generate_button:
-                    text_data_doc = process_files_and_generate_responses(fetched_files)
+                    #text_data_doc = process_files_and_generate_responses(fetched_files)
 
                     if st.session_state['llm'] == "Closed-Source":
                                 
