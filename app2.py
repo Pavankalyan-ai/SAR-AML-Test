@@ -2050,7 +2050,7 @@ elif selected_option_case_type == "AML":
                                 chat_history = {}
     
                                 query = "Is there any potential Money Laundering activity based on the transaction statements?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = text_data_doc
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                 You sholud closely look into the credit card transaction statement as well as savings account transaction statement collectively and evaluate \
                                 them together to check for any potential suspicious money laundering activities. \n
@@ -2068,7 +2068,7 @@ elif selected_option_case_type == "AML":
                   
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
                                 1.) Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
                                 2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
@@ -2096,7 +2096,7 @@ elif selected_option_case_type == "AML":
                                 # chat_history[query] = response
                             
                                 query = "What type of Money laundering activity is taking place?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = text_data_doc
                                 prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observed the transaction pattern from both the credit card and savings account transaction statements \
                                 combined and give the type of money laundering activity that is taking place. The type may include Structuring or smurfing, layering, round tripping, etc.\ 
                                 give a precise answer with explanation of why you think a specific type of money laundering is happening.\n\n
@@ -2109,7 +2109,7 @@ elif selected_option_case_type == "AML":
                                 chat_history[query] = response
 
                                 query = "What is the total amount associated with the money laundering activity?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = text_data_doc
                                 prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, give the total amount \
                                             associated with money laundering activity that is taking place Based on the \
                                             transaction statement, for getting the total amount, you can add all the money laundering \
@@ -2148,7 +2148,7 @@ elif selected_option_case_type == "AML":
                     
                                 queries ="Is there any Money Laundering Activity or not?"
                     
-                                contexts = docsearch.similarity_search(query, k=5)
+                                contexts = text_data_doc
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
                                             Considerations that suggests money laundering activities are: \n\n\
                                             Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
