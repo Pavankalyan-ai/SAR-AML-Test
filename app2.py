@@ -2265,7 +2265,7 @@ elif selected_option_case_type == "AML":
                             llm=llm, 
                             memory = memory,
                             verbose=True)
-                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="You are a summarization tool and your goal is to summarize the data provided.Provide a detailed summary of the data provided including details of all the relevant information.")
+                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="You are a summarization tool and your goal is to summarize the data provided. Provide a detailed summary of the data provided including details of all the relevant information.")
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
 
