@@ -2514,11 +2514,13 @@ elif selected_option_case_type == "AML":
                         query = "Give your recommendation if SAR filling is required or not?"
                         context_1 = text_data_doc
                         prompt = f'''Act as a Money Laundering specialist and give concise answer to the question, with given Context.\n\n\
-                        which is a document that financial institutions must file with the Financial Crimes Enforcement Network (FinCEN) based on the Bank Secrecy Act whenever there is a Money Laundering Activity.\n\n\
-                        If there are cash transactions happening  of >= 10000 USD value threshold, then check below points to address this as a Money Laundering activity:
-                        1. for that account If the cash transactions of >= 10000 USD value threshold happening twice or more \n\n\
-                        2. Is the transaction greater than or equal to $10000 is made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.). \n\n\
-                        ## If cash transactions amount is < 10000 USD threshold and no money laundering activity is detected based on above mentioned points, write your response as - There is no indication of Money laundering activity.Therefore,no requirement to file SAR with FinCEN.\n\n\
+                        SAR refers to Suspicious activity Report, which is a document that financial institutions must file with the Financial Crimes Enforcement Network (FinCEN) based on the Bank Secrecy Act whenever there is a suspicious activity.\n\n\
+                        A Potential Money laundering activity can be detected if any of the following transaction patterns is observed-:
+                        1) If there are multiple cash transactions happening, greater than or equal to $10,000.
+                        2) If there is a high-value international transaction happening which involves movement of funds to or from a high risk geographical location(Ex- Mauritious, Syria, Nigeria,etc.).
+                        3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
+                        the credit card and savings bank account transactions statements collectively. \n\n\
+                        ## If there is no Potential money laundering activity is detected based on above mentioned points, write your response as - There is no indication of Potential Money laundering activity.Therefore, no requirement to file SAR with FinCEN.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\                      
                                 Response: (Based on your analysis give a concise response in pointers.Mention whom to file based on Bank Secrecy Act.)'''
@@ -2538,11 +2540,13 @@ elif selected_option_case_type == "AML":
                         query = "Give your recommendation if SAR filling is required or not?"
                         context_1 = text_data_doc
                         prompt = f'''Act as a Money Laundering specialist and give concise answer to the question, with given Context.\n\n\
-                        which is a document that financial institutions must file with the Financial Crimes Enforcement Network (FinCEN) based on the Bank Secrecy Act whenever there is a Money Laundering Activity.\n\n\
-                        If there are cash transactions happening  of >= 10000 USD value threshold, then check below points to address this as a Money Laundering activity:
-                        1. for that account If the cash transactions of >= 10000 USD value threshold happening twice or more \n\n\
-                        2. Is the transaction greater than or equal to $10000 is made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.). \n\n\
-                        ## If cash transactions amount is < 10000 USD threshold and no money laundering activity is detected based on above mentioned points, write your response as - There is no indication of Money laundering activity.Therefore,no requirement to file SAR with FinCEN.\n\n\
+                        SAR refers to Suspicious activity Report, which is a document that financial institutions must file with the Financial Crimes Enforcement Network (FinCEN) based on the Bank Secrecy Act whenever there is a suspicious activity.\n\n\
+                        A Potential Money laundering activity can be detected if any of the following transaction patterns is observed-:
+                        1) If there are multiple cash transactions happening, greater than or equal to $10,000.
+                        2) If there is a high-value international transaction happening which involves movement of funds to or from a high risk geographical location(Ex- Mauritious, Syria, Nigeria,etc.).
+                        3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
+                        the credit card and savings bank account transactions statements collectively. \n\n\
+                        ## If there is no Potential money laundering activity is detected based on above mentioned points, write your response as - There is no indication of Potential Money laundering activity.Therefore, no requirement to file SAR with FinCEN.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\                         
                                 Response: (Give me a concise response in points.)'''
