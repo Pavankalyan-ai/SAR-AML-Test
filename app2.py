@@ -2083,17 +2083,7 @@ elif selected_option_case_type == "AML":
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
 
-                                # query = "When is the Money laundering activity taking place?"
-                                # context_1 = docsearch.similarity_search(query, k=5)
-                                # prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, give all the dates when a money laundering activity is taking place given the context. Money laundering transactions often \
-                                #             involve characteristics like large cash deposits equal and above $10,000 followed by a large amount transfer or Structuring, \
-                                #             rapid movement of funds, transactions with high-risk countries, or unexplained source of funds. Specifically, all transactions above or \ 
-                                #             equal to $10,000 are considered to be a potential money laundering transaction. Answer the question considering the factors mentioned above with transaction details.\n\n\
-                                #             Context: {context_1}\n\
-                                #             Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
-
-                                # response = llama_llm(llama_13b,prompt_1)
-                                # chat_history[query] = response
+                                
                             
                                 query = "What type of Money laundering activity is taking place?"
                                 context_1 = text_data_doc
@@ -2141,10 +2131,7 @@ elif selected_option_case_type == "AML":
                                 
                                 ## SARA Recommendation
 
-                                # queries ="Please provide the following information from the context: If transaction,disputed amount is above the $5000 threshold,\
-                                #         There is an indication of suspicion with involvement of multiple individuals whose details mismatch with customer details. (Customer details can be identified from Cardholder Information),\
-                                #         A potential suspect is identified, Mention of an individual/suspect whose details such as name and address mismatch with customer details and based on the evidence, is this a suspicious activity (Summarize all the questions asked prior to this in a detailed manner),\
-                                #         that is the answer of whether this is a suspicious activity"
+                    
                     
                                 queries ="Is there any Money Laundering Activity or not?"
                     
@@ -2202,7 +2189,7 @@ elif selected_option_case_type == "AML":
                             #st.write("Text Input:")
                             #st.write(text_input)
                 
-                            context_1 = text_data_
+                            context_1 = text_data_doc
                             st.session_state.context_1 = context_1
                             
                         
@@ -2234,7 +2221,7 @@ elif selected_option_case_type == "AML":
                             #st.write("Text Input:")
                             #st.write(text_input)
                 
-                            context_1 = text_data_
+                            context_1 = text_data_doc
                             st.session_state.context_1 = context_1
                             prompt_1 = f''' You Are an Anti-Money Laundering Specialist, provide the answer to the below question in a concise manner.\n\n\
                                             Question: {query}\n\
