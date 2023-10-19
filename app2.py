@@ -2185,6 +2185,7 @@ elif selected_option_case_type == "AML":
                 if st.session_state.llm == "Closed-Source":
                     with st.spinner('Getting you information...'):      
                         if query:
+                            text_data_doc = process_files_and_generate_responses(fetched_files)
                             # Text input handling logic
                             #st.write("Text Input:")
                             #st.write(text_input)
@@ -2217,6 +2218,7 @@ elif selected_option_case_type == "AML":
                 elif st.session_state.llm == "Open-Source":
                     with st.spinner('Getting you information...'):      
                         if query:
+                            text_data_doc = process_files_and_generate_responses(fetched_files)
                             # Text input handling logic
                             #st.write("Text Input:")
                             #st.write(text_input)
