@@ -2527,9 +2527,9 @@ elif selected_option_case_type == "AML":
                         
                         
                         response_sara_gpt = usellm(prompt) 
-                        response_sara_gpt = response_sara_gpt.replace("$", " ")
+                        #response_sara_gpt = response_sara_gpt.replace("$", " ")
                         response_sara_gpt = response_sara_gpt.replace("10,000", "10,000 USD")
-                        response_sara_gpt = response_sara_gpt.replace("10,600", "10,600 USD")
+                        #response_sara_gpt = response_sara_gpt.replace("10,600", "10,600 USD")
                         st.markdown(f'''<em>{response_sara_gpt}</em>''',unsafe_allow_html=True)
 
                         st.warning('Please carefully review the recommendation and case details before the final submission',icon="⚠️")
@@ -2537,6 +2537,9 @@ elif selected_option_case_type == "AML":
                         del(response_sara_gpt)
                     
                     elif st.session_state['llm'] == "Open-Source":
+                        st.write("#### *SARA Recommendation*")
+
+
                         query = "Give your recommendation if SAR filling is required or not?"
                         context_1 = text_data_doc
                         prompt = f'''Act as a Money Laundering specialist and give concise answer to the question, with given Context.\n\n\
@@ -2553,6 +2556,7 @@ elif selected_option_case_type == "AML":
                         
                         
                         response_sara_llama = llama_llm(llama_13b,prompt)
+                        response_sara_llama = response_sara_llama.replace("10,000", "10,000 USD")
                         # st.markdown(response1)
                         st.markdown(f'''<em>{response_sara_llama}</em>''',unsafe_allow_html=True)
 
