@@ -307,6 +307,8 @@ def extract_text_from_pdf(file_path):
 
 
 
+
+
 # Function to add checkboxes to the DataFrame
 @st.cache_data
 def add_checkboxes_to_dataframe(df):
@@ -346,6 +348,15 @@ def convert_scanned_pdf_to_searchable_pdf(input_file):
         text += pytesseract.image_to_string(image)
     
     return text
+## openai functions:
+def get_response(messages: str, model: str = "gpt-3.5-turbo") -> str:
+    return openai.ChatCompletion.create(
+        model=model,
+        messages=messages
+    )
+
+def wrap_prompt(message: str, role: str) -> dict:
+    return {"role": role, "content": message}
 
 
 
