@@ -258,7 +258,7 @@ def process_files_and_generate_responses(fetched_files):
         e = embedding_store2(list1)
         textfiles.append(e)
 
-    prompt_to_add = "Your goal is to identify potential money laundering data from the input transactions data provided by the customer. Output the suspicious data that you find related to any money laundering activity. Strictly output information from the given data."
+    prompt_to_add = "Your goal is to identify potential money laundering data from the input data. Identify the suspicious data that you find related to any money laundering activity. # Strictly output information from the given data Only."
     modified_conditions = ['"""' + prompt_to_add + text + '"""' for text in textfiles]
 
     results_textdata = []
@@ -1971,12 +1971,13 @@ elif selected_option_case_type == "AML":
 
                                 query = "What is the total amount associated with the money laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, Taking the considerations from the transactions involved in the money laundering activity, give the total amount \
-                                            associated with money laundering activity that is taking place. \
-                                            For getting the total amount, you can add all the money laundering debited transactions.\n\n\
+                                prompt_1 =  f'''You Are an Anti-Money Laundering Specialist, give the total amount \
+                                            associated with money laundering activity that is taking place Based on the \
+                                            transaction statement, for getting the total amount, you can add all the money laundering \
+                                            transactions amount.\n\n\
                                             Context: {context_1}\n\
                                             Question: {query}\n\
-                                            Response: (Give a concise report, Do not give me any Explanation,Note)'''
+                                            Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
