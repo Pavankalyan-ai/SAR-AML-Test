@@ -1899,11 +1899,12 @@ elif selected_option_case_type == "AML":
                 with st.spinner('Wait for it...'):
                     
                     generate_button = st.button("Generate Insights",disabled=st.session_state.disabled)
-                    text_data_doc = process_files_and_generate_responses(fetched_files)
+                    
 
                     if generate_button:
                         if temp_file_path is not None:
                             # File handling logic
+                            text_data_doc = process_files_and_generate_responses(fetched_files)
                             
                             #_, docsearch = embedding_store(temp_file_path)
                             if st.session_state.llm == "Closed-Source":
@@ -1937,12 +1938,13 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\
-                                Consideration: Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\
-                                Based on the above consideration, Output only the Debited Money laundering transcations observed. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify the Potential Transactions that can be associated with Money laundering activity in the credit card transaction statements only by taking below considerations:\n\
+                                #Consideration: a) Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\
+                                                b) Cash Transactions of greater than or equal to $10000 \n\
+                                Based on the above considerations, identify only the Debited Money laundering transcations observed in credit card transactions statements. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give the response in consise manner in rows. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Give the response in rows. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
 
@@ -1956,12 +1958,12 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                   
 
-                                prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observed the transaction pattern from both the transactions data of credit card and saving accounts statements \
-                                combined and Give the type of money laundering activity that can be taking place. The type may include Structuring or smurfing, layering, round tripping, etc.\ 
-                                Act as and Anti-Money Laundering assistant and give a precise answer with explanation of what type of a specific money laundering activity can be taking place and on what pattern this activity is observed.\n\n
+                                prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observe the transaction statements pattern from both the transactions data of credit card and saving accounts statements combined. \
+                                The type of money laundering activities which can take place includes: Structuring or smurfing, layering, round tripping, etc.\ 
+                                Act as and Anti-Money Laundering analyst, observe the transactions statements data and give a concise answer with explanation of what type of money laundering activity could be taking place and on what pattern this activity is observed.\n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give the response in consise manner, Output the type of money laundering activity and the pattern observed . Do not give me any Explanation or Note etc)'''
+                                Response: (Give the response in consise manner, Output the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
@@ -1973,10 +1975,10 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\
                                 Consideration: Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\
-                                Based on the above consideration, Output the total amount that can be associated with Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Based on the above consideration,Add all the transactions amount and  Output the total amount that can be associated with Money laundering transcations . Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Act as an assistant and Output the amount that could be associated.Do not give Exact amount , just the amount that could be .Do not give me any Explanation,Note, etc.)'''
+                                Response: (Act as an assistant and output the potential total amount that can be associated .Do not give Exact amount, just the amount that could be .Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
