@@ -1939,10 +1939,10 @@ elif selected_option_case_type == "AML":
                                 
                                 Are there any Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 
-                                Based on the above considerations, Output the potential Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Based on the above considerations, Output the potential Money laundering transcations in pointers. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give only the transactions. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Give only the transactions in pointers form. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
 
@@ -1958,7 +1958,7 @@ elif selected_option_case_type == "AML":
 
                                 prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observed the transaction pattern from both the transactions data of credit card and saving accounts statements \
                                 combined and Give the type of money laundering activity that can be taking place. The type may include Structuring or smurfing, layering, round tripping, etc.\ 
-                                Act as and Anti-Money Laundering assistant and give a precise answer with explanation of why you think a specific type of money laundering is happening.\n\n
+                                Act as and Anti-Money Laundering assistant and give a precise answer with explanation of what type of a specific money laundering and pattern is observed.\n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response in one sentence. Do not give me any Explanation or Note etc)'''
