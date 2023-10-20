@@ -1942,7 +1942,7 @@ elif selected_option_case_type == "AML":
                                 Based on the above considerations, Output the potential Money laundering transcations in pointers. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Output only the transactions in tabular form (rows). Do not give me any Explanation,Note, etc.)'''
+                                Response: (Output only the transactions in rows. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
 
@@ -1961,7 +1961,7 @@ elif selected_option_case_type == "AML":
                                 Act as and Anti-Money Laundering assistant and give a precise answer with explanation of what type of a specific money laundering activity can take place and on what pattern this activity is observed.\n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response in one sentence. Do not give me any Explanation or Note etc)'''
+                                Response: (Give me a concise response, just output the activity and pattern. Do not give me any Explanation or Note etc)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
@@ -1978,7 +1978,7 @@ elif selected_option_case_type == "AML":
                                 Based on the above consideration, Act as an assistant and Output the potential Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give the Approximate potential total amount as adding up all the potential Money laundering transcations. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Give the answer as  total amount that can be associated with Money laundering transcations is .... Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
@@ -2020,7 +2020,7 @@ elif selected_option_case_type == "AML":
                                             Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
                                             Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                             If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
-                                            Taking above considerations and Based only on the available information, Act as an Anti-Money Laundering assistanct and Give a concise recommendation as to if this can be a Money Laundering activity or not and why ?.\n\n\
+                                            Taking above considerations and Based only on the available information, Act as an Anti-Money Laundering assistanct and Give a concise recommendation as to if this can be a Money Laundering activity or not and on what basis the response is this ?.\n\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
                                 Response (Give me a concise response.)"
