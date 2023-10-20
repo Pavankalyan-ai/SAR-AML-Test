@@ -30,24 +30,7 @@ from usellm import Message, Options, UseLLM
 from huggingface_hub import login
 import os
 import openai
-#from IPython.display import display, Markdown
-#openai.api_key = "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"
-# import cv2
-# import pdfplumber
-# import pytesseract
-# from pdf2image import convert_from_path
-#from playsound import playsound
-#from langchain.text_splitter import CharacterTextSplitter
-#from langchain.embeddings.openai import OpenAIEmbeddings
-#from langchain.chains.summarize import load_summarize_chain
-#import os
-#import pyaudiogi
-#import wave
-#from langchain.document_loaders import UnstructuredPDFLoader
-#import streamlit.components.v1 as components
-#from st_custom_components import st_audiorec, text_to_docs
-#import sounddevice as sd
-#from scipy.io.wavfile import write
+
 
 # Setting Env
 if st.secrets["OPENAI_API_KEY"] is not None:
@@ -141,41 +124,44 @@ def embed(model_name):
     return hf_embeddings
 
 @st.cache_data
-def embedding_store2(pdf_files):
-    pdf_only=[]
+def chunk_extract(pdf_files):
+    pdf_only =[]
+    text = ""
     for file in pdf_files:
-        if file.endswith('.pdf'):
-            pdf_only.append(file)       
+      if file.endswith('.pdf'):
+        pdf_only.append(file)       
       
     merged_pdf = merge_pdfs(pdf_only)
     final_pdf = PyPDF2.PdfReader(merged_pdf)
-    text = ""
     for page in final_pdf.pages:
         text += page.extract_text()
       
     for file in pdf_files:
-        if file.endswith('xlsx'):
-            df = pd.read_excel(file, engine='openpyxl')
-            # Find the row index where the table data starts
-            data_start_row = 0  # Initialize to 0
-            for i, row in df.iterrows():
-                if row.notna().all():
-                    data_start_row = i
-                    break
+      if file.endswith('xlsx'):
+        df = pd.read_excel(file, engine='openpyxl')
+        # Find the row index where the table data starts
+        data_start_row = 0  # Initialize to 0
+        for i, row in df.iterrows():
+            if row.notna().all():
+                data_start_row = i
+                break
               
-            if data_start_row>0:  
-                df.columns = df.iloc[data_start_row]
+        if data_start_row>0:  
+            df.columns = df.iloc[data_start_row]
           
         
         # Extract the text content above the data
-            text += "\n".join(df.iloc[:data_start_row].apply(lambda x: "\t".join(map(str, x)), axis=1)).replace('nan','')
-
-            df = df.iloc[data_start_row+1:]
-            text_buffer = StringIO()
-            df.to_csv(text_buffer, sep='\t', index=False)
-            text += "\n\n"+ text_buffer.getvalue()
-            text_buffer.close()
-    return text
+        text += "\n".join(df.iloc[:data_start_row].apply(lambda x: "\t".join(map(str, x)), axis=1)).replace('nan','')
+        
+        df1 = df.iloc[data_start_row+1:]
+        text_buffer = StringIO()
+        df1.to_csv(text_buffer, sep='\t', index=False)
+        text += "\n\n"+ text_buffer.getvalue()
+        text_buffer.close()
+        
+    chunks_splitted =  text_splitter.split_text(text)
+  
+    return chunks_splitted
 
 
 @st.cache_data
@@ -245,36 +231,7 @@ def reset_session_state():
     session_state = st.session_state
     session_state.clear()
 
-def process_files_and_generate_responses(fetched_files):
-    directory_files_path = []
-    textfiles = []
 
-    for i in fetched_files:
-        file = "aml_docs/" + i
-        directory_files_path.append(file)
-
-    for i in directory_files_path:
-        list1 = [i, ]
-        e = embedding_store2(list1)
-        textfiles.append(e)
-
-    prompt_to_add = "Your goal is to identify Money Laundering data from the Input transactions data. Identify the suspicious data that you can be related to any Money laundering activity.# Strictly Only Output Information from the Given Data Only."
-    modified_conditions = ['"""' + prompt_to_add + text + '"""' for text in textfiles]
-
-    results_textdata = []
-
-    for condition in modified_conditions:
-        system_prompt = wrap_prompt("You are an Anti Money Laundering Analyst", "system")
-        user_prompt = wrap_prompt(condition, "user")
-        openai_response = get_response([system_prompt, user_prompt])
-        results_textdata.append(openai_response['choices'][0]['message']['content'])
-
-    f_text_data = []
-
-    for i in results_textdata:
-        f_text_data.append(i)
-
-    return f_text_data
 
 
 # def merge_and_extract_text(pdf_list):
@@ -373,15 +330,15 @@ def convert_scanned_pdf_to_searchable_pdf(input_file):
         text += pytesseract.image_to_string(image)
     
     return text
-## openai functions:
-def get_response(messages: str, model: str = "gpt-3.5-turbo") -> str:
-    return openai.ChatCompletion.create(
-        model=model,
-        messages=messages
-    )
-
-def wrap_prompt(message: str, role: str) -> dict:
-    return {"role": role, "content": message}
+## context data extraction:
+def context_data(document):
+    prompt_to_add = "Your goal is to identify potential money laundering data from the input transactions data provided by the customer. Output only the data that you find related to any money laundering activity. Strictly output information from the given data. Do not provide any extra Explanation or Note etc."
+    modified_conditions = ['"""' + prompt_to_add + doc + '"""' for doc in document]
+    results_textdata = []
+    for condition in modified_conditions:
+        response = usellm(condition)
+        results_textdata.append(response)
+    return results_textdata
 
 
 
@@ -851,8 +808,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                 
                 # Chunking with overlap
                 text_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size = 1000,
-                    chunk_overlap  = 100,
+                    chunk_size = 2000,
+                    chunk_overlap  = 0,
                     length_function = len,
                     separators=["\n\n", "\n", " ", ""]
                 )
@@ -1846,8 +1803,8 @@ elif selected_option_case_type == "AML":
                 
                 # Chunking with overlap
                 text_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size = 1000,
-                    chunk_overlap  = 100,
+                    chunk_size = 2000,
+                    chunk_overlap  = 0,
                     length_function = len,
                     separators=["\n\n", "\n", " ", ""]
                 )
@@ -1904,9 +1861,10 @@ elif selected_option_case_type == "AML":
                     if generate_button:
                         if temp_file_path is not None:
                             # File handling logic
-                            text_data_doc = process_files_and_generate_responses(fetched_files)
                             
-                            #_, docsearch = embedding_store(temp_file_path)
+                            
+                            docs = chunk_extract(temp_file_path)
+                            text_data_doc = context_data(docs)
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
@@ -2060,13 +2018,14 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\
-                                Consideration: Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\
-                                Based on the above consideration, Output only the Debited Money laundering transcations observed. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
+                                1.) Cash transactions of amount >= 10,000 USD value threshold.\n\n\
+                                2.) Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                3.) Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
+                                Based on the above considerations , identify the money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
-
+                                Response: (Give me a concise response as transactions only. Only Output the transactions based on the considerations in rows. Do not give me any Explanation,Note, etc.)'''
 
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
@@ -2172,7 +2131,7 @@ elif selected_option_case_type == "AML":
                 if st.session_state.llm == "Closed-Source":
                     with st.spinner('Getting you information...'):      
                         if query:
-                            text_data_doc = process_files_and_generate_responses(fetched_files)
+                            
                             # Text input handling logic
                             #st.write("Text Input:")
                             #st.write(text_input)
@@ -2205,7 +2164,7 @@ elif selected_option_case_type == "AML":
                 elif st.session_state.llm == "Open-Source":
                     with st.spinner('Getting you information...'):      
                         if query:
-                            text_data_doc = process_files_and_generate_responses(fetched_files)
+                            #text_data_doc = process_files_and_generate_responses(fetched_files)
                             # Text input handling logic
                             #st.write("Text Input:")
                             #st.write(text_input)
