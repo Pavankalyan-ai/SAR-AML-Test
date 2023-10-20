@@ -1946,7 +1946,7 @@ elif selected_option_case_type == "AML":
                                 Based on the above considerations , identify potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response as transactions only IN ROWS. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Give me a concise response as transactions only. Output the transactions in rows. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
 
@@ -1965,7 +1965,7 @@ elif selected_option_case_type == "AML":
                                 Act as and Anti-Money Laundering analyst, observe the transactions statements data and give a concise answer with explanation of what type of money laundering activity could be taking place and on what pattern this activity is observed.\n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response in one sentence, Output the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
+                                Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
@@ -1980,7 +1980,7 @@ elif selected_option_case_type == "AML":
                                 Based on the above consideration,Add all the transactions amount and  Output the total amount that can be associated with Money laundering transcations . Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
+                                Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
 
 
                                 response = usellm(prompt_1)
