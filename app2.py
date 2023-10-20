@@ -1899,11 +1899,12 @@ elif selected_option_case_type == "AML":
                 with st.spinner('Wait for it...'):
                     
                     generate_button = st.button("Generate Insights",disabled=st.session_state.disabled)
+                    text_data_doc = process_files_and_generate_responses(fetched_files)
 
                     if generate_button:
                         if temp_file_path is not None:
                             # File handling logic
-                            text_data_doc = process_files_and_generate_responses(fetched_files)
+                            
                             #_, docsearch = embedding_store(temp_file_path)
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
@@ -1960,7 +1961,7 @@ elif selected_option_case_type == "AML":
                                 Act as and Anti-Money Laundering assistant and give a precise answer with explanation of what type of a specific money laundering activity can be taking place and on what pattern this activity is observed.\n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (In Concise, Output the activity and pattern observed . Do not give me any Explanation or Note etc)'''
+                                Response: (Give the response in consise manner, Output the type of money laundering activity and the pattern observed . Do not give me any Explanation or Note etc)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
