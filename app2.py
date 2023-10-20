@@ -1976,7 +1976,7 @@ elif selected_option_case_type == "AML":
                                 Based on the above consideration, Output the total amount that can be associated with Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Output the Total amount the can be associated with Money laundering transcations.Act as an assistant and provide output as an assist. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Act as an assistant and Output the amount that could be associated.Do not give Exact amount , just the amount that could be .Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
