@@ -2448,7 +2448,7 @@ elif selected_option_case_type == "AML":
                         with open(file_pth, "wb") as file_opn:
                             file_opn.write(uploaded_file.getbuffer())
                         file_paths.append(file_pth)
-
+#fetching file
                     for fetched_pdf in fetched_files:
                         # st.write(fetched_pdf)
                         file_pth = os.path.join('aml_docs/', fetched_pdf)
