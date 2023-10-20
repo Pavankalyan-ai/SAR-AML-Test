@@ -258,13 +258,13 @@ def process_files_and_generate_responses(fetched_files):
         e = embedding_store2(list1)
         textfiles.append(e)
 
-    prompt_to_add = "Your goal is to identify potential money laundering data from the input data. Identify the suspicious data that you find related to any money laundering activity. # Strictly output information from the given data Only."
+    prompt_to_add = "Your goal is to identify Money Laundering data from the Input transactions data. Identify the suspicious data that you can be related to any Money laundering activity.# Strictly Only Output Information from the Given Data Only."
     modified_conditions = ['"""' + prompt_to_add + text + '"""' for text in textfiles]
 
     results_textdata = []
 
     for condition in modified_conditions:
-        system_prompt = wrap_prompt("You are an Anti Money Laundering Specialist", "system")
+        system_prompt = wrap_prompt("You are an Anti Money Laundering Analyst", "system")
         user_prompt = wrap_prompt(condition, "user")
         openai_response = get_response([system_prompt, user_prompt])
         results_textdata.append(openai_response['choices'][0]['message']['content'])
@@ -1897,13 +1897,13 @@ elif selected_option_case_type == "AML":
                 
                     
                 with st.spinner('Wait for it...'):
-                    text_data_doc = process_files_and_generate_responses(fetched_files)
+                    
                     generate_button = st.button("Generate Insights",disabled=st.session_state.disabled)
 
                     if generate_button:
                         if temp_file_path is not None:
                             # File handling logic
-                            
+                            text_data_doc = process_files_and_generate_responses(fetched_files)
                             #_, docsearch = embedding_store(temp_file_path)
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
@@ -1936,14 +1936,12 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\n\
-                                
-                                Are there any Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                
-                                Based on the above considerations, Output the Debited Money laundering transcations observed in rows. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\
+                                Consideration: Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\
+                                Based on the above consideration, Output only the Debited Money laundering transcations observed. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Output only the potential Money laundering transcations  in rows. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Give the response in consise manner in rows. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
 
@@ -1959,10 +1957,10 @@ elif selected_option_case_type == "AML":
 
                                 prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observed the transaction pattern from both the transactions data of credit card and saving accounts statements \
                                 combined and Give the type of money laundering activity that can be taking place. The type may include Structuring or smurfing, layering, round tripping, etc.\ 
-                                Act as and Anti-Money Laundering assistant and give a precise answer with explanation of what type of a specific money laundering activity can take place and on what pattern this activity is observed.\n\n
+                                Act as and Anti-Money Laundering assistant and give a precise answer with explanation of what type of a specific money laundering activity can be taking place and on what pattern this activity is observed.\n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response as just output the activity observed and pattern observed in a sentence. Do not give me any Explanation or Note etc)'''
+                                Response: (In Concise, Output the activity and pattern observed . Do not give me any Explanation or Note etc)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
@@ -1972,14 +1970,12 @@ elif selected_option_case_type == "AML":
 
                                 query = "What is the total amount associated with the money laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\n\
-                                
-                                - Are there any Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                
-                                Based on the above consideration, Act as an assistant and Output the total amount that can be associated with Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\
+                                Consideration: Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\
+                                Based on the above consideration, Output the total amount that can be associated with Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Output the Total amount the can be associated with Money laundering transcations. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Output the Total amount the can be associated with Money laundering transcations.Act as an assistant and provide output as an assist. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
@@ -2021,10 +2017,10 @@ elif selected_option_case_type == "AML":
                                             Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
                                             Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                             If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
-                                            Taking above considerations and Based only on the available information, Act as an Anti-Money Laundering assistant and assist as to if this can be a Money Laundering activity or not ? Also Provide examples along with the assistance.\n\n\
+                                            Taking above considerations and Based only on the available information, Act as an Anti-Money Laundering assistant and assist as to if this can be a Money Laundering activity or not ? \n\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response (Give me a concise response.)"
+                                Response (Give me a concise response.Also Provide examples along with the assistance.)"
                                 response1 = usellm(prompt)
 
 
