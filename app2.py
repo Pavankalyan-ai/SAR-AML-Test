@@ -808,7 +808,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                 
                 # Chunking with overlap
                 text_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size = 2000,
+                    chunk_size = 4000,
                     chunk_overlap  = 0,
                     length_function = len,
                     separators=["\n\n", "\n", " ", ""]
@@ -1803,7 +1803,7 @@ elif selected_option_case_type == "AML":
                 
                 # Chunking with overlap
                 text_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size = 2000,
+                    chunk_size = 4000,
                     chunk_overlap  = 0,
                     length_function = len,
                     separators=["\n\n", "\n", " ", ""]
