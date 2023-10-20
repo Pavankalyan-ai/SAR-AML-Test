@@ -1939,10 +1939,10 @@ elif selected_option_case_type == "AML":
                                 
                                 Are there any Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 
-                                Based on the above considerations, Output the potential Money laundering transcations in pointers. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Based on the above considerations, Output the Debited Money laundering transcations observed in rows. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Output only the transactions in rows. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Output only the potential Money laundering transcations  in rows. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
 
@@ -1975,10 +1975,10 @@ elif selected_option_case_type == "AML":
                                 
                                 - Are there any Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 
-                                Based on the above consideration, Act as an assistant and Output the potential Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Based on the above consideration, Act as an assistant and Output the total amount that can be associated with Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Add this before the amount = "total amount that can be associated with Money laundering transcations is" .... Do not give me any Explanation,Note, etc.)'''
+                                Response: (Output the Total amount the can be associated with Money laundering transcations. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
