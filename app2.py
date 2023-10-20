@@ -1942,7 +1942,7 @@ elif selected_option_case_type == "AML":
                                 Based on the above considerations, Output the potential Money laundering transcations in pointers. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give only the transactions in pointers form. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Output only the transactions in tabular form (rows). Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
 
@@ -1958,7 +1958,7 @@ elif selected_option_case_type == "AML":
 
                                 prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observed the transaction pattern from both the transactions data of credit card and saving accounts statements \
                                 combined and Give the type of money laundering activity that can be taking place. The type may include Structuring or smurfing, layering, round tripping, etc.\ 
-                                Act as and Anti-Money Laundering assistant and give a precise answer with explanation of what type of a specific money laundering and pattern is observed.\n\n
+                                Act as and Anti-Money Laundering assistant and give a precise answer with explanation of what type of a specific money laundering activity can take place and on what pattern this activity is observed.\n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response in one sentence. Do not give me any Explanation or Note etc)'''
@@ -1973,12 +1973,12 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\n\
                                 
-                                Are there any Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                - Are there any Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 
-                                Based on the above considerations, Output the potential Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Based on the above consideration, Act as an assistant and Output the potential Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give the total amount as adding up all the potential Money laundering transcations. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Give the Approximate potential total amount as adding up all the potential Money laundering transcations. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
                                 # query=f'**{query}**'
