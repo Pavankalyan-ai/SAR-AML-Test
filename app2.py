@@ -2213,14 +2213,14 @@ elif selected_option_case_type == "AML":
                             llm=llm, 
                             memory = memory,
                             verbose=True)
-                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="You are a summarization tool and your goal is to summarize the data provided including details of all the relevant information. #DO not use words such as AI or tool")
+                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="You are a summarization tool and your goal is to summarize the data provided in such a way that it includes all the relevant information. # DO not use words such as AI or tool")
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
 
 
                         elif st.session_state.llm == "Open-Source":
                             st.session_state.disabled=False
-                            template = """ You are a summarization tool and your goal is to summarize the data provided including details of all the relevant information. #DO not use words such as AI or tool
+                            template = """ You are a summarization tool and your goal is to summarize the data provided in such a way that it includes all the relevant information. # DO not use words such as AI or tool
                             ```{text}```
                             Response: """
                             prompt = PromptTemplate(template=template,input_variables=["text"])
