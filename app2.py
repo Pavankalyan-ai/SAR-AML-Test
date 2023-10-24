@@ -1889,10 +1889,7 @@ elif selected_option_case_type == "AML":
                                 # st.write(response)
                                 # chat_history_1[query_d] = response
                                 chat_history_1[query] = response
-                                
-                                #a) If there are multiple deposits of greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
-                                #b) Is there any high-value international transaction  or Is there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                
+                               
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
@@ -2001,18 +1998,18 @@ elif selected_option_case_type == "AML":
     
                                 query = "Is there any potential Money Laundering activity based on the transaction statements?"
                                 context_1 = text_data_doc
-                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting whether there is any Money-laundering activity taking place or not?. \n
-                                You sholud closely look into the transactions statements data provided in the context and evaluate \
-                                them together to check for if there is Money laundering activity or not. \n
-                                A Money laundering activity can be detected if any of the following below transaction patterns is observed:
-                                a) If there are multiple cash transactions of greater than or equal to $10,000.
-                                b) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location(Ex- Mauritious, Syria, Nigeria,etc.).
-                                c) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
-                                   the credit card and savings bank account transactions statements collectively.
-                                Based on the above considerations, Act as an assistant and identify if there is any potential money laundering Activity taking place or not.\n\n\
-                                        Question: {query}\n\
-                                        Context: {context_1}\n\
-                                        Response: '''
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
+                                                You sholud closely look into the trasactions statements data and evaluate \
+                                                it to check for any potential money laundering activity. \n
+                                                A Money laundering activity can be detected if any of the following transaction patterns is observed :\n
+                                                1) If there are multiple cash transactions of greater than or equals to 10,000 dollars.
+                                                2) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
+                                                3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
+                                                the transactions statements collectively.
+                                                Provide your recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
+                                                Question: {query}\n\
+                                                Context: {context_1}\n\
+                                                Response: Give a concise response'''
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
                   
@@ -2020,13 +2017,15 @@ elif selected_option_case_type == "AML":
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
-                                1.) Cash transactions of amount >= 10,000 USD value threshold.\n\n\
-                                2.) Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                3.) Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
-                                Based on the above considerations , identify the money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                1.) Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
+                                2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
+                                3.) Are there any Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                4.) If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
+                                Based on the above considerations , identify potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response as transactions only. Only Output the transactions based on the considerations in rows. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
+
 
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
@@ -2035,12 +2034,12 @@ elif selected_option_case_type == "AML":
                             
                                 query = "What type of Money laundering activity is taking place?"
                                 context_1 = text_data_doc
-                                prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observed the transaction pattern from both the transactions data of credit card and saving accounts statements \
-                                combined and Give the type of money laundering activity that can be taking place. The type may include Structuring or smurfing, layering, round tripping, etc.\ 
-                                Act as and Anti-Money Laundering assistant and give a precise answer with explanation of what type of a specific money laundering activity can be taking place and on what pattern this activity is observed.\n\n
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist, carefully observe the transaction statements pattern from both the transactions data of credit card and saving accounts statements combined. \
+                                The type of money laundering activities which can take place includes: Structuring or smurfing, layering, round tripping, etc.\ 
+                                Act as and Anti-Money Laundering analyst, observe the transactions statements data and give a concise answer with explanation of what type of money laundering activity could be taking place and on what pattern this activity is observed.\n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response in one sentence. Do not give me any Explanation or Note etc)'''
+                                Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
 
 
                                 response = llama_llm(llama_13b,prompt_1)
@@ -2050,10 +2049,10 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\
                                 Consideration: Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\
-                                Based on the above consideration, Output the total amount that can be associated with Money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Based on the above consideration,Add all the transactions amount and  Output the total amount that can be associated with Money laundering transcations . Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response in one sentence.Do not give me any Explanation,Note)'''
+                                Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
 
                                 
                                 response = llama_llm(llama_13b,prompt_1)
@@ -2092,8 +2091,8 @@ elif selected_option_case_type == "AML":
                                             If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
                                             Taking above considerations and Based only on the available information, Act as an Anti-Money Laundering assistant and assist as to if this can be a Money Laundering activity or not ? \n\n\
                                 Context: {contexts}\n\
-                                Question: {queries}\n\
-                                Response (Give me a concise response.)"
+                                Question: {query}\n\
+                                Response (Give me a concise response.Also Provide examples along with the assistance.)"
                                     
                                                     
                                 response1 = llama_llm(llama_13b,prompt)           
@@ -2214,14 +2213,14 @@ elif selected_option_case_type == "AML":
                             llm=llm, 
                             memory = memory,
                             verbose=True)
-                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="You are a summarization tool and your goal is to summarize the data provided. Provide a detailed summary of the data provided including details of all the relevant information. #DO not use words such as AI or tool")
+                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="You are a summarization tool and your goal is to summarize the data provided including details of all the relevant information. #DO not use words such as AI or tool")
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
 
 
                         elif st.session_state.llm == "Open-Source":
                             st.session_state.disabled=False
-                            template = """You are a summarization tool and your goal is to summarize the data provided.Provide a detailed summary of the data provided including details of all the relevant information.#DO not use words such as AI or tool
+                            template = """ You are a summarization tool and your goal is to summarize the data provided including details of all the relevant information. #DO not use words such as AI or tool
                             ```{text}```
                             Response: """
                             prompt = PromptTemplate(template=template,input_variables=["text"])
