@@ -2091,7 +2091,7 @@ elif selected_option_case_type == "AML":
                                             If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
                                             Taking above considerations and Based only on the available information, Act as an Anti-Money Laundering assistant and assist as to if this can be a Money Laundering activity or not ? \n\n\
                                 Context: {contexts}\n\
-                                Question: {query}\n\
+                                Question: {queries}\n\
                                 Response (Give me a concise response.Also Provide examples along with the assistance.)"
                                     
                                                     
