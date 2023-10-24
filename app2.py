@@ -1870,18 +1870,17 @@ elif selected_option_case_type == "AML":
     
                                 query = "Is there any Money Laundering activity based on the transaction statements?"
                                 context_1 = text_data_doc
-                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting whether there is any Money-laundering activity taking place or not?. \n
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting whether there is any Money-laundering activity taking place or not by examining the transactions data?. \n
                                 You sholud closely look into the transactions statements data provided in the context and evaluate \
-                                them together to check for if there is Money laundering activity or not. \n
-                                A Money laundering activity can be detected if any of the following below transaction patterns is observed:
-                                a) If there are multiple cash transactions of greater than or equal to $10,000.
+                                them together to check for if there is Money laundering activity or not based on the below considerations : \n
+                                a) If there are frequent cash transactions of greater than or equal to $10,000.
                                 b) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location(Ex- Mauritious, Syria, Nigeria,etc.).
                                 c) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
                                    the credit card and savings bank account transactions statements collectively.
-                                Based on the above considerations, Act as an assistant and identify if there is any potential money laundering Activity taking place or not.\n\n\
+                                Based on the above considerations, Act as an assistant and identify if there is any potential money laundering Activity taking place or not ?.\n\n\
                                         Question: {query}\n\
                                         Context: {context_1}\n\
-                                        Response: (Give me a concise response) '''
+                                        Response: (Give me a concise response, give answer as a recommendation.) '''
                                 response = usellm(prompt_1)
                                 # query_d="Is there any evidence of unusual activity?"
                                 # query_d=f'**{query_d}**'
