@@ -1867,7 +1867,8 @@ elif selected_option_case_type == "AML":
                             text_data_doc = context_data(docs)
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
-                                query = "What are the transaction that can be associated with Money Laundering activity?"
+    
+                                query = "Is there any Money Laundering activity based on the transaction statements?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
                                 1.) Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
@@ -1877,8 +1878,10 @@ elif selected_option_case_type == "AML":
                                 Based on the above considerations , identify potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                        Response: '''
+                                Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
+
                                 response = usellm(prompt_1)
+
                                 # query_d="Is there any evidence of unusual activity?"
                                 # query_d=f'**{query_d}**'
                                 # st.markdown(query_d)
