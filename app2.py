@@ -1870,17 +1870,18 @@ elif selected_option_case_type == "AML":
     
                                 query = "Is there any Money Laundering activity based on the transaction statements?"
                                 context_1 = text_data_doc
-                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting whether there is any Money-laundering activity taking place or not by examining the transactions data?. \n
-                                You sholud closely look into the transactions statements data provided in the context and evaluate \
-                                them together to check for if there is Money laundering activity or not based on the below considerations : \n
-                                a) If there are frequent cash transactions of greater than or equal to $10,000.
-                                b) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location(Ex- Mauritious, Syria, Nigeria,etc.).
-                                c) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
-                                   the credit card and savings bank account transactions statements collectively.
-                                Based on the above considerations, Act as an assistant and identify if there is any potential money laundering Activity taking place or not ?.\n\n\
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
+                                You sholud closely look into the credit card transaction statement as well as savings account transaction statement collectively and evaluate \
+                                them together to check for any potential suspicious money laundering activities. \n
+                                A Money laundering activity can be detected if any of the following transaction patterns is observed-:
+                                1) If there are cash transactions happening, greater than or equal to $10,000.
+                                2) If there is a high-value international transaction happening which involves movement of funds to or from a high risk geographical location(Ex- Mauritious, Syria, Nigeria,etc.).
+                                3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
+                                the credit card and savings bank account transactions statements collectively.
+                                Provide your response as recommendation as if there is a hint of Money being Laundered considering all of the factors above.\n\n\
                                         Question: {query}\n\
                                         Context: {context_1}\n\
-                                        Response: (Give me a concise response, give answer as a recommendation.) '''
+                                        Response: '''
                                 response = usellm(prompt_1)
                                 # query_d="Is there any evidence of unusual activity?"
                                 # query_d=f'**{query_d}**'
