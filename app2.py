@@ -1583,7 +1583,7 @@ elif selected_option_case_type == "AML":
     
     
         with col2:
-            st.markdown("##### **Case open date&nbsp;&nbsp;&nbsp;&nbsp;:** July 05, 2022")
+            st.markdown("##### **Case open date&nbsp;&nbsp;&nbsp;&nbsp;:** July 06, 2022")
             st.markdown("##### **Case type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Money Laundering")
     
     
