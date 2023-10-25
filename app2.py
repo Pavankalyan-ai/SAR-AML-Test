@@ -332,7 +332,7 @@ def convert_scanned_pdf_to_searchable_pdf(input_file):
     return text
 ## context data extraction:
 def context_data(document):
-    prompt_to_add = "You are an Anti Money Laundering Specialist and Your goal is to identify potential money laundering data from the input transactions data provided. Output the data that you find related to any money laundering activity. Strictly output information from the given data. Do not provide any extra Explanation or Note etc."
+    prompt_to_add = "You are an Anti Money Laundering Specialist and Your goal is to identify money laundering data from the input transactions data provided. Output the data that you find related to any money laundering activity. Strictly output information from the given data. Do not provide any extra Explanation or Note etc."
     modified_conditions = ['"""' + prompt_to_add + doc + '"""' for doc in document]
     results_textdata = []
     for condition in modified_conditions:
@@ -1863,8 +1863,8 @@ elif selected_option_case_type == "AML":
                             # File handling logic
                             
                             
-                            text_data_doc = chunk_extract(temp_file_path)
-                            #text_data_doc = context_data(docs)
+                            docs = chunk_extract(temp_file_path)
+                            text_data_doc = context_data(docs)
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
