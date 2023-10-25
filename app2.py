@@ -1874,7 +1874,7 @@ elif selected_option_case_type == "AML":
                                                 You sholud closely look into the trasactions statements data and evaluate \
                                                 it to check for any potential money laundering activity. \n
                                                 A Money laundering activity can be detected if any of the following transaction patterns is observed :\n
-                                                1) If there are multiple cash transactions of greater than or equals to 10,000 dollars.
+                                                1) If there are multiple cash transactions of greater than or equals to $5,000 .
                                                 2) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
                                                 3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
                                                 the transactions statements collectively.
