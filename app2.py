@@ -1871,14 +1871,14 @@ elif selected_option_case_type == "AML":
                                 query = "Is there any Money Laundering activity based on the transaction statements?"
                                 context_1 = text_data_doc
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
-                                                You sholud closely look into the trasactions statements data and evaluate \
-                                                it to check for any potential money laundering activity. \n
-                                                Below are some of the considerations that can possess a potential money laundering activity :\n
+                                                Your goal is to go through the context data and observe below considerations: \n
+                                                
                                                 1) If there are Multiple cash deposits of greater than or equals to 5000 dollars.
                                                 2) If there is any high-value international transaction which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
                                                 3) If there is any money laundering pattern like structuring, smurfing, layering, placement or integration, etc observed within 
                                                 the transactions statements collectively.
                                                 4) Are there any Payments made greater than or equal to 5000 dollars to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)
+                                                Based on the findings , give us a recommendation on below question:
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: '''
