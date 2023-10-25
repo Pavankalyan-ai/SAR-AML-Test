@@ -1901,7 +1901,7 @@ elif selected_option_case_type == "AML":
                                 Based on the above considerations , identify potential money laundering debited transcations.# Do not include any ATM Withdrawal transactions. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
+                                Response: (Give response as transactions only. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
 
@@ -1931,8 +1931,8 @@ elif selected_option_case_type == "AML":
                                 query = "What is the total amount associated with the money laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\
-                                Consideration: Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\
-                                Based on the above consideration,Add all the transactions amount and  Output the total amount that can be associated with Money laundering transcations . Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Consideration: Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consu-ltancies,etc.) \n\
+                                Based on the above consideration, Add all the transactions amount according to the consideration and  Output the total amount.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
