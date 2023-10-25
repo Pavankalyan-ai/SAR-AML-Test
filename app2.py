@@ -1974,7 +1974,7 @@ elif selected_option_case_type == "AML":
                                 
                                 ## SARA Recommendation
                                 query  = "Give your recommendation if SAR filling is required or not?"
-                                contexts = text_data_doc
+                                contexts = res_df_gpt['Answer']
                                 prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
                                             Considerations that suggests money laundering activities are: \n\n\
                                             Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
