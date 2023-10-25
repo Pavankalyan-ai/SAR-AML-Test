@@ -1978,7 +1978,7 @@ elif selected_option_case_type == "AML":
                                             Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
                                             Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                             If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
-                                            Any Transaction less than 500 dollars will not be considered as a money launering activity
+                                            Any Transaction less than 500 dollars will not be considered as a money launering activity\n\
                                             Taking above considerations and Based only on the available information, Act as an Anti-Money Laundering assistant and assist as to if this can be a Money Laundering activity or not ? \n\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
