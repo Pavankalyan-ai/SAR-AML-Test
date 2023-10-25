@@ -1879,11 +1879,9 @@ elif selected_option_case_type == "AML":
                                                 3) If there is any money laundering pattern like structuring, smurfing, layering, placement or integration, etc observed within 
                                                 the transactions statements collectively.
                                                 4) Are there any Payments made greater than or equal to 5000 dollars to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)
-                                            
-                                                Based on the above considerations, Give your recommendation as to if there can be a Money Laundering activity going on or not ?\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a short response'''
+                                                Response: '''
                                 response = usellm(prompt_1)
                                 # query_d="Is there any evidence of unusual activity?"
                                 # query_d=f'**{query_d}**'
