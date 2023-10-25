@@ -1898,10 +1898,10 @@ elif selected_option_case_type == "AML":
                                 2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
                                 3.) Are there any Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                             
-                                Based on the above considerations , identify potential money laundering debited transcations. # Do not include any ATM Withdrawal transactions. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Based on the above considerations , identify potential money laundering transcations. # Do not include any ATM Withdrawal transactions. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give response as transactions only. Do not give me any Explanation,Note, etc.)'''
+                                Response: (Give Output as transactions only. Do not give me any Explanation,Note, etc.)'''
 
                                 response = usellm(prompt_1)
 
