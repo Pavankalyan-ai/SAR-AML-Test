@@ -1893,10 +1893,10 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
-                                1.) Is There any cash Deposit  of amount greater than or equals to 10,000 dollars value threshold.\n\n\
-                                2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                                3.) Are there any Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions that are involved in Money laundering activity. The transactions that can be involved in Money Laundering are:\n\n\
+                                1.) Cash Deposit  of amount greater than or equals to 10,000 dollars value threshold.\n\n\
+                                2.) High-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
+                                3.) IF thre are any Payments made greater than or equal to 10000 dollars to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                             
                                 Based on the above considerations , identify potential money laundering transcations. # Do not include any ATM Withdrawal transactions. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
