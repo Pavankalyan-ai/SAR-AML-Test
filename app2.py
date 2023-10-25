@@ -1894,11 +1894,11 @@ elif selected_option_case_type == "AML":
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
-                                1.) Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
+                                1.) Is There any cash Deposit  of amount greater than or equals to 10,000 dollars value threshold.\n\n\
                                 2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
                                 3.) Are there any Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                4.) If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
-                                Based on the above considerations , identify potential money laundering debited transcations.# Do not include any ATM Withdrawal transactions. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                            
+                                Based on the above considerations , identify potential money laundering debited transcations. # Do not include any ATM Withdrawal transactions. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give response as transactions only. Do not give me any Explanation,Note, etc.)'''
