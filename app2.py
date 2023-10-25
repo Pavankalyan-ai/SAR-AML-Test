@@ -1873,17 +1873,17 @@ elif selected_option_case_type == "AML":
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                                 You sholud closely look into the trasactions statements data and evaluate \
                                                 it to check for any potential money laundering activity. \n
-                                                A Money laundering activity can be detected if any of the following transaction patterns is observed :\n
-                                                1) If there are Multiple cash deposits of greater than or equals to 5000 USD.
+                                                Below are some of the considerations that can possess a potential money laundering activity :\n
+                                                1) If there are Multiple cash deposits of greater than or equals to 5000 dollars.
                                                 2) If there is any high-value international transaction which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
                                                 3) If there is any money laundering pattern like structuring, smurfing, layering, placement or integration, etc observed within 
                                                 the transactions statements collectively.
-                                                4) Are there any Payments made greater than or equal to 5000 USD to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)
+                                                4) Are there any Payments made greater than or equal to 5000 dollars to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)
                                             
-                                                Give your recommendation as to if there can be a Money Laundering activity going on or not based on considering all above factors.\n\n\
+                                                Based on the above considerations, Give your recommendation as to if there can be a Money Laundering activity going on or not ?\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a concise response of the recommendation'''
+                                                Response: Give a concise response.'''
                                 response = usellm(prompt_1)
                                 # query_d="Is there any evidence of unusual activity?"
                                 # query_d=f'**{query_d}**'
