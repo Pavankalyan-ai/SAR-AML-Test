@@ -1863,8 +1863,8 @@ elif selected_option_case_type == "AML":
                             # File handling logic
                             
                             
-                            docs = chunk_extract(temp_file_path)
-                            text_data_doc = context_data(docs)
+                            text_data_doc = chunk_extract(temp_file_path)
+                            #text_data_doc = context_data(docs)
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
