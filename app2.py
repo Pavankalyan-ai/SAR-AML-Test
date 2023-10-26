@@ -1881,7 +1881,7 @@ elif selected_option_case_type == "AML":
                                                 Provide your recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a concise response'''
+                                                Response: Give a concise response, do not use pointers #answer in a paragraph'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
