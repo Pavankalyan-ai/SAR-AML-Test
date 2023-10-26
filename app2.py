@@ -1878,7 +1878,7 @@ elif selected_option_case_type == "AML":
                                                 2) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
                                                 3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
                                                 the transactions statements collectively.
-                                                Provide your concise recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
+                                                Provide your recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a concise response'''
