@@ -1896,6 +1896,7 @@ elif selected_option_case_type == "AML":
                                 3.) If there are Cash deposits > 5000 with source of funds not clear used to pay off credit card debt,\n\n\
                                 Based on the above considerations , identify potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 # do not include any Card due payment Cleared 
+                                # do not include any ATM withdrawals transactions
                                 # Transactions monitored should only be Debited ones
                                 Question: {query}\n\
                                 Context: {context_1}\n\
