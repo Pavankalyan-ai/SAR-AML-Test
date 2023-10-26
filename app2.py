@@ -1872,9 +1872,10 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f''' On the basis of data provided below, Suggest if there is any potential money laundering activity taking place or not ?
                                                 
-                                                Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give us a concise recommendation. #Exclude words such as Context'''
+                                                Question: {query}\n\
+                                                
+                                                Response: Give us a concise recommendation only. #Do not include transactions in the output'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
