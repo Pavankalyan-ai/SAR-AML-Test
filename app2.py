@@ -1872,7 +1872,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f'''You Are a Money Laundering Analyst who is an expert in detecting any Money laundering activity. \n
                                                 You goal is to identify if there is any potential money laundering activity is taking place or not on the basis of below considerations: \n
-                                                1) If there are frequent cash deposits of > 5,000 dollars.
+                                                1) If there are frequent cash deposits of greater than $5,000.
                                                 2) If there is any high value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
                                                 3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the transactions statements collectively.
                                                 Provide your recommendation with evidence for below question:.\n\n\
