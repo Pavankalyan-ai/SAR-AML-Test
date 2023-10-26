@@ -1870,12 +1870,13 @@ elif selected_option_case_type == "AML":
     
                                 query = "Is there any Money Laundering activity based on the transactions statements?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of data provided below, Give us a recommendation on as to if there is any money laundering acitity or not with evidence ?
-                                                
-                                                Context: {context_1}\n\
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
+                                                You sholud closely look into the trasactions statements data and evaluate \
+                                                it to check for any potential money laundering activity. \n
+                                                Provide your recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
                                                 Question: {query}\n\
-                                                
-                                                Response: Note- Do not include transactions in the redommendation'''
+                                                Context: {context_1}\n\
+                                                Response: Give a concise response'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
