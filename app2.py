@@ -1870,7 +1870,7 @@ elif selected_option_case_type == "AML":
     
                                 query = "Is there any Money Laundering activity based on the transactions statements?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of data provided below, Suggest if there is any potential money laundering activity taking place or not ?
+                                prompt_1 = f''' On the basis of data provided below, Give us a recommendation on as to if there is any money laundering acitity or not with evidence ?
                                                 
                                                 Context: {context_1}\n\
                                                 Question: {query}\n\
