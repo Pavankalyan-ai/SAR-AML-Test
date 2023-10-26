@@ -1891,17 +1891,18 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
-                                1.) Is There any high cash transactions happening of amount > 5,000 value threshold.\n\n\
-                                2.) Are there any Payments made > 5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                3.) If there are Cash deposits > 5000 with source of funds not clear used to pay off credit card debt,\n\n\
-                                Based on the above considerations , identify potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
-                                # do not include any Card due payment Cleared 
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions that can be involved in Money laundering activity \n\n\
+                                such transactions can be : \n\
+                                # cash deposits of greater than $5,000.\n\n\
+                                # Payment transfers of greater than > $5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                
+                                Based on the above considerations , identify potential money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Also, # do not include any Card due payment Cleared 
                                 # do not include any ATM withdrawals transactions
-                                # Transactions monitored should only be Debited ones
+                                
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Additionaly print out the transactions that also can be related to money laundering from the data as additional transactions .# do not repeat the transactions and Do not give me any Explanation,Note, etc.)'''
+                                Response: (Additionaly print out the transactions that can also can be related to money laundering regardarless of the defined criteria in a seperate paragraph .# Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
                                 print(response)
 
