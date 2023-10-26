@@ -1583,7 +1583,7 @@ elif selected_option_case_type == "AML":
     
     
         with col2:
-            st.markdown("##### **Case open date&nbsp;&nbsp;&nbsp;&nbsp;:** July 06, 2022")
+            st.markdown("##### **Case open date&nbsp;&nbsp;&nbsp;&nbsp;:** July 05, 2022")
             st.markdown("##### **Case type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Money Laundering")
     
     
@@ -1825,7 +1825,7 @@ elif selected_option_case_type == "AML":
 
                     data = {'Questions': ["Is there any Money Laundering activity based on the transaction statements?",
                           "What are the transaction that can be associated with Money Laundering activity?",
-                          #"When is the Money laundering activity taking place?",
+                          "Are there any other Suspicous Transactions ?",
                           "What type of Money laundering activity is taking place?",
                           "What is the total amount associated with the Money laundering activity?"]}
             
@@ -1887,27 +1887,26 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions that can be involved in Money laundering activity \n\n\
-                                # Money Laundering transactions can be : \n\
-                                1.) Cash deposits of greater than $5,000.\n\n\
-                                2.) Payment transfers of greater than > $5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                
-                                Based on the above two considerations , identify potential money laundering transcations.# Print distinct transactions only\n\n\
-                                Also, # do not include any Card due payment Cleared 
-                                # do not include any ATM withdrawals transactions
-                                
+                                prompt_1 = f''' On the basis of data provided below, identify the Money Laundering transactions, such that the Money Laundering transactions can be the \ transactions of greater than $5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and transactions where cash deposit is greater than $5000. \n\n\
+                                #Print distinct transactions only. \n\n\
+    
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give response as transactions only . # Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
-                                print(response)
+                               
+                                chat_history_1[query] = response
 
-
+                                query = "Are there any other Suspicous Transactions ?"
+                                context_1 = text_data_doc
+                                prompt_1 = f''' On the basis of data provided below, identify other suspicous Money Laundering transactions that are very unusual and are less than $5000. \n\n\
+                                #Print distinct transactions only. \n\n\
+    
+                                Question: {query}\n\
+                                Context: {context_1}\n\
+                                Response: (Give response as transactions only . # Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
-
-                                # query=f'**{query}**'
-                                # st.markdown(query)
-                                # st.write(response)
+                               
                                 chat_history_1[query] = response
 
 
@@ -1949,7 +1948,7 @@ elif selected_option_case_type == "AML":
                                 try:
                                     res_df_gpt = pd.DataFrame(list(chat_history_1.items()), columns=['Question','Answer'])
                                     res_df_gpt.reset_index(drop=True, inplace=True)
-                                    index_ = pd.Series([1,2,3,4])
+                                    index_ = pd.Series([1,2,3,4,5])
                                     res_df_gpt = res_df_gpt.set_index([index_])
                                     # st.write(res_df_gpt)                             
                                 except: 
