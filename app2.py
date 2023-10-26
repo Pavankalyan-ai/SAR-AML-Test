@@ -1876,6 +1876,7 @@ elif selected_option_case_type == "AML":
                                                 2) If there is any high value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
                                                 3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the transactions statements collectively.
                                                 Provide your recommendation with evidence for below question:.\n\n\
+                                                # do not print the card number.
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a concise response'''
