@@ -1973,18 +1973,11 @@ elif selected_option_case_type == "AML":
                                 ## SARA Recommendation
                                 query  = "Give your recommendation if SAR filling is required or not?"
                                 contexts = ', '.join(res_df_gpt['Answer'])
-                                prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
-                                            Considerations that suggests money laundering activities are: \n\n\
-                                            Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
-                                            Is there is a high-value international transaction is happening ?\n\n\
-                                            Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                                            Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                            If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
-                                            # Do not include any ATM Withdrawal transactions\n\
-                                            Taking above considerations and Based only on the available information, Act as an Anti-Money Laundering assistant and Give recommendation as to if this can be a SAR filling activity ? \n\n\
+                                prompt = f" Summarize the context provided and also answer your recommendation if SAR filling is required or not on the basis of summary?:
+                                 \n\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response (Give me a concise response.Also Provide examples along with the assistance.)"
+                                Response (Output the summary and answer only.)"
                                 response1 = usellm(prompt)
 
 
