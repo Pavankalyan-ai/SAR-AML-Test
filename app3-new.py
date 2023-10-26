@@ -1880,17 +1880,11 @@ elif selected_option_case_type == "AML":
     
                                 query = "Is there any Money Laundering activity based on the transactions statements?"
                                 context_1 = text_data_doc
-                                prompt_1 = f'''You Are a Money Laundering Analyst who is an expert in detecting potential Money laundering activities. \n
-                                                You goal is to identify if there is any potential money laundering activity is taking place or not on the basis of below considerations in the context data provided: \n
-                                                1) Are there frequent cash deposits of greater than $5,000.
-                                                2) Is there any high value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
-                                                3) Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the transactions statements collectively.
-                                                # do not print the card number.
-                                                Provide a concise recommendation on as to if there is any Money Laundering activity :.\n\n\
+                                prompt_1 = f'''
                                                 
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: '''
+                                                Response: Give a concise recommendation.'''
                                 response = usellm(prompt_1)
                                 # query_d="Is there any evidence of unusual activity?"
                                 # query_d=f'**{query_d}**'
