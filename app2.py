@@ -1979,7 +1979,7 @@ elif selected_option_case_type == "AML":
                                 Question: {query}\n\
                                 Response: """
                                 response1 = usellm(prompt)
-                                response1 = response1.replace("$", "USD")
+                                response1 = response1.replace("$", "USD ")
               
 
 
@@ -2216,7 +2216,7 @@ elif selected_option_case_type == "AML":
                             memory = memory,
                             verbose=True)
                             st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="You are a summarization tool and your goal is to summarize the data provided in such a way that it includes all the essential information and numbers. # DO not use words such as AI or tool")
-                            st.session_state["tmp_summary_gpt_aml"]=st.session_state["tmp_summary_gpt_aml"].replace("$", "USD")
+                            st.session_state["tmp_summary_gpt_aml"]=st.session_state["tmp_summary_gpt_aml"].replace("$", "USD ")
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
 
@@ -2234,7 +2234,7 @@ elif selected_option_case_type == "AML":
                             for key,value in summ_dict_llama.items():
                                 text.append(value)
                             st.session_state["tmp_summary_llama_aml"] = llm_chain_llama.run(text)
-                            st.session_state["tmp_summary_llama_aml"]=st.session_state["tmp_summary_llama_aml"].replace("$", "USD")
+                            st.session_state["tmp_summary_llama_aml"]=st.session_state["tmp_summary_llama_aml"].replace("$", "USD ")
                             #Display summary
                             st.write(st.session_state["tmp_summary_llama_aml"])
 
@@ -2473,7 +2473,7 @@ elif selected_option_case_type == "AML":
                         
                 
                         response_sara_gpt = usellm(prompt) 
-                        response_sara_gpt = response_sara_gpt.replace("$", "USD")
+                        response_sara_gpt = response_sara_gpt.replace("$", "USD ")
                         #response_sara_gpt = response_sara_gpt.replace("10,000", "10,000 USD")
                         #response_sara_gpt = response_sara_gpt.replace("10,600", "10,600 USD")
                         st.markdown(f'''<em>{response_sara_gpt}</em>''',unsafe_allow_html=True)
@@ -2496,7 +2496,7 @@ elif selected_option_case_type == "AML":
                         
                         
                         response_sara_llama = llama_llm(llama_13b,prompt)
-                        response_sara_llama = response_sara_llama.replace("$", "USD")
+                        response_sara_llama = response_sara_llama.replace("$", "USD ")
                         # st.markdown(response1)
                         st.markdown(f'''<em>{response_sara_llama}</em>''',unsafe_allow_html=True)
 
