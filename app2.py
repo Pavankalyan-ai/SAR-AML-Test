@@ -1979,6 +1979,8 @@ elif selected_option_case_type == "AML":
                                 Question: {query}\n\
                                 Response: """
                                 response1 = usellm(prompt)
+                                response1 = response1.replace("$", "USD")
+              
 
 
                                 st.session_state["sara_recommendation_gpt_aml"] = response1                
@@ -2213,7 +2215,8 @@ elif selected_option_case_type == "AML":
                             llm=llm, 
                             memory = memory,
                             verbose=True)
-                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="You are a summarization tool and your goal is to summarize the data provided in such a way that it includes all the relevant information. # DO not use words such as AI or tool")
+                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="You are a summarization tool and your goal is to summarize the data provided in such a way that it includes all the essential information and numbers. # DO not use words such as AI or tool")
+                            st.session_state["tmp_summary_gpt_aml"]=st.session_state["tmp_summary_gpt_aml"].replace("$", "USD")
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
 
@@ -2231,6 +2234,7 @@ elif selected_option_case_type == "AML":
                             for key,value in summ_dict_llama.items():
                                 text.append(value)
                             st.session_state["tmp_summary_llama_aml"] = llm_chain_llama.run(text)
+                            st.session_state["tmp_summary_llama_aml"]=st.session_state["tmp_summary_llama_aml"].replace("$", "USD")
                             #Display summary
                             st.write(st.session_state["tmp_summary_llama_aml"])
 
@@ -2457,24 +2461,20 @@ elif selected_option_case_type == "AML":
                         # st.markdown("""<span style="font-size: 18px;">*1. Transaction amount is above the $5,000 value threshold*</span>""", unsafe_allow_html=True)
                         # st.markdown("""<span style="font-size: 18px;">*2. There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect*.</span>""", unsafe_allow_html=True)           
                  
-                        query = "Give your recommendation if SAR filling is required or not?"
-                        context_1 = text_data_doc
-                        prompt = f'''Act as a Money Laundering specialist and give concise answer to the question, with given Context.\n\n\
-                        SAR refers to Suspicious activity Report, which is a document that financial institutions must file with the Financial Crimes Enforcement Network (FinCEN) based on the Bank Secrecy Act whenever there is a suspicious activity.\n\n\
-                        A Potential Money laundering activity can be detected if any of the following transaction patterns is observed-:
-                        1) If there are multiple cash transactions happening, greater than or equal to $10,000.
-                        2) If there is a high-value international transaction happening which involves movement of funds to or from a high risk geographical location(Ex- Mauritious, Syria, Nigeria,etc.).
-                        3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
-                        the credit card and savings bank account transactions statements collectively. \n\n\
-                        ## If there is no Potential money laundering activity is detected based on above mentioned points, write your response as - There is no indication of Potential Money laundering activity.Therefore, no requirement to file SAR with FinCEN.\n\n\
-                                Question: {query}\n\
-                                Context: {context_1}\n\                      
-                                Response: (Based on your analysis give a concise response in pointers.Mention whom to file based on Bank Secrecy Act.)'''
+                        query  = "Give your recommendation if SAR filling is required or not?"
+                        contexts = ', '.join(res_df_gpt['Answer'])
+                        prompt = f""" Summarize the context data provided with all the essential detials in it and also answer your recommendation on if SAR filling is required or not on the basis of summary?:
+                            \n\n\
+                        Context: {contexts}\n\
+                        Question: {query}\n\
+                        Response: """
+                     
+              
                         
-                        
+                
                         response_sara_gpt = usellm(prompt) 
-                        #response_sara_gpt = response_sara_gpt.replace("$", " ")
-                        response_sara_gpt = response_sara_gpt.replace("10,000", "10,000 USD")
+                        response_sara_gpt = response_sara_gpt.replace("$", "USD")
+                        #response_sara_gpt = response_sara_gpt.replace("10,000", "10,000 USD")
                         #response_sara_gpt = response_sara_gpt.replace("10,600", "10,600 USD")
                         st.markdown(f'''<em>{response_sara_gpt}</em>''',unsafe_allow_html=True)
 
@@ -2486,23 +2486,17 @@ elif selected_option_case_type == "AML":
                         st.write("#### *SARA Recommendation*")
 
 
-                        query = "Give your recommendation if SAR filling is required or not?"
-                        context_1 = text_data_doc
-                        prompt = f'''Act as a Money Laundering specialist and give concise answer to the question, with given Context.\n\n\
-                        SAR refers to Suspicious activity Report, which is a document that financial institutions must file with the Financial Crimes Enforcement Network (FinCEN) based on the Bank Secrecy Act whenever there is a suspicious activity.\n\n\
-                        A Potential Money laundering activity can be detected if any of the following transaction patterns is observed-:
-                        1) If there are multiple cash transactions happening, greater than or equal to $10,000.
-                        2) If there is a high-value international transaction happening which involves movement of funds to or from a high risk geographical location(Ex- Mauritious, Syria, Nigeria,etc.).
-                        3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
-                        the credit card and savings bank account transactions statements collectively. \n\n\
-                        ## If there is no Potential money laundering activity is detected based on above mentioned points, write your response as - There is no indication of Potential Money laundering activity.Therefore, no requirement to file SAR with FinCEN.\n\n\
-                                Question: {query}\n\
-                                Context: {context_1}\n\                         
-                                Response: (Give me a concise response in points.)'''
+                        query  = "Give your recommendation if SAR filling is required or not?"
+                        contexts = ', '.join(res_df_gpt['Answer'])
+                        prompt = f""" Summarize the context data provided with all the essential detials in it and also answer your recommendation on if SAR filling is required or not on the basis of summary?:
+                            \n\n\
+                        Context: {contexts}\n\
+                        Question: {query}\n\
+                        Response: """
                         
                         
                         response_sara_llama = llama_llm(llama_13b,prompt)
-                        response_sara_llama = response_sara_llama.replace("10,000", "10,000 USD")
+                        response_sara_llama = response_sara_llama.replace("$", "USD")
                         # st.markdown(response1)
                         st.markdown(f'''<em>{response_sara_llama}</em>''',unsafe_allow_html=True)
 
