@@ -1894,7 +1894,7 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of data provided below, identify the Money Laundering transactions, such that the Money Laundering transactions can be the \ transactions of greater than $5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and transactions where cash deposit is greater than $5000. \n\n\
+                                prompt_1 = f''' On the basis of Context data provided below, identify the Money Laundering transactions of greater than $5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and transactions where cash deposit is greater than $5000. \n\n\
                                 #Print distinct transactions only. \n\
                                 # do not include any  Card due payment Cleared transactions.
     
@@ -1907,8 +1907,8 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of data provided below, identify other suspicous transactions that are very unusual and are less than $5000 which can be realted to money laundering. \n\n\
-                                #Print distinct transactions only. \n\n\
+                                prompt_1 = f''' On the basis of Context data provided below, identify the suspicous transactions that are very unusual and are less than $5000 and can be realted to money laundering. \n\n\
+                                # Print distinct transactions only. \n\n\
                                 # do not include any Grocery Store transactions
                                 Question: {query}\n\
                                 Context: {context_1}\n\
