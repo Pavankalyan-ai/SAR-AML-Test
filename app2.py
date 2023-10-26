@@ -1893,13 +1893,14 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
-                                1.) Cash deposits of amount greater than or equals to $10,000 .\n\n\
-                                2.) High-value international transactions or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                                3.) Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions that may be involved in Money laundering activity. The Transactions that can be involved in Money laundering are:\n\n\
+                                1.) Cash deposits of amount greater than or equals to $5,000 .\n\
+                                2.) High-value international transactions \n\
+                                3.) Payments made greater than or equal to $5,000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 # Do not include any ATM withdrawals transactions
                                 # Do not include any transaction less than 500$
-                                Based on the above considerations , identify potential money laundering  transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Based on the above considerations , Output the potential money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                #Additionaly output the transactions you find can also be associated with money laundering
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
