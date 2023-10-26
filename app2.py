@@ -1900,10 +1900,10 @@ elif selected_option_case_type == "AML":
                                 # Do not include any ATM withdrawals transactions
                                 # Do not include any transaction less than 500$
                                 Based on the above considerations , Output the potential money laundering transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
-                                #Additionaly output the transactions you find can also be associated with money laundering
+                                # Additionaly output the transactions in second paragragh that you find can also be associated with money laundering
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
+                                Response: (Do not give me any Explanation,Note, etc.)'''
 
 
                                 response = usellm(prompt_1)
