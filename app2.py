@@ -1873,7 +1873,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                                 You sholud closely look into the trasactions statements data and evaluate \
                                                 it to check for any potential money laundering activity. \n
-                                                Provide your recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
+                                                Provide your recommendation as to if there can be a Money Laundering activity taking place or not and why?\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a concise response'''
