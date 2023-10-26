@@ -1900,7 +1900,7 @@ elif selected_option_case_type == "AML":
                                 # Transactions monitored should only be Debited ones
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
+                                Response: (Additionaly print out the transactions that also can be related to money laundering from the data as additional transactions .Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
                                 print(response)
 
