@@ -1875,7 +1875,7 @@ elif selected_option_case_type == "AML":
                                                 Context: {context_1}\n\
                                                 Question: {query}\n\
                                                 
-                                                Response: Give us a concise recommendation only. #Do not include transactions in the output'''
+                                                Response: Do not include transactions in the output'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
