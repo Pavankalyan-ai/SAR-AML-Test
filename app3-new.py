@@ -286,6 +286,10 @@ def extract_text_from_pdf(file_path):
             all_text.append(text)
     return "\n".join(all_text)
 
+def replace_strings(input_string, item1, replacement1, item2, replacement2):
+    result = input_string.replace(item1, replacement1).replace(item2, replacement2)
+    return result
+
 
 
 
@@ -340,6 +344,12 @@ def context_data(document):
         results_textdata.append(response)
     return results_textdata
 
+def process_documents(documents):
+    docs_new = []
+    for i in documents:
+        new_string = replace_strings(i, "\n", "", "\t", "")
+        docs_new.append(new_string)
+    return docs_new
 
 
 
@@ -1864,7 +1874,7 @@ elif selected_option_case_type == "AML":
                             
                             
                             docs = chunk_extract(temp_file_path)
-                            text_data_doc = context_data(docs)
+                            text_data_doc = process_documents(docs)
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
