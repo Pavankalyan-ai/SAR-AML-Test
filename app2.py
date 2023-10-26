@@ -1870,18 +1870,13 @@ elif selected_option_case_type == "AML":
     
                                 query = "Is there any Money Laundering activity based on the transactions statements?"
                                 context_1 = text_data_doc
-                                prompt_1 = f'''You Are a Money Laundering Analyst who is an expert in detecting Money laundering activities. \n
-                                                Based on the context data, Your goal is to identify if there is any money laundering activity taking place or not on the basis of below considerations: \n
-                                                1) If there are frequent cash deposits of greater than $5,000.
-                                                2) If there is any high value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
-                                                3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the transactions statements collectively.
-                                                # do not print the card number.
-                                                Provide your recommendation with evidence for below question:.\n\n\
+                                prompt_1 = f'''
                                                 
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a concise response'''
+                                                Response: Give a concise recommendation.'''
                                 response = usellm(prompt_1)
+                                
                                 # query_d="Is there any evidence of unusual activity?"
                                 # query_d=f'**{query_d}**'
                                 # st.markdown(query_d)
