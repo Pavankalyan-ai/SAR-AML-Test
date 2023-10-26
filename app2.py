@@ -1875,7 +1875,7 @@ elif selected_option_case_type == "AML":
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a concise recommendation.'''
-                                response = usellm(prompt_1)
+                                response = text_data_doc
                                 
                                 # query_d="Is there any evidence of unusual activity?"
                                 # query_d=f'**{query_d}**'
