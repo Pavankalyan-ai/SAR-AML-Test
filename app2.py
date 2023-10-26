@@ -1973,11 +1973,11 @@ elif selected_option_case_type == "AML":
                                 ## SARA Recommendation
                                 query  = "Give your recommendation if SAR filling is required or not?"
                                 contexts = ', '.join(res_df_gpt['Answer'])
-                                prompt = f" Summarize the context provided and also answer your recommendation if SAR filling is required or not on the basis of summary?:
+                                prompt = f""" Summarize the context provided and also answer your recommendation if SAR filling is required or not on the basis of summary?:
                                  \n\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response (Output the summary and answer only.)"
+                                Response (Output the summary and answer only.)"""
                                 response1 = usellm(prompt)
 
 
