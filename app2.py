@@ -1977,7 +1977,7 @@ elif selected_option_case_type == "AML":
                                  \n\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response (Output the summary and answer only.)"""
+                                Response: """
                                 response1 = usellm(prompt)
 
 
