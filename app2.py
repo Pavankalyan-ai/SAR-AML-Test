@@ -1898,9 +1898,9 @@ elif selected_option_case_type == "AML":
                                 1.) Is There any high cash transactions happening of amount > $5,000 value threshold.\n\n\
                                 2.) Are there any Payments made of amount > $5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 3.) Are there any Cash deposits of amount > $5000 ?\n\n\
-                                Based on the above considerations , identify potential money laundering transcations.print distinct transactions only\n\n\
-                                # Do include Card due payment Cleared transactions.
-                                # IF transaction amount is less than $5000 , print them as additonal transactions!
+                                Based on the above considerations , identify potential money laundering transcations.\n\n\
+                                Also, Do include Card due payment Cleared transactions.\
+                                and IF transaction amount is less than $5000 , print them as additonal transactions.
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
