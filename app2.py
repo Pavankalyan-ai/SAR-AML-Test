@@ -332,7 +332,7 @@ def convert_scanned_pdf_to_searchable_pdf(input_file):
     return text
 ## context data extraction:
 def context_data(document):
-    prompt_to_add = "Your Goal is to identify potential money laundering data from the input data.Extract only the data that you find will be related to any money laundering activity. # Strictly extract information from the provided data Only .# Do not provide any extra Explanation or Note etc."
+    prompt_to_add = "Your Goal is to extract out the potential money laundering data from the input data.# Strictly extract data from the provided data Only .# Do not provide any extra Explanation or Note etc."
     modified_conditions = ['"""' + prompt_to_add + doc + '"""' for doc in document]
     results_textdata = []
     for condition in modified_conditions:
