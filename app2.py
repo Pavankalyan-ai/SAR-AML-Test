@@ -1894,13 +1894,13 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract the debited Transactions \
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract all of the Transactions \
                                  that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) of amount > $5000 \n\n\
-                                 Also, Do include Card due payment Cleared transactions.\
-                                
-                                Question: {query}\n\
+                                 
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response as debited transactions. Do not give me any Explanation,Note, etc.)'''
+                                Question: {query}\n\
+                                
+                                Response: (Give me a concise response as transactions only. Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
