@@ -1907,13 +1907,12 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of Context data provided, Highlight the transactions that can be suspicous and are unusual based on the historical customer's transactions.\n\
-                                Split the transactions into two sections, first being the transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 \
-                                and second being the other transactions that seems suspicious.
+                                prompt_1 = f''' On the basis of Context data provided, Highlight the transactions that are not assocaited with Money Laundering directly and can be suspicous and are unusual based on the historical customer's transactions.\n\
+                                
                                 Context: {context_1}\n\
                                 Question: {query}\n\
        
-                                Response: (Give a concise response of both splitted sections . # Do not give me any Explanation,Note, etc.)'''
+                                Response: (Give a concise response as transactions only. # Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
