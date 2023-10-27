@@ -1871,13 +1871,13 @@ elif selected_option_case_type == "AML":
                                 query = "Is there any Money Laundering activity based on the transactions statements?"
                                 context_1 = text_data_doc
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
-                                                You sholud closely look into the trasactions statements data and evaluate \
+                                                You sholud closely look into the context data and evaluate \
                                                 it to check for any potential money laundering activity. \n
                                                 A Money laundering activity can be detected if any of the following transaction patterns is observed :\n
-                                                1) If there are multiple cash transactions of greater than or equals to $5000.
+                                                1) If there are multiple cash deposits of greater than $5000.
                                                 2) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
                                                 3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
-                                                the transactions statements collectively.
+                                                the data.
                                                 Provide your recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
@@ -1894,7 +1894,9 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of Context data provided below, identify the Money Laundering transactions of greater than $5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and transactions where cash deposit is greater than $5000. \n\n\
+                                prompt_1 = f''' On the basis of Context data provided below, identify the transactions:
+                                  1.) which are greater than $5000 and made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and 
+                                  2.) transactions where cash deposit is greater than $5000. \n\n\
                                 #Print distinct transactions only. \n\
                                 # do not include any  Card due payment Cleared transactions.
     
