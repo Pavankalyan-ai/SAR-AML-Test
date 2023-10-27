@@ -1874,9 +1874,9 @@ elif selected_option_case_type == "AML":
                                                 You sholud closely look into the context data and evaluate \
                                                 it to check for any potential money laundering activity. \n
                                                 A Money laundering activity can be detected if any of the following transaction patterns is observed :\n
-                                                # If there are multiple cash deposits of greater than $5000.
-                                                # If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
-                                                # If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
+                                                1.) If there are multiple cash deposits of greater than $5000.
+                                                2.) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
+                                                3.) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
                                                 the data.
                                                 Provide your recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
                                                 Question: {query}\n\
@@ -1899,6 +1899,7 @@ elif selected_option_case_type == "AML":
                                 2.) Are there any Payments made of amount > 5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 3.) Are there any Cash deposits of amount > 5000 ?\n\n\
                                 Based on the above considerations , identify potential money laundering transcations.print distinct transactions only\n\n\
+                                # Do include Card due payment Cleared transactions.
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
