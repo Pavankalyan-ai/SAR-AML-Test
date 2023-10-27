@@ -1908,7 +1908,7 @@ elif selected_option_case_type == "AML":
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract  the Transactions \
-                                 that are very uncommon as compared to other transactions and are of amount < $5000 with their transaction date and debited amounts only\n\n\
+                                 that are less than $5000 and are very uncommon as compared to other transactions.\n\n\
                                  
                                 Context: {context_1}\n\
                                 Question: {query}\n\
@@ -1938,9 +1938,9 @@ elif selected_option_case_type == "AML":
 
                                 query = "What is the total amount associated with the money laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\
-                                Consideration: Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consu-ltancies,etc.) \n\
-                                Based on the above consideration, Add all the transactions amount according to the consideration and  Output the total amount.\n\n\
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to extract all of the Transactions \
+                                 that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) of amount > $5000 with their transaction date and debited amounts only\n\n\
+                                 Based on the above consideration, Add all the transactions amount according to the consideration and  Output the total amount.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
