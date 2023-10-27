@@ -1894,15 +1894,15 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of Context data provided below, identify the transactions:
-                                  1.) which are greater than $5000 and made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and 
-                                  2.) transactions where cash deposit is greater than $5000. \n\n\
-                                #Print distinct transactions only. \n\
-                                # do not include any  Card due payment Cleared transactions.
+                                prompt_1 = f''' On the basis of Context data provided, extract below transactions:
+                                  1.) transactions greater than $5000 and made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and 
+                                  2.) transactions where cash deposits is greater than $5000. \n\n\
+                                Context: {context_1}\n\
+                                
     
                                 Question: {query}\n\
-                                Context: {context_1}\n\
-                                Response: (Give response as transactions only . # Do not give me any Explanation,Note, etc.)'''
+                                
+                                Response: (Extract transactions only. # Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
