@@ -1904,29 +1904,29 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of Context data provided, identify the Potential Money Laundering transactions, in such a way that the transactions of greater than $5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and transactions where cash deposit is greater than $5000 are potential money laundering transactions. \n\n\
-                                #Print distinct transactions only. \n\
-                                # do not include any  Card due payment Cleared transactions.
-    
-                                Question: {query}\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
+                                 that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 with their transaction date and debited amounts.\n\n\
+                                 
                                 Context: {context_1}\n\
-                                Response: (Give response as transactions only . # Do not give me any Explanation,Note, etc.)'''
+                                Question: {query}\n\
+                                
+                                Response: (Give me a concise response as transactions only. Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of data provided below, identify other suspicous transactions that are very unusual and are less than $5000 which can be realted to money laundering. \n\n\
-                                #Print distinct transactions only. \n\n\
-                                # do not include any Grocery Store transactions
-                                Question: {query}\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
+                                 that are of amount < $5000 and are very uncommon as compared to other transactions and can be related to money laundering.\n\n\
+                                 # Strictly Include only the transactions < $5000.
                                 Context: {context_1}\n\
+                                Question: {query}\n\
+       
                                 Response: (Give response as transactions only . # Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
-
 
                                 query = "What type of Money laundering activity is taking place?"
                                 context_1 = text_data_doc
