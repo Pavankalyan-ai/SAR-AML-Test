@@ -347,7 +347,7 @@ def context_data(document):
 def process_documents(documents):
     docs_new = []
     for i in documents:
-        new_string = replace_strings(i, "\n", "", "\t", "")
+        new_string = replace_strings(i, "\n", "\n", "\t", "")
         docs_new.append(new_string)
     return docs_new
 
