@@ -1878,7 +1878,8 @@ elif selected_option_case_type == "AML":
                                                 2.) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
                                                 3.) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
                                                 the data.
-                                                Provide your recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
+                                                Provide your concise recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
+                                                #Do not give individual responses to each of the considerations above.
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a concise response'''
@@ -1939,7 +1940,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to extract all of the Transactions \
                                  that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) of amount > $5000 with their transaction date and debited amounts only\n\n\
-                                 Based on the above consideration, Add all the transactions amount according to the consideration and  Output the total amount.\n\n\
+                                 Based on the extracted transactions, Add all the transactions amount according to the consideration and  Output the total amount.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
