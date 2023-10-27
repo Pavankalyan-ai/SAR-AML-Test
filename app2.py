@@ -1896,7 +1896,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
                                  that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 with their transaction date and debited amounts.\n\n\
-                                 Additionaly Highlight other transactions that can be suspicous and are uncommon. 
+                                  
                                 Context: {context_1}\n\
                                 Question: {query}\n\
                                 
@@ -1907,8 +1907,7 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
-                                that are very uncommon and can be suspicious as compared to other transactions and can be related to potential money laundering activity.\n\n\
+                                prompt_1 = f''' On the basis of Context data provided, Highlight other transactions that can be suspicous and are unusual based on the historical customer's transactions.\n\n\
                                  
                                 Context: {context_1}\n\
                                 Question: {query}\n\
