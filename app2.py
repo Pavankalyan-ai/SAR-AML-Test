@@ -1900,6 +1900,7 @@ elif selected_option_case_type == "AML":
                                 3.) Are there any Cash deposits of amount > $5000 ?\n\n\
                                 Based on the above considerations , identify potential money laundering transcations.print distinct transactions only\n\n\
                                 # Do include Card due payment Cleared transactions.
+                                # include transactions which are > $5000 only
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
