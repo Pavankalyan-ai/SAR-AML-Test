@@ -1894,8 +1894,8 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract all of the Transactions \
-                                 that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) of amount > $5000 with their transaction date and debited amounts only\n\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
+                                 that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 with their transaction date and debited amounts.\n\n\
                                  
                                 Context: {context_1}\n\
                                 Question: {query}\n\
@@ -1907,9 +1907,9 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out the Transactions \
-                                 that are of amount < $5000, very uncommon as compared to other transactions and can be related to money laundering.\n\n\
-                                 # Include only the transactions < $5000.
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
+                                 that are of amount < $5000 and are very uncommon as compared to other transactions and can be related to money laundering.\n\n\
+                                 # Strictly Include only the transactions < $5000.
                                 Context: {context_1}\n\
                                 Question: {query}\n\
        
