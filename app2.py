@@ -1907,11 +1907,12 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of Context data provided below, identify the suspicous transactions that are very unusual and are less than $5000 and can be realted to money laundering. \n\n\
-                                # Print distinct transactions only. \n\n\
-                                # do not include any Grocery Store transactions
-                                Question: {query}\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract  the Transactions \
+                                 that are very uncommon as compared to other transactions and are of amount < $5000 with their transaction date and debited amounts only\n\n\
+                                 
                                 Context: {context_1}\n\
+                                Question: {query}\n\
+       
                                 Response: (Give response as transactions only . # Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
                                
