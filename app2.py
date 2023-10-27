@@ -1902,7 +1902,7 @@ elif selected_option_case_type == "AML":
     
                                 Question: {query}\n\
                                 
-                                Response: (Extract transactions only. # Do not give me any Explanation,Note, etc.)'''
+                                Response: # Do not give me any Explanation,Note, etc'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
