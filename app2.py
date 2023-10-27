@@ -1907,9 +1907,9 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract  the Transactions \
-                                 that are less than $5000 and are very uncommon as compared to other transactions.\n\n\
-                                 
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out the Transactions \
+                                 that are < $5000 and are very uncommon as compared to other transactions.\n\n\
+                                 # extract only the transactions < $5000 and very uncommon to the data.
                                 Context: {context_1}\n\
                                 Question: {query}\n\
        
