@@ -1894,16 +1894,13 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract the debited Transactions involved in Money laundering activity by taking below considerations:\n\n\
-                                1.) Debited transactions happening of amount > $5,000 value threshold.\n\n\
-                                2.) Are there any Payments made of amount > $5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                            
-                                Based on the above considerations , identify potential debited money laundering transcations.\n\n\
-                                Also, Do include Card due payment Cleared transactions.\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract the debited Transactions \
+                                 that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) of amount > $5000 \n\n\
+                                 Also, Do include Card due payment Cleared transactions.\
                                 
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response as debited transactions only and IF transaction amount is less than $5000 , print them as additonal transactions.Do not give me any Explanation,Note, etc.)'''
+                                Response: (Give me a concise response as debited transactions. Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
