@@ -1907,7 +1907,7 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of Context data provided, Highlight the transactions that are not assocaited with Money Laundering directly and can be suspicous and are unusual based on the historical customer's transactions.\n\
+                                prompt_1 = f''' On the basis of Context data provided, Highlight the transactions that can be suspicous and are unusual based on the historical customer's transactions other then the transactions that are made to an unrecognized entity with no specific business purpose.\n\
                                 
                                 Context: {context_1}\n\
                                 Question: {query}\n\
