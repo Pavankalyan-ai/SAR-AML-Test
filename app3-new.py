@@ -347,7 +347,7 @@ def context_data(document):
 def process_documents(documents):
     docs_new = []
     for i in documents:
-        new_string = replace_strings(i, "\n", "\n", "\t", "")
+        new_string = replace_strings(i, "\n", "", "\t", "")
         docs_new.append(new_string)
     return docs_new
 
@@ -1905,7 +1905,7 @@ elif selected_option_case_type == "AML":
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
-                                 from the credit card statements if available that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 along with their transaction date and debited amounts.\n\n\
+                                 from the credit card transactions statements if available that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 along with their transaction date and debited amounts.\n\n\
                                  
                                 Context: {context_1}\n\
                                 Question: {query}\n\
