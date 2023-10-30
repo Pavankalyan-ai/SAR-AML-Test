@@ -1943,6 +1943,7 @@ elif selected_option_case_type == "AML":
                                  Based on the extracted transactions, Add all the transactions amount according to the consideration and  Output the total amount.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
+                                
                                 Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
 
 
