@@ -1910,16 +1910,13 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
-                                 from the Credit card and savings account Transactions Statement data collectively that are suspicious and uncommon as compared to all transactions and can be realted to money laundering activity.\
-                                 Transcations DO NOT includes:
-                                 1.) transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 .\n\n\
-                                 2.) transactions of cash deposits of amount > $5000.
-                                 Answer below question based on considering all of the factors above on context data provided.
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions \
+                                that are  suspicous and uncommon as compared to to all the transactions and can be realted to Money laundering.
+                                 Answer below question based on above factors. # strictly do not include the transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)
                                 Question: {query}\n\
                                 Context: {context_1}\n\
        
-                                Response: (Give a concise response as transactions only. # Do not give me any Explanation,Note, etc.)'''
+                                Response: (# Give a concise response as transactions only. # Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
