@@ -1897,7 +1897,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions \
                                                 that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount greater than $5000 .\n\
                                                 
-                                                Answer below question based on above factors.
+                                                Answer below question based on above factors.Also do not repeat the transactions or do not consider transaction from reciepts.
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                 
@@ -1941,13 +1941,14 @@ elif selected_option_case_type == "AML":
 
                                 query = "What is the total amount associated with the money laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to extract all of the Transactions \
-                                 that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) of amount > $5000 with their transaction date and debited amounts only\n\n\
-                                 Based on the extracted transactions, Add all the transactions amount according to the consideration and  Output the total amount.\n\n\
-                                Question: {query}\n\
-                                Context: {context_1}\n\
-                                
-                                Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions \
+                                                that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount greater than $5000 .\n\
+                                                Add all the transactions amount and output the total amount
+                                                Answer the total amount below question based on above factors.
+                                                Question: {query}\n\
+                                                Context: {context_1}\n\
+                                                
+                                                Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
 
 
                                 response = usellm(prompt_1)
