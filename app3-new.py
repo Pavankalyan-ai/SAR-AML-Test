@@ -1884,14 +1884,14 @@ elif selected_option_case_type == "AML":
                                                 You sholud closely look into the trasactions statements data and evaluate \
                                                 it to check for any potential money laundering activity. \n
                                                 A Money laundering activity can be detected if any of the following transaction patterns is observed :\n
-                                                # If there are multiple cash transactions of greater than or equals to $5000.
-                                                # If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
-                                                # If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
+                                                1.) If there are multiple cash transactions of greater than or equals to $5000.
+                                                2.) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
+                                                3.) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
                                                 the transactions statements collectively.
-                                                Provide your Concise recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
+                                                Provide your concise recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a summarized response'''
+                                                Response: Give a concise response only in few sentences'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
@@ -1905,12 +1905,12 @@ elif selected_option_case_type == "AML":
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
-                                 from the Credit Card Transaction Statement that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 along with their transaction date and debited amounts.\n\n\
-                                 # do not include cash deposits transactions.
+                                 from the Transactions Statement data provided that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 with with their transaction date and debited amounts.\n\n\
+                                 # Do not include any cash deposits transactions.
                                 Context: {context_1}\n\
                                 Question: {query}\n\
                                 
-                                Response: (Give me a concise response as transactions only. Do not give me any Explanation,Repetitions, Note, etc.)'''
+                                Response: (Give me a concise response as transactions only.Print Distinct transactions only. Do not give me any Explanation, Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
@@ -1919,7 +1919,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions \
                                 that are very uncommon as compared to other transactions in that statement and may be related to potential money laundering.\n\n\
-                                # do not include transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000
+                                # do not include transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)
                                 Context: {context_1}\n\
                                 Question: {query}\n\
        
