@@ -1878,10 +1878,10 @@ elif selected_option_case_type == "AML":
                                                 2.) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
                                                 3.) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
                                                 the transactions statements collectively.
-                                                Provide your concise recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
+                                                Answer below question based on considering all of the factors above on context data provided.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a concise response only in few sentences'''
+                                                Response: Give a concise response only.'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
@@ -1895,11 +1895,13 @@ elif selected_option_case_type == "AML":
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
-                                 from the Transactions Statement data provided that are realted to money laundering activity such as:
+                                 from the Credit card and savings account Transactions Statement data collectively that are realted to money laundering activity. Transcations such as:
                                  1.) transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 .\n\n\
-                                 2.) cash deposits transactions of amount > $5000.
-                                Context: {context_1}\n\
+                                 2.) transactions of cash deposits of amount > $5000.
+                                 Answer below question based on considering all of the factors above on context data provided.
                                 Question: {query}\n\
+                                Context: {context_1}\n\
+                                
                                 
                                 Response: (Print Distinct transactions only. Do not give me any Explanation, Note, etc.)'''
                                 response = usellm(prompt_1)
@@ -1909,10 +1911,14 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' On the basis of Context data provided, Highlight the transactions that can be suspicous and are unusual based on the historical customer's transactions other then the transactions that are made to an unrecognized entity with no specific business purpose.\n\
-                                
-                                Context: {context_1}\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
+                                 from the Credit card and savings account Transactions Statement data collectively that are suspicious and uncommon as compared to all transactions and can be realted to money laundering activity.\
+                                 Transcations DO NOT includes:
+                                 1.) transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 .\n\n\
+                                 2.) transactions of cash deposits of amount > $5000.
+                                 Answer below question based on considering all of the factors above on context data provided.
                                 Question: {query}\n\
+                                Context: {context_1}\n\
        
                                 Response: (Give a concise response as transactions only. # Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
