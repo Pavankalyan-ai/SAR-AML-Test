@@ -2037,11 +2037,11 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify and output all the Transactions that are  made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)\
-                                Do not repeat the transactions.\n\
-                                Question: {query}\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify and output all the Transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) from below context :\n\
                                 Context: {context_1}\n\
-                                Response: (Output identified transactions. Strictly Do not give any Explanation or Note)'''
+                                Question: {query}\n\
+                                
+                                Response: (Output all the identified transactions. Strictly Do not give any Explanation or Note)'''
 
 
                                 response = llama_llm(llama_13b,prompt_1)
@@ -2503,7 +2503,7 @@ elif selected_option_case_type == "AML":
 
 
                         query  = "Give your recommendation if SAR filling is required or not?"
-                        contexts = ', '.join(res_df_gpt['Answer'])
+                        contexts = ', '.join(res_df_llama['Answer'])
                         prompt = f""" Summarize the context data provided with all the essential detials in it and also answer your recommendation on if SAR filling is required or not on the basis of summary?:
                             \n\n\
                         Context: {contexts}\n\
