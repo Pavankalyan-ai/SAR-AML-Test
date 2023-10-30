@@ -1912,7 +1912,7 @@ elif selected_option_case_type == "AML":
                                                 Context: {context_1}\n\
                                 
                                 
-                                                Response: (Give output as transactions only)'''
+                                                Response: (Add this before Output :"Other suspicious transactions are :".Give output as transactions only)'''
                                 response = usellm(prompt_1)
                                
                                
