@@ -1911,7 +1911,7 @@ elif selected_option_case_type == "AML":
                                 Context: {context_1}\n\
                                 Question: {query}\n\
                                 
-                                Response: (Give me a concise response as transactions only. Print Distinct transactions only. Do not give me any Explanation, Note, etc.)'''
+                                Response: (Print Distinct transactions only. Do not give me any Explanation, Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
