@@ -2023,29 +2023,28 @@ elif selected_option_case_type == "AML":
                                                 You sholud closely look into the trasactions statements data and evaluate \
                                                 it to check for any potential money laundering activity. \n
                                                 A Money laundering activity can be detected if any of the following transaction patterns is observed :\n
-                                                1) If there are multiple cash transactions of greater than or equals to 10,000 dollars.
-                                                2) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
-                                                3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
+                                                1.) If there are multiple cash transactions of greater than or equals to $5000.
+                                                2.) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
+                                                3.) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
                                                 the transactions statements collectively.
-                                                Provide your recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
+                                                Answer below question based on considering all of the factors above on context data provided.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a concise response'''
+                                                Response: Give a concise response only.'''
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
                   
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
-                                1.) Is There any high cash transactions happening of amount >= 10,000 USD value threshold.\n\n\
-                                2.) If there is a high-value international transaction is happening or If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                                3.) Are there any Payments made greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                4.) If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
-                                Based on the above considerations , identify potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
-                                Question: {query}\n\
-                                Context: {context_1}\n\
-                                Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify the Transactions that  \
+                                                can be related to Money laundering activity. Transactions must be greater than $5000
+                                                Answer below question. Also do not repeat the transactions.
+                                                Question: {query}\n\
+                                                Context: {context_1}\n\
+                                
+                                
+                                                Response: (Do not repeat the transactions. #Do not give me any Explanation, Note, etc.)'''
 
 
                                 response = llama_llm(llama_13b,prompt_1)
@@ -2068,12 +2067,14 @@ elif selected_option_case_type == "AML":
 
                                 query = "What is the total amount associated with the money laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\
-                                Consideration: Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\
-                                Based on the above consideration,Add all the transactions amount and  Output the total amount that can be associated with Money laundering transcations . Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
-                                Question: {query}\n\
-                                Context: {context_1}\n\
-                                Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions that are greater than $5000 and  \
+                                                that are related to money laundering activity with their transaction amount .\n\
+                                                Add up all these transactions amounts as "total amount" and Answer the total amount.
+                                                
+                                                Question: {query}\n\
+                                                Context: {context_1}\n\
+                                                
+                                                Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
 
                                 
                                 response = llama_llm(llama_13b,prompt_1)
@@ -2102,21 +2103,16 @@ elif selected_option_case_type == "AML":
                     
                                 queries ="Give your recommendation if SAR filling is required or not?"
                     
-                                contexts = text_data_doc
-                                prompt = f" You are a Anti-Money Laundering Specialist. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
-                                            Considerations that suggests money laundering activities are: \n\n\
-                                            Is There any high cash transactions happening of amount >= 10,000 USD value threshold ?\n\n\
-                                            Is there is a high-value international transaction is happening ?\n\n\
-                                            Is there any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the credit card and savings bank account transactions statements collectively.\n\n\
-                                            Are there any transactions happeing of  greater than or equal to $10000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                            If there are Cash deposits greater than or equal to $10000 with source of funds not clear used to pay off credit card debt,\n\n\
-                                            Taking above considerations and Based only on the available information, Act as an Anti-Money Laundering assistant and assist as to if this can be a Money Laundering activity or not ? \n\n\
+                                contexts = ', '.join(res_df_llama['Answer'])
+                                prompt = f""" Summarize the context data provided with all the essential detials in it and also answer your recommendation on if SAR filling is required or not on the basis of summary?:
+                                 \n\n\
                                 Context: {contexts}\n\
-                                Question: {queries}\n\
-                                Response (Give me a concise response.Also Provide examples along with the assistance.)"
-                                    
+                                Question: {query}\n\
+                                Response: """
                                                     
-                                response1 = llama_llm(llama_13b,prompt)           
+                                response1 = llama_llm(llama_13b,prompt)    
+                                
+                                response1 = response1.replace("$", "USD ")       
                                 
                                 
                                 st.session_state["sara_recommendation_llama_aml"] = response1                    
