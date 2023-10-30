@@ -1891,7 +1891,7 @@ elif selected_option_case_type == "AML":
                                                 Provide your Concise recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a concise response'''
+                                                Response: Give a summarized response'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
@@ -1905,7 +1905,7 @@ elif selected_option_case_type == "AML":
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
-                                 from the Credit Card Transaction Statement if available that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 along with their transaction date and debited amounts.\n\n\
+                                 from the Credit Card Transaction Statement that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 along with their transaction date and debited amounts.\n\n\
                                  
                                 Context: {context_1}\n\
                                 Question: {query}\n\
@@ -1919,7 +1919,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions \
                                 that are very uncommon as compared to other transactions in that statement and may be related to potential money laundering.\n\n\
-                                
+                                # do not include transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000
                                 Context: {context_1}\n\
                                 Question: {query}\n\
        
