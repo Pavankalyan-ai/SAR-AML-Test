@@ -1895,7 +1895,7 @@ elif selected_option_case_type == "AML":
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions \
-                                 from the Credit Card Transaction Statement and savings account Transactions Statement data collectively that are realted to money laundering activity. Transcations that can be realted to money laundering activity are: \
+                                 that can be realted to money laundering activity. For examples: \n\
                                  1.) transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount greater than $5000 .\n\
                                  2.) transactions of cash deposits of amount greater than $5000.\n\
                                  Answer below question based on considering all of the above factors on context data provided.
