@@ -1905,12 +1905,13 @@ elif selected_option_case_type == "AML":
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
-                                 from the Transactions Statement data provided that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 with with their transaction date and debited amounts.\n\n\
-                                 # Do not include any cash deposits transactions.
+                                 from the Transactions Statement data provided that are realted to money laundering activity such as:
+                                 1.) transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 .\n\n\
+                                 2.) cash deposits transactions of amount > $5000.
                                 Context: {context_1}\n\
                                 Question: {query}\n\
                                 
-                                Response: (Give me a concise response as transactions only.Print Distinct transactions only. Do not give me any Explanation, Note, etc.)'''
+                                Response: (Give me a concise response as transactions only. Print Distinct transactions only. Do not give me any Explanation, Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
