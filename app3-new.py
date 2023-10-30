@@ -1906,13 +1906,13 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all Transactions from Context that  \
                                                 can be related to Money laundering activity.# Transactions must be greater than $5000.\
-                                                Do not repeat the transactions and Also Do not give me any Explanation, Note, etc.\
+                                                "Do not repeat the transactions" and Also Do not give me any Explanation, Note, etc.\
                                                 Answer below question to the Context.
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                 
                                 
-                                                Response: (Add this before Output :"Other suspicious transactions are :".Give output as transactions only)'''
+                                                Response: (Add this before Output :"Money laundering transactions can be :".Give output as transactions only)'''
                                 response = usellm(prompt_1)
                                
                                
