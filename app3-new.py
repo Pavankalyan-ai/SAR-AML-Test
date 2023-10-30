@@ -1888,10 +1888,10 @@ elif selected_option_case_type == "AML":
                                                 2.) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
                                                 3.) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
                                                 the transactions statements collectively.
-                                                Provide your concise recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
+                                                Answer below question based on considering all of the factors above on context data provided.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a concise response only in few sentences'''
+                                                Response: Give a concise response only.'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
@@ -1904,30 +1904,33 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
-                                 from the Transactions Statement data provided that are realted to money laundering activity such as:
-                                 1.) transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 .\n\n\
-                                 2.) cash deposits transactions of amount > $5000.
-                                Context: {context_1}\n\
-                                Question: {query}\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions \
+                                                that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount greater than $5000 .\n\
+                                                Additionally in a seperate sentence print the the transactions that are also suspicous and can be realted to Money laundering.
+                                                Answer below question based on above factors.
+                                                Question: {query}\n\
+                                                Context: {context_1}\n\
                                 
-                                Response: (Print Distinct transactions only. Do not give me any Explanation, Note, etc.)'''
+                                
+                                                Response: (Do not repeat the transactions.#Do not give me any Explanation, Note, etc.)'''
                                 response = usellm(prompt_1)
+                               
                                
                                 chat_history_1[query] = response
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions \
-                                that are very uncommon as compared to other transactions in that statement and may be related to potential money laundering.\n\n\
-                                # do not include transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)
-                                Context: {context_1}\n\
+                                that are  suspicous and uncommon as compared to to all the transactions and can be realted to Money laundering.
+                                 Answer below question based on above factors. # strictly do not include the transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)
                                 Question: {query}\n\
+                                Context: {context_1}\n\
        
-                                Response: (Give response as transactions only . # Do not give me any Explanation,Repetitions, Note, etc.)'''
+                                Response: (# Give a concise response as transactions only. # Do not give me any Explanation,Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
+
 
                                 query = "What type of Money laundering activity is taking place?"
                                 context_1 = text_data_doc
@@ -1948,11 +1951,12 @@ elif selected_option_case_type == "AML":
 
                                 query = "What is the total amount associated with the money laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect out the Transactions that are involved in the Money laundering activity by taking below considerations:\n\
-                                Consideration: Debited Payments of greater than or equal to $10000 made to any unrecognized entity with no specific business purpose (Ex- Advisories, consu-ltancies,etc.) \n\
-                                Based on the above consideration, Add all the transactions amount according to the consideration and  Output the total amount.\n\n\
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to extract all of the Transactions \
+                                 that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) of amount > $5000 with their transaction date and debited amounts only\n\n\
+                                 Based on the extracted transactions, Add all the transactions amount according to the consideration and  Output the total amount.\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
+                                
                                 Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
 
 
@@ -2003,8 +2007,6 @@ elif selected_option_case_type == "AML":
                                 
                                 st.markdown("### SARA Recommendation")
                                 st.markdown(response1)
-
-
 
 
                             elif st.session_state.llm == "Open-Source":
