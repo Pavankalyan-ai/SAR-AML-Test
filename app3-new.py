@@ -1873,7 +1873,7 @@ elif selected_option_case_type == "AML":
                             # File handling logic
                             
                             
-                            docs = chunk_extract(temp_file_path)
+                            c = chunk_extract(temp_file_path)
                             text_data_doc = docs
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
@@ -2037,14 +2037,12 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify the Transactions that  \
-                                                can be related to Money laundering activity. Transactions must be greater than $5000
-                                                Answer below question. Also do not repeat the transactions.
-                                                Question: {query}\n\
-                                                Context: {context_1}\n\
-                                
-                                
-                                                Response: (Do not repeat the transactions. #Do not give me any Explanation, Note, etc.)'''
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify the Transactions that \
+                                can be related to Money laundering activity. Transactions must be greater than $5000\
+                                Answer below question. Also do not repeat the transactions.
+                                Question: {query}\n\
+                                Context: {context_1}\n\
+                                Response: (Do not repeat the transactions. #Do not give me any Explanation, Note, etc.)'''
 
 
                                 response = llama_llm(llama_13b,prompt_1)
@@ -2184,7 +2182,7 @@ elif selected_option_case_type == "AML":
                     with st.spinner('Getting you information...'):      
                         if query:
                             docs = chunk_extract(temp_file_path)
-                            text_data_doc = context_data(docs)
+                            text_data_doc = docs
                             #text_data_doc = process_files_and_generate_responses(fetched_files)
                             # Text input handling logic
                             #st.write("Text Input:")
