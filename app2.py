@@ -1914,7 +1914,7 @@ elif selected_option_case_type == "AML":
                                                 that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount greater than $5000 .\n\
                                                 
                                                 Answer below question based on above factors.Also do not repeat the transactions or do not consider transaction from reciepts.
-                                                # Do't include ATM Withdrawal transactions. 
+                                                
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
        
