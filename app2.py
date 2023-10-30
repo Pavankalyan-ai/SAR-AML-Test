@@ -1894,16 +1894,16 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract out all the Transactions \
-                                 from the Credit card and savings account Transactions Statement data collectively that are realted to money laundering activity. Transcations such as:
-                                 1.) transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount > $5000 .\n\n\
-                                 2.) transactions of cash deposits of amount > $5000.
-                                 Answer below question based on considering all of the factors above on context data provided.
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions \
+                                 from the Credit Card Transaction Statement and savings account Transactions Statement data collectively that are realted to money laundering activity. Transcations that can be realted to money laundering activity are: \
+                                 1.) transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) and are of amount greater than $5000 .\n\
+                                 2.) transactions of cash deposits of amount greater than $5000.\n\
+                                 Answer below question based on considering all of the above factors on context data provided.
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 
                                 
-                                Response: (Print Distinct transactions only. Do not give me any Explanation, Note, etc.)'''
+                                Response: (Do not repeat the transactions. Do not give me any Explanation, Note, etc.)'''
                                 response = usellm(prompt_1)
                                
                                
