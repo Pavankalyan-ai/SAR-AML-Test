@@ -1891,7 +1891,7 @@ elif selected_option_case_type == "AML":
                                                 Answer below question based on considering all of the factors above on context data provided.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a concise response only.'''
+                                                Response: Give a concise recommedation to the question.'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
@@ -1905,13 +1905,14 @@ elif selected_option_case_type == "AML":
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify the Transactions that  \
-                                                can be related to Money laundering activity. Transactions must be greater than $5000
-                                                Answer below question. Also do not repeat the transactions.
+                                                can be related to Money laundering activity.# Transactions must be greater than $5000.\
+                                                Do not repeat the transactions and Also Do not give me any Explanation, Note, etc.\
+                                                Answer below question to the Context.
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                 
                                 
-                                                Response: (Do not repeat the transactions. #Do not give me any Explanation, Note, etc.)'''
+                                                Response: (Give output as transactions only)'''
                                 response = usellm(prompt_1)
                                
                                
@@ -1919,10 +1920,9 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions \
-                                                that are uncommon to other transactions and can be related to money laundering transactions \n\
-                                                
-                                                Also do not repeat the transactions or do not consider transaction from reciepts.
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify the Transactions \
+                                                that are very uncommon and can also be related to money laundering. \n\
+                                                Do not exclude large transactions and Also do not repeat the transactions or do not consider transaction from reciepts.
                                                 
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
@@ -1952,9 +1952,11 @@ elif selected_option_case_type == "AML":
 
                                 query = "What is the total amount associated with the money laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions that are greater than $5000 and  \
-                                                that are related to money laundering activity with their transaction amount .\n\
-                                                Add up all these transactions amounts as "total amount" and Answer the total amount.
+                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to identify the Transactions that  \
+                                                can be related to Money laundering activity.# Transactions must be greater than $5000.\
+                                                Do not repeat the transactions and Also Do not give me any Explanation, Note, etc.\
+                                                Add all the transactions amount and give ouput as the calculated amount.
+                                                Answer below question to the Context.
                                                 
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
