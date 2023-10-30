@@ -2041,7 +2041,7 @@ elif selected_option_case_type == "AML":
                                 Context: {context_1}\n\
                                 Question: {query}\n\
                                 
-                                Response: (Output all the identified transactions. Strictly Do not give any Explanation or Note)'''
+                                Response: (Strictly Do not give any Explanation or Note)'''
 
 
                                 response = llama_llm(llama_13b,prompt_1)
@@ -2101,8 +2101,7 @@ elif selected_option_case_type == "AML":
                                 queries ="Give your recommendation if SAR filling is required or not?"
                     
                                 contexts = ', '.join(res_df_llama['Answer'])
-                                prompt = f""" Summarize the context data provided with all the essential detials in it and also answer your recommendation on if SAR filling is required or not on the basis of summary?:
-                                 \n\n\
+                                prompt = f""" Summarize the Below Context along with all the essential detials in it and also output your recommendation based on the summary as to if SAR filling is required or not in this case ?\n\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
                                 Response: """
