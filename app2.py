@@ -1911,9 +1911,9 @@ elif selected_option_case_type == "AML":
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all the Transactions \
-                                                that are susupicous and can be related to money laundering except the transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.).\n\
-                                                
-                                                Answer below question based on above factors.Also do not repeat the transactions or do not consider transaction from reciepts.
+                                                that are susupicous and can be related to money laundering excluding \n\
+                                                Exclude the transactions that are made to an unrecognized entity with no specific business purpose.
+                                                Answer below question based on above factors. Also do not repeat the transactions or do not consider transaction from reciepts.
                                                 
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
