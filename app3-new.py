@@ -2039,10 +2039,9 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract all the Transactions from input data of amount greater than $5000 that \
                                 can be related to Money laundering activity. Consider only the debited amounts while extracting the transactions.\n\
-                                # do not print the total amount or any note
                                 Input data: {context_1}\n\
                                 Question: {query}\n\
-                                Response: (Output only the extracted transactions #Do not give me any Explanation, Note, etc.)'''
+                                Response: (Output only the extracted transactions # do not print the total amount or any note #Do not give me any Explanation, Note, etc.)'''
 
 
                                 response = llama_llm(llama_13b,prompt_1)
