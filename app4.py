@@ -1939,8 +1939,8 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify the Transactions \
-                                                that are very uncommon purchases and can also be related to money laundering. \n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify smaller Transactions \
+                                                that are very uncommon and can also be related to money laundering. \n\
                                                 Do not include large transactions and Also do not repeat the transactions or do not consider transaction from reciepts.
                                                 
                                                 Question: {query}\n\
