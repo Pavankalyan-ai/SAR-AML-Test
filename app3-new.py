@@ -101,7 +101,7 @@ llama_13b = HuggingFaceHub(
             repo_id="meta-llama/Llama-2-13b-chat-hf",
             model_kwargs={"temperature":0.01, 
                         "min_new_tokens":100, 
-                        "max_new_tokens":500})
+                        "max_new_tokens":300})
 
 memory = ConversationSummaryBufferMemory(llm= llama_13b, max_token_limit=500)
 conversation = ConversationChain(llm= llama_13b, memory=memory,verbose=False)
