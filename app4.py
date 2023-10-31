@@ -1910,7 +1910,7 @@ elif selected_option_case_type == "AML":
                                                 Answer below question based on considering all of the factors above on context data provided.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a concise recommedation to the question.'''
+                                                Response: Give a recommedation to the question.'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
@@ -1926,7 +1926,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all Transactions from Context that  \
                                                 can be related to Money laundering activity.# Transactions must be greater than $5000.\
                                                 "Do not repeat the transactions" and Also Do not give me any Explanation, Note, etc.\
-                                                Answer below question to the Context.
+                                                Answer below question to the Context. Do not repeat the transactions.
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                 
