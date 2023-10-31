@@ -2013,8 +2013,7 @@ elif selected_option_case_type == "AML":
                                 ## SARA Recommendation
                                 query  = "Give your recommendation if SAR filling is required or not?"
                                 contexts = ', '.join(res_df_gpt['Answer'])
-                                prompt = f""" Summarize the context data provided with all the essential detials in it and also answer your recommendation on if SAR filling is required or not on the basis of summary?:
-                                 \n\n\
+                                prompt = f""" Summarize the context provided with all the essential detials in it and also give your recommendation as to if SAR(Suspicious Activity Reporting) filling is required or not on the basis of your summary? \n\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
                                 Response: """
