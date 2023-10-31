@@ -1854,7 +1854,7 @@ elif selected_option_case_type == "AML":
 
                     data = {'Questions': ["Is there any Money Laundering activity based on the transaction statements?",
                           "What are the transaction that can be associated with Money Laundering activity?",
-                          "Are there any other Suspicous Transactions ?",
+                          #"Are there any other Suspicous Transactions ?",
                           "What type of Money laundering activity is taking place?",
                           "What is the total amount associated with the Money laundering activity?"]}
             
@@ -1893,7 +1893,7 @@ elif selected_option_case_type == "AML":
                             
                             
                             docs = chunk_extract(temp_file_path)
-                            text_data_doc = context_data(docs)
+                            text_data_doc = docs
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
@@ -1937,17 +1937,17 @@ elif selected_option_case_type == "AML":
                                
                                 chat_history_1[query] = response
 
-                                query = "Are there any other Suspicous Transactions ?"
-                                context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify Transactions \
-                                                less than $5000, that are uncommon or unusual based on historical transactions. \n\
-                                                # Do not double count the transactions.\n\
-                                                Question: {query}\n\
-                                                Context: {context_1}\n\
-                                                Response: (Give your response as a suggestion. Output the transactions only)'''
-                                response = usellm(prompt_1)
+                                # query = "Are there any other Suspicous Transactions ?"
+                                # context_1 = text_data_doc
+                                # prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify Transactions \
+                                #                 less than $5000, that are uncommon or unusual based on historical transactions. \n\
+                                #                 # Do not double count the transactions.\n\
+                                #                 Question: {query}\n\
+                                #                 Context: {context_1}\n\
+                                #                 Response: (Give your response as a suggestion. Output the transactions only)'''
+                                # response = usellm(prompt_1)
                                
-                                chat_history_1[query] = response
+                                # chat_history_1[query] = response
 
 
                                 query = "What type of Money laundering activity is taking place?"
@@ -1991,7 +1991,7 @@ elif selected_option_case_type == "AML":
                                 try:
                                     res_df_gpt = pd.DataFrame(list(chat_history_1.items()), columns=['Question','Answer'])
                                     res_df_gpt.reset_index(drop=True, inplace=True)
-                                    index_ = pd.Series([1,2,3,4,5])
+                                    index_ = pd.Series([1,2,3,4])
                                     res_df_gpt = res_df_gpt.set_index([index_])
                                     # st.write(res_df_gpt)                             
                                 except: 
