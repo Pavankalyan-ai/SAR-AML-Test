@@ -1922,7 +1922,7 @@ elif selected_option_case_type == "AML":
                                 are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.).\n\
                                 Context: {context_1}\n\
                                 Response: (Output all the transactions in pointers.)'''
-                                response = usellm(prompt_1)
+                                response = context_1
                                 save_res = response
                                
                                
