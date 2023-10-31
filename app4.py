@@ -1928,6 +1928,7 @@ elif selected_option_case_type == "AML":
                                                 Context: {context_1}\n\
                                                 Response: (Give your response as a suggestion. Output the transactions only)'''
                                 response = usellm(prompt_1)
+                                save_res = response
                                
                                
                                 chat_history_1[query] = response
@@ -1963,16 +1964,12 @@ elif selected_option_case_type == "AML":
                                 chat_history_1[query] = response
 
                                 query = "What is the total amount associated with the money laundering activity?"
-                                context_1 = text_data_doc
-                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to identify the Transactions that  \
-                                                can be related to Money laundering activity.\n\
-                                                # These transactions must be greater than $5000 each.\n\
-                                                # Do not double count the transactions from the same date and entity \n\
-                                                # Also Do not give me any Explanation, Note, etc.\n\
-                                                Add all the amounts from these transactions and give the total amount as your answer.\n\
-                                                Question: {query}\n\
-                                                Context: {context_1}\n\
-                                                Response: (Output only the total calculated amount.)'''
+                                context_1 = save_res
+                                prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
+                                Output the total calculated amount as answer to the question.
+                                Context: {context_1}\n\
+                                Question: {query}\n\
+                                Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ")'''
 
 
                                 response = usellm(prompt_1)
