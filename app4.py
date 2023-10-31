@@ -241,7 +241,7 @@ def wrap_prompt(message: str, role: str) -> dict:
     return {"role": role, "content": message}
 
 def context_data(document):
-    prompt_to_add = "Your goal is to identify potential money laundering data from the input transactions data provided by the customer. Output only the data that you find related to any money laundering activity. Strictly output information from the given data. Do not provide any extra Explanation or Note etc."
+    prompt_to_add = "Your goal is to identify potential money laundering data from the input transactions data provided by the customer. Output all the potential information that could be related to money laundering or unusual activity, considering past transactions. Strictly output information from the given data only. Do not provide any extra Explanation or Note etc."
     modified_conditions = ['"""' + prompt_to_add + doc + '"""' for doc in document]
     results_textdata = []
     for condition in modified_conditions:
@@ -1905,9 +1905,9 @@ elif selected_option_case_type == "AML":
                                                 A Money laundering activity can be detected if any of the following transaction patterns is observed :\n
                                                 1.) If there are multiple cash transactions of greater than or equals to $5000.
                                                 2.) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
-                                                3.) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within 
+                                                3.) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within \ 
                                                 the transactions statements collectively.
-                                                Answer below question based on considering all of the factors above on context data provided.\n\n\
+                                                Answer below question by considering all of the factors above and the Context provided.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a short recommedation to the question.'''
@@ -1924,14 +1924,14 @@ elif selected_option_case_type == "AML":
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all Transactions from Context that  \
-                                                can be related to Money laundering activity.# Transactions must be greater than $5000.\
-                                                "Do not repeat the transactions" and Also Do not give me any Explanation, Note, etc.\
-                                                Answer below question to the Context. Do not repeat the transactions.
+                                                can be related to Money laundering activity.\n\
+                                                # Transactions must be greater than $5000.\n\
+                                                # Do not double count the transactions. \n\
+                                                # Also Do not give me any Explanation, Note, etc.\n\
+                                                Answer the below question based on the transactions statements in the Context only.\n\ 
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                
-                                
-                                                Response: (Add this before Output :"Money laundering transactions can be :".Give output as transactions only)'''
+                                                Response: (Give your response as a suggestion. Output the transactions only)'''
                                 response = usellm(prompt_1)
                                
                                
@@ -1939,14 +1939,12 @@ elif selected_option_case_type == "AML":
 
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify smaller Transactions \
-                                                that are very uncommon and can also be related to money laundering. \n\
-                                                Do not include large transactions and Also do not repeat the transactions or do not consider transaction from reciepts.
-                                                
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify Transactions \
+                                                less than $5000, that are uncommon or unusual based on historical transactions. \n\
+                                                # Do not double count the transactions.\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-       
-                                                Response: (Add this before Output :"Other suspicious transactions are :". Do not repeat the transactions.#Do not give me any Explanation, Note, etc.)'''
+                                                Response: (Give your response as a suggestion. Output the transactions only)'''
                                 response = usellm(prompt_1)
                                
                                 chat_history_1[query] = response
@@ -1972,15 +1970,14 @@ elif selected_option_case_type == "AML":
                                 query = "What is the total amount associated with the money laundering activity?"
                                 context_1 = text_data_doc
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist and your goal is to identify the Transactions that  \
-                                                can be related to Money laundering activity.# Transactions must be greater than $5000.\
-                                                Do not repeat the transactions and Also Do not give me any Explanation, Note, etc.\
-                                                Add all the transactions amount and give ouput as the calculated amount.
-                                                Answer below question to the Context.
-                                                
+                                                can be related to Money laundering activity.\n\
+                                                # These transactions must be greater than $5000 each.\n\
+                                                # Do not double count the transactions from the same date and entity \n\
+                                                # Also Do not give me any Explanation, Note, etc.\n\
+                                                Add all the amounts from these transactions and give the total amount as your answer.\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                
-                                                Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
+                                                Response: (Output only the total calculated amount.)'''
 
 
                                 response = usellm(prompt_1)
