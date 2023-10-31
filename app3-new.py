@@ -2101,9 +2101,9 @@ elif selected_option_case_type == "AML":
                                 queries ="Give your recommendation if SAR filling is required or not?"
                     
                                 contexts = ', '.join(res_df_llama['Answer'])
-                                prompt = f""" Summarize the Below Context along with all the essential detials in it and also output your recommendation based on the summary as to if SAR filling is required or not in this case ?\n\n\
+                                prompt = f""" Summarize the Below Context such that it contains all the essential detials in it and also answer the question as recommendation based on the summary as to if SAR filling is required or not in this case ?\n\n\
                                 Context: {contexts}\n\
-                                Question: {query}\n\
+                                Question: {queries}\n\
                                 Response: """
                                                     
                                 response1 = llama_llm(llama_13b,prompt)    
