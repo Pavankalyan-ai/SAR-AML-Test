@@ -1852,7 +1852,7 @@ elif selected_option_case_type == "AML":
         
                     # Create a Pandas DataFrame with your data
 
-                    data = {'Questions': ["Is there any Money Laundering activity based on the transaction statements?",
+                    data = {'Questions': ["Is there any Money Laundering activity based on the available data?",
                           "What are the transaction that can be associated with Money Laundering activity?",
                           #"Are there any other Suspicous Transactions ?",
                           "What type of Money laundering activity is taking place?",
@@ -1897,20 +1897,15 @@ elif selected_option_case_type == "AML":
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
-                                query = "Is there any Money Laundering activity based on the transactions statements?"
+                                query = "Is there any Money Laundering activity based on the available data?"
                                 context_1 = text_data_doc
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                                 You sholud closely look into the trasactions statements data and evaluate \
                                                 it to check for any potential money laundering activity. \n
-                                                A Money laundering activity can be detected if any of the following transaction patterns is observed :\n
-                                                1.) If there are multiple cash transactions of greater than or equals to $5000.
-                                                2.) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
-                                                3.) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within \ 
-                                                the transactions statements collectively.
-                                                Answer below question by considering all of the factors above and the Context provided.\n\n\
+                                                Answer below question based on the Context provided.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a short recommedation to the question.'''
+                                                Response: Give a concise output.'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
