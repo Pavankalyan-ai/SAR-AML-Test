@@ -2041,7 +2041,7 @@ elif selected_option_case_type == "AML":
                                 Context: {context_1}\n\
                                 Question: {query}\n\
                                 
-                                Response: Give the identified transactions with their transaction date and amount only & Strictly Do't give any Explanation or Note '''
+                                Response: Output the identified transactions with their transaction date and amount only & # Strictly Do't give any Explanation or Note '''
 
 
                                 response = llama_llm(llama_13b,prompt_1)
