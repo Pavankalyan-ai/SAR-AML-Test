@@ -1910,7 +1910,7 @@ elif selected_option_case_type == "AML":
                                                 Answer below question based on considering all of the factors above on context data provided.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a recommedation to the question.'''
+                                                Response: Give a short recommedation to the question.'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
