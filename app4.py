@@ -1918,11 +1918,9 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all Transactions from Context that\
-                                are made to any unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.).\n\
-                                # Transactions must be greater than $5000.\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify all Transactions from the Context that\
+                                are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.).\n\
                                 # Do not double count the transactions. \n\
-                                # Also Do not give me any Explanation, Note, etc.\n\
                                 Context: {context_1}\n\
                                 Response: (Output transactions as pointers. Output the transactions only)'''
                                 response = usellm(prompt_1)
