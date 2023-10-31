@@ -2039,6 +2039,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract all the Transactions from input data of amount greater than $5000 that \
                                 can be related to Money laundering activity. Consider only the debited amounts while extracting the transactions.\n\
+                                # do not print the total amount or any note
                                 Input data: {context_1}\n\
                                 Question: {query}\n\
                                 Response: (Output only the extracted transactions #Do not give me any Explanation, Note, etc.)'''
@@ -2047,18 +2048,7 @@ elif selected_option_case_type == "AML":
                                 response = llama_llm(llama_13b,prompt_1)
                                 chat_history[query] = response
 
-                                query = "What are the transaction that can be associated with the Money Laundering activity?"
-                                context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract all the Transactions of amount greater than $5000 from input data that \
-                                can be related to Money laundering activity. Consider only the debited amounts while extracting the transactions.\n\
-                                Input data: {context_1}\n\
-                                Question: {query}\n\
-                                Response: (Output only the extracted transactions without any note or explanation.)'''
-
-
-                                response = llama_llm(llama_13b,prompt_1)
-                                chat_history[query] = response
-
+                            
 
                                 
                             
@@ -2079,7 +2069,8 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract all the Transactions from input data of amount greater than $5000 that \
                                 can be related to Money laundering activity. Consider only the debited amounts while extracting the transactions.\n\
-                                Add all the extracted transactions amount and output the calculated amount for answer.
+                                Add all the extracted 
+                                transactions amount and output the calculated amount for answer.
                                 Input data: {context_1}\n\
                                 Question: {query}\n\
                                 Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ".Do not give me any Explanation,Note)'''
@@ -2094,7 +2085,7 @@ elif selected_option_case_type == "AML":
                                 try:
                                     res_df_llama = pd.DataFrame(list(chat_history.items()), columns=['Question','Answer'])
                                     res_df_llama.reset_index(drop=True, inplace=True)
-                                    index_ = pd.Series([1,2,3,4,5])
+                                    index_ = pd.Series([1,2,3,4])
                                     res_df_llama = res_df_llama.set_index([index_])
                                     # st.write(res_df_llama)
                             
