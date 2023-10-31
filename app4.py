@@ -1854,7 +1854,7 @@ elif selected_option_case_type == "AML":
 
                     data = {'Questions': ["Is there any Money Laundering activity based on the transaction statements?",
                           "What are the transaction that can be associated with Money Laundering activity?",
-                          #"When is the Money laundering activity taking place?",
+                          "Are there any other Suspicous Transactions ?",
                           "What type of Money laundering activity is taking place?",
                           "What is the total amount associated with the Money laundering activity?"]}
             
@@ -1940,8 +1940,8 @@ elif selected_option_case_type == "AML":
                                 query = "Are there any other Suspicous Transactions ?"
                                 context_1 = text_data_doc
                                 prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify the Transactions \
-                                                that are very uncommon and can also be related to money laundering. \n\
-                                                Do not exclude large transactions and Also do not repeat the transactions or do not consider transaction from reciepts.
+                                                that are very uncommon purchases and can also be related to money laundering. \n\
+                                                Do not include large transactions and Also do not repeat the transactions or do not consider transaction from reciepts.
                                                 
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
