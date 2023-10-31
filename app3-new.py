@@ -2037,11 +2037,11 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract all the debited Transactions from input data of amount greater than $5000 that \
-                                can be related to Money laundering activity. Extract debited transactions with their debited transaction date and amount.\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract all the Transactions from input data of amount greater than $5000 that \
+                                can be related to Money laundering activity. Consider only the debited amounts while extracting the transactions.\n\
                                 Input data: {context_1}\n\
                                 Question: {query}\n\
-                                Response: (Do not repeat the transactions and Do not give me any Explanation, Note, etc.)'''
+                                Response: (Do not give me any Explanation, Note, etc.)'''
 
 
                                 response = llama_llm(llama_13b,prompt_1)
