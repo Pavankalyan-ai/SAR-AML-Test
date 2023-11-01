@@ -1938,15 +1938,17 @@ elif selected_option_case_type == "AML":
 
                                 #response2 = usellm(prompt_1)
                                 response = usellm(prompt_1)
+                                save_res = response
                                 prompt_2 = f''' Your goal is to extract the suspicious transactions involved in Money laundering activity by taking below considerations:\n\n\
                                 Consideration: trasactions that are uncommon or unusual and are of amount between less than $5000 \n\n\
                                 Based on the above consideration , identify all those potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
+                                Response: (Output the suspicious transactions only.Do not give me any Explanation,Note, etc.)'''
                                 response_2 = usellm(prompt_2)
+                                save_res2 = response_2
                                 
-                                save_res = response
-                                response3= save_res + "   There are some other suspicious transactions as below:   " + response_2
+                                
+                                response3= save_res + "\n" + "There are some other suspicious transactions as below:"+ "\n" + save_res2
                                
                                
                                 chat_history_1[query] = response3
