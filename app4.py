@@ -1955,7 +1955,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc2
                                 prompt_1 = f''' Your goal is to extract the Transactions involved in Money laundering activity by taking below consideration:\n\n\
                                 Consideration: Payments greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                Based on the above consideration Only, identify all the potential money laundering Debited($) transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Based on the above consideration only, identify all the potential money laundering Debited transcations. Print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Do not give me any Explanation,Note, etc.)'''
@@ -1963,7 +1963,7 @@ elif selected_option_case_type == "AML":
                                 #response2 = usellm(prompt_1)
                                 response = usellm(prompt_1)
                                 save_res = response
-                                prompt_2 = f''' Your goal is to extract out the transactions of Debited($) amount less than $5000 from the credit card transactions in input_data.Do not add any explanation or note in answer.\n\
+                                prompt_2 = f''' Your goal is to extract out all the transactions of Debited amount less than $5000 from the credit card transactions in input_data that could be involved in Money laundering.Do not add any explanation or note in answer.\n\
                                 input_data: {context_1}\n\
                                 Response: '''
                                 response_2 = usellm(prompt_2)
