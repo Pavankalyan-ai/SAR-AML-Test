@@ -1929,9 +1929,9 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' Your goal is to extract the Transactions involved in Money laundering activity by taking below considerations:\n\n\
-                                Consideration: Are there any Payments made greater than 5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                Based on the above considerations , identify all the potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                prompt_1 = f''' Your goal is to extract the Transactions involved in Money laundering activity by taking below consideration:\n\n\
+                                Consideration: Payments greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                Based on the above consideration, identify all the potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
@@ -1939,7 +1939,7 @@ elif selected_option_case_type == "AML":
                                 #response2 = usellm(prompt_1)
                                 response = usellm(prompt_1)
                                 save_res = response
-                                prompt_2 = f''' Your goal is to extract out the unusual transactions made in the transactions data that are suspicious conisdering the transaction amount must be less than $5000\n\
+                                prompt_2 = f''' Your goal is to extract out the unusual transactions made in the transactions data that are suspicious conisdering that the transaction amount must be less than $5000\n\
                                 Context: {context_1}\n\
                                 Response: (Output the suspicious transactions only.Do not give me any Explanation,Note, etc.)'''
                                 response_2 = usellm(prompt_2)
