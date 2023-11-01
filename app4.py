@@ -1926,7 +1926,7 @@ elif selected_option_case_type == "AML":
                                 
                                 
                                                 Response: (Do not repeat the transactions. #Do not give me any Explanation, Note, etc.)'''
-                                response = usellm(prompt_1)
+                                response = context_1
                                 save_res = response
                                
                                
