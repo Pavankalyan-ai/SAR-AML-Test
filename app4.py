@@ -1963,8 +1963,8 @@ elif selected_option_case_type == "AML":
                                 #response2 = usellm(prompt_1)
                                 response = usellm(prompt_1)
                                 save_res = response
-                                prompt_2 = f''' Your goal is to extract out the transactions that might be related to money laundering from below Context having Debited amount between less than $5000 . Also do not add any explanation or note in answer.\n\
-                                Context: {context_1}\n\
+                                prompt_2 = f''' Your goal is to extract suspicious transactions that could be related to money laundering of amount less than $5000 from input_data . Also do not add any explanation or note in answer.\n\
+                                input_data: {context_1}\n\
                                 Response: '''
                                 response_2 = usellm(prompt_2)
                                 save_res2 = response_2
