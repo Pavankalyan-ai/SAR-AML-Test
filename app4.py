@@ -1941,7 +1941,7 @@ elif selected_option_case_type == "AML":
                                 save_res = response
                                 prompt_2 = f''' Your goal is to extract out the unusual transactions made in the transactions data that are suspicious\n\
                                 Context: {context_1}\n\
-                                Response: (Output the suspicious transactions only.Do not give me any Explanation,Note, etc.)'''
+                                Response: (Output transactions that are less than $5000.Do not give me any Explanation,Note, etc.)'''
                                 response_2 = usellm(prompt_2)
                                 save_res2 = response_2
                                 
