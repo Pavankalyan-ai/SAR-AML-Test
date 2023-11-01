@@ -1934,22 +1934,22 @@ elif selected_option_case_type == "AML":
                                 Based on the above consideration, identify all the potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
+                                Response: (Do not give me any Explanation,Note, etc.)'''
 
                                 #response2 = usellm(prompt_1)
-                                response = context_1
-                                # save_res = response
-                                # prompt_2 = f''' Your goal is to extract out the unusual transactions made in the transactions data that are suspicious conisdering that the transaction amount must be less than $5000\n\
-                                # Context: {context_1}\n\
-                                # Response: (Output the suspicious transactions only.Do not give me any Explanation,Note, etc.)'''
-                                # response_2 = usellm(prompt_2)
-                                # save_res2 = response_2
+                                response = usellm(prompt_1)
+                                save_res = response
+                                prompt_2 = f''' Your goal is to extract out the unusual transactions made in the transactions data that are suspicious conisdering that the transaction amount must be less than $5000\n\
+                                Context: {context_1}\n\
+                                Response: (Output the suspicious transactions only.Do not give me any Explanation,Note, etc.)'''
+                                response_2 = usellm(prompt_2)
+                                save_res2 = response_2
                                 
                                 
-                                # response3= save_res + "\n" + " There are some other suspicious transactions as below:"+ "\n" + save_res2
+                                response3= save_res + " There are some other suspicious transactions as below:"+ save_res2
                                
                                
-                                chat_history_1[query] = response
+                                chat_history_1[query] = response3
 
                                 # query = "Are there any other Suspicous Transactions ?"
                                 # context_1 = text_data_doc
@@ -1982,7 +1982,7 @@ elif selected_option_case_type == "AML":
                                 chat_history_1[query] = response
 
                                 query = "What is the total amount associated with the money laundering activity?"
-                                context_1 = response
+                                context_1 = response3
                                 prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
                                 Output the total calculated amount as answer to the question.
                                 Context: {context_1}\n\
