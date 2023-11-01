@@ -1918,10 +1918,9 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to detect the Transactions involved in Money laundering activity by taking below considerations:\n\n\
-                                1.) Are there any Payments made greater than or equal to $5000 to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\
-                                Based on the above consideration , identify potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
-                                Question: {query}\n\
+                                prompt_1 = f''' You Are an Anti-Money Laundering officer and your goal is to extract all the Transactions that are involved in Money laundering activity by taking below considerations:\n\n\
+                                Consideration: Money Laundering transactions are the transactions that are greater than $5000 and made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\
+                                Based on the above consideration , extract all those transcations. Do not double count the transactions, print distinct transactions only\n\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
 
