@@ -85,7 +85,7 @@ def usellm(prompt):
     """
     service = UseLLM(service_url="https://usellm.org/api/llm")
     messages = [
-      Message(role="system", content="You are a financial analyst, who is an expert at giving responses based on the context."),
+      Message(role="system", content="You are a Money Laundering Specialist, who is an expert at finding out suspicious activities"),
       Message(role="user", content=f"{prompt}"),
       ]
     options = Options(messages=messages)
@@ -249,6 +249,16 @@ def context_data(document):
         user_prompt = wrap_prompt(condition, "user")
         response = get_response([system_prompt, user_prompt])
         results_textdata.append(response['choices'][0]['message']['content'])
+    return results_textdata
+
+def context_data_use_llm(document):
+    prompt_to_add = "Your goal is to identify potential money laundering data from the input transactions data provided by the customer. Output all the potential information that could be related to money laundering or unusual activity, considering past transactions. Strictly output information from the given data only. Do not provide any extra Explanation or Note etc."
+    modified_conditions = ['"""' + prompt_to_add + doc + '"""' for doc in document]
+    results_textdata = []
+    for condition in modified_conditions:
+        
+        response = usellm(condition)
+        results_textdata.append(response)
     return results_textdata
 
 
@@ -1894,6 +1904,7 @@ elif selected_option_case_type == "AML":
                             
                             docs = chunk_extract(temp_file_path)
                             text_data_doc = docs
+                            #text_data_doc=context_data_use_llm(docs)
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
