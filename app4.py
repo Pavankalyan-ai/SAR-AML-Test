@@ -1927,11 +1927,35 @@ elif selected_option_case_type == "AML":
                                 chat_history_1[query] = response
                                
     
+                                # query = "What are the transaction that can be associated with Money Laundering activity?"
+                                # context_1 = text_data_doc2
+                                # prompt_1 = f''' Your goal is to extract the Transactions involved in Money laundering activity by taking below consideration:\n\n\
+                                # Consideration: Payments greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                # Based on the above consideration, identify all the potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                # Question: {query}\n\
+                                # Context: {context_1}\n\
+                                # Response: (Do not give me any Explanation,Note, etc.)'''
+
+                                # #response2 = usellm(prompt_1)
+                                # response = usellm(prompt_1)
+                                # save_res = response
+                                # prompt_2 = f''' Your goal is to extract out the transactions that might be related to money laundering from below Context having Debited amount between $2000 and $5000 . Also do not add any explanation or note in answer.\n\
+                                # Context: {context_1}\n\
+                                # Response: '''
+                                # response_2 = usellm(prompt_2)
+                                # save_res2 = response_2
+                                
+                                
+                                # response3= save_res + " There are some other suspicious transactions as below:"+ save_res2
+                               
+                               
+                                # chat_history_1[query] = response3
+
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc2
                                 prompt_1 = f''' Your goal is to extract the Transactions involved in Money laundering activity by taking below consideration:\n\n\
                                 Consideration: Payments greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                Based on the above consideration, identify all the potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                Based on the above consideration only, identify all the potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Do not give me any Explanation,Note, etc.)'''
@@ -1939,7 +1963,7 @@ elif selected_option_case_type == "AML":
                                 #response2 = usellm(prompt_1)
                                 response = usellm(prompt_1)
                                 save_res = response
-                                prompt_2 = f''' Your goal is to extract out the transactions that might be related to money laundering from below Context having Debited amount between $2000 and $5000 . Also do not add any explanation or note in answer.\n\
+                                prompt_2 = f''' Your goal is to extract out the transactions that might be related to money laundering from below Context having Debited amount between less than $5000 . Also do not add any explanation or note in answer.\n\
                                 Context: {context_1}\n\
                                 Response: '''
                                 response_2 = usellm(prompt_2)
@@ -1951,18 +1975,8 @@ elif selected_option_case_type == "AML":
                                
                                 chat_history_1[query] = response3
 
-                                # query = "Are there any other Suspicous Transactions ?"
-                                # context_1 = text_data_doc
-                                # prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to identify Transactions \
-                                #                 less than $5000, that are uncommon or unusual based on historical transactions. \n\
-                                #                 # Do not double count the transactions.\n\
-                                #                 Question: {query}\n\
-                                #                 Context: {context_1}\n\
-                                #                 Response: (Give your response as a suggestion. Output the transactions only)'''
-                                # response = usellm(prompt_1)
-                               
-                                # chat_history_1[query] = response
 
+                    
 
                                 query = "What type of Money laundering activity is taking place?"
                                 context_1 = text_data_doc
