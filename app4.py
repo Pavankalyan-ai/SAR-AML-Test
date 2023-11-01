@@ -1904,7 +1904,7 @@ elif selected_option_case_type == "AML":
                             
                             docs = chunk_extract(temp_file_path)
                             text_data_doc = docs
-                            #text_data_doc=context_data_use_llm(docs)
+                            text_data_doc2 =context_data_use_llm(docs)
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
@@ -1940,7 +1940,7 @@ elif selected_option_case_type == "AML":
                                 response = usellm(prompt_1)
                                 save_res = response
                                 prompt_2 = f''' Your goal is to extract out the transactions that might be related to money laundering from below Context having Debited amount less than $5000 . Also do not add any explanation or note in answer.\n\
-                                Context: {context_1}\n\
+                                Context: {text_data_doc2}\n\
                                 Response: '''
                                 response_2 = usellm(prompt_2)
                                 save_res2 = response_2
