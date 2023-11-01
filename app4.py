@@ -1928,6 +1928,7 @@ elif selected_option_case_type == "AML":
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
 
+                                #response2 = usellm(prompt_1)
                                 response = usellm(prompt_1)
                                 save_res = response
                                
