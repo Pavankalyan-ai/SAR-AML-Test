@@ -1937,7 +1937,7 @@ elif selected_option_case_type == "AML":
                                 Response: (Give me a concise response as transactions only.Do not give me any Explanation,Note, etc.)'''
 
                                 #response2 = usellm(prompt_1)
-                                response = usellm(prompt_1)
+                                response = context_1
                                 save_res = response
                                 prompt_2 = f''' Your goal is to extract out the unusual transactions made in the transactions data that are suspicious conisdering that the transaction amount must be less than $5000\n\
                                 Context: {context_1}\n\
@@ -1949,7 +1949,7 @@ elif selected_option_case_type == "AML":
                                 response3= save_res + "\n" + " There are some other suspicious transactions as below:"+ "\n" + save_res2
                                
                                
-                                chat_history_1[query] = response3
+                                chat_history_1[query] = response
 
                                 # query = "Are there any other Suspicous Transactions ?"
                                 # context_1 = text_data_doc
