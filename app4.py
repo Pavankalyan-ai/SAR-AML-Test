@@ -1922,7 +1922,7 @@ elif selected_option_case_type == "AML":
                                 can be related to Money laundering activity. Consider only the debited amounts while extracting the transactions.\n\
                                 Input data: {context_1}\n\
                                 Question: {query}\n\
-                                Response: (Output only the extracted transactions #Do not give me any Explanation, Note, etc.)'''
+                                Response: (Output all transactions #Do not give me any Explanation, Note, etc.)'''
                                 response = usellm(prompt_1)
                                 save_res = response
                                
