@@ -1963,7 +1963,7 @@ elif selected_option_case_type == "AML":
                                 #response2 = usellm(prompt_1)
                                 response = usellm(prompt_1)
                                 save_res = response
-                                prompt_2 = f''' Your goal is to extract out all the transactions of Debited amount less than $5000 from the credit card transactions in input_data that could be involved in Money laundering.Do not add any explanation or note in answer.\n\
+                                prompt_2 = f''' Your goal is to extract out all the transactions of amount less than $5000 from the credit card transactions of input_data that could be suspiciously involved in Money laundering.Do not add any explanation or note in answer.\n\
                                 input_data: {context_1}\n\
                                 Response: '''
                                 response_2 = usellm(prompt_2)
