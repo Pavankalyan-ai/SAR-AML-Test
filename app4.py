@@ -1988,7 +1988,7 @@ elif selected_option_case_type == "AML":
                                 save_res2 = response2['choices'][0]['message']['content']
                                 
                                 
-                                response3= save_res + " There are some other suspicious transactions as below:"+ save_res2
+                                response3= save_res 
                                
                                
                                 chat_history_1[query] = response3
