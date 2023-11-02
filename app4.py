@@ -1622,7 +1622,7 @@ elif selected_option_case_type == "AML":
     
     
         with col2:
-            st.markdown("##### **Case open date&nbsp;&nbsp;&nbsp;&nbsp;:** July 06, 2022")
+            st.markdown("##### **Case open date&nbsp;&nbsp;&nbsp;&nbsp;:** July 05, 2022")
             st.markdown("##### **Case type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Money Laundering")
     
     
@@ -1953,19 +1953,19 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc2
-                                prompt_1 = f''' Your goal is to extract the Transactions involved in Money laundering activity by taking below consideration:\n\n\
-                                Consideration: Payments greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                Based on the above consideration, identify all the potential money laundering debited transcations. Do not double the statemetns from multiple documents, print distinct transactions only\n\n\
+                                prompt_1 = f''' Your goal is to extract out all those Transactions that might be involved in Money laundering activity on the basis of below Consideration:\n\n\
+                                Consideration: Payments that are greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                Identify all those money laundering Debited transcations Based on the above consideration only. Print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Do not give me any Explanation,Note, etc.)'''
+                                Response: (Do not give any Explanation,Note, etc. in the answer.)'''
 
                                 #response2 = usellm(prompt_1)
                                 response = usellm(prompt_1)
                                 save_res = response
                                 #prompt2
                                 prompt_2 = f''' Your goal is to extract all the Transactions that might be involved in Money laundering activity by taking below consideration:\n\n\
-                                Consideration: Debited Transactions of amount bewteen ($2000 to $5000) amount that can be related to money laundering transactions. \n\n\
+                                Consideration: Debited Transactions of less than $5000 amount that are uncommon and can be related to money laundering transactions. \n\n\
                                 Based on the above consideration only identify all those Debited transcations. Print distinct transactions only\n\n\
                                 input_data: {context_1}\n\
                                 Response: '''
