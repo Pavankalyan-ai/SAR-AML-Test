@@ -1909,16 +1909,15 @@ elif selected_option_case_type == "AML":
                                 chat_history_1 = {}
     
                                 query = "Is there any Money Laundering activity based on the available data?"
-                                context_1 = text_data_doc
+                                context_1 = text_data_doc2
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                                 You sholud closely look into the trasactions statements data and evaluate \
                                                 it to check for any potential money laundering activity. \n
-                                                A Money laundering activity can be detected if any of the following transaction patterns is observed :\n
-                                                1) If there are multiple cash transactions of greater than or equals to $5000.
-                                                2) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
-                                                3) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within \ 
-                                                the transactions statements collectively.
-                                                Provide your concise recommendation as to if there can be a Money Laundering activity taking place or not based on considering all of the factors above.\n\n\
+                                                Considertions for a Money laundering activity taking place are :\n
+                                                a) If there are multiple cash transactions of greater than or equals to $5000.
+                                                b) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
+                                                c) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the transactions statements collectively. \
+                                                Based on considering all of the factors above, Provide a concise recommendation to below question.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a concise response'''
