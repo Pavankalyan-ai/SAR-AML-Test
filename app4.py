@@ -1959,9 +1959,9 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc2
-                                prompt_1 = f''' Extract out the Transactions that might be involved in Money laundering activity on the basis of below Consideration:\n\n\
+                                prompt_1 = f''' Extract out the Transactions that are involved in Money laundering activity on the basis of below Consideration:\n\n\
                                 Consideration: Payments that are greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                Identify all those money laundering Debited transcations Based on the above consideration only. Print distinct transactions only\n\n\
+                                Based on the above consideration only Identify all those money laundering Debited transcations. Print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Do not give any Explanation,Note, etc. in the answer.)'''
@@ -1974,7 +1974,7 @@ elif selected_option_case_type == "AML":
                                 save_res = response['choices'][0]['message']['content']
                                 #prompt2
                                 prompt_2 = f''' Your goal is to extract all the Transactions that might be involved in Money laundering activity by taking below consideration:\n\n\
-                                Consideration: Debited Transactions of amount less than $5000 amount that are suspicious & uncommon and can be related to money laundering transactions. \n\n\
+                                Consideration: Debited Transactions of amount less than $5000 amount that are suspicious & uncommon. \n\n\
                                 Based on the above consideration only identify all those Debited transcations. Print distinct transactions only\n\n\
                                 input_data: {context_1}\n\
                                 Response:'''
