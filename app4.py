@@ -2021,7 +2021,7 @@ elif selected_option_case_type == "AML":
                                 chat_history_1[query] = response
 
                                 query = "What is the total amount associated with the money laundering activity?"
-                                context_1 = response3
+                                context_1 = saveres
                                 prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
                                 Output the total calculated amount as answer to the question.
                                 Context: {context_1}\n\
