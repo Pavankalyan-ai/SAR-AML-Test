@@ -1968,7 +1968,7 @@ elif selected_option_case_type == "AML":
                                 Consideration: Debited Transactions of less than $5000 amount that can be related to money laundering transactions. \n\n\
                                 Based on the above consideration only identify all those Debited transcations. Print distinct transactions only\n\n\
                                 input_data: {context_1}\n\
-                                Response: show only the transactions with debited amount greater than $2000 from the identified ones.'''
+                                Response: show only the transactions with debited bewteen $2000 to $5000 from the identified ones.'''
                                 response_2 = usellm(prompt_2)
                                 save_res2 = response_2
                                 
