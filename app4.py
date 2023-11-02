@@ -1913,7 +1913,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                                 You sholud closely look into the trasactions statements data and evaluate \
                                                 it to check for any potential money laundering activity. \n
-                                                Answer below question based on the Context provided.\n\n\
+                                                Answer below question based on the Context provided and do not highlight any transaction in the answer.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a concise output.'''
