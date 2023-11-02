@@ -1958,7 +1958,7 @@ elif selected_option_case_type == "AML":
                                 # results_textdata.append(response['choices'][0]['message']['content'])
 
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
-                                context_1 = text_data_doc2
+                                context_1 = text_data_doc
                                 prompt_1 = f''' Extract out the Transactions that are involved in Money laundering activity on the basis of below Consideration:\n\n\
                                 Consideration: Payments that are greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 Based on the above consideration only Identify all those money laundering Debited transcations. Print distinct transactions only\n\n\
