@@ -2030,7 +2030,7 @@ elif selected_option_case_type == "AML":
 
 
                                 response = usellm(prompt_1)
-                                response = response..replace("33000", "USD 33000")
+                                response = response.replace("33000", "USD 33000")
                                 # query=f'**{query}**'
                                 # st.markdown(query)
                                 # st.write(response)
