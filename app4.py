@@ -1863,7 +1863,7 @@ elif selected_option_case_type == "AML":
                     # Create a Pandas DataFrame with your data
 
                     data = {'Questions': ["Is there any Money Laundering activity based on the available data?",
-                          "What are the transaction that can be associated with Money Laundering activity?",
+                          "List down the transactions that can be associated with Money Laundering ?",
                           #"Are there any other Suspicous Transactions ?",
                           "What type of Money laundering activity is taking place?",
                           "What is the total amount associated with the Money laundering activity?"]}
@@ -1912,8 +1912,9 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                                 You sholud closely look into the trasactions statements data and evaluate \
-                                                it to check for any potential money laundering activity. \n
-                                                Answer below question based on the Context provided and do not highlight any transaction in the answer.\n\n\
+                                                it to check for any potential money laundering activity. \n\
+                                                Do not highlight any transaction which is raising suspicion, just the transaction pattern.\n\
+                                                Answer below question based on the Context provided .\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a concise output.'''
@@ -1957,7 +1958,7 @@ elif selected_option_case_type == "AML":
                                 # response = get_response([system_prompt, user_prompt])
                                 # results_textdata.append(response['choices'][0]['message']['content'])
 
-                                query = "What are the transaction that can be associated with Money Laundering activity?"
+                                query = "List down the transactions that can be associated with Money Laundering ?"
                                 context_1 = text_data_doc2
                                 prompt_1 = f''' Extract out the Transactions that are involved in Money laundering activity on the basis of below Consideration:\n\n\
                                 Consideration: transactions that are greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
