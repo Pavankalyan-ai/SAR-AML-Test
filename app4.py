@@ -1955,10 +1955,10 @@ elif selected_option_case_type == "AML":
                                 context_1 = text_data_doc2
                                 prompt_1 = f''' Your goal is to extract all the Transactions that are involved in Money laundering activity by taking below consideration:\n\n\
                                 Consideration: Payments greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                Based on the above consideration only, identify all the money laundering Debited transcations. Print distinct transactions only\n\n\
+                                identify all the money laundering Debited transcations Based on the above consideration only. Print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Do not give me any Explanation,Note, etc.)'''
+                                Response: (Do not add any Explanation,Note, etc.)'''
 
                                 #response2 = usellm(prompt_1)
                                 response = usellm(prompt_1)
