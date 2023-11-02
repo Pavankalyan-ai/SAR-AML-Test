@@ -1952,7 +1952,7 @@ elif selected_option_case_type == "AML":
                                 # chat_history_1[query] = response3
 
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
-                                context_1 = text_data_doc2
+                                context_1 = text_data_doc
                                 prompt_1 = f''' Your goal is to extract all the Transactions that might be involved in Money laundering activity by taking below consideration:\n\n\
                                 Consideration: Payments greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 identify all the money laundering Debited transcations Based on the above consideration only. Print distinct transactions only\n\n\
