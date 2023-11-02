@@ -1975,7 +1975,7 @@ elif selected_option_case_type == "AML":
                                 #prompt2
                                 prompt_2 = f''' Your goal is to extract all the Transactions that might be involved in Money laundering activity by taking below consideration:\n\n\
                                 Consideration: Debited Transactions of amount less than $5000 amount that are suspicious & uncommon. \n\n\
-                                Based on the above consideration only identify all those Debited transcations. Print distinct transactions only\n\n\
+                                Based on the above consideration only of transactions amount less than $5000, identify all those Debited transcations. Print distinct transactions only\n\n\
                                 input_data: {context_1}\n\
                                 Response:'''
                                 # response_2 = usellm(prompt_2)
