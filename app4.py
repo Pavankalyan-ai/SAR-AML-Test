@@ -1917,7 +1917,7 @@ elif selected_option_case_type == "AML":
                                                 Answer below question based on the Context provided .\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
-                                                Response: Give a concise output.'''
+                                                Response: Give a concise answer.'''
                                 response = usellm(prompt_1)
                                 
                                 # query_d="Is there any evidence of unusual activity?"
