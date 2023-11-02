@@ -1909,7 +1909,7 @@ elif selected_option_case_type == "AML":
                                 chat_history_1 = {}
     
                                 query = "Is there any Money Laundering activity based on the available data?"
-                                context_1 = text_data_doc2
+                                context_1 = text_data_doc
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                                 You sholud closely look into the trasactions statements data and evaluate \
                                                 it to check for any potential money laundering activity. \n
@@ -1982,7 +1982,7 @@ elif selected_option_case_type == "AML":
                     
 
                                 query = "What type of Money laundering activity is taking place?"
-                                context_1 = text_data_doc2
+                                context_1 = text_data_doc
                                   
 
                                 prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observe the transaction statements pattern from both the transactions data of credit card and saving accounts statements combined. \
