@@ -1977,22 +1977,25 @@ elif selected_option_case_type == "AML":
                                 #response = usellm(prompt_1)
                                 save_res = response['choices'][0]['message']['content']
                                 #prompt2
-                                prompt_2 = f''' Your goal is to extract all the Transactions that might be involved in Money laundering activity by taking below consideration:\n\n\
-                                Consideration: Debited Transactions of amount less than $5000 amount that are suspicious & uncommon. \n\n\
-                                Based on the above consideration only of transactions amount less than $5000, identify all those Debited transcations. Print distinct transactions only\n\n\
-                                input_data: {context_1}\n\
-                                Response:'''
-                                # response_2 = usellm(prompt_2)
-                                # save_res2 = response_2
+                                # prompt_2 = f''' Your goal is to extract all the Transactions that might be involved in Money laundering activity by taking below consideration:\n\n\
+                                # Consideration: Debited Transactions of amount less than $5000 amount that are suspicious & uncommon. \n\n\
+                                # Based on the above consideration only of transactions amount less than $5000, identify all those Debited transcations. Print distinct transactions only\n\n\
+                                # input_data: {context_1}\n\
+                                # Response:'''
+                                # # response_2 = usellm(prompt_2)
+                                # # save_res2 = response_2
 
-                                system_prompt = wrap_prompt("You are a Money Laundering officer.", "system")
-                                user_prompt = wrap_prompt(prompt_2, "user")
-                                response2 = get_response([system_prompt, user_prompt])
+                                # system_prompt = wrap_prompt("You are a Money Laundering officer.", "system")
+                                # user_prompt = wrap_prompt(prompt_2, "user")
+                                # response2 = get_response([system_prompt, user_prompt])
                
-                                save_res2 = response2['choices'][0]['message']['content']
+                                # save_res2 = response2['choices'][0]['message']['content']
                                 
                                 
                                 response3= save_res 
+                                response3 = response3.replace("10000", "USD 10000")
+                                response3 = response3.replace("5000", "USD 5000")
+                                response3 = response3.replace("8000", "USD 8000")
                                
                                
                                 chat_history_1[query] = response3
