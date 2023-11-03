@@ -2077,6 +2077,18 @@ elif selected_option_case_type == "AML":
                                 st.markdown("### SARA Recommendation")
                                 st.markdown(response1)
 
+                                st.markdown("#### Recommendation Feedback:")
+                                col_1, col_2, col_3, col_4, col_5, col_6 = st.columns(6)
+                    
+                                with col_1:
+                                    if st.button("👍🏻",key=2):
+                                        st.write("*Feedback is recorded*")
+                    
+                    
+                                with col_2:
+                                    if st.button("👎🏻",key=3):
+                                        st.write("*Feedback is recorded*")
+
 
                             elif st.session_state.llm == "Open-Source":
     
@@ -2183,6 +2195,18 @@ elif selected_option_case_type == "AML":
 
                                 st.markdown("### SARA Recommendation")
                                 st.markdown(response1)
+
+                                st.markdown("#### Recommendation Feedback:")
+                                col_1, col_2, col_3, col_4, col_5, col_6 = st.columns(6)
+                    
+                                with col_1:
+                                    if st.button("👍🏻",key=2):
+                                        st.write("*Feedback is recorded*")
+                    
+                    
+                                with col_2:
+                                    if st.button("👎🏻",key=3):
+                                        st.write("*Feedback is recorded*")
                                 
                               
                 
@@ -2303,6 +2327,18 @@ elif selected_option_case_type == "AML":
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
 
+                            st.markdown("#### Summarization Feedback:")
+                                col_1, col_2, col_3, col_4, col_5, col_6 = st.columns(6)
+                    
+                                with col_1:
+                                    if st.button("👍🏻",key=2):
+                                        st.write("*Feedback is recorded*")
+                    
+                    
+                                with col_2:
+                                    if st.button("👎🏻",key=3):
+                                        st.write("*Feedback is recorded*")
+
 
                         elif st.session_state.llm == "Open-Source":
                             st.session_state.disabled=False
@@ -2320,6 +2356,18 @@ elif selected_option_case_type == "AML":
                             st.session_state["tmp_summary_llama_aml"]=st.session_state["tmp_summary_llama_aml"].replace("$", "USD ")
                             #Display summary
                             st.write(st.session_state["tmp_summary_llama_aml"])
+                            
+                            st.markdown("#### Summarization Feedback:")
+                                col_1, col_2, col_3, col_4, col_5, col_6 = st.columns(6)
+                    
+                                with col_1:
+                                    if st.button("👍🏻",key=2):
+                                        st.write("*Feedback is recorded*")
+                    
+                    
+                                with col_2:
+                                    if st.button("👎🏻",key=3):
+                                        st.write("*Feedback is recorded*")
 
         
             tmp_summary = []
