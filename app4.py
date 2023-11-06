@@ -1962,6 +1962,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1 = f''' Extract out the Transactions that are involved in Money laundering activity on the basis of below Consideration:\n\n\
                                 Consideration: transactions that are greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 Based on the above consideration only extract all those money laundering Debited transcations. Print distinct transactions only\n\n\
+                                # do not include any Card due payment Cleared transaction \n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Do not give any Explanation,Note, etc. in the answer.)'''
