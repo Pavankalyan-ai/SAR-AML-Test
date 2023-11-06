@@ -1960,8 +1960,8 @@ elif selected_option_case_type == "AML":
                                 query = "List down the transactions that can be associated with Money Laundering ?"
                                 context_1 = text_data_doc2
                                 prompt_1 = f''' Extract out the Transactions that are involved in Money laundering activity on the basis of below Consideration:\n\n\
-                                Consideration: Transactions that are greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                Based on the above Consideration only extract all those money laundering Debited transcations. Print distinct transactions only.\n\n\
+                                Consideration: transactions that are greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
+                                Based on the above consideration only extract all those money laundering Debited transcations. Print distinct transactions only\n\n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Do not give any Explanation,Note, etc. in the answer.)'''
