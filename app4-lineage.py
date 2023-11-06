@@ -2303,6 +2303,8 @@ elif selected_option_case_type == "AML":
                 with st.spinner('Getting Information....'):
 
                     if lineage:
+                        docs = chunk_extract(temp_file_path)
+                        text_data_doc = docs
                         df = pd.DataFrame(
                         columns=['Question','Source']   ,
                         index=[1,2,3,4])
@@ -2312,7 +2314,7 @@ elif selected_option_case_type == "AML":
                         meta1 = [d.metadata['source'] for d in compressed_docs]  
                         df.loc[1,'Question'] =  "Is there any Money Laundering activity based on the available data?"
                         df.loc[1,'Source'] = meta1[1]
-                        
+
                         # st.write(chunk)
                         # st.write(meta)  
                     
