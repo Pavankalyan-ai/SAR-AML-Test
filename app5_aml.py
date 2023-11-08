@@ -274,7 +274,7 @@ def calculate_iqr(group):
    return q
 
 def process_data_credit_card(data_path):
-    data=pd.read_excel(data_path)
+    data=pd.read_excel(data_path,engine='openpyxl')
     
     d = data.dropna(thresh=4)
     d.reset_index(drop=True, inplace=True)
@@ -317,7 +317,7 @@ def process_data_credit_card(data_path):
 
 
 def process_data_saving(data_path):
-    data=read_excel(data_path)
+    data=pd.read_excel(data_path,engine='openpyxl')
     d = data.dropna(thresh=4)
     d.reset_index(drop=True, inplace=True)
     d.columns = d.iloc[0]
