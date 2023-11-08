@@ -1934,9 +1934,10 @@ elif selected_option_case_type == "AML":
                                 temp_file_path.append(i)
                         else:
                             selected_file_path = os.path.join(directory_path, fetched_pdf)
-                            json1=process_data_saving(selected_file_path)
+                            json2=process_data_saving(selected_file_path)
+                            st.write(json2)
                             #text = convert_image_to_searchable_pdf(selected_file_path)
-                            texts = text_to_docs(json1,file)
+                            texts = text_to_docs(json2,file)
                             for i in texts:
                                 temp_file_path.append(i)
                 #st.write(temp_file_path)            
