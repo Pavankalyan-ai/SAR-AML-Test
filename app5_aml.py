@@ -301,10 +301,10 @@ def process_data_credit_card(data_path):
     result3 = result_df[(result_df['Debited($)'] > result_df["IQR"]) & (result_df['Debited($)'] > 1000)]
     result3=result3.drop(['IQR'],axis=1)
     myDataFrame=pd.concat([result1, result2, result3], axis=0)
-    myDataFrame['Date'] = pd.to_datetime(myDataFrame['Date'])
-    myDataFrame_sorted = myDataFrame.sort_values(by='Date')
-    myDataFrame_sorted.reset_index(inplace=True,drop=True)
-    myDataFrame_sorted['Date'] = myDataFrame_sorted['Date'].dt.strftime('%b %d, %Y')
+    # myDataFrame['Date'] = pd.to_datetime(myDataFrame['Date'])
+    # myDataFrame_sorted = myDataFrame.sort_values(by='Date')
+    # myDataFrame_sorted.reset_index(inplace=True,drop=True)
+    # myDataFrame_sorted['Date'] = myDataFrame_sorted['Date'].dt.strftime('%b %d, %Y')
     json1 = myDataFrame_sorted.to_json(orient='records')
     
     return json1
@@ -334,10 +334,10 @@ def process_data_saving(data_path):
     result3 = result_df[(result_df['Credited($)'] > result_df["IQR"]) & (result_df['Credited($)'] > 1000)]
     result3=result3.drop(['IQR'],axis=1)
     myDataFrame=pd.concat([result1, result2, result3], axis=0)
-    myDataFrame['Date'] = pd.to_datetime(myDataFrame['Date'])
-    myDataFrame_sorted = myDataFrame.sort_values(by='Date')
-    myDataFrame_sorted.reset_index(inplace=True,drop=True)
-    myDataFrame_sorted['Date'] = myDataFrame_sorted['Date'].dt.strftime('%b %d, %Y')
+    # myDataFrame['Date'] = pd.to_datetime(myDataFrame['Date'])
+    # myDataFrame_sorted = myDataFrame.sort_values(by='Date')
+    # myDataFrame_sorted.reset_index(inplace=True,drop=True)
+    # myDataFrame_sorted['Date'] = myDataFrame_sorted['Date'].dt.strftime('%b %d, %Y')
     json2 = myDataFrame_sorted.to_json(orient='records')
 
     return json2
