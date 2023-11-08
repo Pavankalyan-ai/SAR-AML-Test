@@ -1939,7 +1939,7 @@ elif selected_option_case_type == "AML":
                             texts = text_to_docs(json1,file)
                             for i in texts:
                                 temp_file_path.append(i)
-                st.write(temp_file_path)            
+                #st.write(temp_file_path)            
 
     
                 #combining files in fetch evidence and upload evidence
