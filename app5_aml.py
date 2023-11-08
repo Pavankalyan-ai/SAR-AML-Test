@@ -300,12 +300,7 @@ def process_data_credit_card(data_path):
 
     result3 = result_df[(result_df['Debited($)'] > result_df["IQR"]) & (result_df['Debited($)'] > 1000)]
     result3=result3.drop(['IQR'],axis=1)
-    frame = [result1,result2,result3]
-
-    myDataFrame = pd.DataFrame()
-
-    for df in frame:
-        myDataFrame = myDataFrame.append(df)
+    myDataFrame=pd.concat([result1, result2, result3], axis=0)
     myDataFrame['Date'] = pd.to_datetime(myDataFrame['Date'])
     myDataFrame_sorted = myDataFrame.sort_values(by='Date')
     myDataFrame_sorted.reset_index(inplace=True,drop=True)
@@ -338,10 +333,7 @@ def process_data_saving(data_path):
     result_df = result.merge(iqr_val, on='Description', how='left')
     result3 = result_df[(result_df['Credited($)'] > result_df["IQR"]) & (result_df['Credited($)'] > 1000)]
     result3=result3.drop(['IQR'],axis=1)
-    frame = [result1,result2,result3]
-    myDataFrame = pd.DataFrame()
-    for df_1 in frame:
-        myDataFrame = myDataFrame.append(df_1)
+    myDataFrame=pd.concat([result1, result2, result3], axis=0)
     myDataFrame['Date'] = pd.to_datetime(myDataFrame['Date'])
     myDataFrame_sorted = myDataFrame.sort_values(by='Date')
     myDataFrame_sorted.reset_index(inplace=True,drop=True)
@@ -1941,7 +1933,7 @@ elif selected_option_case_type == "AML":
                                 temp_file_path.append(i)
                         else:
                             selected_file_path = os.path.join(directory_path, fetched_pdf)
-                            json1=process_data_credit_card(selected_file_path)
+                            json1=process_data_saving(selected_file_path)
                             #text = convert_image_to_searchable_pdf(selected_file_path)
                             texts = text_to_docs(json1,file)
                             for i in texts:
