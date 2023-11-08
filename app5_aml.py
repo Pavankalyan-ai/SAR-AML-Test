@@ -2133,7 +2133,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1=f''' Your goal is to pull out all the transactions from Credit_Card_statement data that could be suspicious.\n\n
                                 Context: {context_1}\n\
-                                Response: '''
+                                Response: just output the transactions with their description and debited amount , do not add any additional text or note. '''
 
                                 response = usellm(prompt_1)
                                 transactions_cc = response
