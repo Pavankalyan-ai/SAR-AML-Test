@@ -1927,6 +1927,7 @@ elif selected_option_case_type == "AML":
                         if fetched_pdf.startswith("credit_card_statement"):
                             selected_file_path = os.path.join(directory_path, fetched_pdf)
                             json1=process_data_credit_card(selected_file_path)
+                            st.write("creditcard")
                             st.write(json1)
                             #text = convert_image_to_searchable_pdf(selected_file_path)
                             texts = text_to_docs(json1,file)
@@ -1935,6 +1936,7 @@ elif selected_option_case_type == "AML":
                         else:
                             selected_file_path = os.path.join(directory_path, fetched_pdf)
                             json2=process_data_saving(selected_file_path)
+                            st.write("savings")
                             st.write(json2)
                             #text = convert_image_to_searchable_pdf(selected_file_path)
                             texts = text_to_docs(json2,file)
