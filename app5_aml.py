@@ -1995,11 +1995,12 @@ elif selected_option_case_type == "AML":
         
                     # Create a Pandas DataFrame with your data
 
-                    data = {'Questions': ["Is there any Money Laundering activity based on the available data?",
-                          "List down the transactions that can be associated with Money Laundering ?",
-                          #"Are there any other Suspicous Transactions ?",
-                          "What type of Money laundering activity is taking place?",
-                          "What is the total amount associated with the Money laundering activity?"]}
+                    data = {'Questions': ["Why was the case triggered?",
+                          "What are the products that are associsted with this customer?",
+                         "What are the associated suspicious transactions for Credit Card (product1)?",
+                          "What is the total amount associated with the money laundering activity for Credit card (product1)?",
+                          "What are the associated suspicious transactions for Savings account (product2)?",
+                          "What is the total amount associated with the money laundering activity for Savings Account (product2)?"]}
             
                     df_fixed = pd.DataFrame(data)
                     df_fixed.index = df_fixed.index +1
@@ -2084,22 +2085,23 @@ elif selected_option_case_type == "AML":
                                 # response = get_response([system_prompt, user_prompt])
                                 # results_textdata.append(response['choices'][0]['message']['content'])
 
-                                query = "List down the transactions that can be associated with Money Laundering ?"
+                                query = "What are the products that are associsted with this customer?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1 = f''' Extract out the Transactions that are involved in Money laundering activity on the basis of below Consideration:\n\n\
-                                Consideration: transactions that are greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
-                                Based on the above consideration only extract all those money laundering Debited transcations.Print distinct transactions only\n\n\
-                                # Do not include any "Card due payment Cleared" transaction \n\
+                                prompt_1 = f'''Your goal is detect out the Products associated with the customer based on the Context. \n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Do not give any Explanation,Note, etc. in the answer.)'''
+                                response = usellm(prompt_1)
+                                
+                                
+                                chat_history_1[query] = response
 
-                                system_prompt = wrap_prompt("You are a Money Laundering officer.", "system")
-                                user_prompt = wrap_prompt(prompt_1, "user")
-                                response = get_response([system_prompt, user_prompt])
+                                # system_prompt = wrap_prompt("You are a Money Laundering officer.", "system")
+                                # user_prompt = wrap_prompt(prompt_1, "user")
+                                # response = get_response([system_prompt, user_prompt])
                                  
-                                #response = usellm(prompt_1)
-                                save_res = response['choices'][0]['message']['content']
+                                # #response = usellm(prompt_1)
+                                # save_res = response['choices'][0]['message']['content']
                                 #prompt2
                                 # prompt_2 = f''' Your goal is to extract all the Transactions that might be involved in Money laundering activity by taking below consideration:\n\n\
                                 # Consideration: Debited Transactions of amount less than $5000 amount that are suspicious & uncommon. \n\n\
@@ -2116,36 +2118,35 @@ elif selected_option_case_type == "AML":
                                 # save_res2 = response2['choices'][0]['message']['content']
                                 
                                 
-                                response3= save_res 
-                                response3 = response3.replace("10000", "USD 10000")
-                                response3 = response3.replace("5000", "USD 5000")
-                                response3 = response3.replace("8000", "USD 8000")
+                                # response3= save_res 
+                                # response3 = response3.replace("10000", "USD 10000")
+                                # response3 = response3.replace("5000", "USD 5000")
+                                # response3 = response3.replace("8000", "USD 8000")
                                
                                
-                                chat_history_1[query] = response3
+                                # chat_history_1[query] = response3
 
 
                     
 
-                                query = "What type of Money laundering activity is taking place?"
+                                query = "What are the associated suspicious transactions for Credit Card (product1)?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                   
 
-                                prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observe the transaction statements pattern from both the transactions data of credit card and saving accounts statements combined. \
-                                The type of money laundering activities which can take place includes: Structuring or smurfing, layering, round tripping, etc.\ 
-                                Act as and Anti-Money Laundering analyst, observe the transactions statements data and give a concise answer with explanation of what type of money laundering activity could be taking place and on what pattern this activity is observed.\n\n
+                                prompt_1=f''' Your goal is to identify all the transactions that coule be associated with money laundering from the credit card transactions data .\n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
 
                                 response = usellm(prompt_1)
+                                transactions_cc = response
                                 # query=f'**{query}**'
                                 # st.markdown(query)
                                 # st.write(response)
                                 chat_history_1[query] = response
 
-                                query = "What is the total amount associated with the money laundering activity?"
-                                context_1 = save_res
+                                query = "What is the total amount associated with the money laundering activity for Credit card (product1)?"
+                                context_1 = transactions_cc
                                 prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
                                 Output the total calculated amount as answer to the question.
                                 Context: {context_1}\n\
@@ -2154,19 +2155,53 @@ elif selected_option_case_type == "AML":
 
 
                                 response = usellm(prompt_1)
-                                response = response.replace("33000", "USD 33000")
+                                #response = response.replace("33000", "USD 33000")
                                 response = response.replace("$", "USD ")
                                 # query=f'**{query}**'
                                 # st.markdown(query)
                                 # st.write(response)
                                 chat_history_1[query] = response
 
+                                query = "What are the associated suspicious transactions for Savings account (product2)?"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                  
+
+                                prompt_1=f''' Your goal is to identify all the transactions that coule be associated with money laundering from the savings account transactions data \n\n
+                                Question: {query}\n\
+                                Context: {context_1}\n\
+                                Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
+
+                                response = usellm(prompt_1)
+                                transactions_sa = response
+                                # query=f'**{query}**'
+                                # st.markdown(query)
+                                # st.write(response)
+                                chat_history_1[query] = response
+
+                                query = "What is the total amount associated with the money laundering activity for Savings Account (product2)?"
+                                context_1 = transactions_sa
+                                prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
+                                Output the total calculated amount as answer to the question.
+                                Context: {context_1}\n\
+                                Question: {query}\n\
+                                Response: (Add this before the toal amount : "The total amount that can be associated with Money Launder is : ")'''
+
+
+                                response = usellm(prompt_1)
+                                #response = response.replace("33000", "USD 33000")
+                                response = response.replace("$", "USD ")
+                                # query=f'**{query}**'
+                                # st.markdown(query)
+                                # st.write(response)
+                                chat_history_1[query] = response
+
+
                         
     
                                 try:
                                     res_df_gpt = pd.DataFrame(list(chat_history_1.items()), columns=['Question','Answer'])
                                     res_df_gpt.reset_index(drop=True, inplace=True)
-                                    index_ = pd.Series([1,2,3,4])
+                                    index_ = pd.Series([1,2,3,4,5,6])
                                     res_df_gpt = res_df_gpt.set_index([index_])
                                     # st.write(res_df_gpt)                             
                                 except: 
