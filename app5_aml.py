@@ -4,6 +4,10 @@ import ssl
 import pandas as pd
 import streamlit as st
 import streamlit_toggle as tog
+import cv2
+import pdfplumber
+import pytesseract
+from pdf2image import convert_from_path
 from langchain import HuggingFaceHub
 from langchain.llms import OpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -111,6 +115,8 @@ conversation = ConversationChain(llm= llama_13b, memory=memory,verbose=False)
 def llama_llm(_llm,prompt):
     response = _llm.predict(prompt)
     return response
+
+
 
 @st.cache_data
 def process_text(text):
