@@ -2044,12 +2044,7 @@ elif selected_option_case_type == "AML":
                                 query = "Why was the case triggered?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
-                                                You should look out for the reasons why the transactions are flagged as suspicious. \n
-                                                Considertions for a Money laundering activity taking place are :\n
-                                                a) If there are multiple cash transactions of greater than or equals to $5000.
-                                                b) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
-                                                c) If there is any money laundering pattern like structuring or smurfing, layering, placement, integration, etc observed within the transactions statements collectively. \
-                                                Based on considering all of the factors above, Provide a concise recommendation to below question.\n\n\
+                                                You should look out for the reasons why the transactions are flagged as suspicious. \n\n
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a short response'''
