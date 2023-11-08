@@ -1924,8 +1924,9 @@ elif selected_option_case_type == "AML":
                             for i in texts:
                                 temp_file_path.append(i)
                     elif fetched_pdf.endswith(file_ext2):
-                        if fetched_pdf.startswith("credit_card_statement"):
-                            selected_file_path = os.path.join(directory_path, fetched_pdf)
+                        selected_file_path = os.path.join(directory_path, fetched_pdf)
+                        if selected_file_path.startswith("credit_card_statement"):
+                            
                             json1=process_data_credit_card(selected_file_path)
                             st.write("creditcard")
                             st.write(json1)
@@ -1933,8 +1934,8 @@ elif selected_option_case_type == "AML":
                             texts = text_to_docs(json1,file)
                             for i in texts:
                                 temp_file_path.append(i)
-                        else:
-                            selected_file_path = os.path.join(directory_path, fetched_pdf)
+                        elif selected_file_path.startswith("savings_account_statement"):
+                            #selected_file_path = os.path.join(directory_path, fetched_pdf)
                             json2=process_data_saving(selected_file_path)
                             st.write("savings")
                             st.write(json2)
