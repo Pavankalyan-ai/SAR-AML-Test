@@ -164,46 +164,46 @@ def chunk_extract(pdf_files):
     return chunks_splitted
 
 
-@st.cache_data
-def embedding_store(pdf_files):
-    pdf_only =[]
-    text = ""
-    for file in pdf_files:
-      if file.endswith('.pdf'):
-        pdf_only.append(file)       
+# @st.cache_data
+# def embedding_store(pdf_files):
+#     pdf_only =[]
+#     text = ""
+#     for file in pdf_files:
+#       if file.endswith('.pdf'):
+#         pdf_only.append(file)       
       
-    merged_pdf = merge_pdfs(pdf_only)
-    final_pdf = PyPDF2.PdfReader(merged_pdf)
-    for page in final_pdf.pages:
-        text += page.extract_text()
+#     merged_pdf = merge_pdfs(pdf_only)
+#     final_pdf = PyPDF2.PdfReader(merged_pdf)
+#     for page in final_pdf.pages:
+#         text += page.extract_text()
       
-    for file in pdf_files:
-      if file.endswith('xlsx'):
-        df = pd.read_excel(file, engine='openpyxl')
-        # Find the row index where the table data starts
-        data_start_row = 0  # Initialize to 0
-        for i, row in df.iterrows():
-            if row.notna().all():
-                data_start_row = i
-                break
+#     for file in pdf_files:
+#       if file.endswith('xlsx'):
+#         df = pd.read_excel(file, engine='openpyxl')
+#         # Find the row index where the table data starts
+#         data_start_row = 0  # Initialize to 0
+#         for i, row in df.iterrows():
+#             if row.notna().all():
+#                 data_start_row = i
+#                 break
               
-        if data_start_row>0:  
-            df.columns = df.iloc[data_start_row]
+#         if data_start_row>0:  
+#             df.columns = df.iloc[data_start_row]
           
         
-        # Extract the text content above the data
-        text += "\n".join(df.iloc[:data_start_row].apply(lambda x: "\t".join(map(str, x)), axis=1)).replace('nan','')
+#         # Extract the text content above the data
+#         text += "\n".join(df.iloc[:data_start_row].apply(lambda x: "\t".join(map(str, x)), axis=1)).replace('nan','')
         
-        df1 = df.iloc[data_start_row+1:]
-        text_buffer = StringIO()
-        df1.to_csv(text_buffer, sep='\t', index=False)
-        text += "\n\n"+ text_buffer.getvalue()
-        text_buffer.close()
+#         df1 = df.iloc[data_start_row+1:]
+#         text_buffer = StringIO()
+#         df1.to_csv(text_buffer, sep='\t', index=False)
+#         text += "\n\n"+ text_buffer.getvalue()
+#         text_buffer.close()
         
-    texts =  text_splitter.split_text(text)
-    docs = text_to_docs(texts)
-    docsearch = FAISS.from_documents(docs, hf_embeddings)
-    return docs, docsearch
+#     texts =  text_splitter.split_text(text)
+#     docs = text_to_docs(texts)
+#     docsearch = FAISS.from_documents(docs, hf_embeddings)
+#     return docs, docsearch
     
 @st.cache_data
 def merge_and_extract_text(pdf_list):
@@ -262,14 +262,15 @@ def context_data_use_llm(document):
     return results_textdata
 
 
- def calculate_iqr(group):
-        
-        q=group.quantile(0.75)
-        return q
+def calculate_iqr(group):
+   
+   q=group.quantile(0.75)
+   return q
 
-def process_data_credit_card(data):
+def process_data_credit_card(data_path):
+    data=pd.read_excel(data_path)
     
-    d = data.dropna(thresh=threshold)
+    d = data.dropna(thresh=4)
     d.reset_index(drop=True, inplace=True)
     d.columns = d.iloc[0]
     result_df = d.iloc[1:]
@@ -303,15 +304,15 @@ def process_data_credit_card(data):
     myDataFrame_sorted = myDataFrame.sort_values(by='Date')
     myDataFrame_sorted.reset_index(inplace=True,drop=True)
     myDataFrame_sorted['Date'] = myDataFrame_sorted['Date'].dt.strftime('%b %d, %Y')
-    json_data1 = myDataFrame_sorted.to_json(orient='records')
-
-    return json_data1
-
-
-
-def process_data_saving(data):
+    json1 = myDataFrame_sorted.to_json(orient='records')
     
-    d = data.dropna(thresh=threshold)
+    return json1
+
+
+
+def process_data_saving(data_path):
+    data=read_excel(data_path)
+    d = data.dropna(thresh=4)
     d.reset_index(drop=True, inplace=True)
     d.columns = d.iloc[0]
     result_df = d.iloc[1:]
@@ -339,10 +340,66 @@ def process_data_saving(data):
     myDataFrame_sorted = myDataFrame.sort_values(by='Date')
     myDataFrame_sorted.reset_index(inplace=True,drop=True)
     myDataFrame_sorted['Date'] = myDataFrame_sorted['Date'].dt.strftime('%b %d, %Y')
-    json_data2 = myDataFrame_sorted.to_json(orient='records')
+    json2 = myDataFrame_sorted.to_json(orient='records')
 
-    return json_data2
+    return json2
 
+def append_text_to_file(file_path, text_content):
+    try:
+        with open(file_path, 'a') as file:
+            file.write(text_content)
+        print(f"Text has been appended to '{file_path}'.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+def extract_text_from_pdf(file_path):
+    with pdfplumber.open(file_path) as pdf:
+        all_text = []
+        for page in pdf.pages:
+            text = page.extract_text()
+            all_text.append(text)
+    return "\n".join(all_text)
+
+
+ 
+@st.cache_data
+def text_to_docs(text: str,filename) -> List[Document]:
+    """Converts a string or list of strings to a list of Documents
+    with metadata."""
+   
+    if isinstance(text, str):
+        # Take a single string as one page
+        text = [text]
+    page_docs = [Document(page_content=page) for page in text]
+ 
+    # Add page numbers as metadata
+    for i, doc in enumerate(page_docs):
+        doc.metadata["page"] = i + 1
+ 
+    # Split pages into chunks
+    doc_chunks = []
+ 
+    for doc in page_docs:
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=450,
+            separators=["\n\n", "\n", ".", "!", "?", ",", " ", ""],
+            chunk_overlap=50,
+        )
+        chunks = text_splitter.split_text(doc.page_content)
+        for i, chunk in enumerate(chunks):
+            doc = Document(
+                page_content=chunk,
+                metadata = {
+                "page": i + 1,"chunk": i} )
+            # Add sources a metadata
+            doc.metadata["source"] = filename
+            doc_chunks.append(doc)
+    return doc_chunks
+
+@st.cache_data(show_spinner=False)
+def embedding_store(_doc,_hf_embeddings):
+    docsearch = FAISS.from_documents(_doc, _hf_embeddings)
+    return _doc, docsearch
 
 
 # def merge_and_extract_text(pdf_list):
@@ -1880,26 +1937,48 @@ elif selected_option_case_type == "AML":
     
     
                 for fetched_pdf in fetched_files:
-                    file_ext = ("pdf","xlsx")
-                    if fetched_pdf.endswith(file_ext):
-                        file_pth = os.path.join('aml_docs/', fetched_pdf)
-                        # st.write(file_pth)
-                        temp_file_path.append(file_pth) 
-                    else:
-                        pass
+                    directory_path="aml_docs/"
+        
+                    
+                    file_ext1 = tuple("pdf")
+                    file_ext2 = tuple(["xlsx","csv"])
+                    file = fetched_pdf.split('.',1)[0]
+                    if fetched_pdf.endswith(file_ext1):
+                        selected_file_path = os.path.join(directory_path, fetched_pdf)
+                        if is_searchable_pdf(selected_file_path)==False:
+                            text = convert_scanned_pdf_to_searchable_pdf(selected_file_path)
+                            texts =  text_to_docs(text,file)
+                            for i in texts:
+                                temp_file_path.append(i)
+                        else:
+                            file_pth = os.path.join(directory_path, fetched_pdf)
+                            text = extract_text_from_pdf(file_pth)
+                            # st.write(text)
+                            texts =  text_to_docs(text,file)
+                            for i in texts:
+                                temp_file_path.append(i)
+                    elif fetched_pdf.endswith(file_ext2):
+                        if fetched_pdf.startswith("credit"):
+                            selected_file_path = os.path.join(directory_path, fetched_pdf)
+                            json1=process_data_credit_card(selected_file_path)
+                            #text = convert_image_to_searchable_pdf(selected_file_path)
+                            texts = text_to_docs(json1,file)
+                            for i in texts:
+                                temp_file_path.append(i)
+                        else:
+                            selected_file_path = os.path.join(directory_path, fetched_pdf)
+                            json1=process_data_saving(selected_file_path)
+                            #text = convert_image_to_searchable_pdf(selected_file_path)
+                            texts = text_to_docs(json1,file)
+                            for i in texts:
+                                temp_file_path.append(i)
+                    st.write(temp_file_path)            
+
     
                 #combining files in fetch evidence and upload evidence
-                pdf_files_ = []
-                if temp_file_path:
-                    if pdf_files and fetched_files:
-                        file_names = [file.name for file in pdf_files]
-                        file_names = file_names + fetched_files
-                        pdf_files_ = file_names
-                    elif fetched_files:
-                        pdf_files_ = fetched_files
-                    elif pdf_files:
-                        pdf_files_ = pdf_files
-                    else: pass
+                
+
+
         
 
             with col2_up:
@@ -1981,17 +2060,17 @@ elif selected_option_case_type == "AML":
 
                     if generate_button:
                         if temp_file_path is not None:
+                            _, docsearch = embedding_store(temp_file_path)
                             # File handling logic
                             
+                           
+
                             
-                            docs = chunk_extract(temp_file_path)
-                            text_data_doc = docs
-                            text_data_doc2 = context_data(docs)
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
                                 query = "Is there any Money Laundering activity based on the available data?"
-                                context_1 = text_data_doc2
+                                context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                                 You sholud closely look into the trasactions statements data and evaluate \
                                                 it to check for any potential money laundering activity. \n
@@ -2040,7 +2119,7 @@ elif selected_option_case_type == "AML":
                                 # results_textdata.append(response['choices'][0]['message']['content'])
 
                                 query = "List down the transactions that can be associated with Money Laundering ?"
-                                context_1 = text_data_doc2
+                                context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f''' Extract out the Transactions that are involved in Money laundering activity on the basis of below Consideration:\n\n\
                                 Consideration: transactions that are greater than $5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.) \n\n\
                                 Based on the above consideration only extract all those money laundering Debited transcations.Print distinct transactions only\n\n\
@@ -2083,7 +2162,7 @@ elif selected_option_case_type == "AML":
                     
 
                                 query = "What type of Money laundering activity is taking place?"
-                                context_1 = text_data_doc
+                                context_1 = docsearch.similarity_search(query, k=5)
                                   
 
                                 prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observe the transaction statements pattern from both the transactions data of credit card and saving accounts statements combined. \
