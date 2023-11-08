@@ -1925,6 +1925,7 @@ elif selected_option_case_type == "AML":
                                 temp_file_path.append(i)
                     elif fetched_pdf.endswith(file_ext2):
                         selected_file_path = os.path.join(directory_path, fetched_pdf)
+                        st.write("selected_file_path")
                         if selected_file_path.startswith("credit_card_statement"):
                             
                             json1=process_data_credit_card(selected_file_path)
