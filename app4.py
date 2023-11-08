@@ -2297,6 +2297,7 @@ elif selected_option_case_type == "AML":
                             st.session_state["tmp_table_llama_aml"] = pd.concat([st.session_state.tmp_table_llama_aml, df], ignore_index=True)
                             
                             st.session_state.tmp_table_llama_aml.drop_duplicates(subset=['Question'])
+                            
                 
                     
             
