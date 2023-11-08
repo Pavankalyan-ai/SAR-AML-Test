@@ -2133,7 +2133,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = docsearch.similarity_search(query, k=5)
                                   
 
-                                prompt_1=f''' Your goal is to identify all the transactions that coule be associated with money laundering from the credit card transactions data .\n\n
+                                prompt_1=f''' Your goal is to identify all the debited transactions that are  associated the credit card transactions data.\n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
@@ -2166,7 +2166,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = docsearch.similarity_search(query, k=5)
                                   
 
-                                prompt_1=f''' Your goal is to identify all the transactions that coule be associated with money laundering from the savings account transactions data \n\n
+                                prompt_1=f''' Your goal is to identify all the credited transactions that are  associated the savings account transactions data \n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
