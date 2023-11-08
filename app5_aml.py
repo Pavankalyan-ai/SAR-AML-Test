@@ -305,7 +305,7 @@ def process_data_credit_card(data_path):
     # myDataFrame_sorted = myDataFrame.sort_values(by='Date')
     # myDataFrame_sorted.reset_index(inplace=True,drop=True)
     # myDataFrame_sorted['Date'] = myDataFrame_sorted['Date'].dt.strftime('%b %d, %Y')
-    json1 = myDataFrame_sorted.to_json(orient='records')
+    json1 = myDataFrame.to_json(orient='records')
     
     return json1
 
@@ -338,7 +338,7 @@ def process_data_saving(data_path):
     # myDataFrame_sorted = myDataFrame.sort_values(by='Date')
     # myDataFrame_sorted.reset_index(inplace=True,drop=True)
     # myDataFrame_sorted['Date'] = myDataFrame_sorted['Date'].dt.strftime('%b %d, %Y')
-    json2 = myDataFrame_sorted.to_json(orient='records')
+    json2 = myDataFrame.to_json(orient='records')
 
     return json2
 
