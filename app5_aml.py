@@ -2041,11 +2041,10 @@ elif selected_option_case_type == "AML":
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
-                                query = "Is there any Money Laundering activity based on the available data?"
+                                query = "Why was the case triggered?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
-                                                You sholud closely look into the trasactions statements data and evaluate \
-                                                it to check for any potential money laundering activity. \n
+                                                You should look out for the reasons why the transactions are flagged as suspicious. \n
                                                 Considertions for a Money laundering activity taking place are :\n
                                                 a) If there are multiple cash transactions of greater than or equals to $5000.
                                                 b) If there is any high-value international transaction happening which involves movement of funds to or from a high risk geographical location (Ex- Mauritious, Syria, Nigeria,etc.).
