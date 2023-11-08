@@ -340,8 +340,8 @@ def process_data_saving(data_path):
     result3=result3.drop(['IQR'],axis=1)
     frame = [result1,result2,result3]
     myDataFrame = pd.DataFrame()
-    for df in frame:
-        myDataFrame = myDataFrame.append(df)
+    for df_1 in frame:
+        myDataFrame = myDataFrame.append(df_1)
     myDataFrame['Date'] = pd.to_datetime(myDataFrame['Date'])
     myDataFrame_sorted = myDataFrame.sort_values(by='Date')
     myDataFrame_sorted.reset_index(inplace=True,drop=True)
