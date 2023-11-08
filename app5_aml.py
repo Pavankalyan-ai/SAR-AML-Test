@@ -2131,8 +2131,7 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the associated suspicious transactions for Credit Card (product1)?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1=f''' Your goal is to extract all the debited transactions from the credit card statements data that could be suspicious.\n\n
-                                Question: {query}\n\
+                                prompt_1=f''' Your goal is to pull out all the transactions from Credit_Card_statement data that could be suspicious.\n\n
                                 Context: {context_1}\n\
                                 Response: '''
 
