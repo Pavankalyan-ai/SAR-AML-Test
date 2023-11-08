@@ -1929,8 +1929,8 @@ elif selected_option_case_type == "AML":
                         if selected_file_path.startswith("aml_docs/Credit_Card_statement"):
                             
                             json1=process_data_credit_card(selected_file_path)
-                            st.write("creditcard")
-                            st.write(json1)
+                            #st.write("creditcard")
+                            #st.write(json1)
                             #text = convert_image_to_searchable_pdf(selected_file_path)
                             texts = text_to_docs(json1,file)
                             for i in texts:
@@ -1938,13 +1938,13 @@ elif selected_option_case_type == "AML":
                         elif selected_file_path.startswith("aml_docs/savings_account_statement"):
                             #selected_file_path = os.path.join(directory_path, fetched_pdf)
                             json2=process_data_saving(selected_file_path)
-                            st.write("savings")
-                            st.write(json2)
+                            #st.write("savings")
+                            #st.write(json2)
                             #text = convert_image_to_searchable_pdf(selected_file_path)
                             texts = text_to_docs(json2,file)
                             for i in texts:
                                 temp_file_path.append(i)
-                #st.write(temp_file_path)            
+                st.write(temp_file_path)            
 
     
                 #combining files in fetch evidence and upload evidence
