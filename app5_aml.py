@@ -990,7 +990,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     if generate_button:
                         if temp_file_path is not None:
                             # File handling logic
-                            _, docsearch = embedding_store(temp_file_path)
+                            _, docsearch = embedding_store(temp_file_path,hf_embeddings)
                             if st.session_state.llm == "Closed-Source":
                                 queries ="Please provide the following information regarding the possible fraud case: What is the name of the customer name,\
                                 has any suspect been reported, list the merchant name, how was the bank notified, when was the bank notified, what is the fraud type,\
