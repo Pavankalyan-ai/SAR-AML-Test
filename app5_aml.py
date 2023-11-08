@@ -1941,7 +1941,7 @@ elif selected_option_case_type == "AML":
                                 temp_file_path.append(i)
                         else:
                             selected_file_path = os.path.join(directory_path, fetched_pdf)
-                            json1=process_data_saving(selected_file_path)
+                            json1=process_data_credit_card(selected_file_path)
                             #text = convert_image_to_searchable_pdf(selected_file_path)
                             texts = text_to_docs(json1,file)
                             for i in texts:
