@@ -1995,12 +1995,13 @@ elif selected_option_case_type == "AML":
         
                     # Create a Pandas DataFrame with your data
 
-                    data = {'Questions': ["Why was the case triggered?",
+                    data = {'Questions': ["Why was the transactions triggered?",
                           "What are the products that are associsted with this customer?",
-                         "What are the associated suspicious transactions for Credit Card (product1)?",
-                          "What is the total amount associated with the money laundering activity for Credit card (product1)?",
-                          "What are the associated suspicious transactions for Savings account (product2)?",
-                          "What is the total amount associated with the money laundering activity for Savings Account (product2)?"]}
+                         "What are the associated suspicious transactions for Credit Card?",
+                          "What is the total amount associated with the money laundering activity for Credit card?",
+                          "What are the associated suspicious transactions for Savings account?",
+                          "What is the total amount associated with the money laundering activity for Savings Account?",
+                          "What type of Money laundering activity is taking place?"]}
             
                     df_fixed = pd.DataFrame(data)
                     df_fixed.index = df_fixed.index +1
@@ -2134,7 +2135,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1=f''' Your goal is to pull out suspicious transactions from Credit_Card_statement data.Suspicious transactions can be:\n\n
                                 Transactions that are greater than 5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)
                                 Context: {context_1}\n\
-                                Response: (Just output those transactions with their description and debited amount .# Do not output any additional text, Explanation or note.) '''
+                                Response: (Just output those transactions with their Date, description and debited amount .# Do not output any additional text, Explanation or note.) '''
 
                                 response = usellm(prompt_1)
                                 #st.write(context_1)
@@ -2169,7 +2170,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1=f''' Your goal is to pull out suspicious transactions from savings_account_statement data. Suspicious transactions can be the Cash deposits or other unidentified/ unusual transactions.\n\
                                 Note: Paycheck or salary deposits may not be considered as suspicious transactions. 
                                 Context: {context_1}\n\
-                                Response: (Just output those transactions with their description and credited amount , # Do not add any further text, Explanation or note.) '''
+                                Response: (Just output those transactions with their Date, description and credited amount , # Do not add any further text, Explanation or note.) '''
 
                                 response = usellm(prompt_1)
                                 st.write(context_1)
@@ -2198,13 +2199,27 @@ elif selected_option_case_type == "AML":
                                 # st.write(response)
                                 chat_history_1[query] = response
 
+                                query = "What type of Money laundering activity is taking place?"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                  
+
+                                prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observe the transaction statements pattern from both the transactions data of credit card and saving accounts statements combined. \
+                                The type of money laundering activities which can take place includes: Structuring or smurfing, layering, round tripping, etc.\ 
+                                Act as and Anti-Money Laundering analyst, observe the transactions statements data and give a concise answer with explanation of what type of money laundering activity could be taking place and on what pattern this activity is observed.\n\n
+                                Question: {query}\n\
+                                Context: {context_1}\n\
+                                Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
+
+                                response = usellm(prompt_1)
+                                chat_history_1[query] = response
+
 
                         
     
                                 try:
                                     res_df_gpt = pd.DataFrame(list(chat_history_1.items()), columns=['Question','Answer'])
                                     res_df_gpt.reset_index(drop=True, inplace=True)
-                                    index_ = pd.Series([1,2,3,4,5,6])
+                                    index_ = pd.Series([1,2,3,4,5,6,7])
                                     res_df_gpt = res_df_gpt.set_index([index_])
                                     # st.write(res_df_gpt)                             
                                 except: 
