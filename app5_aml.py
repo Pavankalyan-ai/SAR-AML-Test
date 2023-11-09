@@ -2062,6 +2062,7 @@ elif selected_option_case_type == "AML":
                                                 Context: {context_1}\n\
                                                 Response: Give a short response'''
                                 response = usellm(prompt_1)
+                                ques1 = response
                                 #st.write(context_1)
                                 
                                 chat_history_1[query] = response
@@ -2231,6 +2232,7 @@ elif selected_option_case_type == "AML":
                                 Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
 
                                 response = usellm(prompt_1)
+                                ques8 = response
                                 chat_history_1[query] = response
                                 st.session_state["lineage_aml"][query] = context_1
 
@@ -2275,7 +2277,7 @@ elif selected_option_case_type == "AML":
                                 
                                 ## SARA Recommendation
                                 query  = "Give your recommentaion if SAR filling is required or not ?"
-                                contexts = ', '.join(res_df_gpt['Answer'])
+                                contexts = ques1 + ques8
                                 prompt = f"""Based on the provided context, give your recommendation to below questions Only:\n\
                                 1.) why were the transactions triggered?\n\
                                 2.) What is the total amount associated with the Money Laundering ? \n\    
