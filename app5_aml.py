@@ -2261,7 +2261,7 @@ elif selected_option_case_type == "AML":
                                 2.) What is the total amount associated with the Money Laundering ? \n\    
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response: (Give your response in pointers.)"""
+                                Response: """
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
