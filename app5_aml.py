@@ -2132,10 +2132,11 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the associated suspicious transactions for Credit Card?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1=f''' Your goal is to pull out suspicious transactions from Credit_Card_statement data only.Suspicious transactions can be:\n\n
+                                prompt_1=f''' Your goal is to pull out suspicious transactions from Credit_Card_statement data only. Suspicious transactions can be:\n\n
                                 Transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)
                                 Context: {context_1}\n\
-                                Response: (# Do not output any additional text, Explanation or note.) '''
+                                Response: (Output those transaction.Also, Do not output any additional text, Explanation or note.) '''
+                                st.write(context_1)
 
                                 response = usellm(prompt_1)
                                 #st.write(context_1)
@@ -2173,7 +2174,7 @@ elif selected_option_case_type == "AML":
                                 Response: (Just output those transactions with their Date, description and credited amount , # Do not add any further text, Explanation or note.) '''
 
                                 response = usellm(prompt_1)
-                                st.write(context_1)
+                                #st.write(context_1)
 
                                
                                 transactions_sa = response
