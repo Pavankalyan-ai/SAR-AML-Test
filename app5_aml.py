@@ -2163,7 +2163,7 @@ elif selected_option_case_type == "AML":
                                 chat_history_1[query] = response
 
                                 query = "What are the associated suspicious transactions for Savings account?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = docsearch.similarity_search(query, k=2)
                                   
 
                                 prompt_1=f''' Your goal is to pull out suspicious transactions from savings_account_statement data. Suspicious transactions can be Cash deposits or other unidentified transactions.\n\n
