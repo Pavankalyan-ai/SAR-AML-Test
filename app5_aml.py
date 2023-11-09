@@ -2172,6 +2172,7 @@ elif selected_option_case_type == "AML":
                                 Response: (Just output those transactions with their description and credited amount , # Do not add any further text, Explanation or note.) '''
 
                                 response = usellm(prompt_1)
+                                st.write(context_1)
 
                                
                                 transactions_sa = response
