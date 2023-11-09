@@ -2150,7 +2150,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1=f''' Your goal is to detect out the suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
                                 Transactions that are made to an unrecognized entity with high risk geography (Ex- Advisories, consultancies,etc.).Print distinct transactions only.\n\
                                 Context: {context_1}\n\
-                                Response: (Print those transactions with their Description, Date and Debited Amount.) '''
+                                Response: (Print those transactions with their Description, Date and Debited Amount. Do not give any explanation or note in output.) '''
                                 #st.write(context_1)
 
                                 response = usellm(prompt_1)
@@ -2277,14 +2277,14 @@ elif selected_option_case_type == "AML":
                                 st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
                                 
                                 ## SARA Recommendation
-                                query  = "Give your recommentaion if SAR filling is required or not ?"
+                                query  = "Give your recommentaion if SAR filling is required or not?"
                                 contexts = ques1 + ques8
                                 prompt = f"""Based on the provided context, give your recommendation to below questions Only:\n\
                                 1.) why were the transactions triggered?\n\
                                 2.) What is the total amount associated with the Money Laundering ? \n\    
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response: (Give response for each question seperately)"""
+                                Response: (Give response to each question seperately)"""
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
