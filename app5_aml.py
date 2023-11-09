@@ -2169,7 +2169,7 @@ elif selected_option_case_type == "AML":
                                   
 
                                 prompt_1=f''' Your goal is to pull out suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
-                                Cash Deposits or any other unusual transaction.
+                                Cash Deposits or any other unusual transaction. Note: Paycheck or salary deposits may not be considered as suspicious transactions.
                                 Context: {context_1}\n\
                                 Response: (Output those transaction with their Description, Date and Credited Amount. Also, Do not output any additional text, Explanation or note.) '''
                                 #st.write(context_1)
