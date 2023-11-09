@@ -2167,7 +2167,7 @@ elif selected_option_case_type == "AML":
                                   
 
                                 prompt_1=f''' Your goal is to pull out suspicious transactions from savings_account_statement data. Suspicious transactions are the Cash deposits of amount > $5000.\n\n
-                                
+                                #Do not include any Paycheck transactions. \n\
                                 Context: {context_1}\n\
                                 Response: (Just output those transactions with their description and credited amount , # Do not add any further text, Explanation or note.) '''
 
@@ -2228,7 +2228,7 @@ elif selected_option_case_type == "AML":
                                 prompt = f""" Based on the provided context identify if it is a suspicious activity or not ? \n\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response: """
+                                Response: (Give your response in pointers.)"""
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
