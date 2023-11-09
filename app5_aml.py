@@ -1947,7 +1947,7 @@ elif selected_option_case_type == "AML":
                             texts = text_to_docs(json2,file)
                             for i in texts:
                                 temp_file_path.append(i)
-                st.write(temp_file_path)            
+                #st.write(temp_file_path)            
 
     
                 #combining files in fetch evidence and upload evidence
@@ -2576,12 +2576,12 @@ elif selected_option_case_type == "AML":
                             col_1, col_2, col_3, col_4, col_5, col_6 = st.columns(6)
                     
                             with col_1:
-                                if st.button("👍🏻",key=2):
+                                if st.button("👍🏻",key=4):
                                     st.write("*Feedback is recorded*")
                 
                 
                             with col_2:
-                                if st.button("👎🏻",key=3):
+                                if st.button("👎🏻",key=5):
                                     st.write("*Feedback is recorded*")
 
 
@@ -2606,12 +2606,12 @@ elif selected_option_case_type == "AML":
                             col_1, col_2, col_3, col_4, col_5, col_6 = st.columns(6)
                     
                             with col_1:
-                                if st.button("👍🏻",key=2):
+                                if st.button("👍🏻",key=4):
                                     st.write("*Feedback is recorded*")
                 
                 
                             with col_2:
-                                if st.button("👎🏻",key=3):
+                                if st.button("👎🏻",key=5):
                                     st.write("*Feedback is recorded*")
 
         
