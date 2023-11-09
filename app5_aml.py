@@ -2043,7 +2043,7 @@ elif selected_option_case_type == "AML":
                     generate_button = st.button("Generate Insights",on_click=set_clicked1,disabled=st.session_state.disabled)
                    
  
-                    if st.session_state.clicked
+                    if st.session_state.clicked1:
                         if temp_file_path is not None:
                             _, docsearch = embedding_store(temp_file_path,hf_embeddings)
                             # File handling logic
