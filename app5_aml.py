@@ -2091,7 +2091,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1 = f'''Your goal is detect out the Products associated with the customer based on the Context. \n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Do not give any Explanation,Note, etc. in the answer.)'''
+                                Response: (Give transactions only , Do not give any Explanation,Note, etc. in the answer.)'''
                                 response = usellm(prompt_1)
                                 
                                 
@@ -2159,6 +2159,7 @@ elif selected_option_case_type == "AML":
                                 response = usellm(prompt_1)
                                 #response = response.replace("33000", "USD 33000")
                                 response = response.replace("$", "USD ")
+                                total_cc = response
                                 # query=f'**{query}**'
                                 # st.markdown(query)
                                 # st.write(response)
@@ -2192,8 +2193,10 @@ elif selected_option_case_type == "AML":
 
 
                                 response = usellm(prompt_1)
+                                
                                 #response = response.replace("33000", "USD 33000")
                                 response = response.replace("$", "USD ")
+                                total_sav =  response
                                 # query=f'**{query}**'
                                 # st.markdown(query)
                                 # st.write(response)
@@ -2222,6 +2225,7 @@ elif selected_option_case_type == "AML":
                                 Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
 
                                 response = usellm(prompt_1)
+                                response = total_sav + total_cc + response
                                 chat_history_1[query] = response
 
 
