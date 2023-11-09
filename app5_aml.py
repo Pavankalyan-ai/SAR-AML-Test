@@ -2132,8 +2132,8 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the associated suspicious transactions for Credit Card?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1=f''' Your goal is to pull out all the suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
-                                Transactions that are made to a high risk geography. Print all distinct transactions only.
+                                prompt_1=f''' Your goal is to pull out suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
+                                Transactions that are made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.).Print distinct transactions only.
                                 Context: {context_1}\n\
                                 Response: (Output those transaction with their Description, Date and Debited Amount. Also, Do not output any additional text, Explanation or note.) '''
                                 #st.write(context_1)
@@ -2169,7 +2169,7 @@ elif selected_option_case_type == "AML":
                                   
 
                                 prompt_1=f''' Your goal is to pull out suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
-                                Cash Deposits or any other unusual transaction. Note: Do not include any Paycheck or Opening balance transactions as they may not be considered as suspicious transactions.
+                                High Value Cash Deposits in a short span of time. Note: Do not include any Paycheck or Opening balance depostits as they may not be considered as suspicious transactions.
                                 Context: {context_1}\n\
                                 Response: (Output those transaction with their Description, Date and Credited Amount. Also, Do not output any additional text, Explanation or note.) '''
                                 #st.write(context_1)
