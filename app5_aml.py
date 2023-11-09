@@ -539,6 +539,9 @@ if "llm" not in st.session_state:
 if "pdf_files" not in st.session_state:
     st.session_state.pdf_files = []
 
+if "lineage_aml" not in st.session_state:
+    st.session_state["lineage_aml"] = {}
+
 
 
 # Apply CSS styling to resize the buttons
@@ -1755,7 +1758,7 @@ elif selected_option_case_type == "AML":
 
 
         if selected_option:
-            col1_up, col2_up, col3_up, col4_up, col5_up = st.tabs(["Data", "Generate Insights","Summarization","Download Report", "Make a Decision"])
+            col1_up, col2_up, col3_up, col4_up, col5_up, col6_up = st.tabs(["Data", "Generate Insights","Lineage","Summarization","Download Report", "Make a Decision"])
 
             with col1_up:
                 bt1_up, bt2_up = st.tabs(["Fetch Evidence", "Upload Evidence"])
@@ -2029,10 +2032,18 @@ elif selected_option_case_type == "AML":
                     
                 with st.spinner('Wait for it...'):
                     
-                    generate_button = st.button("Generate Insights",disabled=st.session_state.disabled)
-                    
-
-                    if generate_button:
+                    if 'clicked1' not in st.session_state:
+                        st.session_state.clicked1 = False
+                   
+                    def set_clicked1():
+                        st.session_state.clicked1 = True
+                        st.session_state.disabled = True
+ 
+                   
+                    generate_button = st.button("Generate Insights",on_click=set_clicked1,disabled=st.session_state.disabled)
+                   
+ 
+                    if st.session_state.clicked
                         if temp_file_path is not None:
                             _, docsearch = embedding_store(temp_file_path,hf_embeddings)
                             # File handling logic
@@ -2054,6 +2065,7 @@ elif selected_option_case_type == "AML":
                                 #st.write(context_1)
                                 
                                 chat_history_1[query] = response
+                                st.session_state["lineage_aml"][query] = context_1
                                
     
                                 # query = "What are the transaction that can be associated with Money Laundering activity?"
@@ -2096,6 +2108,7 @@ elif selected_option_case_type == "AML":
                                 
                                 
                                 chat_history_1[query] = response
+                                st.session_state["lineage_aml"][query] = context_1
 
                                 # system_prompt = wrap_prompt("You are a Money Laundering officer.", "system")
                                 # user_prompt = wrap_prompt(prompt_1, "user")
@@ -2146,8 +2159,10 @@ elif selected_option_case_type == "AML":
                                 # st.markdown(query)
                                 # st.write(response)
                                 chat_history_1[query] = response
+                                st.session_state["lineage_aml"][query] = context_1
 
                                 query = "What is the total amount associated with the money laundering activity for Credit card?"
+                                st.session_state["lineage_aml"][query] = context_1
                                 context_1 = transactions_cc
                                 prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
                                 Output the total calculated amount as answer to the question.
@@ -2182,8 +2197,10 @@ elif selected_option_case_type == "AML":
                                 # st.markdown(query)
                                 # st.write(response)
                                 chat_history_1[query] = response
+                                st.session_state["lineage_aml"][query] = context_1
 
                                 query = "What is the total amount associated with the money laundering activity for Savings Account ?"
+                                st.session_state["lineage_aml"][query] = context_1
                                 context_1 = transactions_sa
                                 prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
                                 Output the total calculated amount as answer to the question.
@@ -2215,8 +2232,10 @@ elif selected_option_case_type == "AML":
 
                                 response = usellm(prompt_1)
                                 chat_history_1[query] = response
+                                st.session_state["lineage_aml"][query] = context_1
 
                                 query = "What is the total amount associated with the Money Laundering ?"
+                                st.session_state["lineage_aml"][query] = context_1
                                 context_1 = transactions_cc + transactions_sa
                                   
 
@@ -2227,6 +2246,7 @@ elif selected_option_case_type == "AML":
                                 response = usellm(prompt_1)
                                 response = total_sav + ". and"+ total_cc + " .Also,"+ response
                                 chat_history_1[query] = response
+                                
 
 
                         
@@ -2496,57 +2516,41 @@ elif selected_option_case_type == "AML":
                             
                             st.session_state.tmp_table_llama_aml.drop_duplicates(subset=['Question'])
                 
-                lineage = st.button("Lineage", disabled=st.session_state.disabled)  
-                with st.spinner('Getting Information....'):
-
-                    if lineage:
-                        docs = chunk_extract(temp_file_path)
-                        text_data_doc = docs
-                        df = pd.DataFrame(
-                        columns=['Question','Source']   ,
-                        index=[1,2,3,4])
-                    
-                        
-                        compressed_docs = text_data_doc
-                        meta1 = [d.metadata['source'] for d in compressed_docs]  
-                        df.loc[1,'Question'] =  "Is there any Money Laundering activity based on the available data?"
-                        df.loc[1,'Source'] = meta1[1]
-
-                        # st.write(chunk)
-                        # st.write(meta)  
-                    
-                        
-                        compressed_docs = text_data_doc
-                        meta2 = [d.metadata['source'] for d in compressed_docs]
-                        df.loc[2,'Question'] = "List down the transactions that can be associated with Money Laundering ?"
-                        df.loc[2,'Source'] = meta2[0]
-                        # st.write(chunk)
-                        # st.write(meta)  
-                    
-                        
-                        compressed_docs = text_data_doc
-                        meta3 = [d.metadata['source'] for d in compressed_docs]
-                        df.loc[3,'Question'] = "What type of Money laundering activity is taking place?"
-                        df.loc[3,'Source'] = meta3[0]
-                        # st.write(chunk)
-                        # st.write(meta)  
-
-
-                        compressed_docs = text_data_doc
-                        meta4 = [d.metadata['source'] for d in compressed_docs]
-                        df.loc[4,'Question'] = "What is the total amount associated with the Money laundering activity?" 
-                        df.loc[4,'Source'] = meta4[0]
-                        # st.write(chunk)
-                        # st.write(meta) 
-                        # 
-                        st.table(df) 
+            with col3_up:
+                if st.session_state["lineage_aml"] is not None:
  
+                    li = ["Select question to get the lineage",
+                        "Why was the transaction triggered?",
+                        "What are the products that are associsted with this customer?",
+                        "What are the associated suspicious transactions for Credit Card?",
+                        "What is the total amount associated with the money laundering activity for Credit card?",
+                        "What are the associated suspicious transactions for Savings account?",
+                        "What is the total amount associated with the money laundering activity for Savings Account ?",
+                        "What type of Money laundering activity is taking place?"]
+                   
+                    li_ = [
+                        "Why was the transaction triggered?",
+                        "What are the products that are associsted with this customer?",
+                        "What are the associated suspicious transactions for Credit Card?",
+                        "What is the total amount associated with the money laundering activity for Credit card?",
+                        "What are the associated suspicious transactions for Savings account?",
+                        "What is the total amount associated with the money laundering activity for Savings Account ?",
+                        "What type of Money laundering activity is taking place?"]
+                   
+                    selected_option = st.selectbox("", li)
+                    if selected_option in li_:
+                        doc = st.session_state["lineage_aml"][selected_option]
+                        for i in range(len(doc)):
+                            st.write(f":blue[Chunk-{i}:]")
+                            st_ = doc[i].page_content.replace("()", " ")
+                            st.write(":blue[Page Content:]",st_)
+                            st.write(":blue[Source:]",doc[i].metadata['source'])   
 
   
             
                     
 
-            with col3_up:
+            with col4_up:
                 with st.spinner('Summarization ...'):
                     st.markdown("""<span style="font-size: 24px; ">Summarize key findings of the case.</span>""", unsafe_allow_html=True)
                     st.write()
@@ -2723,7 +2727,7 @@ elif selected_option_case_type == "AML":
 
             
             
-            with col4_up:
+            with col5_up:
 
                 col_d1, col_d2 = st.tabs(["Download Report", "Download Case Package"])
 
@@ -2820,7 +2824,7 @@ elif selected_option_case_type == "AML":
                         #     os.remove(file_path)
                         # os.rmdir(temp_dir)
 
-            with col5_up:   
+            with col6_up:   
                 # Adding Radio button
                 st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
                 if generate_button:
