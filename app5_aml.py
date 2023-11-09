@@ -2102,10 +2102,10 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the products that are associsted with this customer?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1 = f'''Your goal is detect out the Products associated with the customer based on the Context. \n\
+                                prompt_1 = f'''Your goal is identify all the Products associated with the customer. \n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give transactions only , Do not give any Explanation,Note, etc. in the answer.)'''
+                                Response: (Give Products only , Do not give any Explanation,Note, etc. in the answer.)'''
                                 response = usellm(prompt_1)
                                 
                                 
