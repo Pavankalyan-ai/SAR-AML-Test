@@ -2137,6 +2137,7 @@ elif selected_option_case_type == "AML":
                                 Response: (Just output those transactions with their description and debited amount , do not add any additional text or note.) '''
 
                                 response = usellm(prompt_1)
+                                st.write(context_1)
                                 #response = context_1
                                 transactions_cc = response
                                 # query=f'**{query}**'
