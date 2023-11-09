@@ -2045,7 +2045,7 @@ elif selected_option_case_type == "AML":
                                 query = "Why was the case triggered?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
-                                                You should look out for the reasons why the transactions are flagged as suspicious. \n\n
+                                                You should closely look transactions information for the reason why the transactions are flagged as suspicious. \n\n
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a short response'''
@@ -2134,7 +2134,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1=f''' Your goal is to pull out suspicious transactions from Credit_Card_statement data.Suspicious transactions can be:\n\n
                                 Transactions that are greater than 5000 made to an unrecognized entity with no specific business purpose (Ex- Advisories, consultancies,etc.)
                                 Context: {context_1}\n\
-                                Response: (Just output those transactions with their description and debited amount , do not add any additional text or note.) '''
+                                Response: (Just output those transactions with their description and debited amount , # Do not output any additional text, Explanation or note.) '''
 
                                 response = usellm(prompt_1)
                                 st.write(context_1)
