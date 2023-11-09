@@ -2166,10 +2166,10 @@ elif selected_option_case_type == "AML":
                                 context_1 = docsearch.similarity_search(query, k=5)
                                   
 
-                                prompt_1=f''' Your goal is to pull out suspicious transactions from savings_account_statement data. Suspicious transactions are the Cash deposits of amount greater than 5000.\n\n
+                                prompt_1=f''' Your goal is to pull out suspicious transactions from savings_account_statement data. Suspicious transactions are the Cash deposits of amount > $5000.\n\n
                                 
                                 Context: {context_1}\n\
-                                Response: (Just output those transactions only with their description and credited amount , # Do not add any further text, Explanation or note.) '''
+                                Response: (Just output those transactions with their description and credited amount , # Do not add any further text, Explanation or note.) '''
 
                                 response = usellm(prompt_1)
 
