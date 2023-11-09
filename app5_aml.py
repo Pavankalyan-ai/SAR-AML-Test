@@ -2225,7 +2225,7 @@ elif selected_option_case_type == "AML":
                                 Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
 
                                 response = usellm(prompt_1)
-                                response = total_sav + total_cc + response
+                                response = total_sav + ". and"+ total_cc + " .Also,"+ response
                                 chat_history_1[query] = response
 
 
