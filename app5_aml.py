@@ -2166,12 +2166,14 @@ elif selected_option_case_type == "AML":
                                 context_1 = docsearch.similarity_search(query, k=5)
                                   
 
-                                prompt_1=f''' Your goal is to extract all the debited transactions from the credit card statements data that could be suspicious. \n\n
-                                Question: {query}\n\
+                                prompt_1=f''' Your goal is to pull out suspicious transactions from savings_account_statement data. Suspicious transactions can be:\n\n
+                                Cash deposit- Self of amount greater than 5000.
                                 Context: {context_1}\n\
-                                Response: '''
+                                Response: (Just output those transactions with their description and credited amount , # Do not output any additional text, Explanation or note.) '''
 
                                 response = usellm(prompt_1)
+
+                               
                                 transactions_sa = response
                                 # query=f'**{query}**'
                                 # st.markdown(query)
