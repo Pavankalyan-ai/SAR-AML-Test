@@ -2045,7 +2045,7 @@ elif selected_option_case_type == "AML":
                                 query = "Why was the case triggered?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
-                                                You should closely look transactions information for the reason why the transactions are flagged as suspicious. \n\n
+                                                You should closely look into the transactions information data for the reason why the transactions are flagged as suspicious. \n\n
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: Give a short response'''
