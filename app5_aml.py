@@ -2105,7 +2105,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1 = f'''Your goal is identify all the Products associated with the customer. \n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give Products only , Do not give any Explanation,Note, etc. in the answer.)'''
+                                Response: (Give identified Products only , Do not give any Explanation,Note, etc. in the answer.)'''
                                 response = usellm(prompt_1)
                                 
                                 
@@ -2147,10 +2147,10 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the associated suspicious transactions for Credit Card?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1=f''' Your goal is to pull out suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
+                                prompt_1=f''' Your goal is to detect out the suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
                                 Transactions that are made to an unrecognized entity with high risk geography (Ex- Advisories, consultancies,etc.).Print distinct transactions only.\n\
                                 Context: {context_1}\n\
-                                Response: (Output those transactions with their Description, Date and Debited Amount.) '''
+                                Response: (Print those transactions with their Description, Date and Debited Amount.) '''
                                 #st.write(context_1)
 
                                 response = usellm(prompt_1)
@@ -2284,7 +2284,7 @@ elif selected_option_case_type == "AML":
                                 2.) What is the total amount associated with the Money Laundering ? \n\    
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response: """
+                                Response: (Give response for each question seperately)"""
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
