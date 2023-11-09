@@ -2050,7 +2050,7 @@ elif selected_option_case_type == "AML":
                                                 Context: {context_1}\n\
                                                 Response: Give a short response'''
                                 response = usellm(prompt_1)
-                                st.write(context_1)
+                                #st.write(context_1)
                                 
                                 chat_history_1[query] = response
                                
