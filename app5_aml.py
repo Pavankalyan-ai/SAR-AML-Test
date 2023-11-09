@@ -2135,8 +2135,8 @@ elif selected_option_case_type == "AML":
                                 Context: {context_1}\n\
                                 Response: just output the transactions with their description and debited amount , do not add any additional text or note. '''
 
-                               # response = usellm(prompt_1)
-                                response = context_1
+                                response = usellm(prompt_1)
+                                #response = context_1
                                 transactions_cc = response
                                 # query=f'**{query}**'
                                 # st.markdown(query)
