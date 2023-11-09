@@ -243,7 +243,7 @@ def text_to_docs(text: str,filename) -> List[Document]:
  
     for doc in page_docs:
         text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=600,
+            chunk_size=700,
             separators=["\n\n", "\n", ".", "!", "?", ",", " ", ""],
             chunk_overlap=50,
         )
