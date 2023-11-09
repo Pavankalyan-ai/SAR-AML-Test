@@ -2004,7 +2004,8 @@ elif selected_option_case_type == "AML":
                           "What is the total amount associated with the money laundering activity for Credit card?",
                           "What are the associated suspicious transactions for Savings account?",
                           "What is the total amount associated with the money laundering activity for Savings Account?",
-                          "What type of Money laundering activity is taking place?"]}
+                          "What type of Money laundering activity is taking place?",
+                          "What is the total amount associated with the Money Laundering ?"]}
             
                     df_fixed = pd.DataFrame(data)
                     df_fixed.index = df_fixed.index +1
