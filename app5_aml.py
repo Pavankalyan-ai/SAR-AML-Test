@@ -2220,7 +2220,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = transactions_cc + transactions_sa
                                   
 
-                                prompt_1=f'''Based on the Context, what is the relationship between the suspicious transactions of savings accounta and credit card transactions.\n\n\
+                                prompt_1=f'''Based on the Context, what is the relationship between the suspicious transactions of savings accounts and credit card transactions.\n\n\
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
 
@@ -2254,9 +2254,11 @@ elif selected_option_case_type == "AML":
                                 st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
                                 
                                 ## SARA Recommendation
-                                query  = "Give your recommendation if this is a suspicious activity or not ?"
+                                query  = "Give your recommentaion if SAR filling is required or not ?"
                                 contexts = ', '.join(res_df_gpt['Answer'])
-                                prompt = f""" Based on the provided context identify if it is a suspicious activity or not ? \n\n\
+                                prompt = f"""Based on the provided context, give your recommendation to below questions:\n\
+                                1.) why were the transactions triggered?\n\
+                                2.) hat type of Money laundering activity is taking place? \n\    
                                 Context: {contexts}\n\
                                 Question: {query}\n\
                                 Response: (Give your response in pointers.)"""
