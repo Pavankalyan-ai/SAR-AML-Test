@@ -2223,9 +2223,9 @@ elif selected_option_case_type == "AML":
                                 st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
                                 
                                 ## SARA Recommendation
-                                query  = "Give your recommendation if SAR filling is required or not?"
+                                query  = "Give your recommendation if this is a suspicious activity or not ?"
                                 contexts = ', '.join(res_df_gpt['Answer'])
-                                prompt = f""" Summarize the context provided with all the essential detials in it and also give your recommendation as to if SAR(Suspicious Activity Reporting) filling is required or not on the basis of your summary? \n\n\
+                                prompt = f""" Based on the provided context identify if it is a suspicious activity or not ? \n\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
                                 Response: """
