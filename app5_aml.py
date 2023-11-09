@@ -2129,7 +2129,7 @@ elif selected_option_case_type == "AML":
 
                     
 
-                                query = "What are the associated suspicious transactions for Credit Card (product1)?"
+                                query = "What are the associated suspicious transactions for Credit Card?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1=f''' Your goal is to pull out all the transactions from Credit_Card_statement data.\n\n
                                 Context: {context_1}\n\
@@ -2143,7 +2143,7 @@ elif selected_option_case_type == "AML":
                                 # st.write(response)
                                 chat_history_1[query] = response
 
-                                query = "What is the total amount associated with the money laundering activity for Credit card (product1)?"
+                                query = "What is the total amount associated with the money laundering activity for Credit card?"
                                 context_1 = transactions_cc
                                 prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
                                 Output the total calculated amount as answer to the question.
@@ -2160,7 +2160,7 @@ elif selected_option_case_type == "AML":
                                 # st.write(response)
                                 chat_history_1[query] = response
 
-                                query = "What are the associated suspicious transactions for Savings account (product2)?"
+                                query = "What are the associated suspicious transactions for Savings account?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                   
 
@@ -2176,7 +2176,7 @@ elif selected_option_case_type == "AML":
                                 # st.write(response)
                                 chat_history_1[query] = response
 
-                                query = "What is the total amount associated with the money laundering activity for Savings Account (product2)?"
+                                query = "What is the total amount associated with the money laundering activity for Savings Account ?"
                                 context_1 = transactions_sa
                                 prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
                                 Output the total calculated amount as answer to the question.
