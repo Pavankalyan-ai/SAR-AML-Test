@@ -2086,7 +2086,7 @@ elif selected_option_case_type == "AML":
                                 # results_textdata.append(response['choices'][0]['message']['content'])
 
                                 query = "What are the products that are associsted with this customer?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = docsearch.similarity_search(query, k=2)
                                 prompt_1 = f'''Your goal is detect out the Products associated with the customer based on the Context. \n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
