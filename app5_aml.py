@@ -2256,9 +2256,9 @@ elif selected_option_case_type == "AML":
                                 ## SARA Recommendation
                                 query  = "Give your recommentaion if SAR filling is required or not ?"
                                 contexts = ', '.join(res_df_gpt['Answer'])
-                                prompt = f"""Based on the provided context, give your recommendation to below questions:\n\
+                                prompt = f"""Based on the provided context, give your recommendation to below questions Only:\n\
                                 1.) why were the transactions triggered?\n\
-                                2.) hat type of Money laundering activity is taking place? \n\    
+                                2.) What is the total amount associated with the Money Laundering ? \n\    
                                 Context: {contexts}\n\
                                 Question: {query}\n\
                                 Response: (Give your response in pointers.)"""
