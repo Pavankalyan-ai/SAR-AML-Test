@@ -2042,7 +2042,7 @@ elif selected_option_case_type == "AML":
                             if st.session_state.llm == "Closed-Source":
                                 chat_history_1 = {}
     
-                                query = "Why was the case triggered?"
+                                query = "Why was the transaction triggered?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
                                                 You should closely look into the transactions information data for the reason why the transactions are flagged as suspicious. \n\n
