@@ -2280,7 +2280,7 @@ elif selected_option_case_type == "AML":
                                 contexts = ques1 + ques8
                                 prompt = f"""Based on the provided context, give your recommendation to below questions Only:\n\
                                 1.) why were the transactions triggered?\n\
-                                2.) What is the Total Money Laundering amount that can be associated with savings account and Credit card? \n\
+                                2.) what is the total money laundering amount that can be associated with the savings account  \n\
                                 3.) What type of money laundering activity is taking place? \n\  
                                 4.) What is the relationship between the credit card transactions and the savings account deposits? \n\  
                                 Context: {contexts}\n\
