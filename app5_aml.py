@@ -2057,11 +2057,10 @@ elif selected_option_case_type == "AML":
     
                                 query = "Why was the transaction triggered?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1 = f'''You Are an Anti-Money Laundering Specialist who is an expert in detecting Money-laundering activity. \n
-                                                You should closely look into the transactions information data for the reason why the transactions are flagged as suspicious. \n\n
-                                                Question: {query}\n\
-                                                Context: {context_1}\n\
-                                                Response: Give a short response'''
+                                prompt_1 = f'''You should closely look into the transactions information data for the reason why was the transaction flagged as suspicious. \n\n
+                                Question: {query}\n\
+                                Context: {context_1}\n\
+                                Response: Give a concise response as reason. '''
                                 response = usellm(prompt_1)
                                 ques1 = response
                                 #st.write(context_1)
@@ -2102,10 +2101,10 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the products that are associsted with this customer?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1 = f'''Your goal is identify all the Products associated with the customer. \n\
+                                prompt_1 = f'''Your goal is identify all the products that are associated with the customer. \n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: (Give identified Products only , Do not give any Explanation,Note, etc. in the answer.)'''
+                                Response: (Output the identified Products, Do not give/add any Explanation, Note, etc. in the answer.)'''
                                 response = usellm(prompt_1)
                                 
                                 
@@ -2150,7 +2149,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1=f''' Your goal is to detect out the suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
                                 Transactions that are made to an unrecognized entity with high risk geography (Ex- Advisories, consultancies,etc.).Print distinct transactions only.\n\
                                 Context: {context_1}\n\
-                                Response: (Print those transactions with their Description, Date and Debited Amount. Do not give any explanation or note in output.) '''
+                                Response: (Print those transactions with their Description, Date and Debited Amount. Do not give/add any Note, Explanation in answer.) '''
                                 #st.write(context_1)
 
                                 response = usellm(prompt_1)
@@ -2244,7 +2243,7 @@ elif selected_option_case_type == "AML":
 
                                 prompt_1=f'''Based on the Context, what is the relationship between the suspicious transactions of savings accounts and credit card transactions.\n\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
+                                Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed along with the relationship. Do not give me any Note etc)'''
 
                                 response = usellm(prompt_1)
                                 response = total_sav + ". and"+ total_cc + " .Also,"+ response
@@ -2281,7 +2280,9 @@ elif selected_option_case_type == "AML":
                                 contexts = ques1 + ques8
                                 prompt = f"""Based on the provided context, give your recommendation to below questions Only:\n\
                                 1.) why were the transactions triggered?\n\
-                                2.) What is the total amount associated with the Money Laundering ? \n\    
+                                2.) What is the total amount associated with the savings account and credit cards ? \n\
+                                3.) What type of money laundering activity is taking place? \n\  
+                                4.) What is the relationship between the credit card and savings account payment? \n\  
                                 Context: {contexts}\n\
                                 Question: {query}\n\
                                 Response: (Give response to each question seperately)"""
