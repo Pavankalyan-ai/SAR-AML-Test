@@ -2060,7 +2060,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1 = f'''You should closely look into the transactions information data for the reason why was the transaction flagged as suspicious. \n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
-                                Response: Give a concise response as reason. '''
+                                Response: Give a concise response as reason in one sentence. '''
                                 response = usellm(prompt_1)
                                 ques1 = response
                                 #st.write(context_1)
@@ -2146,7 +2146,7 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the associated suspicious transactions for Credit Card?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1=f''' Your goal is to detect out the suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
+                                prompt_1=f''' Your goal is to detect out the suspicious transactions from Credit_Card_statement. Such Suspicious transactions can be:\n\n
                                 Transactions that are made to an unrecognized entity with high risk geography (Ex- Advisories, consultancies,etc.).Print distinct transactions only.\n\
                                 Context: {context_1}\n\
                                 Response: (Print those transactions with their Description, Date and Debited Amount. Do not give/add any Note, Explanation in answer.) '''
