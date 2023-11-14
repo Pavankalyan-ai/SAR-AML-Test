@@ -2280,12 +2280,12 @@ elif selected_option_case_type == "AML":
                                 contexts = ques1 + ques8
                                 prompt = f"""Based on the provided context, give your recommendation to below questions Only:\n\
                                 1.) why were the transactions triggered?\n\
-                                2.) What is the total amount associated with the savings account and credit cards ? \n\
+                                2.) What is the Total Money Laundering amount that can be associated with savings account and Credit card? \n\
                                 3.) What type of money laundering activity is taking place? \n\  
-                                4.) What is the relationship between the credit card and savings account payment? \n\  
+                                4.) What is the relationship between the credit card transactions and the savings account deposits? \n\  
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response: (Give response to each question seperately)"""
+                                Response: (Give response to each question from the Context provided)"""
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
