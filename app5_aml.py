@@ -2246,7 +2246,7 @@ elif selected_option_case_type == "AML":
                                 Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed along with the relationship found. Do not give me any Note etc)'''
 
                                 response = usellm(prompt_1)
-                                response = total_sav + ". and"+ total_cc + " .Also,"+ response
+                                response = total_sav + ", and "+ total_cc + "  "+ response
                                 ques8 = response
                                 chat_history_1[query] = response
                                 
@@ -2281,7 +2281,7 @@ elif selected_option_case_type == "AML":
                                 contexts = ques1 + ques8
                                 prompt = f"""Based on the provided context, give your recommendation to below questions Only:\n\
                                 1.) why were the transactions triggered?\n\
-                                2.) what are the amounts related to money savings account and credit cards.  \n\
+                                2.) what are the amounts related to money laundering for savings account and credit cards.  \n\
                                 3.) What type of money laundering activity is taking place? \n\  
                                 4.) What is the relationship between the credit card transactions and the savings account deposits? \n\  
                                 Context: {contexts}\n\
