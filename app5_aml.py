@@ -2146,8 +2146,8 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the associated suspicious transactions for Credit Card?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1=f''' Your goal is to detect out the suspicious transactions from Credit_Card_statement. Such Suspicious transactions can be:\n\n
-                                Transactions that are made to an unrecognized entity with high risk geography (Ex- Advisories, consultancies,etc.).Print distinct transactions only.\n\
+                                prompt_1=f''' Your goal is to extract all the suspicious transactions from Credit_Card_statement.Suspicious transactions can be:\n\n
+                                Transactions that are made to an unrecognized entity (Ex- Advisories, consultancies,etc.).Print distinct transactions only.\n\
                                 Context: {context_1}\n\
                                 Response: (Print those transactions with their Description, Date and Debited Amount. Do not give/add any Note, Explanation in answer.) '''
                                 #st.write(context_1)
@@ -2333,7 +2333,7 @@ elif selected_option_case_type == "AML":
     
                                 query = "What are the transaction that can be associated with Money Laundering activity?"
                                 context_1 = text_data_doc
-                                prompt_1 = f''' You Are an Anti-Money Laundering Specialist and your goal is to extract all the Transactions from input data of amount greater than $5000 that \
+                                prompt_1 = f''' our goal is to extract all the Transactions from input data of amount greater than $5000 that \
                                 can be related to Money laundering activity. Consider only the debited amounts while extracting the transactions.\n\
                                 Input data: {context_1}\n\
                                 Question: {query}\n\
