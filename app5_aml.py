@@ -2149,7 +2149,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1=f''' Your goal is to extract all the suspicious transactions from Credit_Card_statement.Suspicious transactions can be:\n\n
                                 Transactions that are made to an unrecognized entity (Ex- Advisories, consultancies,etc.).Print distinct transactions only.\n\
                                 Context: {context_1}\n\
-                                Response: (Print those transactions with their Description, Date and Debited Amount. Do not give/add any Note, Explanation in answer.) '''
+                                Response: (Print those transactions with their Description, Date and Debited Amount. Strictly Do not give/add any Note, Explanation in answer.) '''
                                 #st.write(context_1)
 
                                 response = usellm(prompt_1)
@@ -2232,7 +2232,7 @@ elif selected_option_case_type == "AML":
                                 Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
 
                                 response = usellm(prompt_1)
-                                ques8 = response
+                                
                                 chat_history_1[query] = response
                                 st.session_state["lineage_aml"][query] = context_1
 
@@ -2247,6 +2247,7 @@ elif selected_option_case_type == "AML":
 
                                 response = usellm(prompt_1)
                                 response = total_sav + ". and"+ total_cc + " .Also,"+ response
+                                ques8 = response
                                 chat_history_1[query] = response
                                 
 
