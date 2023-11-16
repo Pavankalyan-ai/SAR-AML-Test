@@ -2150,7 +2150,7 @@ elif selected_option_case_type == "AML":
                                 Transactions that are made to an unrecognized entity (Ex- Advisories, consultancies,etc.).Also, do not repeat the same transaction.\n\
                                 Context: {context_1}\n\
                                 Response: (Print only the Description, Date and Debited Amount of those transactions.# Strictly do not give/add any Note, Explanation in answer.) '''
-                                st.write(context_1)
+                                #st.write(context_1)
 
                                 response = usellm(prompt_1)
                                 #st.write(context_1)
@@ -2189,8 +2189,8 @@ elif selected_option_case_type == "AML":
                                 prompt_1=f''' Your goal is to print only the suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
                                 High Value Cash Deposits in a short span of time. Strictly do not include any Paycheck depostits and Opening balance transaction as they may not be considered as suspicious transactions.Also, do not repeat the same transaction.\n\
                                 Context: {context_1}\n\
-                                Response: (Print those transaction with their Description, Date and Credited Amount.# Strictly do not give/add any Note, Explanation in answer.) '''
-                                #st.write(context_1)
+                                Response: (Print only the Description, Date and Credited Amount of those transactions.# Strictly do not give/add any Note, Explanation in answer.) '''
+                                st.write(context_1)
                                 response = usellm(prompt_1)
 
                                
