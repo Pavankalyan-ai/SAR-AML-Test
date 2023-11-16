@@ -1998,7 +1998,7 @@ elif selected_option_case_type == "AML":
         
                     # Create a Pandas DataFrame with your data
 
-                    data = {'Questions': ["Why was the transactions triggered?",
+                    data = {'Questions': ["Why was the transaction triggered?",
                           "What are the products that are associsted with this customer?",
                          "What are the associated suspicious transactions for Credit Card?",
                          # "What is the total amount associated with the money laundering activity for Credit card?",
@@ -2146,10 +2146,10 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the associated suspicious transactions for Credit Card?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1=f''' Your goal is to extract only the suspicious transactions from Credit_Card_statement in Context. Suspicious transactions can be:\n\n
+                                prompt_1=f''' Your goal is to print only the suspicious transactions from Credit_Card_statement in Context. Suspicious transactions can be:\n\n
                                 Transactions that are made to an unrecognized entity (Ex- Advisories, consultancies,etc.).Also, do not repeat the same transaction.\n\
                                 Context: {context_1}\n\
-                                Response: (Print only the Description, Date and Debited Amount  of those transactions.# Strictly Do not give/add any Note, Explanation in answer.) '''
+                                Response: (Print only the Description, Date and Debited Amount of those transactions.# Strictly do not give/add any Note, Explanation in answer.) '''
                                 #st.write(context_1)
 
                                 response = usellm(prompt_1)
@@ -2186,10 +2186,10 @@ elif selected_option_case_type == "AML":
                                 context_1 = docsearch.similarity_search(query, k=5)
                                   
 
-                                prompt_1=f''' Your goal is to extract only the suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
+                                prompt_1=f''' Your goal is to print only the suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
                                 High Value Cash Deposits in a short span of time. Strictly do not include any Paycheck depostits and Opening balance transaction as they may not be considered as suspicious transactions.
                                 Context: {context_1}\n\
-                                Response: (Print those transaction with their Description, Date and Credited Amount. Also, Do not output any additional text, Explanation or note.) '''
+                                Response: (Print those transaction with their Description, Date and Credited Amount.# Strictly do not give/add any Note, Explanation in answer.) '''
                                 #st.write(context_1)
                                 response = usellm(prompt_1)
 
@@ -2288,7 +2288,7 @@ elif selected_option_case_type == "AML":
                                 4.) relationship between the credit card transactions and the savings account deposits\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response: (Based on the given context, In pointers - Give a concise Answer to each question in a sentence. At last, give your recommendation to the above question asked.) """
+                                Response: (Based on the given context, Give a concise Answer to each question in a sentence. At last, give your recommendation to the above question asked.) """
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
