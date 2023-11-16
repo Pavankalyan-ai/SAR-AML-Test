@@ -2288,7 +2288,7 @@ elif selected_option_case_type == "AML":
                                 4.) relationship between the credit card transactions and the savings account deposits\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response: (Based on the given context, can it be considered as suspicious activity and also Give the Answer to each question along with a title in a scentence. At last, Also answer the question asked) """
+                                Response: (Based on the given context, can it be considered as suspicious activity and also Give the Answer to each question along with a title in a scentence. At last, give your recommendation to the above question asked.) """
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
