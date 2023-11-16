@@ -2176,7 +2176,10 @@ elif selected_option_case_type == "AML":
                                 Response: (Add this before the total amount : "Total Money Laundering amount that can be associated with credit card is : ")'''
 
 
-                                response = usellm(prompt_1)
+                                system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
+                                user_prompt = wrap_prompt(prompt_1, "user")
+                                res = get_response([system_prompt, user_prompt])
+                                response = res['choices'][0]['message']['content']
                                 #response = response.replace("33000", "USD 33000")
                                 response = response.replace("$", "USD ")
                                 total_cc = response
