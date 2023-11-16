@@ -2281,13 +2281,13 @@ elif selected_option_case_type == "AML":
                                 ## SARA Recommendation
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ques1 + ques8
-                                prompt = f"""Act as a Money Laundering Analysts and give concise answer to the below question, within given Context. \n\
+                                prompt = f"""Act as a Money Laundering Analysts and give concise answers to the below questions, within given Context. \n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards\n\
                                 3.) Type of money laundering activity taking place\n\
                                 4.) relationship between the credit card transactions and the savings account deposits\n\
                                 Context: {contexts}\n\
-                                Response: (Based on the given context, give a concise answer to each of the above questions in pointers. Also, give your recommendation to the below question.) 
+                                Response: (Give a concise answer as individual well-formatted points. Also, give your recommendation to the below Question.) 
                                 Question: {query} """
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
