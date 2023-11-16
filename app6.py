@@ -2298,7 +2298,7 @@ elif selected_option_case_type == "AML":
                                 3.) Type of money laundering activity taking place\n\
                                 4.) relationship between the credit card transactions and the savings account deposits\n\
                                 Context: {contexts}\n\
-                                Response: (Give your response for each question in a well-format pointers. Also, give your recommendation for the below Question.) 
+                                Response: (Give your response for each question in well-format pointers. Also, give your recommendation for the below Question.) 
                                 Question: {query} """
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_2, "user")
