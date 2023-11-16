@@ -2577,7 +2577,7 @@ elif selected_option_case_type == "AML":
                             llm=llm, 
                             memory = memory,
                             verbose=True)
-                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="You are a summarization tool and your goal is to summarize the data provided in such a way that it includes all the essential information and numbers. # DO not use words such as AI or tool")
+                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="Provide a detailed summary of the text provided by reframing the sentences. Provide the summary in a single paragraph. Please don't include words like these: 'chat summary', 'includes information' in my final summary.")
                             st.session_state["tmp_summary_gpt_aml"]=st.session_state["tmp_summary_gpt_aml"].replace("$", "USD ")
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
