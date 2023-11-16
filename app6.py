@@ -2289,16 +2289,16 @@ elif selected_option_case_type == "AML":
                                 ## SARA Recommendation
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ques1 + ques8
-                                prompt = f"""Act as a Money Laundering Analysts and give concise answers to the below questions, within given Context. \n\
+                                prompt_2 = f"""Give concise response to the each questions below within the given Context. \n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards\n\
                                 3.) Type of money laundering activity taking place\n\
                                 4.) relationship between the credit card transactions and the savings account deposits\n\
                                 Context: {contexts}\n\
-                                Response: (Give a concise answer as individual well-formatted points. Also, give your recommendation to the below Question.) 
+                                Response: (Give the response in pointers. Also, give your recommendation for the below Question.) 
                                 Question: {query} """
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
-                                user_prompt = wrap_prompt(prompt, "user")
+                                user_prompt = wrap_prompt(prompt_2, "user")
                                 res = get_response([system_prompt, user_prompt])
                                 response = res['choices'][0]['message']['content']
                                 #response1 = usellm(prompt)
