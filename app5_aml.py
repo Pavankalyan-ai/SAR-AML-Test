@@ -2284,7 +2284,7 @@ elif selected_option_case_type == "AML":
                                 prompt = f"""Act as a Money Laundering Analysts and give concise answer to the question, with given Context. \n\
                                 This can be addressed as a suspicious activity based on [transactions triggered,amounts related to money laundering for savings account and credit cards,type of money laundering activity, relationship between the credit card transactions and the savings account deposits]
                                 Context: {contexts}\n\
-                                Response: (Give the response in pointers.Also answer the question asked) """
+                                Response: (Give the response in pointers along with a title .Also answer the question asked) """
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
