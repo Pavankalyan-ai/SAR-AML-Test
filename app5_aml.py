@@ -2279,16 +2279,16 @@ elif selected_option_case_type == "AML":
                                 st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
                                 
                                 ## SARA Recommendation
-                                query  = "Give your recommentaion if SAR filling is required or not?"
+                                query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ques1 + ques8
-                                prompt = f"""Based on the provided context, give your recommendation to below questions along with a short title (extracted from the question). \n\
+                                prompt = f"""You are Money Laundering Analyst. Find answer to the questions as truthfully and in as detailed as possible as per given Context only. \n\
                                 1.) why were the transactions triggered?\n\
                                 2.) what are the amounts related to money laundering for savings account and credit cards.  \n\
                                 3.) What type of money laundering activity is taking place? \n\  
                                 4.) What is the relationship between the credit card transactions and the savings account deposits? \n\  
                                 Context: {contexts}\n\
-                                Question: {query}\n\
-                                Response: (Give response to each question from the Context provided and at last give your recommendation if SAR filling is required or not ? )"""
+                                question: {query}\n\
+                                Response: (Give me a concise recommendation in few pointers.Also answer the question asked)"""
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
