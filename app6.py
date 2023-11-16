@@ -240,7 +240,12 @@ def reset_session_state():
 def get_response(messages: str, model: str = "gpt-3.5-turbo") -> str:
     return openai.ChatCompletion.create(
         model=model,
-        messages=messages
+        messages=messages,
+        temperature=0.01,
+        top_p=0.1,
+        top_k=10,
+        seed=1000
+
     )
 
 def wrap_prompt(message: str, role: str) -> dict:
