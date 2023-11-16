@@ -2287,8 +2287,8 @@ elif selected_option_case_type == "AML":
                                 3.) Type of money laundering activity taking place\n\
                                 4.) relationship between the credit card transactions and the savings account deposits\n\
                                 Context: {contexts}\n\
-                                Question: {query}\n\
-                                Response: (Based on the given context, Give a concise Answer to each question in a sentence. At last, give your recommendation to the above question asked.) """
+                                Response: (Based on the given context, give a concise answer to each of the above questions. Also, give your recommendation to the below question.) 
+                                Question: {query} """
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
@@ -2577,7 +2577,8 @@ elif selected_option_case_type == "AML":
                             llm=llm, 
                             memory = memory,
                             verbose=True)
-                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(input="Provide a detailed summary of the text provided by reframing the sentences. Provide the summary in a single paragraph. Please don't include words like these: 'chat summary', 'includes information' in my final summary.")
+                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(
+                                input="Provide a detailed summary of the provided information. Make sure to include all the relevant information and numbers. Provide the summary in a single paragraph. Please don't include words like these: 'chat summary', 'includes information', 'AI' etc. in my final summary.")
                             st.session_state["tmp_summary_gpt_aml"]=st.session_state["tmp_summary_gpt_aml"].replace("$", "USD ")
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
