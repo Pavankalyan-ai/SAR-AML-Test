@@ -2149,7 +2149,7 @@ elif selected_option_case_type == "AML":
                                 prompt_1=f''' Your goal is to print only the suspicious transactions from Credit_Card_statement in Context. Suspicious transactions can be:\n\n
                                 Transactions that are made to an unrecognized entity (Ex- Advisories, consultancies,etc.).Also, do not repeat the same transaction.\n\
                                 Context: {context_1}\n\
-                                Response: (Print those suspicious transaction in the following format: ("Date": , "Description": , "Debited ($)":) .# Strictly do not give/add any further ouput in the answer.) '''
+                                Response: (Print ONLY the "Description", "Date" and "Credited" amount of those suspicious transactions.# Strictly do not give/add any further ouput in the answer.) '''
                                 st.write(context_1)
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_1, "user")
@@ -2195,7 +2195,11 @@ elif selected_option_case_type == "AML":
                                 Context: {context_1}\n\
                                 Response: (Print ONLY the "Description", "Date" and "Credited" amount of those suspicious transactions.# Strictly do not give/add any Note, Explanation in answer.) '''
                                 st.write(context_1)
-                                response = usellm(prompt_1)
+                                system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
+                                user_prompt = wrap_prompt(prompt_1, "user")
+                                res = get_response([system_prompt, user_prompt])
+                                response = res['choices'][0]['message']['content']
+                                #response = usellm(prompt_1)
 
                                
                                 transactions_sa = response
@@ -2213,12 +2217,9 @@ elif selected_option_case_type == "AML":
                                 Context: {context_1}\n\
                                 Question: {query}\n\
                                 Response: (Add this before the toal amount : "Total Money Laundering amount that can be associated with savings account is : ")'''
-                                system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
-                                user_prompt = wrap_prompt(prompt_1, "user")
-                                res = get_response([system_prompt, user_prompt])
-                                response = res['choices'][0]['message']['content']
+                                
 
-                                #response = usellm(prompt_1)
+                                response = usellm(prompt_1)
                                 
                                 #response = response.replace("33000", "USD 33000")
                                 response = response.replace("$", "USD ")
