@@ -2548,8 +2548,7 @@ elif selected_option_case_type == "AML":
                         for i in range(len(doc)):
                             st.write(f":blue[Chunk-{i}:]")
                             st_ = doc[i].page_content.replace("()", " ")
-                            a=st.write(":blue[Page Content:]",st_)
-                            st.text(a) 
+                            st.text(":blue[Page Content:]",st_) 
                             st.write(":blue[Source:]",doc[i].metadata['source'])
                               
 
