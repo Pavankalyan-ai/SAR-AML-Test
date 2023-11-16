@@ -2549,7 +2549,7 @@ elif selected_option_case_type == "AML":
                             st.write(f":blue[Chunk-{i}:]")
                             st_ = doc[i].page_content.replace("()", " ")
                             a=st.write(":blue[Page Content:]",st_)
-                            st.markdown(a, unsafe_allow_html=False) 
+                            st.text(a) 
                             st.write(":blue[Source:]",doc[i].metadata['source'])
                               
 
