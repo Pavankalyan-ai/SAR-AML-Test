@@ -2281,8 +2281,11 @@ elif selected_option_case_type == "AML":
                                 ## SARA Recommendation
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ques1 + ques8
-                                prompt = f"""Act as a Money Laundering Analysts and give concise answer to the question, with given Context. \n\
-                                [transactions triggered,amounts related to money laundering for savings account and credit cards,type of money laundering activity, relationship between the credit card transactions and the savings account deposits]
+                                prompt = f"""Act as a Money Laundering Analysts and give concise answer to the below question, within given Context. \n\
+                                1.) transactions triggered\n\
+                                2.) amounts related to money laundering for savings account and credit cards\n\
+                                3.) Type of money laundering activity taking place\n\
+                                4.) relationship between the credit card transactions and the savings account deposits\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
                                 Response: (Give the response for each question  along with a title in pointers . Also answer the question asked) """
