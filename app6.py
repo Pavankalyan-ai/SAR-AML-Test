@@ -2150,7 +2150,7 @@ elif selected_option_case_type == "AML":
                                 Transactions made to an unrecognized entity (Ex- Advisories, consultancies,etc.). Strictly do not repeat any transaction.\n\
                                 Context: {context_1}\n\
                                 Response: (Print ONLY the "Description", "Date" and "Debited" amount of those suspicious transactions.# Strictly do not give/add any Note, Explanation in answer.) '''
-                                st.write(context_1)
+                                #st.write(context_1)
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_1, "user")
                                 res = get_response([system_prompt, user_prompt])
@@ -2194,7 +2194,7 @@ elif selected_option_case_type == "AML":
                                 High Value Cash Deposits in a short span of time. Strictly do not include any Paycheck transactions and Opening balance transaction as they may not be considered as suspicious transactions.Also, do not repeat the same transaction.\n\
                                 Context: {context_1}\n\
                                 Response: (Print ONLY the "Description", "Date" and "Credited" amount of those suspicious transactions.# Strictly do not give/add any Note, Explanation in answer.) '''
-                                st.write(context_1)
+                                #st.write(context_1)
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_1, "user")
                                 res = get_response([system_prompt, user_prompt])
