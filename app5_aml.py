@@ -2281,14 +2281,14 @@ elif selected_option_case_type == "AML":
                                 ## SARA Recommendation
                                 query  = "Give your recommentaion if SAR filling is required or not?"
                                 contexts = ques1 + ques8
-                                prompt = f"""Based on the provided context, give your recommendation to below questions Only:\n\
+                                prompt = f"""Based on the provided context, give your recommendation to below questions Only.For each response give a short title/heading. \n\
                                 1.) why were the transactions triggered?\n\
                                 2.) what are the amounts related to money laundering for savings account and credit cards.  \n\
                                 3.) What type of money laundering activity is taking place? \n\  
                                 4.) What is the relationship between the credit card transactions and the savings account deposits? \n\  
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response: (Give response to each question from the Context provided and recommendation if SAR filling is required or not ? For each response give a short title/heading.)"""
+                                Response: (Give response to each question from the Context provided and recommendation if SAR filling is required or not ? )"""
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
