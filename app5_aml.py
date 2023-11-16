@@ -2282,7 +2282,7 @@ elif selected_option_case_type == "AML":
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ques1 + ques8
                                 prompt = f"""Act as a Money Laundering Analysts and give concise answer to the question, with given Context. \n\
-                                This can be addressed as a suspicious activity based on [transactions triggered,amounts related to money laundering for savings account and credit cards,type of money laundering activity, relationship between the credit card transactions and the savings account deposits]
+                                [transactions triggered,amounts related to money laundering for savings account and credit cards,type of money laundering activity, relationship between the credit card transactions and the savings account deposits]
                                 Context: {contexts}\n\
                                 Question: {query}\n\
                                 Response: (Give the response for each question  along with a title in pointers . Also answer the question asked) """
