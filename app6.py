@@ -2161,16 +2161,18 @@ elif selected_option_case_type == "AML":
                                 user_prompt = wrap_prompt(prompt_1, "user")
                                 res = get_response([system_prompt, user_prompt])
                                 response = res['choices'][0]['message']['content']
+                                transactions_cc = response
+                                chat_history_1[query] = response
+                                st.session_state["lineage_aml"][query] = context_1
 s
                                 #response = usellm(prompt_1)
                                 #st.write(context_1)
                                 #response = context_1
-                                transactions_cc = response
+                                
                                 # query=f'**{query}**'
                                 # st.markdown(query)
                                 # st.write(response)
-                                chat_history_1[query] = response
-                                st.session_state["lineage_aml"][query] = context_1
+                                
 
                                 query = "What is the total amount associated with the money laundering activity for Credit card?"
                                 #st.session_state["lineage_aml"][query] = context_1
