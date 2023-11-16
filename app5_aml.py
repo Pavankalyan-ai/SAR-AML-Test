@@ -2146,10 +2146,10 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the associated suspicious transactions for Credit Card?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1=f''' Your goal is to extract out the suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
-                                Transactions that are made to an unrecognized entity (Ex- Advisories, consultancies,etc.).#Output distinct transactions only.\n\
+                                prompt_1=f''' Your goal is to detect out the suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
+                                Transactions that are made to an unrecognized entity (Ex- Advisories, consultancies,etc.).#Print distinct transactions only.\n\
                                 Context: {context_1}\n\
-                                Response: (Output those transactions with their Description, Date and Debited Amount.# Strictly Do not give/add any Note, Explanation in answer.) '''
+                                Response: (Print those transactions with their Description, Date and Debited Amount.# Strictly Do not give/add any Note, Explanation in answer.) '''
                                 #st.write(context_1)
 
                                 response = usellm(prompt_1)
@@ -2186,7 +2186,7 @@ elif selected_option_case_type == "AML":
                                 context_1 = docsearch.similarity_search(query, k=5)
                                   
 
-                                prompt_1=f''' Your goal is to pull out suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
+                                prompt_1=f''' Your goal is to detect out suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
                                 High Value Cash Deposits in a short span of time. Strictly do not include any Paycheck depostits and Opening balance transaction as they may not be considered as suspicious transactions.
                                 Context: {context_1}\n\
                                 Response: (Print those transaction with their Description, Date and Credited Amount. Also, Do not output any additional text, Explanation or note.) '''
@@ -2288,7 +2288,7 @@ elif selected_option_case_type == "AML":
                                 4.) relationship between the credit card transactions and the savings account deposits\n\
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response: (Based on the given context, Give a concise Answer to each question in a sentence. At last, give your recommendation to the above question asked.) """
+                                Response: (Based on the given context, In pointers - Give a concise Answer to each question in a sentence. At last, give your recommendation to the above question asked.) """
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
