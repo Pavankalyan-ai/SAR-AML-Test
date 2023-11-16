@@ -240,13 +240,7 @@ def reset_session_state():
 def get_response(messages: str, model: str = "gpt-3.5-turbo") -> str:
     return openai.ChatCompletion.create(
         model=model,
-        messages=messages,
-        temperature=0.01,
-        top_p=0.1,
-        #top_k=10,
-        seed=1000,
-        presence_penalty=0
-
+        messages=messages
     )
 
 def wrap_prompt(message: str, role: str) -> dict:
@@ -2152,22 +2146,24 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the associated suspicious transactions for Credit Card?"
                                 context_1 = docsearch.similarity_search(query, k=5)
-                                prompt_1=f''' Your goal is to identify the suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
-                                Transactions made to an unrecognized entity (Ex- Advisories, consultancies,etc.). Output the "Description", "Date" and "Debited ($)" of those identified transactions. # Strictly do not repeat any transaction.\n\
+                                prompt_1=f''' Your goal is to print only the suspicious transactions from Credit_Card_statement in Context. Suspicious transactions can be:\n\n
+                                Transactions that are made to an unrecognized entity (Ex- Advisories, consultancies,etc.).Also, do not repeat the same transaction.\n\
                                 Context: {context_1}\n\
-                                Response: (Strictly do not give/add any Note, Explanation in answer.) '''
+                                Response: (Print those suspicious transaction in the following format: ("Date": , "Description": , "Debited ($)":) .# Strictly do not give/add any further ouput in the answer.) '''
+                                st.write(context_1)
+
+                                response = usellm(prompt_1)
                                 #st.write(context_1)
-                                system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
-                                user_prompt = wrap_prompt(prompt_1, "user")
-                                res = get_response([system_prompt, user_prompt])
-                                response = res['choices'][0]['message']['content']
+                                #response = context_1
                                 transactions_cc = response
+                                # query=f'**{query}**'
+                                # st.markdown(query)
+                                # st.write(response)
                                 chat_history_1[query] = response
                                 st.session_state["lineage_aml"][query] = context_1
 
                                 query = "What is the total amount associated with the money laundering activity for Credit card?"
                                 #st.session_state["lineage_aml"][query] = context_1
-                
                                 context_1 = transactions_cc
                                 prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
                                 Output the total calculated amount as answer to the question.
@@ -2176,10 +2172,7 @@ elif selected_option_case_type == "AML":
                                 Response: (Add this before the total amount : "Total Money Laundering amount that can be associated with credit card is : ")'''
 
 
-                                system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
-                                user_prompt = wrap_prompt(prompt_1, "user")
-                                res = get_response([system_prompt, user_prompt])
-                                response = res['choices'][0]['message']['content']
+                                response = usellm(prompt_1)
                                 #response = response.replace("33000", "USD 33000")
                                 response = response.replace("$", "USD ")
                                 total_cc = response
@@ -2193,16 +2186,12 @@ elif selected_option_case_type == "AML":
                                 context_1 = docsearch.similarity_search(query, k=5)
                                   
 
-                                prompt_1=f''' Your goal is to identify the suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
-                                High Value Cash Deposits in a short span of time. Strictly do not include any Paycheck transactions and Opening balance transaction as they may not be considered as suspicious transactions. Output the "Description", "Date" and "Credited ($)" of those identified transactions.Also, do not repeat the same transaction.\n\
+                                prompt_1=f''' Your goal is to print only the suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
+                                High Value Cash Deposits in a short span of time. Strictly do not include any Paycheck transactions and Opening balance transaction as they may not be considered as suspicious transactions.Also, do not repeat the same transaction.\n\
                                 Context: {context_1}\n\
-                                Response: (Strictly do not give/add any Note, Explanation in answer.) '''
-                                #st.write(context_1)
-                                system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
-                                user_prompt = wrap_prompt(prompt_1, "user")
-                                res = get_response([system_prompt, user_prompt])
-                                response = res['choices'][0]['message']['content']
-                                #response = usellm(prompt_1)
+                                Response: (Print ONLY the "Description", "Date" and "Credited" amount of those suspicious transactions.# Strictly do not give/add any Note, Explanation in answer.) '''
+                                st.write(context_1)
+                                response = usellm(prompt_1)
 
                                
                                 transactions_sa = response
@@ -2220,7 +2209,7 @@ elif selected_option_case_type == "AML":
                                 Context: {context_1}\n\
                                 Question: {query}\n\
                                 Response: (Add this before the toal amount : "Total Money Laundering amount that can be associated with savings account is : ")'''
-                                
+
 
                                 response = usellm(prompt_1)
                                 
@@ -2292,20 +2281,16 @@ elif selected_option_case_type == "AML":
                                 ## SARA Recommendation
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ques1 + ques8
-                                prompt_2 = f"""Give concise response to the each questions below within the given Context. \n\
+                                prompt = f"""Act as a Money Laundering Analysts and give concise answers to the below questions, within given Context. \n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards\n\
                                 3.) Type of money laundering activity taking place\n\
                                 4.) relationship between the credit card transactions and the savings account deposits\n\
                                 Context: {contexts}\n\
-                                Response: (Give your response for each question in well-format pointers. Also, give your recommendation for the below Question.) 
+                                Response: (Give a concise answer as individual well-formatted points. Also, give your recommendation to the below Question.) 
                                 Question: {query} """
-                                system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
-                                user_prompt = wrap_prompt(prompt_2, "user")
-                                res = get_response([system_prompt, user_prompt])
-                                response = res['choices'][0]['message']['content']
-                                #response1 = usellm(prompt)
-                                response1 = response.replace("$", "USD ")
+                                response1 = usellm(prompt)
+                                response1 = response1.replace("$", "USD ")
               
 
 
