@@ -2001,10 +2001,10 @@ elif selected_option_case_type == "AML":
                     data = {'Questions': ["Why was the transactions triggered?",
                           "What are the products that are associsted with this customer?",
                          "What are the associated suspicious transactions for Credit Card?",
-                          "What is the total amount associated with the money laundering activity for Credit card?",
+                         # "What is the total amount associated with the money laundering activity for Credit card?",
                           "What are the associated suspicious transactions for Savings account?",
-                          "What is the total amount associated with the money laundering activity for Savings Account?",
-                          "What type of Money laundering activity is taking place?",
+                         # "What is the total amount associated with the money laundering activity for Savings Account?",
+                          #"What type of Money laundering activity is taking place?",
                           "What is the total amount associated with the Money Laundering ?"]}
             
                     df_fixed = pd.DataFrame(data)
@@ -2163,7 +2163,7 @@ elif selected_option_case_type == "AML":
                                 st.session_state["lineage_aml"][query] = context_1
 
                                 query = "What is the total amount associated with the money laundering activity for Credit card?"
-                                st.session_state["lineage_aml"][query] = context_1
+                                #st.session_state["lineage_aml"][query] = context_1
                                 context_1 = transactions_cc
                                 prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
                                 Output the total calculated amount as answer to the question.
@@ -2179,7 +2179,8 @@ elif selected_option_case_type == "AML":
                                 # query=f'**{query}**'
                                 # st.markdown(query)
                                 # st.write(response)
-                                chat_history_1[query] = response
+
+                                #chat_history_1[query] = response
 
                                 query = "What are the associated suspicious transactions for Savings account?"
                                 context_1 = docsearch.similarity_search(query, k=5)
@@ -2201,7 +2202,7 @@ elif selected_option_case_type == "AML":
                                 st.session_state["lineage_aml"][query] = context_1
 
                                 query = "What is the total amount associated with the money laundering activity for Savings Account ?"
-                                st.session_state["lineage_aml"][query] = context_1
+                                #st.session_state["lineage_aml"][query] = context_1
                                 context_1 = transactions_sa
                                 prompt_1 = f'''Act as a calculator and add up all the transactions amount in the context.\n\
                                 Output the total calculated amount as answer to the question.
@@ -2218,7 +2219,8 @@ elif selected_option_case_type == "AML":
                                 # query=f'**{query}**'
                                 # st.markdown(query)
                                 # st.write(response)
-                                chat_history_1[query] = response
+
+                                #chat_history_1[query] = response
 
                                 query = "What type of Money laundering activity is taking place?"
                                 context_1 = docsearch.similarity_search(query, k=5)
@@ -2233,8 +2235,8 @@ elif selected_option_case_type == "AML":
 
                                 response = usellm(prompt_1)
                                 
-                                chat_history_1[query] = response
-                                st.session_state["lineage_aml"][query] = context_1
+                                #chat_history_1[query] = response
+                                #st.session_state["lineage_aml"][query] = context_1
 
                                 query = "What is the total amount associated with the Money Laundering ?"
                                 st.session_state["lineage_aml"][query] = context_1
@@ -2257,7 +2259,7 @@ elif selected_option_case_type == "AML":
                                 try:
                                     res_df_gpt = pd.DataFrame(list(chat_history_1.items()), columns=['Question','Answer'])
                                     res_df_gpt.reset_index(drop=True, inplace=True)
-                                    index_ = pd.Series([1,2,3,4,5,6,7,8])
+                                    index_ = pd.Series([1,2,3,4,5])
                                     res_df_gpt = res_df_gpt.set_index([index_])
                                     # st.write(res_df_gpt)                             
                                 except: 
@@ -2528,19 +2530,21 @@ elif selected_option_case_type == "AML":
                         "Why was the transaction triggered?",
                         "What are the products that are associsted with this customer?",
                         "What are the associated suspicious transactions for Credit Card?",
-                        "What is the total amount associated with the money laundering activity for Credit card?",
+                        #"What is the total amount associated with the money laundering activity for Credit card?",
                         "What are the associated suspicious transactions for Savings account?",
-                        "What is the total amount associated with the money laundering activity for Savings Account ?",
-                        "What type of Money laundering activity is taking place?"]
+                        #"What is the total amount associated with the money laundering activity for Savings Account ?",
+                        #"What type of Money laundering activity is taking place?",
+                        "What is the total amount associated with the Money Laundering ?"]
                    
                     li_ = [
                         "Why was the transaction triggered?",
                         "What are the products that are associsted with this customer?",
                         "What are the associated suspicious transactions for Credit Card?",
-                        "What is the total amount associated with the money laundering activity for Credit card?",
+                        #"What is the total amount associated with the money laundering activity for Credit card?",
                         "What are the associated suspicious transactions for Savings account?",
-                        "What is the total amount associated with the money laundering activity for Savings Account ?",
-                        "What type of Money laundering activity is taking place?"]
+                        #"What is the total amount associated with the money laundering activity for Savings Account ?",
+                        #"What type of Money laundering activity is taking place?",
+                        "What is the total amount associated with the Money Laundering ?"]
                    
                     selected_option = st.selectbox("", li)
                     if selected_option in li_:
