@@ -2169,7 +2169,7 @@ elif selected_option_case_type == "AML":
                                 Output the total calculated amount as answer to the question.
                                 Context: {context_1}\n\
                                 Question: {query}\n\
-                                Response: (Add this before the toal amount : "Total Money Laundering amount that can be associated with credit card is : ")'''
+                                Response: (Add this before the total amount : "Total Money Laundering amount that can be associated with credit card is : ")'''
 
 
                                 response = usellm(prompt_1)
@@ -2288,7 +2288,7 @@ elif selected_option_case_type == "AML":
                                 4.) What is the relationship between the credit card transactions and the savings account deposits? \n\  
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response: (Give response to each question from the Context provided)"""
+                                Response: (Give response to each question from the Context provided and recommendation if SAR filling is required or not ? For each answer give it a short title in the following format: "Title": "response")"""
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
