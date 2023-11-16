@@ -2187,7 +2187,7 @@ elif selected_option_case_type == "AML":
                                   
 
                                 prompt_1=f''' Your goal is to print only the suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
-                                High Value Cash Deposits in a short span of time. Strictly do not include any Paycheck depostits and Opening balance transaction as they may not be considered as suspicious transactions.
+                                High Value Cash Deposits in a short span of time. Strictly do not include any Paycheck depostits and Opening balance transaction as they may not be considered as suspicious transactions.Also, do not repeat the same transaction.\n\
                                 Context: {context_1}\n\
                                 Response: (Print those transaction with their Description, Date and Credited Amount.# Strictly do not give/add any Note, Explanation in answer.) '''
                                 #st.write(context_1)
