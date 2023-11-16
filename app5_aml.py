@@ -2288,7 +2288,7 @@ elif selected_option_case_type == "AML":
                                 4.) What is the relationship between the credit card transactions and the savings account deposits? \n\  
                                 Context: {contexts}\n\
                                 Question: {query}\n\
-                                Response: (Give response to each question from the Context provided and recommendation if SAR filling is required or not ? For each answer give a short title.)"""
+                                Response: (Give response to each question from the Context provided and recommendation if SAR filling is required or not ? For each answer give a short title from the question asked.)"""
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
               
