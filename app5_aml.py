@@ -2279,7 +2279,7 @@ elif selected_option_case_type == "AML":
                                 st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
                                 
                                 ## SARA Recommendation
-                                query  = "Give your recommendation if this is a Suspicious activity or not?"
+                                query  = "Give a well formatted recommendation in pointers if this is a Suspicious activity or not?"
                                 contexts = ques1 + ques8
                                 prompt = f"""Act as a Money Laundering Analysts and give concise answer to the below question, within given Context. \n\
                                 1.) transaction triggered\n\
