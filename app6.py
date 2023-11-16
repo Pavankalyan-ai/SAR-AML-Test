@@ -243,8 +243,9 @@ def get_response(messages: str, model: str = "gpt-3.5-turbo") -> str:
         messages=messages,
         temperature=0.01,
         top_p=0.1,
-        top_k=10,
-        seed=1000
+        #top_k=10,
+        seed=1000,
+        presence_penalty=0
 
     )
 
@@ -2160,7 +2161,7 @@ elif selected_option_case_type == "AML":
                                 user_prompt = wrap_prompt(prompt_1, "user")
                                 res = get_response([system_prompt, user_prompt])
                                 response = res['choices'][0]['message']['content']
-
+s
                                 #response = usellm(prompt_1)
                                 #st.write(context_1)
                                 #response = context_1
