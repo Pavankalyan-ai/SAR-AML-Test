@@ -2150,7 +2150,7 @@ elif selected_option_case_type == "AML":
                                 Transactions that are made to an unrecognized entity (Ex- Advisories, consultancies,etc.).Also, do not repeat the same transaction.\n\
                                 Context: {context_1}\n\
                                 Response: (Print only the Description, Date and Debited Amount of those transactions.# Strictly do not give/add any Note, Explanation in answer.) '''
-                                #st.write(context_1)
+                                st.write(context_1)
 
                                 response = usellm(prompt_1)
                                 #st.write(context_1)
