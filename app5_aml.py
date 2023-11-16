@@ -2279,7 +2279,7 @@ elif selected_option_case_type == "AML":
                                 st.session_state["tmp_table_gpt_aml"] = pd.concat([st.session_state.tmp_table_gpt_aml, res_df_gpt], ignore_index=True)
                                 
                                 ## SARA Recommendation
-                                query  = "Give a well formatted recommendation in pointers if this is a Suspicious activity or not?"
+                                query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ques1 + ques8
                                 prompt = f"""Act as a Money Laundering Analysts and give concise answer to the below question, within given Context. \n\
                                 1.) transaction triggered\n\
@@ -2287,7 +2287,7 @@ elif selected_option_case_type == "AML":
                                 3.) Type of money laundering activity taking place\n\
                                 4.) relationship between the credit card transactions and the savings account deposits\n\
                                 Context: {contexts}\n\
-                                Response: (Based on the given context, give a concise answer to each of the above questions. Also, give your recommendation to the below question.) 
+                                Response: (Based on the given context, give a concise answer to each of the above questions in pointers. Also, give your recommendation to the below question.) 
                                 Question: {query} """
                                 response1 = usellm(prompt)
                                 response1 = response1.replace("$", "USD ")
