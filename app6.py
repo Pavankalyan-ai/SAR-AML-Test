@@ -2249,7 +2249,7 @@ elif selected_option_case_type == "AML":
                                 prompt_2 = f"""Give concise response to the each questions below within the given Context. \n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards\n\
-                                3.) Type of money laundering activity taking place and why ? along with the relationship found.\n\                          
+                                3.) Type of money laundering activity taking place and why ? .\n\                          
                                 Context: {contexts}\n\
                                 Response: (Give a neatly formatted response for each question individually. Also, give your recommendation for the below Question.) 
                                 Question: {query} """
