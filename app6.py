@@ -2473,14 +2473,14 @@ elif selected_option_case_type == "AML":
                 if st.session_state.llm == "Closed-Source":
                     with st.spinner('Getting you information...'):      
                         if query:
-                            docs = chunk_extract(temp_file_path)
-                            text_data_doc = context_data(docs)
+                            # docs = chunk_extract(temp_file_path)
+                            # text_data_doc = context_data(docs)
                             
                             # Text input handling logic
                             #st.write("Text Input:")
                             #st.write(text_input)
                 
-                            context_1 = text_data_doc
+                            context_1 = docsearch.similarity_search(query, k=5)
                             st.session_state.context_1 = context_1
                             
                         
@@ -2508,14 +2508,14 @@ elif selected_option_case_type == "AML":
                 elif st.session_state.llm == "Open-Source":
                     with st.spinner('Getting you information...'):      
                         if query:
-                            docs = chunk_extract(temp_file_path)
-                            text_data_doc = docs
+                            # docs = chunk_extract(temp_file_path)
+                            # text_data_doc = docs
                             #text_data_doc = process_files_and_generate_responses(fetched_files)
                             # Text input handling logic
                             #st.write("Text Input:")
                             #st.write(text_input)
                 
-                            context_1 = text_data_doc
+                            context_1 = docsearch.similarity_search(query, k=5)
                             st.session_state.context_1 = context_1
                             prompt_1 = f''' You Are an Anti-Money Laundering Specialist, provide the answer to the below question in a concise manner.\n\n\
                                             Question: {query}\n\
