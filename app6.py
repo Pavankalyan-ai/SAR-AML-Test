@@ -2564,7 +2564,7 @@ elif selected_option_case_type == "AML":
                     if selected_option in li_:
                         doc = st.session_state["lineage_aml"][selected_option]
                         for i in range(len(doc)):
-                            st.write(doc)
+                            st.write(doc[i])
                             # st.write(f":blue[Chunk-{i}:]")
                             # st_ = doc[i].page_content.replace("()", " ")
                             # st.write(":blue[Page Content:]",st_) 
