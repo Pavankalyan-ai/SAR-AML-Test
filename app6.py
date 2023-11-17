@@ -2216,9 +2216,9 @@ elif selected_option_case_type == "AML":
                                 user_prompt = wrap_prompt(prompt_1, "user")
                                 res = get_response([system_prompt, user_prompt])
                                 response = res['choices'][0]['message']['content']
-                                response = total_sav + " and "+ total_cc + "  ."+ response
-                                ques8 = response
-                                chat_history_1[query] = response
+                                response1 = total_sav + " and "+ total_cc + "  ."+ response
+                                ques8 = response1
+                                chat_history_1[query] = response1
                                 
 
 
