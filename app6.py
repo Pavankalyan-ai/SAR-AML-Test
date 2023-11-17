@@ -2595,7 +2595,7 @@ elif selected_option_case_type == "AML":
                             # st.write(summ_dict_gpt)
                             # st.write(summary1)
                             st.session_state["tmp_summary_gpt_aml"] = conversation.predict(
-                                input="Act as a summarization tool and Provide a detailed summary of the provided information include all the relevant information and numbers. Provide the summary in a single paragraph and don't include words like these: 'chat summary', 'includes information', 'AI' etc. in my final summary.")
+                                input="Act as a summarization tool and Provide a detailed summary of the provided information include all the relevant information and numbers. Provide the summary in a single paragraph and don't include words like these: 'chat summary', 'includes information' or 'AI' in my final summary.")
                             st.session_state["tmp_summary_gpt_aml"]=st.session_state["tmp_summary_gpt_aml"].replace("$", "USD ")
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
