@@ -2295,10 +2295,9 @@ elif selected_option_case_type == "AML":
                                 prompt_2 = f"""Give concise response to the each questions below within the given Context. \n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards\n\
-                                3.) Type of money laundering activity taking place\n\
-                                4.) relationship between the credit card transactions and the savings account deposits\n\
+                                3.) Type of money laundering activity taking place and why ?\n\                          
                                 Context: {contexts}\n\
-                                Response: (Give your response for each question individually. Also, give your recommendation for the below Question.) 
+                                Response: (Give a neatly formatted response for each question individually. Also, give your recommendation for the below Question.) 
                                 Question: {query} """
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_2, "user")
