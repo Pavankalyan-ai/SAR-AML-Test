@@ -2583,20 +2583,20 @@ elif selected_option_case_type == "AML":
                         if st.session_state.llm == "Closed-Source":
                             st.session_state.disabled=False
             
-                            summ_dict_gpt = st.session_state.tmp_table_gpt_aml.set_index('Question')['Answer'].to_dict()
+                            # summ_dict_gpt = st.session_state.tmp_table_gpt_aml.set_index('Question')['Answer'].to_dict()
                             summary1= ', '.join(res_df_gpt['Answer'])
                             # chat_history = resp_dict_obj['Summary']
-                            memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=300)
+                            memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=400)
                             memory.save_context({"input": "This is the entire summary"}, 
                                             {"output": f"{summary1}"})
                             conversation = ConversationChain(
                             llm=llm, 
                             memory = memory,
                             verbose=True)
-                            st.write(summ_dict_gpt)
-                            st.write(summary1)
+                            # st.write(summ_dict_gpt)
+                            # st.write(summary1)
                             st.session_state["tmp_summary_gpt_aml"] = conversation.predict(
-                                input="Act as a summarization tool and Provide a detailed summary of the provided information. Make sure to include all the relevant information and numbers. Provide the summary in a single paragraph and don't include words like these: 'chat summary', 'includes information', 'AI' etc. in my final summary.")
+                                input="Act as a summarization tool and Provide a detailed summary of the provided information include all the relevant information and numbers. Provide the summary in a single paragraph and don't include words like these: 'chat summary', 'includes information', 'AI' etc. in my final summary.")
                             st.session_state["tmp_summary_gpt_aml"]=st.session_state["tmp_summary_gpt_aml"].replace("$", "USD ")
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
