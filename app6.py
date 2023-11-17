@@ -244,7 +244,7 @@ def get_response(messages: str, model: str = "gpt-3.5-turbo") -> str:
         temperature=0.01,
         top_p=0.1,
         #top_k=10,
-        seed=1001,
+        seed=1000,
         presence_penalty=0
 
     )
