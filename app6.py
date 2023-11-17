@@ -2071,7 +2071,11 @@ elif selected_option_case_type == "AML":
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: Give a concise response as reason in one sentence. '''
-                                response = usellm(prompt_1)
+                                #response = usellm(prompt_1)
+                                system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
+                                user_prompt = wrap_prompt(prompt_1, "user")
+                                res = get_response([system_prompt, user_prompt])
+                                response = res['choices'][0]['message']['content']
                                 ques1 = response
                                 #st.write(context_1)
                                 
@@ -2088,7 +2092,11 @@ elif selected_option_case_type == "AML":
                                 Question: {query}\n\
                                 Context: {context_1}\n\
                                 Response: (Output the identified Products, Do not give/add any Explanation, Note, etc. in the answer.)'''
-                                response = usellm(prompt_1)
+                                #response = usellm(prompt_1)
+                                system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
+                                user_prompt = wrap_prompt(prompt_1, "user")
+                                res = get_response([system_prompt, user_prompt])
+                                response = res['choices'][0]['message']['content']
                                 
                                 
                                 chat_history_1[query] = response
@@ -2201,7 +2209,7 @@ elif selected_option_case_type == "AML":
 
                                 prompt_1=f'''Based on the Context, what is the relationship between the suspicious transactions of savings accounts and credit card transactions.\n\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed along with the relationship found. Do not give me any Note etc)'''
+                                Response: (Give me a concise response in one sentence stating what type of money laundering activity is taking place and why? along with the relationship found. Do not give me any Note etc)'''
 
                                 #response = usellm(prompt_1)
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
