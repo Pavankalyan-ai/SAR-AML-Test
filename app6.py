@@ -2177,20 +2177,20 @@ elif selected_option_case_type == "AML":
                                 response = response.replace("$", "USD ")
                                 total_sav =  response
                                 
-                                ## Question-5.1
+                                # ## Question-5.1
 
-                                query = "What type of Money laundering activity is taking place?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                # query = "What type of Money laundering activity is taking place?"
+                                # context_1 = docsearch.similarity_search(query, k=5)
                                   
 
-                                prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observe the transaction statements pattern from both the transactions data of credit card and saving accounts statements combined. \
-                                The type of money laundering activities which can take place includes: Structuring or smurfing, layering, round tripping, etc.\ 
-                                Act as and Anti-Money Laundering analyst, observe the transactions statements data and give a concise answer with explanation of what type of money laundering activity could be taking place and on what pattern this activity is observed.\n\n
-                                Question: {query}\n\
-                                Context: {context_1}\n\
-                                Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
+                                # prompt_1=f'''You Are an Anti-Money Laundering Specialist, carefully observe the transaction statements pattern from both the transactions data of credit card and saving accounts statements combined. \
+                                # The type of money laundering activities which can take place includes: Structuring or smurfing, layering, round tripping, etc.\ 
+                                # Act as and Anti-Money Laundering analyst, observe the transactions statements data and give a concise answer with explanation of what type of money laundering activity could be taking place and on what pattern this activity is observed.\n\n
+                                # Question: {query}\n\
+                                # Context: {context_1}\n\
+                                # Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
 
-                                response = usellm(prompt_1)
+                                # response = usellm(prompt_1)
                                 
                                 ## Question-5
 
@@ -2203,7 +2203,11 @@ elif selected_option_case_type == "AML":
                                 Context: {context_1}\n\
                                 Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed along with the relationship found. Do not give me any Note etc)'''
 
-                                response = usellm(prompt_1)
+                                #response = usellm(prompt_1)
+                                system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
+                                user_prompt = wrap_prompt(prompt_1, "user")
+                                res = get_response([system_prompt, user_prompt])
+                                response = res['choices'][0]['message']['content']
                                 response = total_sav + " and "+ total_cc + "  ."+ response
                                 ques8 = response
                                 chat_history_1[query] = response
@@ -2585,18 +2589,32 @@ elif selected_option_case_type == "AML":
                             # summ_dict_gpt = st.session_state.tmp_table_gpt_aml.set_index('Question')['Answer'].to_dict()
                             summary1= ', '.join(res_df_gpt['Answer'])
                             # chat_history = resp_dict_obj['Summary']
-                            memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=400)
-                            memory.save_context({"input": "This is the entire summary"}, 
-                                            {"output": f"{summary1}"})
-                            conversation = ConversationChain(
-                            llm=llm, 
-                            memory = memory,
-                            verbose=True)
+                            # memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=400)
+                            # memory.save_context({"input": "This is the entire summary"}, 
+                            #                 {"output": f"{summary1}"})
+                            # conversation = ConversationChain(
+                            # llm=llm, 
+                            # memory = memory,
+                            # verbose=True)
                             # st.write(summ_dict_gpt)
                             # st.write(summary1)
-                            st.session_state["tmp_summary_gpt_aml"] = conversation.predict(
-                                input="Act as a summarization tool and Provide a detailed summary of the provided information include all the relevant information and numbers. Provide the summary in a single paragraph and don't include words like these: 'chat summary', 'includes information' or 'AI' in my final summary.")
-                            st.session_state["tmp_summary_gpt_aml"]=st.session_state["tmp_summary_gpt_aml"].replace("$", "USD ")
+                            # st.session_state["tmp_summary_gpt_aml"] = conversation.predict(
+                            #     input="Act as a summarization tool and Provide a detailed summary of the provided information include all the relevant information and numbers. Provide the summary in a single paragraph and don't include words like these: 'chat summary', 'includes information' or 'AI' in my final summary.")
+                            # st.session_state["tmp_summary_gpt_aml"]=st.session_state["tmp_summary_gpt_aml"].replace("$", "USD ")
+
+                            ## using open ai:
+
+                            prompt_summ=f'''Provide a detailed summary of the below Context, include all the relevant information and numbers. Provide the summary in a single paragraph and don't include words like these: 'chat summary', 'includes information' or 'AI' in my final summary.\n\n\
+                            Context: {summary1}  '''
+                            system_prompt = wrap_prompt("You are a summarization tool", "system")
+                            user_prompt = wrap_prompt(prompt_summ, "user")
+                            res = get_response([system_prompt, user_prompt])
+                            response = res['choices'][0]['message']['content']
+                            response_summary = response.replace("$", "USD ")
+
+                            
+                            st.session_state["tmp_summary_gpt_aml"]=response_summary
+                            
                             #Display summary
                             st.write(st.session_state["tmp_summary_gpt_aml"])
 
