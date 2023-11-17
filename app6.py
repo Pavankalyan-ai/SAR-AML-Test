@@ -2207,9 +2207,9 @@ elif selected_option_case_type == "AML":
                                 context_1 = transactions_cc + transactions_sa
                                   
 
-                                prompt_1=f'''Based on the Context, what is the relationship between the suspicious transactions of savings accounts and credit card transactions.\n\n\
+                                prompt_1 = f'''Based on the Context, what is the relationship between the suspicious transactions of savings accounts and credit card transactions.\n\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response in one sentence stating what type of money laundering activity is taking place and why? along with the relationship found. Do not give me any Note etc)'''
+                                Response: (Give me a concise response in one sentence stating what type of money laundering activity is taking place and why? along with the relationship found. Do not give me any Note etc).'''
 
                                 #response = usellm(prompt_1)
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
@@ -2217,7 +2217,7 @@ elif selected_option_case_type == "AML":
                                 res = get_response([system_prompt, user_prompt])
                                 response = res['choices'][0]['message']['content']
                                 response1 = total_sav + " and "+ total_cc + "  ."+ response
-                                ques8 = response1
+                                ques5 = response1
                                 chat_history_1[query] = response1
                                 
 
@@ -2245,7 +2245,7 @@ elif selected_option_case_type == "AML":
                                 ################## SARA Recommendation ######################
 
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
-                                contexts = ques1 + ques8
+                                contexts = ques1 + ques5
                                 prompt_2 = f"""Give concise response to the each questions below within the given Context. \n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards\n\
