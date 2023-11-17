@@ -2305,6 +2305,7 @@ elif selected_option_case_type == "AML":
                                 response = res['choices'][0]['message']['content']
                                 #response1 = usellm(prompt)
                                 response1 = response.replace("$", "USD ")
+                                sara_close_source=response1
               
 
 
@@ -2881,7 +2882,10 @@ elif selected_option_case_type == "AML":
                         response_sara_gpt = response_sara_gpt.replace("$", "USD ")
                         #response_sara_gpt = response_sara_gpt.replace("10,000", "10,000 USD")
                         #response_sara_gpt = response_sara_gpt.replace("10,600", "10,600 USD")
-                        st.markdown(f'''<em>{response_sara_gpt}</em>''',unsafe_allow_html=True)
+                        
+                        ##st.markdown(f'''<em>{response_sara_gpt}</em>''',unsafe_allow_html=True)
+                        st.markdown(f'''<em>{sara_close_source}</em>''',unsafe_allow_html=True)
+
 
                         st.warning('Please carefully review the recommendation and case details before the final submission',icon="⚠️")
                     
