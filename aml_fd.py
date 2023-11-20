@@ -35,6 +35,7 @@ from huggingface_hub import login
 import pytesseract
 from utils import *
 import os
+import cv2
 import openai
 import numpy
 
