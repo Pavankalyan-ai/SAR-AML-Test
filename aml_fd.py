@@ -35,6 +35,7 @@ from huggingface_hub import login
 import pytesseract
 import os
 import openai
+import numpy
 
 
 # Setting Env
