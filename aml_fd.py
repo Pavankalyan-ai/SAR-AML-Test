@@ -2292,18 +2292,18 @@ elif selected_option_case_type == "AML":
                     
                 with st.spinner('Wait for it...'):
                     
-                    if 'clicked1' not in st.session_state:
-                        st.session_state.clicked1 = False
+                    if 'clicked2' not in st.session_state:
+                        st.session_state.clicked2 = False
                    
-                    def set_clicked1():
-                        st.session_state.clicked1 = True
+                    def set_clicked2():
+                        st.session_state.clicked2 = True
                         st.session_state.disabled = True
  
                    
-                    generate_button = st.button("Generate Insights",on_click=set_clicked1,disabled=st.session_state.disabled)
+                    generate_button = st.button("Generate Insights",on_click=set_clicked2,disabled=st.session_state.disabled)
                    
  
-                    if st.session_state.clicked1:
+                    if st.session_state.clicked2:
                         if temp_file_path is not None:
                             _, docsearch = embedding_store(temp_file_path,hf_embeddings)
                             # File handling logic
