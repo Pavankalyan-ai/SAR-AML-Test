@@ -33,6 +33,7 @@ from langchain.callbacks import get_openai_callback
 from usellm import Message, Options, UseLLM
 from huggingface_hub import login
 import pytesseract
+import cv2
 # from utils import text_to_docs
 # import cv
 # import PyPDF2
