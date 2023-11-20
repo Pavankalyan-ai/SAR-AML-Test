@@ -32,6 +32,7 @@ from io import StringIO
 from io import BytesIO
 from usellm import Message, Options, UseLLM
 from huggingface_hub import login
+import pytesseract
 import os
 import openai
 
