@@ -991,7 +991,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                # Creating header
                 col1,col2 = st.columns(2)
                 with col1:
-                    st.markdown("""<span style="font-size: 24px; ">Pre-Set Questionnaire</span>""", unsafe_allow_html=True)
+                    st.markdown("""<span style="font-size: 24px; ">Key-Questions</span>""", unsafe_allow_html=True)
                     # Create a Pandas DataFrame with your data
                     data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?','Is this a Suspicious Activity?']}
                     df_fixed = pd.DataFrame(data)
@@ -1027,92 +1027,193 @@ elif selected_option_case_type == "Fraud transaction dispute":
                         if temp_file_path is not None:
                         # File handling logic
                             _, docsearch = embedding_store(temp_file_path,hf_embeddings)
+                            res_dict = {}
+                            lineage_dict = {}
                 
                             if st.session_state.llm == "Closed-Source":
-                                queries ="Please provide the following information regarding the possible fraud case: What is the name of the customer name,\
-                                has any suspect been reported, list the merchant name, how was the bank notified, when was the bank notified, what is the fraud type,\
-                                when did the fraud occur, was the disputed amount greater than 5000 USD, what type of cards are involved, was the police report filed,\
-                                and based on the evidence, is this a suspicious activity(Summarize all the questions asked prior to this in a detailed manner),that's the answer of\
-                                whether this is a suspicious activity\
-                                "
-                        
-                                contexts = docsearch.similarity_search(queries, k=9) 
-                                prompts = f" Give a the answer to the below questions as truthfully and in as detailed in the form of sentences\
-                                as possible as per given context only,\n\n\
-                                        What is the victim's name?\n\
-                                        What is the suspect's name?\n\
-                                        List the merchant name\n\
-                                        How was the bank notified?\n\
-                                        When was the bank notified?\n\
-                                        What is the fraud type?\n\
-                                        When did the fraud occur?\n\
-                                        Was the disputed amount greater than 5000 USD?\n\
-                                        What type of cards are involved?\n\
-                                        Was the police report filed?\n\
-                                    Context: {contexts}\n\
-                                    Response (in the python dictionary format\
-                                    where the dictionary key would carry the questions and its value would have a descriptive answer to the questions asked): "
+                                query = "what is the customer name?"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                prompt_1 = f'''Perform Name Enitity Recognition to identify the cardholder name as accurately as possible, given the context. The customer can also be referenced as the cardholder with whom the Fraud has taken place.\n\n\ 
+                                            Question: {query}\n\
+                                            Context: {context_1}\n\
+                                            Response: '''
+                                response = usellm(prompt_1)
+                                res_dict[query] = response
+                                lineage_dict[query] = context_1
+                            
                                     
-                                response = usellm(prompts)
+                                query = "what is the suspect's name?"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                prompt_1 = f'''Perform Name Enitity Recognition to identify the suspect name as accurately as possible, given the context. Suspect is the Person who has committed the fraud with the Customer. Respond saying "The Suspect Name is not Present" if there is no suspect in the given context.\n\n\
+                                            Question: {query}\n\
+                                            Context: {context_1}\n\
+                                            Response: '''
+                                response = usellm(prompt_1)
+                                res_dict[query] = response
+                                lineage_dict[query] = context_1
+                        
+
+                                        
+                                query = "List the Merchant Name"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                prompt_1 = f'''Perform Name Enitity Recognition to identify all the Merchant Organizations as accurately as possible, given the context. A merchant is a type of business or organization that accepts payments from the customer account. Give a relevant and concise response.\n\n\
+                                            Question: {query}\n\
+                                            Context: {context_1}\n\
+                                            Response: '''
+                                response = usellm(prompt_1)
+                                res_dict[query] = response
+                                lineage_dict[query] = context_1
+
+
+                                    
+                                query = "how was the bank notified?"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                prompt_1 = f''' You need to act as a Financial analyst to identify how was the bank notified of the Supicious or Fraud event with in the given context. The means of communication can be a call, an email or in person. Give a relevant and concise response.\n\n\
+                                            Question: {query}\n\
+                                            Context: {context_1}\n\
+                                            Response: (Give a concise response in one sentence.)'''
+                                response = usellm(prompt_1)
+                                res_dict[query] = response
+                                lineage_dict[query] = context_1
+                            
+
+
+                                query = "when was the bank notified?"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                prompt_1 = f''' You need to act as a Financial analyst to Identify the processing date when bank was notified of the fraud?. Given the context, provide a relevant and concise response.\n\n\
+                                            Question: {query}\n\
+                                            Context: {context_1}\n\
+                                            Response: '''
+                                response = usellm(prompt_1)
+                                res_dict[query] = response  
+                                lineage_dict[query] = context_1             
+
+                                    
+                                query = "what type of fraud is taking place?"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                prompt_1 = f''' You need to act as a Financial analyst to identify the type of fraud or suspicious activity has taken place amd summarize it, within the given context. Also mention the exact fraud code. Give a relevant and concise response.\n\n\
+                                            Question: {query}\n\
+                                            Context: {context_1}\n\
+                                            Response: (Prvide me a concise and relevant response)'''
+                                response = usellm(prompt_1)
+                                res_dict[query] = response  
+                                lineage_dict[query] = context_1
+                                
+                                query = "when did the fraud occur?"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                prompt_1 = f''' You need to act as a Financial analyst to identify the when the did the fraud occur i.e., the Dispute Date. Given the context, provide a relevant and concise response.\n\n\
+                                            Question: {query}\n\
+                                            Context: {context_1}\n\
+                                            Response: '''
+                                response = usellm(prompt_1)
+                                res_dict[query] = response 
+                                lineage_dict[query] = context_1 
+                                        
+                                query = "was the disputed amount greater than 5000 usd?"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                prompt_1 = f''' You need to act as a Financial analyst to identify the disputed amount and perform a mathematical calculation to check if the disputed amount is greater than 5000 or no, given the context. Give a relevant and concise response.\n\n\
+                                            Question: {query}\n\
+                                            Context: {context_1}\n\
+                                            Response: '''
+                                response = usellm(prompt_1)
+                                res_dict[query] = response  
+                                lineage_dict[query] = context_1
+
+                                    
+                                query = "what type of network/card is used in transaction?"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                prompt_1 = f''' You need to act as a Financial analyst to identify the type of card and card's brand involved, given the context. On a higher level the card can be a Credit or Debit Card. VISA, MasterCard or American Express, Citi Group, etc. are the different brands with respect to a Credit card or Debit Card . Give a relevant and concise response.\n\n\
+                                            Question: {query}\n\
+                                            Context: {context_1}\n\
+                                            Response: (Prvide me a concise and relevant response)'''
+                                response = usellm(prompt_1)
+                                res_dict[query] = response  
+                                lineage_dict[query] = context_1
+                            
+
+                                            
+                                query = "was the police report filed?"
+                                context_1 = docsearch.similarity_search(query, k=5)
+                                prompt_1 = f''' You need to act as a Financial analyst to identify if the police was reported of the Fraud activity, given the context. Give a relevant and concise response.\n\n\
+                                            Question: {query}\n\
+                                            Context: {context_1}\n\
+                                            Response: (Prvide me a concise and relevant response)'''
+                                response = usellm(prompt_1)
+                                res_dict[query] = response 
+                                lineage_dict[query] = context_1
+
+                                st.session_state["lineage_gpt"] = lineage_dict
+
 
                 
                                 try:
-                                    resp_dict_obj = json.loads(response)
+                                    #resp_dict_obj = json.loads(response)
                                     res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
                                 except:
                                     e = Exception("")
                                     st.exception(e)
 
-                                query = "Is this a Suspicious Activity?"
-                                context_1 = docsearch.similarity_search(query, k=9)
-                                prompt = f'''Act as a financial analyst and give concise answer to the question, with given Context.
-                                This can be addressed as a suspicious activity based on [transaction amount,fraud type,suspect name not matching with the customer name, suspect address does not match with the customer address].\n\n\
-                                
-                                            Question: {query}\n\
-                                            Context: {context_1}\n\                      
-                                            Response: (Give me a concise response in pointers)'''
-                                
-                                response1 = usellm(prompt) 
-                                st.session_state["sara_recommendation_gpt"] = response1
-
-                            
-
-                                df_res = {'SAR Recommendation':response1} 
-                                df_res_new = pd.DataFrame(df_res.items(),columns=['Question','Answer'])
-                                    
-                                                                                                
                                 try:
                                     res_df_gpt.reset_index(drop=True, inplace=True)
                                     index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
-                                    res_df_gpt = res_df_gpt.set_index([index_])
-
-                                
+                                    res_df_gpt = res_df_gpt.set_index([index_])   
                                 except IndexError: 
                                     pass
+
                                 st.table(res_df_gpt)
+
+                                # tmp_table_gpt = res_df_gpt
+
                                 st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
-                            
+                                query ="Is invoice is billed to cardholder or someone else?"
+                                contexts = docsearch.similarity_search(query, k=9)
+                                prompt = f" You are professional Fraud Analyst. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
+                                cardholder's name,adress can be identified from cardholder information. Cardholder is the person who is the owner of the card, cardholder can also be referenced as the victim with whom fraud has taken place.\n\n\
+                                Identify to whom invoice is billed (Detials mentioned in invoice is of the person who made the transaction,it may be or may not be of the cardholder)\n\n\
+                                Compare both the details, if details mentioned in invoice matches the cardholder details, then invoice is billed to cardholder else it is billed to someone else who misued the card.\n\n\
+                                    Context: {contexts}\n\
+                                    Response (Give me a concise response.)"
+                                response_1 = usellm(prompt)
+
+                                
+
+                                query ="Give your recommendation if this is a Suspicious activity or not?"
+                                contexts = docsearch.similarity_search(query, k=9)
+                                prompt = f" You are professional Fraud Analyst. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
+                                    1. Check if The transaction/disputed amount > 5,000 USD value threshold, If Yes, then check below points to make sure if it is a suspicious activity or not: \n\
+                                    2. {response_1} analyse this response,if details matches or not? If matches then there is no suspicion else, it can be a suspicipos activity. (Also mention the mismatched details).\n\n\
+                                    3. If a potential suspect name is identified or not? Suspect is a person who has commited the fraud, If identified then this can be a suspicious activity, else not.\n\n\
+                                    Even if transaction/disputed amount > 5,000 USD but if above criteria does not met, then this can not be considered as a suspicious activity. \n\n\
+                                    Based on above points, give your recommendation if this is a case of suspicious activity or not? \n\n\
+                                    Context: {contexts}\n\
+                                    Response (Give me a concise recommendation in few pointers.If not a case of suspicion them mention it properly.)"
+                                response1 = usellm(prompt) 
+                                
+                                # This replace text is basically to stop rendering of $ to katex (that creates the text messy, hence replacing $)
+                                response1 = response1.replace("$", " ")
+                                response1 = response1.replace("5,000", "5,000 USD")
+                                response1 = response1.replace("5,600", "5,600 USD")
+                                st.session_state["sara_recommendation_gpt"] = response1  
+                                # sara_recommendation_gpt = response1 
+                                        
                                 
                                 st.markdown("### SARA Recommendation")
-                                st.write(response1)
+                                st.markdown(response1)
 
-                                if st.session_state.clicked1:
+                                
+                                st.markdown("#### Recommendation Feedback:")
+                                col_1, col_2, col_3, col_4, col_5, col_6 = st.columns(6)
 
-                                    st.markdown("#### Recommendation Feedback:")
-                                    col_1, col_2, col_3, col_4, col_5, col_6 = st.columns(6)
+                                with col_1:
+                                    if st.button("👍🏻",key=2):
+                                        st.write("*Feedback is recorded*")
+                        
 
-                                    with col_1:
-                                        if st.button("👍🏻",key=3):
-                                            st.write("*Feedback is recorded*")
-                                        # st.markdown('<span style="font-size: 24px;">👍🏻</span>',unsafe_allow_html=True)
-                            
+                                with col_2:
+                                    if st.button("👎🏻",key=3):
+                                        st.write("*Feedback is recorded*")
 
-                                    with col_2:
-                                        if st.button("👎🏻",key=4):
-                                            st.write("*Feedback is recorded*")
-                                        # st.markdown('<span style="font-size: 24px;">👎🏻</span>',unsafe_allow_html=True)
-            
-                                    
+                                                        
                             
                                     
 
@@ -1303,7 +1404,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                             context_1 = docsearch.similarity_search(query, k=9)
                             st.session_state.context_1 = context_1
-                            if query.lower() == "what is the victim's name?":
+                            if query.lower() == "what is the customer name?":
                                 prompt_1 = f'''Perform Name Enitity Recognition to identify the Customer name as accurately as possible, given the context. The Customer can also be referenced as the Victim or the person with whom the Fraud has taken place.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
@@ -1413,7 +1514,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                                 context_1 = docsearch.similarity_search(query, k=9)
                                 st.session_state.context_1 = context_1
-                                if query.lower() == "what is the victim's name?":
+                                if query.lower() == "what is the customer name?":
                                     prompt_1 = f'''Perform Name Enitity Recognition to identify the Customer name as accurately as possible, given the context. The Customer can also be referenced as the Victim or the person with whom the Fraud has taken place.
                                                 Customer/Victim is cardholder, whose card is used without their consent.
                                                 Do not provide any extra [Explanation, Note] block below the Response.\n\n\
