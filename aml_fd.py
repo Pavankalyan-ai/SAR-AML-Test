@@ -2206,7 +2206,7 @@ elif selected_option_case_type == "AML":
                             texts = text_to_docs(json2,file)
                             for i in texts:
                                 temp_file_path2.append(i)
-                #st.write(temp_file_path2)            
+                st.write(temp_file_path2)            
 
     
                 #combining files in fetch evidence and upload evidence
@@ -2305,7 +2305,7 @@ elif selected_option_case_type == "AML":
  
                     if st.session_state.clicked1:
                         if temp_file_path2 is not None:
-                            
+                            _, docsearch = embedding_store(temp_file_path2,hf_embeddings)
                             # File handling logic
                             
                             
@@ -2313,7 +2313,6 @@ elif selected_option_case_type == "AML":
 
                             
                             if st.session_state.llm == "Closed-Source":
-                                _, docsearch = embedding_store(temp_file_path2,hf_embeddings)
                                 chat_history_1 = {}
 
                                 ## Question-1
