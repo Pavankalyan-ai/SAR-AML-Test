@@ -96,7 +96,7 @@ def retriever(temp_file_path,hf_embeddings):
         if lineage:
             df = pd.DataFrame(
             columns=['Question','Chunk','Source'],
-            index=[1,2,3,4,5,6,7,8,9,10])
+            index=[1,2,3,4,5,6,7,8,9,10,11])
         
             query1 = "Identify the account number and name of the cardholder?"
             compressed_docs = retriever2(temp_file_path,hf_embeddings,query1)
