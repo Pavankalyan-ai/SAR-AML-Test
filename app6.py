@@ -2574,12 +2574,12 @@ elif selected_option_case_type == "AML":
                     if selected_option in li[1:]:
                         doc = st.session_state["lineage_aml"][selected_option]
                         for i in range(len(doc)):
-                            st.write(doc[i])
-                            #y=i+1
-                            # st.write(f":blue[Chunk-{y}:]")
-                            # st_ = doc[i].page_content.replace("()", " ")
-                            # st.write(":blue[Page Content:]",st_) 
-                            # st.write(":blue[Source:]",doc[i].metadata['source'])
+                            #st.write(doc[i])
+                            y=i+1
+                            st.write(f":blue[Chunk-{y}:]")
+                            st_ = doc[i].page_content.replace("()", " ")
+                            st.write(":blue[Page Content:]",st_) 
+                            st.write(":blue[Source:]",doc[i].metadata['source'])
                               
 
   
@@ -2880,61 +2880,69 @@ elif selected_option_case_type == "AML":
 
             with col6_up:   
                 # Adding Radio button
-                st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
-                if generate_button:
+                #st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
+                #if generate_button:
                     #text_data_doc = process_files_and_generate_responses(fetched_files)
 
                     if st.session_state['llm'] == "Closed-Source":
+                        st.markdown("""<span style="font-size: 24px;color:#0000FF">Is SAR filing required?</span>""", unsafe_allow_html=True)
+
                                 
                         st.write("#### *SARA Recommendation*")
-                        # st.markdown("""<span style="font-size: 18px;">*Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:*</span>""", unsafe_allow_html=True)
-                        # st.markdown("""<span style="font-size: 18px;">*1. Transaction amount is above the $5,000 value threshold*</span>""", unsafe_allow_html=True)
-                        # st.markdown("""<span style="font-size: 18px;">*2. There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect*.</span>""", unsafe_allow_html=True)           
+                        st.markdown("""<span style="font-size: 18px;">*Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:*</span>""", unsafe_allow_html=True)
+                        st.markdown("""<span style="font-size: 18px;">*1. Transaction amount is above the $5,000 value threshold*</span>""", unsafe_allow_html=True)
+                        st.markdown("""<span style="font-size: 18px;">*2. There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect*.</span>""", unsafe_allow_html=True)           
                  
-                        query  = "Give your recommendation if SAR filling is required or not?"
-                        contexts = ', '.join(res_df_gpt['Answer'])
-                        prompt = f""" Summarize the context data provided with all the essential detials in it and also answer your recommendation on if SAR filling is required or not on the basis of summary?:
-                            \n\n\
-                        Context: {contexts}\n\
-                        Question: {query}\n\
-                        Response: """
+                        # query  = "Give your recommendation if SAR filling is required or not?"
+                        # contexts = ', '.join(res_df_gpt['Answer'])
+                        # prompt = f""" Summarize the context data provided with all the essential detials in it and also answer your recommendation on if SAR filling is required or not on the basis of summary?:
+                        #     \n\n\
+                        # Context: {contexts}\n\
+                        # Question: {query}\n\
+                        # Response: """
                      
               
                         
                 
-                        response_sara_gpt = usellm(prompt) 
-                        response_sara_gpt = response_sara_gpt.replace("$", "USD ")
-                        #response_sara_gpt = response_sara_gpt.replace("10,000", "10,000 USD")
-                        #response_sara_gpt = response_sara_gpt.replace("10,600", "10,600 USD")
+                        # response_sara_gpt = usellm(prompt) 
+                        # response_sara_gpt = response_sara_gpt.replace("$", "USD ")
+                        # #response_sara_gpt = response_sara_gpt.replace("10,000", "10,000 USD")
+                        # #response_sara_gpt = response_sara_gpt.replace("10,600", "10,600 USD")
                         
-                        ##st.markdown(f'''<em>{response_sara_gpt}</em>''',unsafe_allow_html=True)
-                        st.markdown(f'''<em>{sara_close_source}</em>''',unsafe_allow_html=True)
+                        # ##st.markdown(f'''<em>{response_sara_gpt}</em>''',unsafe_allow_html=True)
+                        # st.markdown(f'''<em>{sara_close_source}</em>''',unsafe_allow_html=True)
 
 
                         st.warning('Please carefully review the recommendation and case details before the final submission',icon="⚠️")
                     
-                        del(response_sara_gpt)
+                        # del(response_sara_gpt)
                     
                     elif st.session_state['llm'] == "Open-Source":
                         st.write("#### *SARA Recommendation*")
+                        st.markdown("""<span style="font-size: 18px;">*Based on the following findings,it is recommended to file this case as a suspicious activity to FinCEN under Bank Secrecy Act:*</span>""", unsafe_allow_html=True)
+                        st.markdown("""<span style="font-size: 18px;">*1. Transaction amount is $5,600 indicating a need to file SAR with FinCEN.*</span>""", unsafe_allow_html=True)
+                        st.markdown("""<span style="font-size: 18px;">*2. There is an indication of suspicion with identification of a suspect whose details mismatch with customer details on merchant invoice.*</span>""", unsafe_allow_html=True)  
+
+                        st.warning('Please carefully review the recommendation and case details before the final submission',icon="⚠️")         
+        
 
 
-                        query  = "Give your recommendation if SAR filling is required or not?"
-                        contexts = ', '.join(res_df_llama['Answer'])
-                        prompt = f""" Summarize the context data provided with all the essential detials in it and also answer your recommendation on if SAR filling is required or not on the basis of summary?:
-                            \n\n\
-                        Context: {contexts}\n\
-                        Question: {query}\n\
-                        Response: """
+                        # query  = "Give your recommendation if SAR filling is required or not?"
+                        # contexts = ', '.join(res_df_llama['Answer'])
+                        # prompt = f""" Summarize the context data provided with all the essential detials in it and also answer your recommendation on if SAR filling is required or not on the basis of summary?:
+                        #     \n\n\
+                        # Context: {contexts}\n\
+                        # Question: {query}\n\
+                        # Response: """
                         
                         
-                        response_sara_llama = llama_llm(llama_13b,prompt)
-                        response_sara_llama = response_sara_llama.replace("$", "USD ")
-                        # st.markdown(response1)
-                        st.markdown(f'''<em>{sara_open_source}</em>''',unsafe_allow_html=True)
+                        # response_sara_llama = llama_llm(llama_13b,prompt)
+                        # response_sara_llama = response_sara_llama.replace("$", "USD ")
+                        # # st.markdown(response1)
+                        # st.markdown(f'''<em>{sara_open_source}</em>''',unsafe_allow_html=True)
 
 
-                        st.warning('Please carefully review the recommendation and case details before the final submission',icon="⚠️")
+                        # st.warning('Please carefully review the recommendation and case details before the final submission',icon="⚠️")
                 
                         
                         
@@ -2949,29 +2957,29 @@ elif selected_option_case_type == "AML":
                 #         unsafe_allow_html=True
                 #     )
                 # st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
-                selected_rad = st.radio(":blue[Is SAR filing required?]", ["opt1","Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
-                if selected_rad == "Refer for review":
-                    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-                    email_id = st.text_input("Enter your email ID")
-                    if email_id and not re.match(email_regex, email_id):
-                        st.error("Please enter a valid email ID")
-                if st.button("Submit"):
-                    if selected_rad in ("str_opt1"):
-                        st.write("") 
-                    elif selected_rad in ("Yes"):
-                        st.warning("Thanks for your review, your response has been submitted")
-                    elif selected_rad in ("No"):
-                        st.success("Thanks for your review, your response has been submitted")
+                    selected_rad = st.radio(":blue", ["Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
+                    if selected_rad == "Refer for review":
+                        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+                        email_id = st.text_input("Enter email ID")
+                        if email_id and not re.match(email_regex, email_id):
+                            st.error("Please enter a valid email ID")
 
-                    else:
-                        st.info("Thanks for your review, Case has been assigned to the next reviewer")
+
+                    if st.button("Submit"):
+                        if selected_rad in ("Yes"):
+                            st.warning("Thanks for your review, your response has been submitted")
+                        elif selected_rad in ("No"):
+                            st.success("Thanks for your review, your response has been submitted")
+
+                        else:
+                            st.info("Thanks for your review, Case has been assigned to the next reviewer")
 
 
 # Allow the user to clear all stored conversation sessions
-                if st.button("Reset Session"):
-                    reset_session_state()
-                    st.cache_data.clear()
-                #     pdf_files.clear()              
+                # if st.button("Reset Session"):
+                #     reset_session_state()
+                #     st.cache_data.clear()
+                # #     pdf_files.clear()              
 
 
 
