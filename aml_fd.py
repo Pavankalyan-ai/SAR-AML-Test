@@ -2317,6 +2317,9 @@ elif selected_option_case_type == "AML":
                                 chat_history_1 = {}
 
                                 ## Question-1
+
+                                st.write(temp_file_path2)
+                                st.write(_)
     
                                 query = "Why was the transaction triggered?"
                                 
@@ -2332,7 +2335,7 @@ elif selected_option_case_type == "AML":
                                 res = get_response([system_prompt, user_prompt])
                                 response = res['choices'][0]['message']['content']
                                 ques1 = response
-                                st.write(temp_file_path2)
+                                
                                 
                                 
                                 
