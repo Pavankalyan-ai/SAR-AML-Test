@@ -829,7 +829,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
     
         if selected_option:
             
-            col1_up, col2_up, col3_up, col4_up, col5_up = st.tabs(["Data", "Generate Insights","Summarization","Download Report", "Make a Decision"])
+            col1_up, col2_up, col3_up, col4_up, col5_up, col6_up = st.tabs(["Data", "Generate Insights","lineage","Summarization","Download Report", "Make a Decision"])
 
             with col1_up:
         
@@ -1499,8 +1499,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, df], ignore_index=True)
                             st.session_state.tmp_table_gpt.drop_duplicates(subset=['Question'])
                 
-                    #Lineage
-                    retriever(temp_file_path,hf_embeddings)
+                    # #Lineage
+                    # retriever(temp_file_path,hf_embeddings)
 
 
                 elif st.session_state.llm == "Open-Source":
@@ -1633,8 +1633,24 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 st.session_state["tmp_table_llama"] = pd.concat([st.session_state.tmp_table_llama, df], ignore_index=True)
                                 st.session_state.tmp_table_llama.drop_duplicates(subset=['Question'])
 
-                           
             with col3_up:
+                if st.session_state["lineage_gpt"] is not None:
+ 
+                    li = [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?','Is this a Suspicious Activity?']
+                    
+                   
+                    selected_option = st.selectbox("", li)
+                    if selected_option in li[1:]:
+                        doc = st.session_state["lineage_gpt"][selected_option]
+                        for i in range(len(doc)):
+                            #st.write(doc[i])
+                            y=i+1
+                            st.write(f":blue[Chunk-{y}:]")
+                            st_ = doc[i].page_content.replace("()", " ")
+                            st.write(":blue[Page Content:]",st_) 
+                            st.write(":blue[Source:]",doc[i].metadata['source'])
+                                   
+            with col4_up:
 
                 if 'clicked2' not in st.session_state:
                     st.session_state.clicked2 = False
@@ -1818,7 +1834,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                 except NameError:
                     pass
 
-            with col4_up:
+            with col5_up:
 
                 col_d1, col_d2 = st.tabs(["Download Report", "Download Case Package"])
 
@@ -1892,7 +1908,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                     #     os.remove(file_path)
                     # os.rmdir(temp_dir)
 
-                with col5_up:   
+                with col6_up:   
                     # Adding Radio button
                     # st.markdown("""<span style="font-size: 24px; ">Make Decision</span>""", unsafe_allow_html=True)
                     if st.session_state.llm == "Closed-Source":
