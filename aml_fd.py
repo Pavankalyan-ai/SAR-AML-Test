@@ -2305,7 +2305,7 @@ elif selected_option_case_type == "AML":
  
                     if st.session_state.clicked1:
                         if temp_file_path2 is not None:
-                            _, docsearch = embedding_store(temp_file_path2,hf_embeddings)
+                            
                             # File handling logic
                             
                             
@@ -2313,6 +2313,7 @@ elif selected_option_case_type == "AML":
 
                             
                             if st.session_state.llm == "Closed-Source":
+                                _, docsearch = embedding_store(temp_file_path2,hf_embeddings)
                                 chat_history_1 = {}
 
                                 ## Question-1
@@ -2329,7 +2330,7 @@ elif selected_option_case_type == "AML":
                                 res = get_response([system_prompt, user_prompt])
                                 response = res['choices'][0]['message']['content']
                                 ques1 = response
-                                #st.write(context_1)
+                                st.write(context_1)
                                 
                                 chat_history_1[query] = response
                                 st.session_state["lineage_aml"][query] = context_1
