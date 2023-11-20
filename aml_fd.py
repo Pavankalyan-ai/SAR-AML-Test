@@ -2332,6 +2332,7 @@ elif selected_option_case_type == "AML":
                                 response = res['choices'][0]['message']['content']
                                 ques1 = response
                                 st.write(temp_file_path2)
+                                st.write(response)
                                 
                                 
                                 chat_history_1[query] = response
