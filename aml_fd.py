@@ -1651,7 +1651,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
             with col3_up:
                 if st.session_state["lineage_gpt"] is not None:
  
-                    li = ["What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?','Is this a Suspicious Activity?']
+                    li = ["what is the customer name?","what is the suspect's name?","List the Merchant Name","how was the bank notified?","when was the bank notified?","what type of fraud is taking place?","when did the fraud occur?","was the disputed amount greater than 5000 usd?","what type of network/card is used in transaction?","was the police report filed?"]
                     
                    
                     selected_option = st.selectbox("", li)
