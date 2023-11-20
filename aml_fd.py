@@ -507,6 +507,17 @@ if "visibility" not in st.session_state:
 if "stored_session" not in st.session_state:
     st.session_state["stored_session"] = []
 
+if "tmp_table_gpt" not in st.session_state:
+    st.session_state.tmp_table_gpt=pd.DataFrame()
+if "tmp_table_llama" not in st.session_state:
+    st.session_state.tmp_table_llama=pd.DataFrame()
+if "tmp_summary_gpt" not in st.session_state:
+    st.session_state["tmp_summary_gpt"] = ''
+if "tmp_summary_llama" not in st.session_state:
+    st.session_state["tmp_summary_llama"] = ''
+if "sara_recommendation_gpt" not in st.session_state:
+    st.session_state["sara_recommendation_gpt"] = ''
+
 if "tmp_table_gpt_fd" not in st.session_state:
     st.session_state.tmp_table_gpt_fd = pd.DataFrame()
 if "tmp_table_llama_fd" not in st.session_state:
