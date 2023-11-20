@@ -2321,6 +2321,7 @@ elif selected_option_case_type == "AML":
                                 query = "Why was the transaction triggered?"
                                 
                                 context_1 = docsearch2.similarity_search(query, k=5)
+                                st.write(context_1)
                                 prompt_1 = f'''You should closely look into the transactions information data for the reason why was the transaction flagged as suspicious. \n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
@@ -2332,7 +2333,7 @@ elif selected_option_case_type == "AML":
                                 response = res['choices'][0]['message']['content']
                                 ques1 = response
                                 st.write(temp_file_path2)
-                                st.write(response)
+                                
                                 
                                 
                                 chat_history_1[query] = response
