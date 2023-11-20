@@ -2305,7 +2305,8 @@ elif selected_option_case_type == "AML":
  
                     if st.session_state.clicked1:
                         if temp_file_path2 is not None:
-                            _, docsearch = embedding_store(temp_file_path2,hf_embeddings)
+                            
+                            _, docsearch2 = embedding_store(temp_file_path2,hf_embeddings)
                             # File handling logic
                             
                             
@@ -2318,7 +2319,8 @@ elif selected_option_case_type == "AML":
                                 ## Question-1
     
                                 query = "Why was the transaction triggered?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                
+                                context_1 = docsearch2.similarity_search(query, k=5)
                                 prompt_1 = f'''You should closely look into the transactions information data for the reason why was the transaction flagged as suspicious. \n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
@@ -2329,7 +2331,8 @@ elif selected_option_case_type == "AML":
                                 res = get_response([system_prompt, user_prompt])
                                 response = res['choices'][0]['message']['content']
                                 ques1 = response
-                                st.write(context_1)
+                                st.write(temp_file_path2)
+                                
                                 
                                 chat_history_1[query] = response
                                 st.session_state["lineage_aml"][query] = context_1
@@ -2339,7 +2342,7 @@ elif selected_option_case_type == "AML":
 
                                 
                                 query = "What are the products that are associsted with this customer?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = docsearch2.similarity_search(query, k=5)
                                 prompt_1 = f'''Your goal is identify all the products that are associated with the customer. \n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
@@ -2359,7 +2362,7 @@ elif selected_option_case_type == "AML":
                                 ## Question-3
 
                                 query = "What are the associated suspicious transactions for Credit Card?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = docsearch2.similarity_search(query, k=5)
                                 prompt_1=f''' Your goal is to identify the suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
                                 Transactions made to a suspicious entity. Output "Description", "Date" and "Debited ($)" of those identified transactions. # Strictly do not repeat any transaction.\n\
                                 Context: {context_1}\n\
@@ -2399,7 +2402,7 @@ elif selected_option_case_type == "AML":
              
 
                                 query = "What are the associated suspicious transactions for Savings account?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = docsearch2.similarity_search(query, k=5)
                                   
 
                                 prompt_1=f''' Your goal is to identify the suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
@@ -2540,7 +2543,7 @@ elif selected_option_case_type == "AML":
                                 ## question-1 
     
                                 query = "Why was the transaction triggered?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = docsearch2.similarity_search(query, k=5)
                                 prompt_1 = f'''You should closely look into the transactions information data for the reason why was the transaction flagged as suspicious. \n\n
                                 Question: {query}\n\
                                 Context: {context_1}\n\
@@ -2554,7 +2557,7 @@ elif selected_option_case_type == "AML":
                   
     
                                 query = "What are the products that are associsted with this customer?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = docsearch2.similarity_search(query, k=5)
                                 prompt_1 = f'''Your goal is identify all the products that are associated with the customer. \n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
@@ -2569,7 +2572,7 @@ elif selected_option_case_type == "AML":
                                 #question-3
                             
                                 query = "What are the associated suspicious transactions for Credit Card?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = docsearch2.similarity_search(query, k=5)
                                 prompt_1 = f''' Your goal is to identify the suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
                                 Transactions made to a suspicious entity. Output "Description", "Date" and "Debited ($)" of those identified transactions. # Strictly do not repeat any transaction.\n\
                                 Context: {context_1}\n\
@@ -2599,7 +2602,7 @@ elif selected_option_case_type == "AML":
                                 ## question-4
 
                                 query = "What are the associated suspicious transactions for Savings account?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = docsearch2.similarity_search(query, k=5)
                                 prompt_1 = f''' Your goal is to identify the suspicious transactions from savings_account_statement. Suspicious transactions can be:\n\n
                                 High Value Cash Deposits in a short span of time. Strictly do not include any Paycheck transactions and Opening balance transaction as they may not be considered as suspicious transactions. Output the "Description", "Date" and "Credited ($)" of those identified transactions.Also, do not repeat the same transaction.\n\
                                 Context: {context_1}\n\
@@ -2629,7 +2632,7 @@ elif selected_option_case_type == "AML":
                                 ## question-5.1
 
                                 query = "What type of Money laundering activity is taking place?"
-                                context_1 = docsearch.similarity_search(query, k=5)
+                                context_1 = docsearch2.similarity_search(query, k=5)
                                 prompt_1 = f'''You Are an Anti-Money Laundering Specialist, carefully observe the transaction statements pattern from both the transactions data of credit card and saving accounts statements combined. \
                                 The type of money laundering activities which can take place includes: Structuring or smurfing, layering, round tripping, etc.\ 
                                 Act as and Anti-Money Laundering analyst, observe the transactions statements data and give a concise answer with explanation of what type of money laundering activity could be taking place and on what pattern this activity is observed.\n\n
