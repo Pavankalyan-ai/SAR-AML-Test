@@ -41,7 +41,15 @@ import cv2
 # import pytesseract
 # from pdf2image import convert_from_path
 
+@st.cache_resource(show_spinner=False)
+def embed(model_name):
+    hf_embeddings = HuggingFaceEmbeddings(model_name=model_name)
+    return hf_embeddings
 
+@st.cache_data(show_spinner=False)
+def embedding_store(_doc,_hf_embeddings):
+    docsearch = FAISS.from_documents(_doc, _hf_embeddings)
+    return _doc, docsearch
 
 
 @st.cache_data
