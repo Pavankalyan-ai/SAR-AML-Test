@@ -5,6 +5,7 @@ import ssl
 import streamlit as st
 from io import BytesIO
 from io import StringIO
+import pdfplumber
 import streamlit.components.v1 as components
 from typing import List, Dict, Any
 from langchain.docstore.document import Document
