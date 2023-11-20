@@ -2957,7 +2957,7 @@ elif selected_option_case_type == "AML":
                 #         unsafe_allow_html=True
                 #     )
                 # st.markdown("""<span style="font-size: 24px; ">Is SAR filing required?</span>""", unsafe_allow_html=True)
-                    selected_rad = st.radio(":blue", ["Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
+                    selected_rad = st.radio(":blue", ["Yes", "yo", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
                     if selected_rad == "Refer for review":
                         email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
                         email_id = st.text_input("Enter email ID")
