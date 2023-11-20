@@ -1149,22 +1149,21 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 try:
                                     #resp_dict_obj = json.loads(response)
                                     res_df_gpt = pd.DataFrame(resp_dict_obj.items(), columns=['Question','Answer'])
+                                    res_df_gpt.reset_index(drop=True, inplace=True)
+                                    index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
+                                    res_df_gpt = res_df_gpt.set_index([index_])   
                                 except:
                                     e = Exception("")
                                     st.exception(e)
 
-                                try:
-                                    res_df_gpt.reset_index(drop=True, inplace=True)
-                                    index_ = pd.Series([1,2,3,4,5,6,7,8,9,10])
-                                    res_df_gpt = res_df_gpt.set_index([index_])   
-                                except IndexError: 
-                                    pass
+                               
 
                                 st.table(res_df_gpt)
 
                                 # tmp_table_gpt = res_df_gpt
 
                                 st.session_state["tmp_table_gpt"] = pd.concat([st.session_state.tmp_table_gpt, res_df_gpt], ignore_index=True)
+                                
                                 query ="Is invoice is billed to cardholder or someone else?"
                                 contexts = docsearch.similarity_search(query, k=9)
                                 prompt = f" You are professional Fraud Analyst. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
@@ -1175,7 +1174,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                     Response (Give me a concise response.)"
                                 response_1 = usellm(prompt)
 
-                                
+
 
                                 query ="Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = docsearch.similarity_search(query, k=9)
