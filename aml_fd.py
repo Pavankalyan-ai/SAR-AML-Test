@@ -1045,6 +1045,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 response = usellm(prompt_1)
                                 res_dict[query] = response
                                 lineage_dict[query] = context_1
+                                st.session_state["lineage_gpt"][query] = context_1
                             
                                     
                                 query = "what is the suspect's name?"
@@ -1056,6 +1057,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 response = usellm(prompt_1)
                                 res_dict[query] = response
                                 lineage_dict[query] = context_1
+                                st.session_state["lineage_gpt"][query] = context_1
                         
 
                                         
@@ -1068,6 +1070,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 response = usellm(prompt_1)
                                 res_dict[query] = response
                                 lineage_dict[query] = context_1
+                                st.session_state["lineage_gpt"][query] = context_1
 
 
                                     
@@ -1080,6 +1083,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 response = usellm(prompt_1)
                                 res_dict[query] = response
                                 lineage_dict[query] = context_1
+                                st.session_state["lineage_gpt"][query] = context_1
                             
 
 
@@ -1091,7 +1095,8 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                             Response: '''
                                 response = usellm(prompt_1)
                                 res_dict[query] = response  
-                                lineage_dict[query] = context_1             
+                                lineage_dict[query] = context_1  
+                                st.session_state["lineage_gpt"][query] = context_1           
 
                                     
                                 query = "what type of fraud is taking place?"
@@ -1103,6 +1108,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 response = usellm(prompt_1)
                                 res_dict[query] = response  
                                 lineage_dict[query] = context_1
+                                st.session_state["lineage_gpt"][query] = context_1
                                 
                                 query = "when did the fraud occur?"
                                 context_1 = docsearch.similarity_search(query, k=5)
@@ -1113,6 +1119,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 response = usellm(prompt_1)
                                 res_dict[query] = response 
                                 lineage_dict[query] = context_1 
+                                st.session_state["lineage_gpt"][query] = context_1
                                         
                                 query = "was the disputed amount greater than 5000 usd?"
                                 context_1 = docsearch.similarity_search(query, k=5)
@@ -1123,6 +1130,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 response = usellm(prompt_1)
                                 res_dict[query] = response  
                                 lineage_dict[query] = context_1
+                                st.session_state["lineage_gpt"][query] = context_1
 
                                     
                                 query = "what type of network/card is used in transaction?"
@@ -1134,6 +1142,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 response = usellm(prompt_1)
                                 res_dict[query] = response  
                                 lineage_dict[query] = context_1
+                                st.session_state["lineage_gpt"][query] = context_1
                             
 
                                             
@@ -1146,8 +1155,9 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 response = usellm(prompt_1)
                                 res_dict[query] = response 
                                 lineage_dict[query] = context_1
+                                st.session_state["lineage_gpt"][query] = context_1
 
-                                st.session_state["lineage_gpt"] = lineage_dict
+                                #st.session_state["lineage_gpt"] = lineage_dict
 
 
                 
@@ -1641,7 +1651,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
             with col3_up:
                 if st.session_state["lineage_gpt"] is not None:
  
-                    li = [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?','Is this a Suspicious Activity?']
+                    li = ["What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?','Is this a Suspicious Activity?']
                     
                    
                     selected_option = st.selectbox("", li)
