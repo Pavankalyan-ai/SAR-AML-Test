@@ -2306,7 +2306,7 @@ elif selected_option_case_type == "AML":
                     if st.session_state.clicked1:
                         if temp_file_path2 is not None:
                             
-                            doc_, docsearch2 = embedding_store(temp_file_path2,hf_embeddings)
+                            doc_1, docsearch2 = embedding_store(temp_file_path2,hf_embeddings)
                             # File handling logic
                             
                             
@@ -2318,8 +2318,8 @@ elif selected_option_case_type == "AML":
 
                                 ## Question-1
 
-                                st.write(temp_file_path2)
-                                st.write(doc_)
+                                
+                                st.write(doc_1)
     
                                 query = "Why was the transaction triggered?"
                                 
