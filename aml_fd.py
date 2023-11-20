@@ -34,6 +34,7 @@ from usellm import Message, Options, UseLLM
 from huggingface_hub import login
 import pytesseract
 from utils import *
+from retr_doc import *
 import os
 import cv2
 import openai
