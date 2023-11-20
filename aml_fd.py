@@ -2151,7 +2151,7 @@ elif selected_option_case_type == "AML":
         
                 #creating temp directory to have all the files at one place for accessing
                 tmp_dir_ = tempfile.mkdtemp()
-                temp_file_path= []
+                temp_file_path2= []
     
                 for uploaded_file in pdf_files:
                     file_ext = tuple("pdf")
@@ -2159,7 +2159,7 @@ elif selected_option_case_type == "AML":
                         file_pth = os.path.join(tmp_dir_, uploaded_file.name)
                         with open(file_pth, "wb") as file_opn:
                             file_opn.write(uploaded_file.getbuffer())
-                            temp_file_path.append(file_pth)
+                            temp_file_path2.append(file_pth)
                     else:
                         pass
     
@@ -2177,14 +2177,14 @@ elif selected_option_case_type == "AML":
                             text = convert_scanned_pdf_to_searchable_pdf(selected_file_path)
                             texts =  text_to_docs(text,file)
                             for i in texts:
-                                temp_file_path.append(i)
+                                temp_file_path2.append(i)
                         else:
                             file_pth = os.path.join(directory_path, fetched_pdf)
                             text = extract_text_from_pdf(file_pth)
                             # st.write(text)
                             texts =  text_to_docs(text,file)
                             for i in texts:
-                                temp_file_path.append(i)
+                                temp_file_path2.append(i)
                     elif fetched_pdf.endswith(file_ext2):
                         selected_file_path = os.path.join(directory_path, fetched_pdf)
                         
@@ -2196,7 +2196,7 @@ elif selected_option_case_type == "AML":
                             #text = convert_image_to_searchable_pdf(selected_file_path)
                             texts = text_to_docs(json1,file)
                             for i in texts:
-                                temp_file_path.append(i)
+                                temp_file_path2.append(i)
                         elif selected_file_path.startswith("aml_docs/savings_account_statement"):
                             #selected_file_path = os.path.join(directory_path, fetched_pdf)
                             json2=process_data_saving(selected_file_path)
@@ -2205,8 +2205,8 @@ elif selected_option_case_type == "AML":
                             #text = convert_image_to_searchable_pdf(selected_file_path)
                             texts = text_to_docs(json2,file)
                             for i in texts:
-                                temp_file_path.append(i)
-                #st.write(temp_file_path)            
+                                temp_file_path2.append(i)
+                #st.write(temp_file_path2)            
 
     
                 #combining files in fetch evidence and upload evidence
@@ -2228,7 +2228,7 @@ elif selected_option_case_type == "AML":
         
                 # Adding condition on embedding
                 try:
-                    if temp_file_path:
+                    if temp_file_path2:
                         hf_embeddings = embed(model_name) 
                     else:
                         pass
@@ -2243,8 +2243,8 @@ elif selected_option_case_type == "AML":
                     separators=["\n\n", "\n", " ", ""]
                 )
                 # try:
-                #     if temp_file_path:
-                #         docs, docsearch = embedding_store(temp_file_path)
+                #     if temp_file_path2:
+                #         docs, docsearch = embedding_store(temp_file_path2)
                 #     else:
                 #         pass
                 # except Exception:
@@ -2292,21 +2292,22 @@ elif selected_option_case_type == "AML":
                     
                 with st.spinner('Wait for it...'):
                     
-                    if 'clicked2' not in st.session_state:
-                        st.session_state.clicked2 = False
+                    if 'clicked1' not in st.session_state:
+                        st.session_state.clicked1 = False
                    
-                    def set_clicked2():
-                        st.session_state.clicked2 = True
+                    def set_clicked1():
+                        st.session_state.clicked1 = True
                         st.session_state.disabled = True
  
                    
-                    generate_button = st.button("Generate Insights",on_click=set_clicked2,disabled=st.session_state.disabled)
+                    generate_button = st.button("Generate Insights",on_click=set_clicked1,disabled=st.session_state.disabled)
                    
  
-                    if st.session_state.clicked2:
-                        if temp_file_path is not None:
-                            _, docsearch = embedding_store(temp_file_path,hf_embeddings)
+                    if st.session_state.clicked1:
+                        if temp_file_path2 is not None:
+                            _, docsearch = embedding_store(temp_file_path2,hf_embeddings)
                             # File handling logic
+                            
                             
                            
 
@@ -2328,7 +2329,7 @@ elif selected_option_case_type == "AML":
                                 res = get_response([system_prompt, user_prompt])
                                 response = res['choices'][0]['message']['content']
                                 ques1 = response
-                                st.write(context_1)
+                                #st.write(context_1)
                                 
                                 chat_history_1[query] = response
                                 st.session_state["lineage_aml"][query] = context_1
@@ -2722,8 +2723,8 @@ elif selected_option_case_type == "AML":
     
                 # For input box outside of template4
                 try:
-                    if temp_file_path:
-                        docs, docsearch = embedding_store(temp_file_path)
+                    if temp_file_path2:
+                        docs, docsearch = embedding_store(temp_file_path2)
                     else:
                         pass
                 except Exception:
@@ -2742,7 +2743,7 @@ elif selected_option_case_type == "AML":
                 if st.session_state.llm == "Closed-Source":
                     with st.spinner('Getting you information...'):      
                         if query:
-                            # docs = chunk_extract(temp_file_path)
+                            # docs = chunk_extract(temp_file_path2)
                             # text_data_doc = context_data(docs)
                             
                             # Text input handling logic
@@ -2777,7 +2778,7 @@ elif selected_option_case_type == "AML":
                 elif st.session_state.llm == "Open-Source":
                     with st.spinner('Getting you information...'):      
                         if query:
-                            # docs = chunk_extract(temp_file_path)
+                            # docs = chunk_extract(temp_file_path2)
                             # text_data_doc = docs
                             #text_data_doc = process_files_and_generate_responses(fetched_files)
                             # Text input handling logic
