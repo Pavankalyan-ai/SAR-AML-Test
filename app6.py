@@ -2890,8 +2890,8 @@ elif selected_option_case_type == "AML":
                             
                     st.write("#### *SARA Recommendation*")
                     st.markdown("""<span style="font-size: 18px;">*Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:*</span>""", unsafe_allow_html=True)
-                    st.markdown("""<span style="font-size: 18px;">*1. Transaction amount is above the $5,000 value threshold*</span>""", unsafe_allow_html=True)
-                    st.markdown("""<span style="font-size: 18px;">*2. There is an indication of suspicion with involvement of multiple individuals, mismatch of customer details on merchant invoice and identification of a potential suspect*.</span>""", unsafe_allow_html=True)           
+                    st.markdown("""<span style="font-size: 18px;">*1. A high-value transaction is made to a high-risk geography.*</span>""", unsafe_allow_html=True)
+                    st.markdown("""<span style="font-size: 18px;">*2. There is an indication of suspicion with the involvement of multiple and frequent large cash deposits into Savings Account and corresponding debits through the Credit Card to a suspicious entity.*.</span>""", unsafe_allow_html=True)           
                 
                     # query  = "Give your recommendation if SAR filling is required or not?"
                     # contexts = ', '.join(res_df_gpt['Answer'])
@@ -2919,10 +2919,10 @@ elif selected_option_case_type == "AML":
                 
                 elif st.session_state['llm'] == "Open-Source":
                     st.write("#### *SARA Recommendation*")
-                    st.markdown("""<span style="font-size: 18px;">*Based on the following findings,it is recommended to file this case as a suspicious activity to FinCEN under Bank Secrecy Act:*</span>""", unsafe_allow_html=True)
-                    st.markdown("""<span style="font-size: 18px;">*1. Transaction amount is $5,600 indicating a need to file SAR with FinCEN.*</span>""", unsafe_allow_html=True)
-                    st.markdown("""<span style="font-size: 18px;">*2. There is an indication of suspicion with identification of a suspect whose details mismatch with customer details on merchant invoice.*</span>""", unsafe_allow_html=True)  
-
+                    st.markdown("""<span style="font-size: 18px;">*Based on the following findings for the underlying case, under Bank Secrecy Act, it is recommended to file this case as a suspicious activity:*</span>""", unsafe_allow_html=True)
+                    st.markdown("""<span style="font-size: 18px;">*1. A high-value transaction is made to a high-risk geography.*</span>""", unsafe_allow_html=True)
+                    st.markdown("""<span style="font-size: 18px;">*2. There is an indication of suspicion with the involvement of multiple and frequent large cash deposits into Savings Account and corresponding debits through the Credit Card to a suspicious entity.*.</span>""", unsafe_allow_html=True)           
+                
                     st.warning('Please carefully review the recommendation and case details before the final submission',icon="⚠️")         
     
 
