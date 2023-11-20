@@ -1947,7 +1947,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                         st.warning('Please carefully review the recommendation and case details before the final submission',icon="⚠️")         
                     
                     
-                    selected_rad = st.radio(":blue", ["Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
+                    selected_rad = st.radio(":blue", ["opt1","Yes", "No", "Refer for review"], horizontal=True,disabled=st.session_state.disabled)
                     if selected_rad == "Refer for review":
                         email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
                         email_id = st.text_input("Enter email ID")
