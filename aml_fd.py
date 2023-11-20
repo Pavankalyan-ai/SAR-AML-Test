@@ -566,6 +566,11 @@ if "lineage_aml" not in st.session_state:
 if "lineage_aml_llama" not in st.session_state:
     st.session_state["lineage_aml_llama"] = {}
 
+if "lineage_gpt" not in st.session_state:
+    st.session_state["lineage_gpt"] = {}
+if "lineage_gpt_llama" not in st.session_state:
+    st.session_state["lineage_gpt_llama"] = {}
+
 
 
 # Apply CSS styling to resize the buttons
