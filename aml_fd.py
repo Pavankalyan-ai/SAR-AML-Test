@@ -374,7 +374,7 @@ def extract_text_from_pdf(file_path):
 
 
 @st.cache_data(show_spinner=False)
-def embedding_store(_doc,_hf_embeddings):
+def embedding_store_aml(_doc,_hf_embeddings):
     docsearch = FAISS.from_documents(_doc, _hf_embeddings)
     return _doc, docsearch
 
@@ -2306,7 +2306,7 @@ elif selected_option_case_type == "AML":
                     if st.session_state.clicked1:
                         if temp_file_path2 is not None:
                             
-                            doc_1, docsearch2 = embedding_store(temp_file_path2,hf_embeddings)
+                            doc_1, docsearch2 = embedding_store_aml(temp_file_path2,hf_embeddings)
                             # File handling logic
                             
                             
