@@ -2328,7 +2328,7 @@ elif selected_option_case_type == "AML":
                                 res = get_response([system_prompt, user_prompt])
                                 response = res['choices'][0]['message']['content']
                                 ques1 = response
-                                #st.write(context_1)
+                                st.write(context_1)
                                 
                                 chat_history_1[query] = response
                                 st.session_state["lineage_aml"][query] = context_1
