@@ -116,6 +116,13 @@ def llama_llm(_llm,prompt):
     response = _llm.predict(prompt)
     return response
 
+@st.cache_data
+def replace_in_documents(dictionary, to_replace, replacement):
+    for key, value in dictionary.items():
+        if to_replace in value:
+            dictionary[key] = value.replace(to_replace, replacement)
+    return dictionary
+
 
 
 @st.cache_data
@@ -2562,22 +2569,18 @@ elif selected_option_case_type == "AML":
                     lineage_aml = st.session_state["lineage_aml"]
                     
                     
-                    string_to_replace = '($)'
-                    new_string = ' '
+                    # Word or phrase to be replaced and its replacement
+                    word_to_replace = '($)'
+                    new_word = ' '
 
-                    # Iterate through the dictionary and replace the desired string in each list value
-                    for key, value_list in lineage_aml.items():
-                        updated_list = []
-                        for item in value_list:
-                            updated_item = item.replace(string_to_replace, new_string)
-                            updated_list.append(updated_item)
-                        lineage_aml[key] = updated_list
-                    
-                    st.write(lineage_aml)
+                    # Replace 'document' with 'text' in all document values
+                    lineage_aml2 = replace_in_documents(lineage_aml, word_to_replace, new_word)
+                                        
+                    st.write(lineage_aml2)
                     li = ["Select question to get the lineage","Why was the transaction triggered?","What are the products that are associsted with this customer?","What are the associated suspicious transactions for Credit Card?","What are the associated suspicious transactions for Savings account?","What is the total amount associated with the Money Laundering ?"]
                     selected_option = st.selectbox("", li)
                     if selected_option in li[1:]:
-                        doc = lineage_aml[selected_option]
+                        doc = lineage_aml2[selected_option]
                         for i in range(len(doc)):
                             #st.write(doc[i])
                             y=i+1
