@@ -2563,8 +2563,8 @@ elif selected_option_case_type == "AML":
                     a="($)"
                     b=" "
                     for i,j in lineage_aml.items():
-                        if a in j:
-                            lineage_aml[i]=j.replace(a,b)
+                        lineage_aml[i]=j.replace(a,b)
+                            
 
 
                     
