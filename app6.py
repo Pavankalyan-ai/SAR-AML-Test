@@ -2562,8 +2562,9 @@ elif selected_option_case_type == "AML":
                     
                     a="($)"
                     b=" "
-                    # for i,j in lineage_aml.items():
-                    #     lineage_aml[i]=j.replace(a,b)
+                    for i,j in lineage_aml.items():
+                        lineage_aml[i]=j.replace(a,b,inplace=True)
+                    st.write(lineage_aml)
                             
 
 
@@ -2589,7 +2590,7 @@ elif selected_option_case_type == "AML":
                             #st.write(doc[i])
                             y=i+1
                             st.write(f":blue[Chunk-{y}:]")
-                            st_ = doc[i].page_content#.replace("$", " ")
+                            st_ = doc[i].page_content
                             st.write(":blue[Page Content:]",st_) 
                             st.write(":blue[Source:]",doc[i].metadata['source'])
                               
