@@ -2835,7 +2835,7 @@ elif selected_option_case_type == "AML":
 
         
                         doc = st.session_state["lineage_aml"][selected_option]
-                        st.write(doc.page_content)
+                        st.write(doc)
                         
                         for i in range(len(doc)):
                             #st.write(doc[i])
