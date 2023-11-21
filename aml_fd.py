@@ -766,7 +766,7 @@ with st.sidebar:
     st.markdown("---")
 
     # Add a drop-down for case type
-    options1 = ["Select Case Type", "Fraud transaction dispute", "AML"]
+    options1 = ["Select Case Type", "Fraud transaction dispute", "Money Laundering"]
     selected_option_case_type = st.sidebar.selectbox("", options1)
     st.markdown("---")
     
