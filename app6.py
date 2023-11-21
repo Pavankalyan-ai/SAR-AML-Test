@@ -2559,12 +2559,13 @@ elif selected_option_case_type == "AML":
             with col3_up:
                 if st.session_state["lineage_aml"] is not None:
                     lineage_aml = st.session_state["lineage_aml"]
-                    
-                    a="($)"
-                    b=" "
-                    for i,j in lineage_aml.items():
-                        lineage_aml[i]=j.replace(a,b,inplace=True)
                     st.write(lineage_aml)
+                    
+                    # a="($)"
+                    # b=" "
+                    # for i,j in lineage_aml.items():
+                    #     lineage_aml[i]=j.replace(a,b,inplace=True)
+                    # st.write(lineage_aml)
                             
 
 
