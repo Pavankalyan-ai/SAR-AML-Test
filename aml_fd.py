@@ -2818,8 +2818,7 @@ elif selected_option_case_type == "AML":
                 
             with col3_up:
                 if st.session_state["lineage_aml"] is not None:
-                    for i,j in st.session_state["lineage_aml"].items():
-                        j.replace("($)", " ",inplace=True)
+                    
                     
  
                     li = ["Select question to get the lineage",
@@ -2844,7 +2843,7 @@ elif selected_option_case_type == "AML":
                             #st.write(doc[i])
                             y=i+1
                             st.write(f":blue[Chunk-{y}:]")
-                            st_ = doc[i].page_content#.replace("($)"," ")
+                            st_ = doc[i].page_content.replace("($)"," ")
                             st.write(":blue[Page Content:]",st_) 
                             st.write(":blue[Source:]",doc[i].metadata['source'])
                               
