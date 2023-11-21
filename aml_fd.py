@@ -2832,14 +2832,15 @@ elif selected_option_case_type == "AML":
                    
                     selected_option = st.selectbox("", li)
                     if selected_option in li[1:]:
-                        st.write(st.session_state["lineage_aml"])
+                        st.session_state["lineage_aml"]=st.session_state["lineage_aml"].replace("$", "")
+
         
                         doc = st.session_state["lineage_aml"][selected_option]
                         for i in range(len(doc)):
                             #st.write(doc[i])
                             y=i+1
                             st.write(f":blue[Chunk-{y}:]")
-                            st_ = doc[i].page_content.replace("$", "")
+                            st_ = doc[i].page_content
                             st.write(":blue[Page Content:]",st_) 
                             st.write(":blue[Source:]",doc[i].metadata['source'])
                               
