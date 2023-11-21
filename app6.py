@@ -2559,7 +2559,7 @@ elif selected_option_case_type == "AML":
             with col3_up:
                 if st.session_state["lineage_aml"] is not None:
                     lineage_aml = st.session_state["lineage_aml"]
-                    st.write(lineage_aml)
+                    
                     a="($)"
                     b=" "
                     for i,j in lineage_aml.items():
@@ -2567,7 +2567,7 @@ elif selected_option_case_type == "AML":
                             lineage_aml[i]=j.replace(a,b)
 
 
-                    st.write(lineage_aml)
+                    
                     
 
  
@@ -2589,7 +2589,7 @@ elif selected_option_case_type == "AML":
                             #st.write(doc[i])
                             y=i+1
                             st.write(f":blue[Chunk-{y}:]")
-                            st_ = doc[i].page_content.replace("$", " ")
+                            st_ = doc[i].page_content#.replace("$", " ")
                             st.write(":blue[Page Content:]",st_) 
                             st.write(":blue[Source:]",doc[i].metadata['source'])
                               
