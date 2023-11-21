@@ -2560,7 +2560,7 @@ elif selected_option_case_type == "AML":
             with col3_up:
                 if st.session_state["lineage_aml"] is not None:
                     lineage_aml = st.session_state["lineage_aml"]
-                    st.write(lineage_aml.items())
+                    st.write(lineage_aml.keys())
                     
                     # a="($)"
                     # b=" "
