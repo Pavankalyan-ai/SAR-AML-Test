@@ -259,6 +259,11 @@ def get_response(messages: str, model: str = "gpt-3.5-turbo") -> str:
 def wrap_prompt(message: str, role: str) -> dict:
     return {"role": role, "content": message}
 
+@st.cache
+def expensive_computation(input_data):
+    # Perform heavy computations or data processing here
+    return processed_data
+
 def context_data(document):
     prompt_to_add = "Your goal is to identify potential money laundering data from the input transactions data provided by the customer. Output all the potential information that could be related to money laundering or unusual activity, considering past transactions. Strictly output information from the given data only. Do not provide any extra Explanation or Note etc."
     modified_conditions = ['"""' + prompt_to_add + doc + '"""' for doc in document]
@@ -2566,29 +2571,19 @@ elif selected_option_case_type == "AML":
                 
             with col3_up:
                 if st.session_state["lineage_aml"] is not None:
-                    lis1 = ["Why was the transaction triggered?","What are the products that are associsted with this customer?","What are the associated suspicious transactions for Credit Card?","What are the associated suspicious transactions for Savings account?","What is the total amount associated with the Money Laundering ?"]
-                    
-                           
-                    
                     li = ["Select question to get the lineage","Why was the transaction triggered?","What are the products that are associsted with this customer?","What are the associated suspicious transactions for Credit Card?","What are the associated suspicious transactions for Savings account?","What is the total amount associated with the Money Laundering ?"]
                     selected_option = st.selectbox("", li)
                     if selected_option in li[1:]:
-
                         doc = st.session_state["lineage_aml"][selected_option]
-                        
-                        for i in range(len(doc)):
+                        result = expensive_computation(doc) 
+                        for i in range(len(result)):
                             #st.write(doc[i])
                             y=i+1
                             st.write(f":blue[Chunk-{y}:]")
-                            st_ = doc[i].page_content.replace("($)"," ")
+                            st_ = result[i].page_content.replace("($)"," ")
                             st.write(":blue[Page Content:]",st_) 
-                            st.write(":blue[Source:]",doc[i].metadata['source'])
+                            st.write(":blue[Source:]",result[i].metadata['source'])
                               
-
-  
-            
-                    
-
             with col4_up:
                 with st.spinner('Summarization ...'):
                     st.markdown("""<span style="font-size: 24px; ">Summarize key findings of the case.</span>""", unsafe_allow_html=True)
