@@ -2832,10 +2832,10 @@ elif selected_option_case_type == "AML":
                    
                     selected_option = st.selectbox("", li)
                     if selected_option in li[1:]:
-                        st.session_state["lineage_aml"]=st.session_state["lineage_aml"].replace("$", "")
 
         
                         doc = st.session_state["lineage_aml"][selected_option]
+                        doc=doc.replace("$","")
                         for i in range(len(doc)):
                             #st.write(doc[i])
                             y=i+1
