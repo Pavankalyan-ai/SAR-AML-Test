@@ -2574,15 +2574,14 @@ elif selected_option_case_type == "AML":
                     li = ["Select question to get the lineage","Why was the transaction triggered?","What are the products that are associsted with this customer?","What are the associated suspicious transactions for Credit Card?","What are the associated suspicious transactions for Savings account?","What is the total amount associated with the Money Laundering ?"]
                     selected_option = st.selectbox("", li)
                     if selected_option in li[1:]:
-                        doc = st.session_state["lineage_aml"][selected_option]
-                        result = expensive_computation(doc) 
-                        for i in range(len(result)):
+                        doc = st.session_state["lineage_aml"][selected_option] 
+                        for i in range(len(doc)):
                             #st.write(doc[i])
                             y=i+1
                             st.write(f":blue[Chunk-{y}:]")
-                            st_ = result[i].page_content.replace("($)"," ")
+                            st_ = doc[i].page_content.replace("($)"," ")
                             st.write(":blue[Page Content:]",st_) 
-                            st.write(":blue[Source:]",result[i].metadata['source'])
+                            st.write(":blue[Source:]",doc[i].metadata['source'])
                               
             with col4_up:
                 with st.spinner('Summarization ...'):
