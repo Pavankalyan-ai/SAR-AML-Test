@@ -2559,8 +2559,15 @@ elif selected_option_case_type == "AML":
             with col3_up:
                 if st.session_state["lineage_aml"] is not None:
                     lineage_aml = st.session_state["lineage_aml"]
-                    st.write(lineage_aml.values())
-                    st.write(type(lineage_aml))
+                    a="($)"
+                    b=" "
+                    for i,j in lineage_aml.items():
+                        if a in j:
+                            lineage_aml=j.replace(a,b)
+
+
+                    st.write(lineage_aml)
+                    
 
  
                     li = ["Select question to get the lineage",
@@ -2576,7 +2583,7 @@ elif selected_option_case_type == "AML":
                    
                     selected_option = st.selectbox("", li)
                     if selected_option in li[1:]:
-                        doc = st.session_state["lineage_aml"][selected_option]
+                        doc = lineage_aml[selected_option]
                         for i in range(len(doc)):
                             #st.write(doc[i])
                             y=i+1
