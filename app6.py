@@ -116,7 +116,7 @@ def llama_llm(_llm,prompt):
     response = _llm.predict(prompt)
     return response
 
-@st.cache_data
+
 def replace_in_documents(dictionary, to_replace, replacement):
     for key, value in dictionary.items():
         if to_replace in value:
