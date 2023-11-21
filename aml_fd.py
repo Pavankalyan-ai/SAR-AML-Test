@@ -2835,12 +2835,13 @@ elif selected_option_case_type == "AML":
 
         
                         doc = st.session_state["lineage_aml"][selected_option]
+                        st.write(doc.page_content)
                         
                         for i in range(len(doc)):
                             #st.write(doc[i])
                             y=i+1
                             st.write(f":blue[Chunk-{y}:]")
-                            st_ = doc[i].page_content.replace("$","")
+                            st_ = doc[i].page_content.replace("($)","")
                             st.write(":blue[Page Content:]",st_) 
                             st.write(":blue[Source:]",doc[i].metadata['source'])
                               
