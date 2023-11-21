@@ -2818,7 +2818,9 @@ elif selected_option_case_type == "AML":
                 
             with col3_up:
                 if st.session_state["lineage_aml"] is not None:
-                    st.session_state["lineage_aml"]=st.session_state["lineage_aml"].replace("($)", " ")
+                    for i,j in st.session_state["lineage_aml"].items():
+                        j.replace("($)", " ",inplace=True)
+                    
  
                     li = ["Select question to get the lineage",
                         "Why was the transaction triggered?",
