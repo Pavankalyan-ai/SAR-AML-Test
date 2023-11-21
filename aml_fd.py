@@ -2837,7 +2837,7 @@ elif selected_option_case_type == "AML":
                             #st.write(doc[i])
                             y=i+1
                             st.write(f":blue[Chunk-{y}:]")
-                            st_ = doc[i].page_content.replace("$", "usd")
+                            st_ = doc[i].page_content.replace("$", "USD")
                             st.write(":blue[Page Content:]",st_) 
                             st.write(":blue[Source:]",doc[i].metadata['source'])
                               
