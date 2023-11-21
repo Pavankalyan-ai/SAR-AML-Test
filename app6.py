@@ -2560,17 +2560,24 @@ elif selected_option_case_type == "AML":
             with col3_up:
                 if st.session_state["lineage_aml"] is not None:
                     lineage_aml = st.session_state["lineage_aml"]
-                    st.write(lineage_aml.values())
                     
-                    # a="($)"
-                    # b=" "
-                    # for i,j in lineage_aml.items():
-                    #     lineage_aml[i]=j.replace(a,b,inplace=True)
-                    # st.write(lineage_aml)
+                    
+                    string_to_replace = '($)'
+                    new_string = ' '
+
+                    # Iterate through the dictionary and replace the desired string in each list value
+                    for key, value_list in lineage_aml.items():
+                        updated_list = []
+                        for item in value_list:
+                            updated_item = item.replace(string_to_replace, new_string)
+                            updated_list.append(updated_item)
+                        lineage_aml[key] = updated_list
+                    
+                    st.write(lineage_aml)
                     li = ["Select question to get the lineage","Why was the transaction triggered?","What are the products that are associsted with this customer?","What are the associated suspicious transactions for Credit Card?","What are the associated suspicious transactions for Savings account?","What is the total amount associated with the Money Laundering ?"]
                     selected_option = st.selectbox("", li)
                     if selected_option in li[1:]:
-                        doc = st.session_state["lineage_aml"][selected_option]
+                        doc = lineage_aml[selected_option]
                         for i in range(len(doc)):
                             #st.write(doc[i])
                             y=i+1
