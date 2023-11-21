@@ -2558,8 +2558,9 @@ elif selected_option_case_type == "AML":
                 
             with col3_up:
                 if st.session_state["lineage_aml"] is not None:
-                    st.write(st.session_state["lineage_aml"])
-                    st.write(type(st.session_state["lineage_aml"]))
+                    lineage_aml = st.session_state["lineage_aml"]
+                    st.write(lineage_aml.values())
+                    st.write(type(lineage_aml))
 
  
                     li = ["Select question to get the lineage",
