@@ -2566,26 +2566,21 @@ elif selected_option_case_type == "AML":
                 
             with col3_up:
                 if st.session_state["lineage_aml"] is not None:
-                    lineage_aml = st.session_state["lineage_aml"]
+                    lis1 = ["Why was the transaction triggered?","What are the products that are associsted with this customer?","What are the associated suspicious transactions for Credit Card?","What are the associated suspicious transactions for Savings account?","What is the total amount associated with the Money Laundering ?"]
                     
+                           
                     
-                    # Word or phrase to be replaced and its replacement
-                    word_to_replace = '($)'
-                    new_word = ' '
-
-                    # Replace 'document' with 'text' in all document values
-                    lineage_aml2 = replace_in_documents(lineage_aml, word_to_replace, new_word)
-                                        
-                    st.write(lineage_aml2)
                     li = ["Select question to get the lineage","Why was the transaction triggered?","What are the products that are associsted with this customer?","What are the associated suspicious transactions for Credit Card?","What are the associated suspicious transactions for Savings account?","What is the total amount associated with the Money Laundering ?"]
                     selected_option = st.selectbox("", li)
                     if selected_option in li[1:]:
-                        doc = lineage_aml2[selected_option]
+
+                        doc = st.session_state["lineage_aml"][selected_option]
+                        
                         for i in range(len(doc)):
                             #st.write(doc[i])
                             y=i+1
                             st.write(f":blue[Chunk-{y}:]")
-                            st_ = doc[i].page_content
+                            st_ = doc[i].page_content.replace("$"," ")
                             st.write(":blue[Page Content:]",st_) 
                             st.write(":blue[Source:]",doc[i].metadata['source'])
                               
