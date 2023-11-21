@@ -2108,6 +2108,7 @@ elif selected_option_case_type == "AML":
 
                                 query = "What are the associated suspicious transactions for Credit Card?"
                                 context_1 = docsearch.similarity_search(query, k=5)
+                                context_cc = context_1
                                 prompt_1=f''' Your goal is to identify the suspicious transactions from Credit_Card_statement. Suspicious transactions can be:\n\n
                                 Transactions made to a suspicious entity. Output "Description", "Date" and "Debited ($)" of those identified transactions. # Strictly do not repeat any transaction.\n\
                                 Context: {context_1}\n\
@@ -2203,7 +2204,7 @@ elif selected_option_case_type == "AML":
                                 ## Question-5
 
                                 query = "What is the total amount associated with the Money Laundering ?"
-                                st.session_state["lineage_aml"][query] = context_1
+                                st.session_state["lineage_aml"][query] = context_cc
                                 context_1 = transactions_cc + transactions_sa
                                   
 
@@ -2559,31 +2560,14 @@ elif selected_option_case_type == "AML":
             with col3_up:
                 if st.session_state["lineage_aml"] is not None:
                     lineage_aml = st.session_state["lineage_aml"]
-                    st.write(lineage_aml)
+                    st.write(lineage_aml.items())
                     
                     # a="($)"
                     # b=" "
                     # for i,j in lineage_aml.items():
                     #     lineage_aml[i]=j.replace(a,b,inplace=True)
                     # st.write(lineage_aml)
-                            
-
-
-                    
-                    
-
- 
-                    li = ["Select question to get the lineage",
-                        "Why was the transaction triggered?",
-                        "What are the products that are associsted with this customer?",
-                        "What are the associated suspicious transactions for Credit Card?",
-                        #"What is the total amount associated with the money laundering activity for Credit card?",
-                        "What are the associated suspicious transactions for Savings account?",
-                        #"What is the total amount associated with the money laundering activity for Savings Account ?",
-                        #"What type of Money laundering activity is taking place?",
-                        "What is the total amount associated with the Money Laundering ?"]
-                    
-                   
+                    li = ["Select question to get the lineage","Why was the transaction triggered?","What are the products that are associsted with this customer?","What are the associated suspicious transactions for Credit Card?","What are the associated suspicious transactions for Savings account?","What is the total amount associated with the Money Laundering ?"]
                     selected_option = st.selectbox("", li)
                     if selected_option in li[1:]:
                         doc = st.session_state["lineage_aml"][selected_option]
