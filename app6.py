@@ -2562,8 +2562,8 @@ elif selected_option_case_type == "AML":
                     
                     a="($)"
                     b=" "
-                    for i,j in lineage_aml.items():
-                        lineage_aml[i]=j.replace(a,b)
+                    # for i,j in lineage_aml.items():
+                    #     lineage_aml[i]=j.replace(a,b)
                             
 
 
@@ -2584,7 +2584,7 @@ elif selected_option_case_type == "AML":
                    
                     selected_option = st.selectbox("", li)
                     if selected_option in li[1:]:
-                        doc = lineage_aml[selected_option]
+                        doc = st.session_state["lineage_aml"][selected_option]
                         for i in range(len(doc)):
                             #st.write(doc[i])
                             y=i+1
