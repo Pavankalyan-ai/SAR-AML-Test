@@ -2837,7 +2837,7 @@ elif selected_option_case_type == "AML":
                         doc = st.session_state["lineage_aml"][selected_option]
                         doc_new=[]
                         for i in doc:
-                            i.replace("($)","")
+                            i.page_content.replace("($)","")
                             doc_new.append(i)
                         
                         
