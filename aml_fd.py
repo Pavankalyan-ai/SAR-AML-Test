@@ -1971,7 +1971,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
 ### AML code started
 
-elif selected_option_case_type == "AML":
+elif selected_option_case_type == "Money Laundering":
     st.markdown("### :blue[Anti-Money Laundering]")
     
 # st.markdown('---')
