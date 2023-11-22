@@ -87,7 +87,7 @@ def merge_pdfs(pdf_list):
     return output_pdf
 
 
-@st.cache_data
+@st.cache_data(show_spinner=False)
 def usellm(prompt):
     """
     Getting GPT-3.5 Model into action
@@ -116,7 +116,7 @@ memory = ConversationSummaryBufferMemory(llm= llama_13b, max_token_limit=500)
 conversation = ConversationChain(llm= llama_13b, memory=memory,verbose=False)
 
 
-@st.cache_data
+@st.cache_data(show_spinner=False)
 def llama_llm(_llm,prompt):
     response = _llm.predict(prompt)
     return response
@@ -998,7 +998,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                 with col1:
                     st.markdown("""<span style="font-size: 24px; ">Key-Questions</span>""", unsafe_allow_html=True)
                     # Create a Pandas DataFrame with your data
-                    data = {'Questions': [" What is the victim's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?','Is this a Suspicious Activity?']}
+                    data = {'Questions': ["what is the customer's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?','Is this a Suspicious Activity?']}
                     df_fixed = pd.DataFrame(data)
                     df_fixed.index = df_fixed.index +1
                 with col2:
@@ -1036,7 +1036,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             lineage_dict = {}
                 
                             if st.session_state.llm == "Closed-Source":
-                                query = "what is the customer name?"
+                                query = "what is the customer's name?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f'''Perform Name Enitity Recognition to identify the cardholder name as accurately as possible, given the context. The customer can also be referenced as the cardholder with whom the Fraud has taken place.\n\n\ 
                                             Question: {query}\n\
@@ -1236,7 +1236,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                                 chat_history = {}
 
-                                query = "What is the victim's name?"
+                                query = "what is the customer's name?"
                                 context_1 = docsearch.similarity_search(query, k=9)
                                 prompt_1 = f'''You are a professional fraud analyst. Perform Name Enitity Recognition to identify the victim's name as accurately as possible, given the context. The victim can also be referenced as the customer with whom the Fraud has taken place.
                                 victim's name is the Name provided in Cardholder Information.\n\n\
@@ -1418,7 +1418,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                             context_1 = docsearch.similarity_search(query, k=9)
                             st.session_state.context_1 = context_1
-                            if query.lower() == "what is the customer name?":
+                            if query.lower() == "what is the customer's name?":
                                 prompt_1 = f'''Perform Name Enitity Recognition to identify the Customer name as accurately as possible, given the context. The Customer can also be referenced as the Victim or the person with whom the Fraud has taken place.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
@@ -1528,7 +1528,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                                 context_1 = docsearch.similarity_search(query, k=9)
                                 st.session_state.context_1 = context_1
-                                if query.lower() == "what is the customer name?":
+                                if query.lower() == "what is the customer's name?":
                                     prompt_1 = f'''Perform Name Enitity Recognition to identify the Customer name as accurately as possible, given the context. The Customer can also be referenced as the Victim or the person with whom the Fraud has taken place.
                                                 Customer/Victim is cardholder, whose card is used without their consent.
                                                 Do not provide any extra [Explanation, Note] block below the Response.\n\n\
@@ -1651,7 +1651,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
             with col3_up:
                 if st.session_state["lineage_gpt"] is not None:
  
-                    li = ["what is the customer name?","what is the suspect's name?","List the Merchant Name","how was the bank notified?","when was the bank notified?","what type of fraud is taking place?","when did the fraud occur?","was the disputed amount greater than 5000 usd?","what type of network/card is used in transaction?","was the police report filed?"]
+                    li = ["what is the customer's name?","what is the suspect's name?","List the Merchant Name","how was the bank notified?","when was the bank notified?","what type of fraud is taking place?","when did the fraud occur?","was the disputed amount greater than 5000 usd?","what type of network/card is used in transaction?","was the police report filed?"]
                     
                    
                     selected_option = st.selectbox("", li)
