@@ -1833,7 +1833,9 @@ elif selected_option_case_type == "AML":
                         # st.markdown(files_frame.style.hide(axis="index").to_html(), unsafe_allow_html=True)
                     
                         #select box to select file
-                        selected_file_name = st.selectbox(":blue[Select a file to View]",fetched_files)
+                        fetch=["savings_account_statement.xlsx","credit_card_statement.xlsx","Transaction_Information.pdf","Customer_Relationship_Information.pdf","Blacklisted_Accounts.pdf"]
+                        selected_file_name = st.selectbox(":blue[Select a file to View]",fetch)
+                       # selected_file_name = st.selectbox(":blue[Select a file to View]",fetched_files)
                         st.write("Selected File: ", selected_file_name)
                         st.session_state.disabled = False
                         file_ext = tuple("pdf")  
