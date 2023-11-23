@@ -2827,11 +2827,10 @@ elif selected_option_case_type == "Money Laundering":
                         "What are the associated suspicious transactions for Credit Card?",
                         #"What is the total amount associated with the money laundering activity for Credit card?",
                         "What are the associated suspicious transactions for Savings account?",
-                        "hello",
                         #"What is the total amount associated with the money laundering activity for Savings Account ?",
                         #"What type of Money laundering activity is taking place?",
                         "What is the total amount associated with the Money Laundering ?",
-                        "hello2"]
+                        ]
                     
                    
                     selected_option = st.selectbox("", li)
