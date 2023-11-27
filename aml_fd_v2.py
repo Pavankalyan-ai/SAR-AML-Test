@@ -2506,13 +2506,13 @@ elif selected_option_case_type == "Money Laundering":
                                 ################## SARA Recommendation ######################
 
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
-                                contexts = ques1 + ques5
-                                prompt_2 = f"""Give concise response to the each questions below within the given Context. \n\
-                                1.) transaction triggered\n\
-                                2.) amounts related to money laundering for savings account and credit cards\n\
-                                3.) Type of money laundering activity taking place and why ? .\n\                          
+                                contexts = ', '.join(res_df_gpt['Answer'])
+                                prompt_2 = f"""Give concise response to the each questions below within the given Context? \n\
+                                1.) why was the transaction triggered\n\
+                                2.) what are the amounts related to money laundering for savings account and credit cards ?\n\
+                                3.) what type of money laundering activity taking place and why ? .\n\                          
                                 Context: {contexts}\n\
-                                Response: (Give a neatly formatted response for each question individually. Also, give your recommendation for the below Question.) 
+                                Response: (Give a neatly formatted response for each question individually. Also, give your recommendation for the below Question.Start the answer with a one liner context.) 
                                 Question: {query} """
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_2, "user")
