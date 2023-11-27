@@ -2507,12 +2507,12 @@ elif selected_option_case_type == "Money Laundering":
 
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ', '.join(res_df_gpt['Answer'])
-                                prompt_2 = f"""Give concise response to the each questions below within the given Context \n\
+                                prompt_2 = f"""Start the answer with a one liner and Give concise response to the each questions below within the given Context \n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards \n\
                                 3.) type of money laundering activity taking place and why.\n\                          
                                 Context: {contexts}\n\
-                                Response: (Start the answer with a one liner and Give a neatly formatted response for each question individually. Also, give your recommendation for the below Question.) 
+                                Response: (Give a neatly formatted response for each question individually. Also, give your recommendation for the below Question.) 
                                 Question: {query} """
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_2, "user")
