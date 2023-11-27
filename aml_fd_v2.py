@@ -2507,12 +2507,13 @@ elif selected_option_case_type == "Money Laundering":
 
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ques1 + ques5
-                                prompt_2 = f"""Based on the given context, Give concise response to the each question below. Also, Add an Introduction statement before the output as if SAR filling is required or not on the basis of above answers to the questions.\n\n\
+                                prompt_2 = f"""You are professional Fraud Analyst. Find answer to the questions as truthfully and in as detailed as possible as per given context only,\n\n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards\n\
-                                3.) Type of money laundering activity taking place and why ?\n\                        
+                                3.) Type of money laundering activity taking place and why ?\n\     
+                                Based on above points, give your recommendation if this is a case of suspicious activity or not? \n\n\                     
                                 Context: {contexts}\n\
-                                Response: (Give a neatly formatted response for each question individually.) 
+                                Response: (Give me a concise recommendation in few pointers.If not a case of suspicion them mention it properly.) 
                                 """
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_2, "user")
