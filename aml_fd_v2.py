@@ -2512,7 +2512,7 @@ elif selected_option_case_type == "Money Laundering":
                                 2.) amounts related to money laundering for savings account and credit cards \n\
                                 3.) type of money laundering activity taking place and why.\n\                          
                                 Context: {contexts}\n\
-                                Response: (Give a neatly formatted response for each question individually. Also, give your recommendation for the below Question.) 
+                                Response: (Start the answer with a one liner and Give a neatly formatted response for each question individually. Also, give your recommendation for the below Question.) 
                                 Question: {query} """
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_2, "user")
