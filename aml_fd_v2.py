@@ -2507,7 +2507,7 @@ elif selected_option_case_type == "Money Laundering":
 
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ', '.join(res_df_gpt['Answer'])
-                                prompt_2 = f"""You are a professional Money Laundering Analyst. Find answer to the questions as truthfully and in as detailed as possible as per the given Context only,\n\n\
+                                prompt_2 = f"""You are a professional Money Laundering Analyst. Find answer to the questions as truthfully and in as detailed as possible as per the available information only,\n\n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards\n\
                                 3.) Type of money laundering activity taking place and why ?\n\     
