@@ -2507,7 +2507,7 @@ elif selected_option_case_type == "Money Laundering":
 
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ques1 + ques5
-                                prompt_2 = f"""Add a context line before answering below questions. Based on the given context, Give concise response to the each question below.\n\
+                                prompt_2 = f"""Add an introducting statement and Based on the given context, Give concise response to the each question below.\n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards\n\
                                 3.) Type of money laundering activity taking place and why ?\n\                          
