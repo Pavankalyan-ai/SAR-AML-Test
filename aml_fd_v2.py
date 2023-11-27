@@ -2517,7 +2517,7 @@ elif selected_option_case_type == "Money Laundering":
                                 1.) ANSWER 1\n\
                                 2.) ANSWER 2\n\
                                 3.) ANSWER 3\n\
-                                Recommendation: Based on above answers, give your recommendation if this is a case of suspicious activity or not?") """
+                                Recommendation: Based on above information, give your recommendation if this is a case of suspicious activity or not?") """
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_2, "user")
                                 res = get_response([system_prompt, user_prompt])
