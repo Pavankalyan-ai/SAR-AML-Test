@@ -2506,8 +2506,8 @@ elif selected_option_case_type == "Money Laundering":
                                 ################## SARA Recommendation ######################
 
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
-                                contexts = ques1 + ques5
-                                prompt_2 = f"""You are professional Money Laundering Analyst. Find answer to the questions as truthfully and in as detailed as possible as per given the Context only,\n\n\
+                                contexts = ', '.join(res_df_gpt['Answer'])
+                                prompt_2 = f"""You are a professional Money Laundering Analyst. Find answer to the questions as truthfully and in as detailed as possible as per the given Context only,\n\n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards\n\
                                 3.) Type of money laundering activity taking place and why ?\n\     
@@ -2881,7 +2881,7 @@ elif selected_option_case_type == "Money Laundering":
 
                             ## using open ai:
 
-                            prompt_summ=f'''Provide a detailed summary of the below Context, include all the relevant information and numbers. Provide the summary in a single paragraph and don't include words like these: 'chat summary', 'includes information' or 'AI' in my final summary.\n\n\
+                            prompt_summ=f'''Provide a detailed summary of the below Context, and make sure to include all the relevant information (this includes names, transactions, involved parties, amounts involved, etc.). Provide the summary in a single paragraph and don't include words like these: 'chat summary', 'includes information' or 'AI' in my final summary.\n\n\
                             Context: {summary1}  '''
                             system_prompt = wrap_prompt("You are a summarization tool", "system")
                             user_prompt = wrap_prompt(prompt_summ, "user")
