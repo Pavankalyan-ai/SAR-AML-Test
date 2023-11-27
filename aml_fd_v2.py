@@ -2863,7 +2863,7 @@ elif selected_option_case_type == "Money Laundering":
                             st.session_state.disabled=False
             
                             # summ_dict_gpt = st.session_state.tmp_table_gpt_aml.set_index('Question')['Answer'].to_dict()
-                            summary1= ', '.join(res_df_gpt['Answer'])
+                            summary1= sara_close_source
                             # chat_history = resp_dict_obj['Summary']
                             # memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=400)
                             # memory.save_context({"input": "This is the entire summary"}, 
