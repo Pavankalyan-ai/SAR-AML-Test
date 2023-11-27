@@ -2507,11 +2507,11 @@ elif selected_option_case_type == "Money Laundering":
 
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ques1 + ques5
-                                prompt_2 = f"""Add a one line introductory statement on if sar filling is required based on below questions or not. Based on the given context, Give concise response to the each question below.\n\n\
+                                prompt_2 = f"""Based on the given context, Give concise response to the each question below.\n\n\
                                 1.) transaction triggered\n\
                                 2.) amounts related to money laundering for savings account and credit cards\n\
                                 3.) Type of money laundering activity taking place and why ?\n\     
-                                Based on above points, give your recommendation if this is a case of suspicious activity or not? \n\n\                     
+                                Add an Introduction statement as if SAR filling is required or not on the basis of above answers to the questions. \n\n\                     
                                 Context: {contexts}\n\
                                 Response: (Give a neatly formatted response for each question individually.) 
                                 """
