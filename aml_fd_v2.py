@@ -834,7 +834,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
     
         if selected_option:
             
-            col1_up, col2_up, col3_up, col4_up, col5_up, col6_up = st.tabs(["Data", "Generate Insights","lineage","Summarization","Download Report", "Make a Decision"])
+            col1_up, col2_up, col3_up, col4_up, col5_up, col6_up = st.tabs(["Data", "Generate Insights","Lineage","Summarization","Download Report", "Make a Decision"])
 
             with col1_up:
         
