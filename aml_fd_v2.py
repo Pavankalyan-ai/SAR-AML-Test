@@ -2511,14 +2511,14 @@ elif selected_option_case_type == "Money Laundering":
                                 prompt_2 = f"""Find answer to the questions as truthfully and in as detailed as possible as per the available information only,\n\n\
                                 1.) why was the transaction triggered?\n\
                                 2.) what are the total amounts related to money laundering for savings account and credit cards?\n\
-                                3.) what Type of money laundering activity taking place and why ?\n\n\                     
+                                3.) what Type of money laundering activity is taking place and why ?\n\n\                     
                                 Context: {contexts}\n\
                                 Response: (use below format for the output :\n\
                                 "Based on the available information, key considerations are:\n\n\
                                 1.) ANSWER 1\n\
                                 2.) ANSWER 2\n\
                                 3.) ANSWER 3\n\
-                                Recommendation: Based on above information, give your concise recommendation if this is a case of suspicious activity or not?") """
+                                Recommendation: Give your concise recommendation if this is a case of suspicious activity or not ?) """
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_2, "user")
                                 res = get_response([system_prompt, user_prompt])
