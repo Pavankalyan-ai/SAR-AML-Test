@@ -2427,6 +2427,7 @@ elif selected_option_case_type == "Money Laundering":
                                 
                                 chat_history_1[query] = response
                                 st.session_state["lineage_aml"][query] = context_1
+                                context_q5 = context_1
 
                                 ## Question-4.1
 
@@ -2464,7 +2465,7 @@ elif selected_option_case_type == "Money Laundering":
                                 ## Question-5
 
                                 query = "What is the total amount associated with the Money Laundering ?"
-                                st.session_state["lineage_aml"][query] = context_1
+                                st.session_state["lineage_aml"][query] = context_q5
                                 context_1 = transactions_cc + transactions_sa
                                   
 
