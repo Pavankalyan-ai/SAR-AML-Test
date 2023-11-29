@@ -2514,7 +2514,7 @@ elif selected_option_case_type == "Money Laundering":
                                 3.) what Type of money laundering activity is taking place and why ?\n\n\                     
                                 Context: {contexts}\n\
                                 Response: (use below format for the output :\n\
-                                "Based on the available information, key considerations are:\n\n\
+                                "Yes, this can be considered a suspicious activity because:\n\n\
                                 1.) ANSWER 1\n\
                                 2.) ANSWER 2\n\
                                 3.) ANSWER 3\n\
