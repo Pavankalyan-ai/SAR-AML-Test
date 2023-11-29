@@ -1666,6 +1666,21 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             st.write(":blue[Source:]",doc[i].metadata['source'])
                                    
             with col4_up:
+                def summ_gpt_(tmp_table_gpt):
+                    template = """Write a concise summary of the context provided.
+                    ```{text}```
+                    Response: (Return your response in a single paragraph. Please don't include words like these: 'chat summary', 'includes information', 'repetitions of information',' repetitive information'  in my final summary.) """
+                    prompt = PromptTemplate(template=template,input_variables=["text"])
+                    llm_chain_gpt = LLMChain(prompt=prompt,llm=llm)
+
+                    summ_dict_gpt = tmp_table_gpt.set_index('Question')['Answer']
+                    # st.write(summ_dict_gpt)
+                    text = []
+                    for key,value in summ_dict_gpt.items():
+                        text.append(value)
+                    response_summ_gpt = llm_chain_gpt.run(text)
+                    # st.write(response_summ_gpt)
+                    return response_summ_gpt,summ_dict_gpt
 
                 if 'clicked2' not in st.session_state:
                     st.session_state.clicked2 = False
@@ -1681,17 +1696,23 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                         if st.session_state.llm == "Closed-Source":
                             st.session_state.disabled=False
-                            summ_dict_gpt = st.session_state.tmp_table_gpt.set_index('Question')['Answer'].to_dict()
+                            summ_dict_gpt = st.session_state.tmp_table_gpt #.set_index('Question')['Answer'].to_dict()
                             # chat_history = resp_dict_obj['Summary']
-                            memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=300)
-                            memory.save_context({"input": "This is the entire summary"}, 
-                                            {"output": f"{summ_dict_gpt}"})
-                            conversation = ConversationChain(
-                            llm=llm, 
-                            memory = memory,
-                            verbose=True)
-                            st.session_state["tmp_summary_gpt"] = conversation.predict(input="Provide a detailed summary of the text provided by reframing the sentences. Provide the summary in a single paragraph. Please don't include words like these: 'chat summary', 'includes information' in my final summary.")
-                            st.session_state["tmp_summary_gpt"] = st.session_state["tmp_summary_gpt"].replace("$", "USD ")
+                            response_summ_gpt,summ_dict_gpt = summ_gpt_(summ_dict_gpt)
+                            response_summ_gpt = response_summ_gpt.replace("$", " ")
+                            response_summ_gpt = response_summ_gpt.replace("5,000", "5,000 USD")
+                            response_summ_gpt = response_summ_gpt.replace("5,600", "5,600 USD")
+                            # memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=300)
+                            # memory.save_context({"input": "This is the entire summary"}, 
+                            #                 {"output": f"{summ_dict_gpt}"})
+                            # conversation = ConversationChain(
+                            # llm=llm, 
+                            # memory = memory,
+                            # verbose=True)
+                            st.session_state["tmp_summary_gpt"] = response_summ_gpt
+                            # st.session_state["tmp_summary_gpt"] = conversation.predict(input="Provide a detailed summary of the text provided by reframing the sentences. Provide the summary in a single paragraph. Please don't include words like these: 'chat summary', 'includes information' in my final summary.")
+                            # st.session_state["tmp_summary_gpt"] = st.session_state["tmp_summary_gpt"].replace("$", "USD ")
+                           
                             # showing the text in a textbox
                             # usr_review = st.text_area("", value=st.session_state["tmp_summary_gpt"])
                             # if st.button("Update Summary"):
@@ -2508,7 +2529,7 @@ elif selected_option_case_type == "Money Laundering":
 
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ', '.join(res_df_gpt['Answer'])
-                                prompt_2 = f"""Find answer to the questions as truthfully and in as detailed as possible as per the available information only,\n\n\
+                                prompt_2 = f"""Find answer to the questions as truthfully as possible as per the available information only,\n\n\
                                 1.) why was the transaction triggered?\n\
                                 2.) what are the total amounts related to money laundering for savings account and credit cards?\n\
                                 3.) what Type of money laundering activity is taking place and why ?\n\n\                     
