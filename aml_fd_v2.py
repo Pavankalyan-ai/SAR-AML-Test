@@ -3108,7 +3108,7 @@ elif selected_option_case_type == "Money Laundering":
                     #         data=file, 
                     #         file_name=zip_file_name,
                     #         disabled=st.session_state.disabled)
-                    st.write(tmp_table)
+                    #st.write(tmp_table)
                     #st.write(tmp_table)
                     if doc:
                         st.download_button(
