@@ -2529,12 +2529,12 @@ elif selected_option_case_type == "Money Laundering":
 
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
                                 contexts = ', '.join(res_df_gpt['Answer'])
-                                prompt_2 = f"""Based on the available data , is this a Suspicious activity or not ? also , Find answer to the questions as truthfully as possible as per the available information only,\n\n\
+                                prompt_2 = f"""Is this a case of Suspicious activity? If yes, then Find answer to the questions as truthfully as possible as per the available information only,\n\n\
                                 1.) why was the transaction triggered?\n\
                                 2.) what are the total amounts related to money laundering for savings account and credit cards?\n\
                                 3.) what Type of money laundering activity is taking place and why ?\n\n\                     
                                 Context: {contexts}\n\
-                                Also, Give your concise recommendation in a sentence if this is a case of suspicious activity or not ?
+                                Also, add your concise recommendation whether SAR filling is required or not ?
                                 Response: (Give answer to each question as a individual point.) """
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_2, "user")
