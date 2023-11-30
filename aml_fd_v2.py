@@ -2234,7 +2234,7 @@ elif selected_option_case_type == "Money Laundering":
                             texts = text_to_docs(json2,file)
                             for i in texts:
                                 temp_file_path2.append(i)
-                #st.write(temp_file_path2)            
+                st.write(temp_file_path2)            
 
     
                 #combining files in fetch evidence and upload evidence
