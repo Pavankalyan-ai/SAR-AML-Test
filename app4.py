@@ -2012,9 +2012,6 @@ elif selected_option_case_type == "AML":
                                 Response: (Give me a concise response in one sentence stating the type of money laundering activity the can be taking place and on what patterns it is observed . Do not give me any Note etc)'''
 
                                 response = usellm(prompt_1)
-                                # query=f'**{query}**'
-                                # st.markdown(query)
-                                # st.write(response)
                                 chat_history_1[query] = response
 
                                 query = "What is the total amount associated with the money laundering activity?"
@@ -2297,7 +2294,7 @@ elif selected_option_case_type == "AML":
                             st.session_state["tmp_table_llama_aml"] = pd.concat([st.session_state.tmp_table_llama_aml, df], ignore_index=True)
                             
                             st.session_state.tmp_table_llama_aml.drop_duplicates(subset=['Question'])
-                            
+
                 
                     
             
