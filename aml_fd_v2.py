@@ -378,6 +378,10 @@ def embedding_store_aml(_doc,_hf_embeddings):
     docsearch = FAISS.from_documents(_doc, _hf_embeddings)
     return _doc, docsearch
 
+def embedding_store_aml_2(_doc,_hf_embeddings):
+    docsearch = FAISS.from_documents(_doc, _hf_embeddings)
+    return _doc, docsearch
+
 
 # def merge_and_extract_text(pdf_list):
 #     merged_pdf = fitz.open()
@@ -834,7 +838,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
     
         if selected_option:
             
-            col1_up, col2_up, col3_up, col4_up, col5_up, col6_up = st.tabs(["Data", "Generate Insights","lineage","Summarization","Download Report", "Make a Decision"])
+            col1_up, col2_up, col3_up, col4_up, col5_up, col6_up = st.tabs(["Data", "Generate Insights","Lineage","Summarization","Download Report", "Make a Decision"])
 
             with col1_up:
         
@@ -998,7 +1002,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                 with col1:
                     st.markdown("""<span style="font-size: 24px; ">Key-Questions</span>""", unsafe_allow_html=True)
                     # Create a Pandas DataFrame with your data
-                    data = {'Questions': ["what is the customer's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?',' What type of cards are involved?',' Was the police report filed?','Is this a Suspicious Activity?']}
+                    data = {'Questions': ["What is the customer's name?","What is the suspect's name?",' List the merchant name',' How was the bank notified?',' When was the bank notified?',' What is the fraud type?',' When did the fraud occur?',' Was the disputed amount greater than 5000 USD?','what type of network/card is used in transaction?',' Was the police report filed?']}
                     df_fixed = pd.DataFrame(data)
                     df_fixed.index = df_fixed.index +1
                 with col2:
@@ -1036,7 +1040,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             lineage_dict = {}
                 
                             if st.session_state.llm == "Closed-Source":
-                                query = "what is the customer's name?"
+                                query = "What is the customer's name?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f'''Perform Name Enitity Recognition to identify the cardholder name as accurately as possible, given the context. The customer can also be referenced as the cardholder with whom the Fraud has taken place.\n\n\ 
                                             Question: {query}\n\
@@ -1048,7 +1052,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 st.session_state["lineage_gpt"][query] = context_1
                             
                                     
-                                query = "what is the suspect's name?"
+                                query = "What is the suspect's name?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f'''Perform Name Enitity Recognition to identify the suspect name as accurately as possible, given the context. Suspect is the Person who has committed the fraud with the Customer. Respond saying "The Suspect Name is not Present" if there is no suspect in the given context.\n\n\
                                             Question: {query}\n\
@@ -1074,7 +1078,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
 
                                     
-                                query = "how was the bank notified?"
+                                query = "How was the bank notified?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f''' You need to act as a Financial analyst to identify how was the bank notified of the Supicious or Fraud event with in the given context. The means of communication can be a call, an email or in person. Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
@@ -1087,7 +1091,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             
 
 
-                                query = "when was the bank notified?"
+                                query = "When was the bank notified?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f''' You need to act as a Financial analyst to Identify the processing date when bank was notified of the fraud?. Given the context, provide a relevant and concise response.\n\n\
                                             Question: {query}\n\
@@ -1099,7 +1103,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 st.session_state["lineage_gpt"][query] = context_1           
 
                                     
-                                query = "what type of fraud is taking place?"
+                                query = "What type of fraud is taking place?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f''' You need to act as a Financial analyst to identify the type of fraud or suspicious activity has taken place amd summarize it, within the given context. Also mention the exact fraud code. Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
@@ -1110,7 +1114,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 lineage_dict[query] = context_1
                                 st.session_state["lineage_gpt"][query] = context_1
                                 
-                                query = "when did the fraud occur?"
+                                query = "When did the fraud occur?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f''' You need to act as a Financial analyst to identify the when the did the fraud occur i.e., the Dispute Date. Given the context, provide a relevant and concise response.\n\n\
                                             Question: {query}\n\
@@ -1121,7 +1125,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 lineage_dict[query] = context_1 
                                 st.session_state["lineage_gpt"][query] = context_1
                                         
-                                query = "was the disputed amount greater than 5000 usd?"
+                                query = "Was the disputed amount greater than 5000 usd?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f''' You need to act as a Financial analyst to identify the disputed amount and perform a mathematical calculation to check if the disputed amount is greater than 5000 or no, given the context. Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
@@ -1133,7 +1137,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 st.session_state["lineage_gpt"][query] = context_1
 
                                     
-                                query = "what type of network/card is used in transaction?"
+                                query = "What type of network/card is used in transaction?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f''' You need to act as a Financial analyst to identify the type of card and card's brand involved, given the context. On a higher level the card can be a Credit or Debit Card. VISA, MasterCard or American Express, Citi Group, etc. are the different brands with respect to a Credit card or Debit Card . Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
@@ -1146,7 +1150,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             
 
                                             
-                                query = "was the police report filed?"
+                                query = "Was the police report filed?"
                                 context_1 = docsearch.similarity_search(query, k=5)
                                 prompt_1 = f''' You need to act as a Financial analyst to identify if the police was reported of the Fraud activity, given the context. Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
@@ -1236,7 +1240,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                                 chat_history = {}
 
-                                query = "what is the customer's name?"
+                                query = "What is the customer's name?"
                                 context_1 = docsearch.similarity_search(query, k=9)
                                 prompt_1 = f'''You are a professional fraud analyst. Perform Name Enitity Recognition to identify the victim's name as accurately as possible, given the context. The victim can also be referenced as the customer with whom the Fraud has taken place.
                                 victim's name is the Name provided in Cardholder Information.\n\n\
@@ -1258,7 +1262,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                                 
                                 
-                                query = "list the merchant name"
+                                query = "List the merchant name"
                                 context_1 = docsearch.similarity_search(query, k=9)
                                 prompt_1 = f'''You are a professional fraud analyst, perform Name Enitity Recognition to identify Merchant as accurately as possible from the provided information.A merchant is a type of business or organization that accepts payments from the customer account. Give a relevant and short response.\n\n\
                                 Take the provided information as accurate.\n\n\
@@ -1333,7 +1337,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                 chat_history[query] = response
 
 
-                                query = "was the police report filed?"
+                                query = "Was the police report filed?"
                                 context_1 = docsearch.similarity_search(query, k=9)
                                 prompt_1 =  f''' You need to act as a Financial analyst to identify if the police was reported of the Fraud activity, given the context. Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
@@ -1418,70 +1422,70 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                             context_1 = docsearch.similarity_search(query, k=9)
                             st.session_state.context_1 = context_1
-                            if query.lower() == "what is the customer's name?":
+                            if query.lower() == "What is the customer's name?":
                                 prompt_1 = f'''Perform Name Enitity Recognition to identify the Customer name as accurately as possible, given the context. The Customer can also be referenced as the Victim or the person with whom the Fraud has taken place.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
                                             Response: '''
 
                                 
-                            elif query.lower() == "what is the suspect's name?":
+                            elif query.lower() == "What is the suspect's name?":
                                 prompt_1 = f'''Perform Name Enitity Recognition to identify the Suspect name as accurately as possible, given the context. Suspect is the Person who has committed the fraud with the Customer. Respond saying "The Suspect Name is not Present" if there is no suspect in the given context.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
                                             Response: '''
 
                                 
-                            elif query.lower() == "list the merchant name":
+                            elif query.lower() == "List the merchant name":
                                 prompt_1 = f'''Perform Name Enitity Recognition to identify all the Merchant Organizations as accurately as possible, given the context. A merchant is a type of business or organization that accepts payments from the customer account. Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
                                             Response: '''
 
                                 
-                            elif query.lower() == "how was the bank notified?":
+                            elif query.lower() == "How was the bank notified?":
                                 prompt_1 = f''' You need to act as a Financial analyst to identify how was the bank notified of the Supicious or Fraud event with in the given context. The means of communication can be a call, an email or in person. Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
                                             Response: '''
 
                                 
-                            elif query.lower() == "when was the bank notified?":
+                            elif query.lower() == "When was the bank notified?":
                                 prompt_1 = f''' You need to act as a Financial analyst to identify the when the bank was notified of the Fraud i.e., the disputed date. Given the context, provide a relevant and concise response.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
                                             Response: '''
 
                                 
-                            elif query.lower() == "what type of fraud is taking place?":
+                            elif query.lower() == "What type of fraud is taking place?":
                                 prompt_1 = f''' You need to act as a Financial analyst to identify the type of fraud or suspicious activity has taken place amd summarize it, within the given context. Also mention the exact fraud code. Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
                                             Response: '''
 
                             
-                            elif query.lower() == "when did the fraud occur?":
+                            elif query.lower() == "When did the fraud occur?":
                                 prompt_1 = f''' You need to act as a Financial analyst to identify the when the did the fraud occur i.e., the Transaction Date. Given the context, provide a relevant and concise response.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
                                             Response: '''
 
                                     
-                            elif query.lower() == "was the disputed amount greater than 5000 usd?":
+                            elif query.lower() == "Was the disputed amount greater than 5000 usd?":
                                 prompt_1 = f''' You need to act as a Financial analyst to identify the disputed amount and perform a mathematical calculation to check if the disputed amount is greater than 5000 or no, given the context. Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
                                             Response: '''
 
                                 
-                            elif query.lower() == "what type of cards are involved?":
+                            elif query.lower() == "What type of network/card is used in transaction?":
                                 prompt_1 = f''' You need to act as a Financial analyst to identify the type of card and card's brand involved, given the context. On a higher level the card can be a Credit or Debit Card. VISA, MasterCard or American Express, Citi Group, etc. are the different brands with respect to a Credit card or Debit Card . Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
                                             Response: '''
 
                                 
-                            elif query.lower() == "was the police report filed?":
+                            elif query.lower() == "Was the police report filed?":
                                 prompt_1 = f''' You need to act as a Financial analyst to identify if the police was reported of the Fraud activity, given the context. Give a relevant and concise response.\n\n\
                                             Question: {query}\n\
                                             Context: {context_1}\n\
@@ -1528,7 +1532,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                                 context_1 = docsearch.similarity_search(query, k=9)
                                 st.session_state.context_1 = context_1
-                                if query.lower() == "what is the customer's name?":
+                                if query.lower() == "What is the customer's name?":
                                     prompt_1 = f'''Perform Name Enitity Recognition to identify the Customer name as accurately as possible, given the context. The Customer can also be referenced as the Victim or the person with whom the Fraud has taken place.
                                                 Customer/Victim is cardholder, whose card is used without their consent.
                                                 Do not provide any extra [Explanation, Note] block below the Response.\n\n\
@@ -1537,7 +1541,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                 Response: (Provide a concise Response.) '''
 
                                     
-                                elif query.lower() == "what is the suspect's name?":
+                                elif query.lower() == "What is the suspect's name?":
                                     prompt_1 = f''''Perform Name Enitity Recognition to identify the Suspect name as accurately as possible, given the context. Suspect is the Person who has committed the fraud with the Customer. Respond saying "The Suspect Name is not Present" if there is no suspect in the given context.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
@@ -1545,7 +1549,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
 
                                     
-                                elif query.lower() == "list the merchant name":
+                                elif query.lower() == "List the merchant name":
                                     prompt_1 = f'''Perform Name Enitity Recognition to identify all the Merchant Organizations as accurately as possible, given the context. A merchant is a type of business or organization that accepts payments from the customer account. Give a relevant and concise response.
                                                 Do not provide any extra [Explanation, Note] block below the Response.\n\n\
                                                 Question: {query}\n\
@@ -1553,7 +1557,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                 Response: (Provide a concise Response without any extra [Explanation, Note, Descricption] below the Response.)'''
 
                                     
-                                elif query.lower() == "how was the bank notified?":
+                                elif query.lower() == "How was the bank notified?":
                                     prompt_1 = f''' You need to act as a Financial analyst to identify how was the bank notified of the Supicious or Fraud event with in the given context. The means of communication can be a call, an email or in person. Give a relevant and concise response.
                                                 Do not provide any extra [Explanation, Note] block below the Response.\n\n\
                                                 Question: {query}\n\
@@ -1561,7 +1565,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                 Response:(Provide a concise Response.) '''
 
                                     
-                                elif query.lower() == "when was the bank notified?":
+                                elif query.lower() == "When was the bank notified?":
                                     prompt_1 = f''' You need to act as a Financial analyst to identify the when the bank was notified of the Fraud i.e., the disputed date. Given the context, provide a relevant and concise response.
                                                 Do not provide any extra [Explanation, Note] block below the Response.\n\n\
                                                 Question: {query}\n\
@@ -1569,7 +1573,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                 Response: (Provide a concise Response.)'''
 
                                     
-                                elif query.lower() == "what type of fraud is taking place?":
+                                elif query.lower() == "What type of fraud is taking place?":
                                     prompt_1 = f''' You need to act as a Financial analyst to identify the type of fraud or suspicious activity has taken place amd summarize it, within the given context. Also mention the exact fraud code. Give a relevant and concise response.
                                                 Do not provide any extra [Explanation, Note] block below the Response.\n\n\
                                                 Question: {query}\n\
@@ -1577,7 +1581,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                 Response: (Provide a concise Response without any extra [Explanation, Note, Descricption] below the Response.)'''
 
                                 
-                                elif query.lower() == "when did the fraud occur?":
+                                elif query.lower() == "When did the fraud occur?":
                                     prompt_1 = f''' You need to act as a Financial analyst to identify the type of card and card network involved, given the context. On a higher level the card can be a Credit Visa, Debit Visa Card.Based on the context give a relevant and concise response..
                                                 Do not provide any extra [Explanation, Note] block below the Response.\n\n\
                                                 Question: {query}\n\
@@ -1585,7 +1589,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                 Response: (Provide a concise Response without any extra [Explanation, Note, Descricption] below the Response.)'''
 
                                         
-                                elif query.lower() == "was the disputed amount greater than 5000 usd?":
+                                elif query.lower() == "Was the disputed amount greater than 5000 usd?":
                                     prompt_1 = f''' You need to act as a Financial analyst to identify the disputed amount and perform a mathematical calculation to check if the disputed amount is greater than 5000 or no, given the context. Give a relevant and concise response.
                                                 Kindly do not provide any extra [Explanation, Note, Description] block below the Response.\n\n\
                                                 Question: {query}\n\
@@ -1593,7 +1597,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                 Response:(Provide a concise Response without any extra [Explanation, Note, Descricption] below the Response.) '''
 
                                     
-                                elif query.lower() == "what type of cards are involved?":
+                                elif query.lower() == "What type of network/card is used in transaction?":
                                     prompt_1 = f''' You need to act as a Financial analyst to identify the type of Card and Card Network involved, given the context. On a higher level the card can be a Dedit, Crebit Card. VISA, MasterCard, American Express, Citi Group, etc. are the different brands with respect to a Credit Card or Debit Card . Give a relevant and concise response.
                                                 Do not provide any extra [Explanation, Note] block below the Response.\n\n\
                                                 Question: {query}\n\
@@ -1601,14 +1605,14 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                 Response:(Act like a professional and provide me a concise Response . Do not add any extra [Explanation, Note, Descricption] below the context.) '''
 
                                     
-                                elif query.lower() == "was the police report filed?":
+                                elif query.lower() == "Was the police report filed?":
                                     prompt_1 = f''' You need to act as a Financial analyst to identify if the police was reported of the Fraud activity, given the context. Give a relevant and concise response.
                                                 Do not provide any extra [Explanation, Note] block below the Response.\n\n\
                                                 Question: {query}\n\
                                                 Context: {context_1}\n\
                                                 Response: (Provide a concise Response without any extra [Explanation, Note, Descricption] below the Response.)'''
 
-                                elif query.lower() == "is this a valid sar case?":
+                                elif query.lower() == "Is this a valid sar case?":
                                     prompt_1 =  f''' You are a Fraud Analyst.Check if there is evidence for this case to address as SAR or not. A SAR case is a case of financial Suspicious/Fraud Activity which can be observed given the context.
                                                 If there is any activity without the consent of the cardholder, also if there is a suspect who used the card without the consent.
                                                 Then we can address this as a valid SAR case.\n\n\
@@ -1617,7 +1621,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
                                                 Response: (Provide a concise response in single sentence.Do not add prefix like ['Respone', 'based on the document']. Do not add any further Explanation,Note.)'''        
                                 
                                 
-                                elif query.lower() == "is there any evidence of a sar case?":
+                                elif query.lower() == "Is there any evidence of a sar case?":
                                     prompt_1 = f''' You are a Fraud Analyst.Check if there is evidence for this case to address as SAR or not. A SAR case is a case of financial Suspicious/Fraud Activity which can be observed given the context.
                                                 If there is any activity without the consent of the cardholder, also if there is a suspect who used the card without the consent.
                                                 Then we can address this as a SAR case.Give a concise response with the suspect name. \n\n\
@@ -1651,7 +1655,7 @@ elif selected_option_case_type == "Fraud transaction dispute":
             with col3_up:
                 if st.session_state["lineage_gpt"] is not None:
  
-                    li = ["Select question to get the lineage","what is the customer's name?","what is the suspect's name?","List the Merchant Name","how was the bank notified?","when was the bank notified?","what type of fraud is taking place?","when did the fraud occur?","was the disputed amount greater than 5000 usd?","what type of network/card is used in transaction?","was the police report filed?"]
+                    li = ["Select question to get the lineage","What is the customer's name?","What is the suspect's name?","List the Merchant Name","How was the bank notified?","When was the bank notified?","What type of fraud is taking place?","When did the fraud occur?","Was the disputed amount greater than 5000 usd?","What type of network/card is used in transaction?","Was the police report filed?"]
                     
                    
                     selected_option = st.selectbox("", li)
@@ -1666,6 +1670,21 @@ elif selected_option_case_type == "Fraud transaction dispute":
                             st.write(":blue[Source:]",doc[i].metadata['source'])
                                    
             with col4_up:
+                def summ_gpt_(tmp_table_gpt):
+                    template = """Write a concise summary of the context provided.
+                    ```{text}```
+                    Response: (Return your response in a single paragraph. Please don't include words like these: 'chat summary', 'includes information', 'repetitions of information',' repetitive information'  in my final summary.) """
+                    prompt = PromptTemplate(template=template,input_variables=["text"])
+                    llm_chain_gpt = LLMChain(prompt=prompt,llm=llm)
+
+                    summ_dict_gpt = tmp_table_gpt.set_index('Question')['Answer']
+                    # st.write(summ_dict_gpt)
+                    text = []
+                    for key,value in summ_dict_gpt.items():
+                        text.append(value)
+                    response_summ_gpt = llm_chain_gpt.run(text)
+                    # st.write(response_summ_gpt)
+                    return response_summ_gpt,summ_dict_gpt
 
                 if 'clicked2' not in st.session_state:
                     st.session_state.clicked2 = False
@@ -1681,17 +1700,23 @@ elif selected_option_case_type == "Fraud transaction dispute":
 
                         if st.session_state.llm == "Closed-Source":
                             st.session_state.disabled=False
-                            summ_dict_gpt = st.session_state.tmp_table_gpt.set_index('Question')['Answer'].to_dict()
+                            summ_dict_gpt = st.session_state.tmp_table_gpt #.set_index('Question')['Answer'].to_dict()
                             # chat_history = resp_dict_obj['Summary']
-                            memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=300)
-                            memory.save_context({"input": "This is the entire summary"}, 
-                                            {"output": f"{summ_dict_gpt}"})
-                            conversation = ConversationChain(
-                            llm=llm, 
-                            memory = memory,
-                            verbose=True)
-                            st.session_state["tmp_summary_gpt"] = conversation.predict(input="Provide a detailed summary of the text provided by reframing the sentences. Provide the summary in a single paragraph. Please don't include words like these: 'chat summary', 'includes information' in my final summary.")
-                            st.session_state["tmp_summary_gpt"] = st.session_state["tmp_summary_gpt"].replace("$", "USD ")
+                            response_summ_gpt,summ_dict_gpt = summ_gpt_(summ_dict_gpt)
+                            response_summ_gpt = response_summ_gpt.replace("$", " ")
+                            response_summ_gpt = response_summ_gpt.replace("5,000", "5,000 USD")
+                            response_summ_gpt = response_summ_gpt.replace("5,600", "5,600 USD")
+                            # memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=300)
+                            # memory.save_context({"input": "This is the entire summary"}, 
+                            #                 {"output": f"{summ_dict_gpt}"})
+                            # conversation = ConversationChain(
+                            # llm=llm, 
+                            # memory = memory,
+                            # verbose=True)
+                            st.session_state["tmp_summary_gpt"] = response_summ_gpt
+                            # st.session_state["tmp_summary_gpt"] = conversation.predict(input="Provide a detailed summary of the text provided by reframing the sentences. Provide the summary in a single paragraph. Please don't include words like these: 'chat summary', 'includes information' in my final summary.")
+                            # st.session_state["tmp_summary_gpt"] = st.session_state["tmp_summary_gpt"].replace("$", "USD ")
+                           
                             # showing the text in a textbox
                             # usr_review = st.text_area("", value=st.session_state["tmp_summary_gpt"])
                             # if st.button("Update Summary"):
@@ -1999,7 +2024,7 @@ elif selected_option_case_type == "Money Laundering":
     
     
         with col2:
-            st.markdown("##### **Case Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:**     ")
+            st.markdown("##### **Case Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:** Open")
 
         st.markdown("---")
         
@@ -2152,6 +2177,7 @@ elif selected_option_case_type == "Money Laundering":
         
                 #creating temp directory to have all the files at one place for accessing
                 tmp_dir_ = tempfile.mkdtemp()
+                temp_file_path1= []
                 temp_file_path2= []
     
                 for uploaded_file in pdf_files:
@@ -2189,7 +2215,7 @@ elif selected_option_case_type == "Money Laundering":
                     elif fetched_pdf.endswith(file_ext2):
                         selected_file_path = os.path.join(directory_path, fetched_pdf)
                         
-                        if selected_file_path.startswith("aml_docs/Credit_Card_statement"):
+                        if selected_file_path.startswith("aml_docs/credit_card_statement"):
                             
                             json1=process_data_credit_card(selected_file_path)
                             #st.write("creditcard")
@@ -2207,7 +2233,7 @@ elif selected_option_case_type == "Money Laundering":
                             texts = text_to_docs(json2,file)
                             for i in texts:
                                 temp_file_path2.append(i)
-               # st.write(temp_file_path2)            
+                #st.write(temp_file_path2)            
 
     
                 #combining files in fetch evidence and upload evidence
@@ -2259,7 +2285,7 @@ elif selected_option_case_type == "Money Laundering":
                     # Create a Pandas DataFrame with your data
 
                     data = {'Questions': ["Why was the transaction triggered?",
-                          "What are the products that are associsted with this customer?",
+                          "What are the products that are associated with this customer?",
                          "What are the associated suspicious transactions for Credit Card?",
                          # "What is the total amount associated with the money laundering activity for Credit card?",
                           "What are the associated suspicious transactions for Savings account?",
@@ -2307,7 +2333,7 @@ elif selected_option_case_type == "Money Laundering":
                     if st.session_state.clicked1:
                         if temp_file_path2 is not None:
                             
-                            doc_1, docsearch2 = embedding_store_aml(temp_file_path2,hf_embeddings)
+                            doc_1, docsearch2 = embedding_store_aml_2(temp_file_path2,hf_embeddings)
                             # File handling logic
                             
                             
@@ -2320,7 +2346,9 @@ elif selected_option_case_type == "Money Laundering":
                                 ## Question-1
 
                                 
-                                #st.write(doc_1)
+                                # st.write(doc_1)
+                                # st.write(temp_file_path2)
+
     
                                 query = "Why was the transaction triggered?"
                                 
@@ -2347,7 +2375,7 @@ elif selected_option_case_type == "Money Laundering":
                                 ## Question-2
 
                                 
-                                query = "What are the products that are associsted with this customer?"
+                                query = "What are the products that are associated with this customer?"
                                 context_1 = docsearch2.similarity_search(query, k=5)
                                 prompt_1 = f'''Your goal is identify all the products that are associated with the customer. \n\
                                 Question: {query}\n\
@@ -2373,6 +2401,7 @@ elif selected_option_case_type == "Money Laundering":
                                 Transactions made to a suspicious entity. Output "Description", "Date" and "Debited ($)" of those identified transactions. # Strictly do not repeat any transaction.\n\
                                 Context: {context_1}\n\
                                 Response: (Do not give/add any extra Note, Explanation in answer.) '''
+                                
                                 #st.write(context_1)
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_1, "user")
@@ -2427,6 +2456,7 @@ elif selected_option_case_type == "Money Laundering":
                                 
                                 chat_history_1[query] = response
                                 st.session_state["lineage_aml"][query] = context_1
+                                context_q5 = context_1
 
                                 ## Question-4.1
 
@@ -2464,13 +2494,13 @@ elif selected_option_case_type == "Money Laundering":
                                 ## Question-5
 
                                 query = "What is the total amount associated with the Money Laundering ?"
-                                st.session_state["lineage_aml"][query] = context_1
+                                st.session_state["lineage_aml"][query] = context_q5
                                 context_1 = transactions_cc + transactions_sa
                                   
 
                                 prompt_1 = f'''Based on the Context, what is the relationship between the suspicious transactions of savings accounts and credit card transactions.\n\n\
                                 Context: {context_1}\n\
-                                Response: (Give me a concise response in one sentence stating what type of money laundering activity is taking place and why? along with the relationship found. Do not give me any Note etc).'''
+                                Response: (Give me a concise response in one sentence stating what TYPE of money laundering activity is taking place and WHY, along with the relationship found? Do not give me any Note etc).'''
 
                                 #response = usellm(prompt_1)
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
@@ -2506,14 +2536,14 @@ elif selected_option_case_type == "Money Laundering":
                                 ################## SARA Recommendation ######################
 
                                 query  = "Give your recommendation if this is a Suspicious activity or not?"
-                                contexts = ques1 + ques5
-                                prompt_2 = f"""Give concise response to the each questions below within the given Context. \n\
-                                1.) transaction triggered\n\
-                                2.) amounts related to money laundering for savings account and credit cards\n\
-                                3.) Type of money laundering activity taking place and why ? .\n\                          
+                                contexts = ', '.join(res_df_gpt['Answer'])
+                                prompt_2 = f"""Is this a case of Suspicious activity? If yes, then Find answer to the questions as truthfully as possible as per the available information only,\n\n\
+                                1.) why was the transaction triggered?\n\
+                                2.) what are the total amounts related to money laundering for savings account and credit cards?\n\
+                                3.) what type of money laundering activity is taking place and why ?\n\n\                     
                                 Context: {contexts}\n\
-                                Response: (Give a neatly formatted response for each question individually. Also, give your recommendation for the below Question.) 
-                                Question: {query} """
+                                Also, add your concise recommendation whether SAR filling is required or not ?
+                                Response: start the output answering if it can be considered as a suspicious activity or not based on the avaliable information in a sentence, then answer all the questions as individual points."""
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_2, "user")
                                 res = get_response([system_prompt, user_prompt])
@@ -2527,7 +2557,9 @@ elif selected_option_case_type == "Money Laundering":
                                 st.session_state["sara_recommendation_gpt_aml"] = response1                
                                 
                                 st.markdown("### SARA Recommendation")
+                                
                                 st.markdown(response1)
+                                
 
                                 st.markdown("#### Recommendation Feedback:")
                                 col_1, col_2, col_3, col_4, col_5, col_6 = st.columns(6)
@@ -2863,7 +2895,7 @@ elif selected_option_case_type == "Money Laundering":
                             st.session_state.disabled=False
             
                             # summ_dict_gpt = st.session_state.tmp_table_gpt_aml.set_index('Question')['Answer'].to_dict()
-                            summary1= ', '.join(res_df_gpt['Answer'])
+                            summary1= ', '.join(res_df_gpt['Answer']) + sara_close_source
                             # chat_history = resp_dict_obj['Summary']
                             # memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=400)
                             # memory.save_context({"input": "This is the entire summary"}, 
@@ -2880,7 +2912,7 @@ elif selected_option_case_type == "Money Laundering":
 
                             ## using open ai:
 
-                            prompt_summ=f'''Provide a detailed summary of the below Context, include all the relevant information and numbers. Provide the summary in a single paragraph and don't include words like these: 'chat summary', 'includes information' or 'AI' in my final summary.\n\n\
+                            prompt_summ=f'''Provide a detailed summary of the below Context, and make sure to include all the relevant information (this includes names, transactions, involved parties, amounts involved, etc.). Provide the summary in a single paragraph and don't include words like these: 'chat summary', 'includes information' or 'AI' in my final summary.\n\n\
                             Context: {summary1}  '''
                             system_prompt = wrap_prompt("You are a summarization tool", "system")
                             user_prompt = wrap_prompt(prompt_summ, "user")
@@ -2946,6 +2978,7 @@ elif selected_option_case_type == "Money Laundering":
                     tmp_table = pd.concat([tmp_table, st.session_state["tmp_table_gpt_aml"]], ignore_index=True)
                     tmp_summary.append(st.session_state["tmp_summary_gpt_aml"])
                     tmp_table.drop_duplicates(inplace=True)
+                    #st.write(tmp_table)
 
 
                 elif st.session_state.llm == "Open-Source":
@@ -2974,7 +3007,7 @@ elif selected_option_case_type == "Money Laundering":
                     "Case Number                            ": " SAR-2023-24680",
                     "Customer Name                       ": " Sarah Jones",
                     "Customer ID                              ": " 560062",
-                    "Case open date                         ": " Sep 01, 2022",
+                    "Case open date                         ": " July 05, 2022",
                     "Case Type                                  ": " Money Laundering",
                     "Case Status                                ": " Open"
                 }
@@ -3014,6 +3047,7 @@ elif selected_option_case_type == "Money Laundering":
                 columns = list(tmp_table.columns)
                 table = doc.add_table(rows=1, cols=len(columns), style="Table Grid")
                 table.autofit = True
+                
                 for col in range(len(columns)):
                     # set_cell_margins(table.cell(0, col), top=100, start=100, bottom=100, end=50) # set cell margin
                     table.cell(0, col).text = columns[col]
@@ -3026,27 +3060,16 @@ elif selected_option_case_type == "Money Laundering":
                 # save document
                 # output_bytes = docx.Document.save(doc, 'output.docx')
                 # st.download_button(label='Download Report', data=output_bytes, file_name='evidence.docx', mime='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                if st.session_state.llm == "Closed-Source":
-                    paragraph = doc.add_paragraph()
-                    paragraph = doc.add_paragraph()
-                    doc.add_heading('SARA Recommendation', level=2)
-                    doc.add_paragraph()       
-                    paragraph = doc.add_paragraph(st.session_state["sara_recommendation_gpt_aml"])
-                elif st.session_state.llm == "Open-Source":
-                    paragraph = doc.add_paragraph()
-                    paragraph = doc.add_paragraph()
-                    doc.add_heading('SARA Recommendation', level=2)
-                    doc.add_paragraph()       
-                    paragraph = doc.add_paragraph(st.session_state["sara_recommendation_llama_aml"])
-
+                paragraph = doc.add_paragraph()
+                paragraph = doc.add_paragraph()
+                doc.add_heading('SARA Recommendation', level=2)
+                doc.add_paragraph()       
+                paragraph = doc.add_paragraph(st.session_state["sara_recommendation_gpt"])
 
                 bio = io.BytesIO()
                 doc.save(bio)
-            except:
-                    
-                    e = Exception("")
-                    st.exception(e)
-
+            except NameError:
+                pass
             
             
             with col5_up:
@@ -3086,7 +3109,8 @@ elif selected_option_case_type == "Money Laundering":
                     #         data=file, 
                     #         file_name=zip_file_name,
                     #         disabled=st.session_state.disabled)
-            
+                    #st.write(tmp_table)
+                    #st.write(tmp_table)
                     if doc:
                         st.download_button(
                             label="Download Report",
