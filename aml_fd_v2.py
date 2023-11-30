@@ -2534,12 +2534,8 @@ elif selected_option_case_type == "Money Laundering":
                                 2.) what are the total amounts related to money laundering for savings account and credit cards?\n\
                                 3.) what Type of money laundering activity is taking place and why ?\n\n\                     
                                 Context: {contexts}\n\
-                                Response: (use below format for the output :\n\
-                                "Yes, this can be considered a suspicious activity because:\n\n\
-                                1.) ANSWER 1\n\n\
-                                2.) ANSWER 2\n\n\
-                                3.) ANSWER 3\n\n\
-                                Recommendation: Give your concise recommendation if this is a case of suspicious activity or not ?) """
+                                Also, Give your concise recommendation if this is a case of suspicious activity or not ?
+                                Response: (Give answer to each question as a individual point.) """
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_2, "user")
                                 res = get_response([system_prompt, user_prompt])
