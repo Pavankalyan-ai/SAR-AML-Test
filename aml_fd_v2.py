@@ -378,7 +378,8 @@ def embedding_store_aml(_doc,_hf_embeddings):
     docsearch = FAISS.from_documents(_doc, _hf_embeddings)
     return _doc, docsearch
 
-def embedding_store_aml_3(_doc,_hf_embeddings):
+
+def embedding_store_aml_4(_doc,_hf_embeddings):
     docsearch = FAISS.from_documents(_doc, _hf_embeddings)
     return _doc, docsearch
 
@@ -2215,7 +2216,7 @@ elif selected_option_case_type == "Money Laundering":
                     elif fetched_pdf.endswith(file_ext2):
                         selected_file_path = os.path.join(directory_path, fetched_pdf)
                         
-                        if selected_file_path.startswith("aml_docs/credit_card_statement"):
+                        if selected_file_path.startswith("aml_docs/credit_card"):
                             
                             json1=process_data_credit_card(selected_file_path)
                             #st.write("creditcard")
@@ -2333,7 +2334,7 @@ elif selected_option_case_type == "Money Laundering":
                     if st.session_state.clicked1:
                         if temp_file_path2 is not None:
                             
-                            doc_1, docsearch2 = embedding_store_aml_3(temp_file_path2,hf_embeddings)
+                            doc_1, docsearch2 = embedding_store_aml_4(temp_file_path2,hf_embeddings)
                             # File handling logic
                             
                             
@@ -2346,8 +2347,8 @@ elif selected_option_case_type == "Money Laundering":
                                 ## Question-1
 
                                 
-                                # st.write(doc_1)
-                                # st.write(temp_file_path2)
+                                st.write(doc_1)
+                                st.write(temp_file_path2)
 
     
                                 query = "Why was the transaction triggered?"
@@ -2377,6 +2378,7 @@ elif selected_option_case_type == "Money Laundering":
                                 
                                 query = "What are the products that are associated with this customer?"
                                 context_1 = docsearch2.similarity_search(query, k=5)
+                                
                                 prompt_1 = f'''Your goal is identify all the products that are associated with the customer. \n\
                                 Question: {query}\n\
                                 Context: {context_1}\n\
@@ -2402,7 +2404,7 @@ elif selected_option_case_type == "Money Laundering":
                                 Context: {context_1}\n\
                                 Response: (Do not give/add any extra Note, Explanation in answer.) '''
                                 
-                                #st.write(context_1)
+                                st.write(context_1)
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_1, "user")
                                 res = get_response([system_prompt, user_prompt])
