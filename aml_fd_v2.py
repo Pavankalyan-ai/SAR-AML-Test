@@ -2234,7 +2234,7 @@ elif selected_option_case_type == "Money Laundering":
                             texts = text_to_docs(json2,file)
                             for i in texts:
                                 temp_file_path2.append(i)
-                st.write(temp_file_path2)            
+                #st.write(temp_file_path2)            
 
     
                 #combining files in fetch evidence and upload evidence
@@ -2347,8 +2347,8 @@ elif selected_option_case_type == "Money Laundering":
                                 ## Question-1
 
                                 
-                                st.write(doc_1)
-                                st.write(temp_file_path2)
+                                # st.write(doc_1)
+                                # st.write(temp_file_path2)
 
     
                                 query = "Why was the transaction triggered?"
@@ -2404,7 +2404,7 @@ elif selected_option_case_type == "Money Laundering":
                                 Context: {context_1}\n\
                                 Response: (Do not give/add any extra Note, Explanation in answer.) '''
                                 
-                                st.write(context_1)
+                                # st.write(context_1)
                                 system_prompt = wrap_prompt("You are a Money Laundering Analyst.", "system")
                                 user_prompt = wrap_prompt(prompt_1, "user")
                                 res = get_response([system_prompt, user_prompt])
